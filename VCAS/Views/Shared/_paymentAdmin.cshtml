@@ -1,0 +1,89 @@
+@model IEnumerable<VCAS.Models.VCAS_issuedChecks>
+
+    @{
+    ViewBag.Title = "Issued Payments";
+    }
+
+    <table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
+        <thead>
+            <tr>
+                <th>
+                    datetime
+                </th>
+                <th>
+                    amount
+                </th>
+                <th>
+                    check Num
+                </th>
+                <th>
+                    receipent
+                </th>
+                <th>
+                    receiver ID
+                </th>
+                <th>
+                    receiver ID type
+                </th>
+                <th>
+                    expense
+                </th>
+                <th>
+                    debit account
+                </th>
+                <th>
+                    signature
+                </th>
+                <th>
+                    manage
+                </th>
+            </tr>
+        </thead>
+
+
+        @foreach (var item in Model)
+        {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datetime)
+                </td>
+                <td>
+                    EC$ @Html.DisplayFor(modelItem => item.amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.checkNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receiverName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receiverID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_REF_receiverID_Types.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_expenses.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_debitAccounts.name)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.signature)" width="100%" style="max-width: 100px;" />
+                </td>
+                <td>
+                    <ul class="pagination no-gap size-large">
+                        <li class="page-item">
+                            <a href="@Url.Action(" EditEntry", new { id=item.Id })" class="button outline"><span class="mif-pencil icon"></span></a>
+                        </li>
+                        <li class="page-item">
+                            <a href="@Url.Action(" Delete", new { id=item.Id })" class="button outline"><span class="mif-bin icon"></span></a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+        }
+
+    </table>

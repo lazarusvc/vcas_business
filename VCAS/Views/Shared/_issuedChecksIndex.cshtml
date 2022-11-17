@@ -1,0 +1,101 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_issuedChecks>
+
+<div>
+    <h5>Issued Payments <span class="fg-grayBlue" style="border-bottom: 1px dashed; width: 20%; font-size: 12px;">Displaying: last Five Hundred(500) records</span></h5>
+    <a href="@Url.Action("IndexFilter", "issuedChecks")" class="image-button m-1" style="text-decoration: none !important;">
+        <span class="mif-chart-line icon"></span>
+        <span class="caption">Filter Results</span>
+    </a>
+</div>
+
+
+<table class="table striped table-border cell-border row-border subcompact bg-white" data-role="table" data-horizontal-scroll="true">
+    <thead>
+        <tr>
+            <th class="sortable-column">
+                DateTime
+            </th>
+            <th class="sortable-column">
+                Amount
+            </th>
+            <th class="sortable-column">
+                CheckNo
+            </th>
+            <th class="sortable-column">
+                Issuer
+            </th>
+            <th class="sortable-column">
+                Receiver
+            </th>
+            <th class="sortable-column">
+                Receiver ID
+            </th>
+            <th class="bg-yellow">
+                Approval <span class="mif-thumbs-up icon"></span>
+            </th>
+            <th class="bg-green">
+                Completed <span class="mif-checkmark icon"></span>
+            </th>
+        </tr>
+    </thead>
+
+
+@foreach (var item in Model) {
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.datetime)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.checkNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.issuer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.receiverName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VCAS_REF_receiverID_Types.name)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.auth_signature)" width="100%" style="max-width: 100px;" />
+            </td>
+            <td>
+                @if (item.complete == true)
+                {
+
+                    if (item.attach_ID == "")
+                    {
+                        <p>...</p>
+                    }
+                    else if (item.attach_ID != null)
+                    {
+                        <a href='@Url.Content(item.attach_ID)'><span class="mif-attachment icon"></span> ID Attachment</a>
+                    }
+                    if (item.attach_Doc == "")
+                    {
+                        <p>...</p>
+                    }
+                    else if (item.attach_Doc != null)
+                    {
+                        <br />
+                        <a href='@Url.Content(item.attach_Doc)'><span class="mif-attachment icon"></span> Document Attachment</a>
+                    }
+                    if (item.signature == "")
+                    {
+                        <p>...</p>
+                    }
+                    else if (item.signature != null)
+                    {
+                        <img src="@Html.DisplayFor(modelItem => item.signature)" width="100%" style="max-width: 100px;" />
+                    }
+                }
+            </td>
+        </tr>
+    </tbody>
+}
+</table>

@@ -1,0 +1,158 @@
+﻿@using MvcSiteMapProvider.Web.Html;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="twitter:site" content="">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="VC Accounting Software">
+    <meta name="twitter:description" content="Accouting Software for Government Entities - Streamlined and Modernized Account made simple">
+    <meta name="twitter:image" content="~/favicon.ico">
+
+    <meta property="og:url" content="https://vouchcast.com">
+    <meta property="og:title" content="VC Accounting Software">
+    <meta property="og:description" content="Accouting Software for Government Entities - Streamlined and Modernized Account made simple">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="~/favicon.ico">
+    <meta property="og:image:secure_url" content="~/favicon.ico">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="968">
+    <meta property="og:image:height" content="504">
+
+    <meta name="author" content="Austin Lazarus">
+    <meta name="description" content="Accouting Software for Government Entities - Streamlined and Modernized Account made simple">
+    <meta name="keywords" content="Accounting, Software, Organization, Government, Finance, Village Council, Local Authority">
+
+    <title>@ViewBag.Title - @VCAS.Controllers.HomeController.gloabl_appName()</title>
+    <!-- Global CSS ======================================================= -->
+    @Styles.Render("~/Content/smartwizard")
+    @Styles.Render("~/Content/metro")
+    <!-- Global JS ======================================================== -->
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/metro")
+    @Scripts.Render("~/bundles/main-index")
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.0/dist/chart.min.js"></script>
+    @RenderSection("scripts", required: false)
+</head>
+<body class="bg-gray">
+
+    <!-- LOADER ========================================================= -->
+    <div id="loader">
+        <img src="~/Content/loader.gif" />
+        <p align="center" class="fg-grayBlue"><strong>Please wait!<br />Loading ... </strong></p>
+    </div>
+
+    <!-- NAV HEADER ===================================================== -->
+    <header class="app-bar bg-grayBlue fg-white" data-role="appbar" data-expand="true">
+        <button class="app-bar-item c-pointer" id="sidebar-toggle-4">
+            <span style="font-size: 30px !important;" class="icon mif-menu fg-white"></span>
+        </button>
+
+        <a href="@Url.Action("Index", "Home")" class="brand fg-white no-hover text-bold ml-auto ml-0-md d-flex d-none-xl">@VCAS.Controllers.HomeController.gloabl_appName()</a>
+
+        <div class="app-bar-container ml-auto d-none d-flex-md">
+            <a href='@Url.Action("About", "Home")' class="app-bar-item text-upper"><span class="icon mif-organization"></span>&nbsp;About</a>
+            <a href='@Url.Action("Contact", "Home")' class="app-bar-item text-upper"><span class="icon mif-open-book"></span>&nbsp;Contact</a>
+            <a href='@Url.Action("Help", "Home")' class="app-bar-item text-upper"><span class="icon mif-help"></span>&nbsp;Help & Support</a>
+            <a href="#" class="app-bar-item text-upper fg-yellow text-bold"><span class="icon mif-notification"></span>&nbsp;Notifications</a>
+            <!-- TODO Implement DB Trigger Notifications ======================================================================
+                <a href="#" class="app-bar-item text-upper fg-yellow text-bold"><span class="icon mif-notification"></span> Notifications <span class="badge">1</span></a>
+            -->
+            <a href="#" class="app-bar-item text-upper"><span class="mif-whatsapp"></span>&nbsp;Chat</a>
+        </div>
+    </header>
+
+    <!-- SIDEBAR ===================================================== -->
+    <aside class="sidebar bg-grayBlue"
+           data-role="sidebar"
+           data-toggle="#sidebar-toggle-4"
+           id="sb4"
+           data-shift=".shifted-content">
+        <div class="sidebar-header" data-image="@Url.Content("~/Content/cover.jpg")">
+            <span style="text-shadow: 2px 2px 4px #000000;" class="title fg-white"><strong>@VCAS.Controllers.HomeController.gloabl_appName()</strong></span><br /><br />
+        </div><br />
+        <ul class="sidenav-m3 bg-grayBlue">
+            <li class="stick-right bg-darkBlue"><a href='@Url.Action("Index", "Home")'><span class="mif-arrow-left icon"></span> Dashboard</a></li>
+            <li class="stick-right bg-darkBlue"><a href='#' data-role="popover" data-popover-text="Coming Soon!" data-popover-position="right"><span class="mif-indent-increase icon"></span> Reconciliation</a></li>
+            <li class="stick-right bg-green">
+                <!-- REPORTS SUBNAV =================================================== -->
+                <a class="dropdown-toggle" href="#"><span class='mif-news icon'></span>Reports</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Reports", "Home")'><span class="mif-arrow-up-right icon"></span> Home Page</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "reportsPage")'><span class="mif-arrow-up-right icon"></span> Report Settings</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "reports_params")'><span class="mif-arrow-up-right icon"></span> Report Parameters</a></li>
+                </ul>
+            </li>
+            <li class="stick-right bg-green">
+                <!-- SETTINGS SUBNAV =================================================== -->
+                <a class="dropdown-toggle" href="#"><span class="mif-tools icon"></span>Settings</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "council")'><span class="mif-arrow-up-right icon"></span> Organization</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "payment_type")'><span class="mif-arrow-up-right icon"></span> Payment Types</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "bank_details")'><span class="mif-arrow-up-right icon"></span> Bank Details</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "items")'><span class="mif-arrow-up-right icon"></span> Sale items</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "items_location")'><span class="mif-arrow-up-right icon"></span> Sale items Location</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "expenses")'><span class="mif-arrow-up-right icon"></span> Expenses</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "expense_location")'><span class="mif-arrow-up-right icon"></span> Expenses Location</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "receiverID_Types")'><span class="mif-arrow-up-right icon"></span> Receiver ID Types</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "orders")'><span class="mif-arrow-up-right icon"></span> Orders</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "order_status")'><span class="mif-arrow-up-right icon"></span> Order Status</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "inventory")'><span class="mif-arrow-up-right icon"></span> Inventory Mgmt</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "customer")'><span class="mif-arrow-up-right icon"></span> Customer Mgmt</a></li>
+                </ul>
+            </li>
+            <!-- ADMINISTRATION SUBNAV =================================================== -->
+            <li class="stick-right bg-green">
+                <a class="dropdown-toggle" href="#"><span class="mif-cog icon"></span>Administration</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "debitAccounts")'><span class="mif-arrow-up-right icon"></span> Debit Accounts</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "capture_payments")'><span class="mif-arrow-up-right icon"></span> Cancel Receipts</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("IndexAdmin", "issuedChecks")'><span class="mif-arrow-up-right icon"></span> Manage Payments</a></li>
+                </ul>
+            </li>
+            <!-- SECURITY SUBNAV ========================================================= -->
+            <li class="stick-right bg-green">
+                <a class="dropdown-toggle" href="#"><span class="mif-user-secret icon"></span>Security</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "users")'><span class="mif-arrow-up-right icon"></span> Users</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "userRoles")'><span class="mif-arrow-up-right icon"></span> User Roles</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "district")'><span class="mif-arrow-up-right icon"></span> User Area</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "session")'><span class="mif-arrow-up-right icon"></span> User Session</a></li>
+                </ul>
+            </li>
+            <!-- USER SECURITY SUBNAV ======================================================= -->
+            <li class="stick-right bg-magenta">
+                <a href="#">
+                    logged in as<br />@User.Identity.Name.ToUpper()
+                    <hr style="background-color: #666; height:0.4px;" />
+                </a>
+                <a href='@Url.Action("Logout", "Account")'><span class="mif-lock icon"></span>Logout</a>
+                <a href='@Url.Action("ResetPassword", "users", new { id = ViewBag.userID })'><span class="mif-loop2 icon"></span>Change Password</a>
+            </li>
+        </ul>
+
+    </aside>
+
+    <!-- CONTENTS ====================================================================== -->
+    <div class="shifted-content h-100 p-ab">
+        <div class="grid h-100 p-4">
+            <div class="row" style="padding: 10px;">
+                <div class="cell offset-0">
+                    <div class="container">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Partial("~/Views/Shared/_SessionTimeout.cshtml")
+    }
+</body>
+</html>

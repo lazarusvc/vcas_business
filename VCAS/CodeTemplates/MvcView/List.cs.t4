@@ -1,0 +1,146 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+<#
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+    ViewBag.Title = "<#= ViewName#>";
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><#= ViewName #></title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+#>
+<h2 class="fg-darkGray"><#= ViewDataTypeShortName #>:: Index</h2>
+<a href="@Url.Action("Create")" class="image-button success" style="text-decoration: none !important;">
+    <span class="mif-chevron-thin-right icon"></span>
+    <span class="caption">Create New</span>
+</a>
+<br />
+<table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
+    <thead>
+        <tr>
+<#
+IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+foreach (PropertyMetadata property in properties) {
+    if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+<#
+        // We do not want to show any association properties for which there is
+        // no associated foreign key.
+        if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+            continue;
+        }
+#>
+        <th>
+            @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
+        </th>
+<#
+    }
+}
+#>
+        <th>
+            manage
+        </th>
+    </tr>
+  </thead>
+
+@foreach (var item in Model) {
+    <tbody>
+    <tr>
+<#
+foreach (PropertyMetadata property in properties) {
+    if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+<#
+        // We do not want to show any association properties for which there is
+        // no associated foreign key.
+        if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+            continue;
+        }
+#>
+        <td>
+            @Html.DisplayFor(modelItem => <#= "item." + GetValueExpression(property) #>)
+        </td>
+<#
+    }
+}
+
+string pkName = GetPrimaryKeyName();
+if (pkName != null) {
+#>
+        <td>
+                <ul class="pagination no-gap size-large">
+                    <li class="page-item">
+                        <a href="@Url.Action("Edit", new { id = item.<#= pkName #> })" class="button info"><span class="mif-pencil icon"></span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="@Url.Action("Delete", new { id = item.<#= pkName #> })" class="button alert"><span class="mif-bin icon"></span></a>
+                    </li>
+                </ul>
+        </td>
+<#
+} else {
+#>
+        <td>
+                <ul class="pagination no-gap size-large">
+                    <li class="page-item">
+                        <a href="@Url.Action("Edit", new { /* id=item.PrimaryKey */ })" class="button info"><span class="mif-pencil icon"></span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="@Url.Action("Delete", new { /* id=item.PrimaryKey */ })" class="button alert"><span class="mif-bin icon"></span></a>
+                    </li>
+                </ul>
+        </td>
+<#
+}
+#>
+    </tr>
+    </tbody>
+}
+
+</table>
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+    ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

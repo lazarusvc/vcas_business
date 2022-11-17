@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "";
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="author" content="Austin Lazarus">
+    <meta name="description" content="Village Council Accounting Software">
+    <!-- Global CSS ======================================================= -->
+    @Styles.Render("~/Content/metro")
+    @Styles.Render("~/Content/smartwizard")
+    <!-- Global JS ======================================================== -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/metro")
+
+    <title>VCAS - Customer Orders</title>
+</head>
+<body class="h-vh-100 bg-gray">
+
+    <!-- CONTENTS ====================================================================== -->
+    <div>
+        <div data-role="appbar" data-expand-point="md" class="bg-gray">
+            <a href="#" class="brand no-hover">
+                <span style="width: 55px;">
+                    <img src="~/favicon.ico" />
+                </span>
+            </a>
+        </div><br/>
+        <div class="grid h-100 p-4">
+            <div class="row" style="padding: 10px;">
+                <div class="cell-lg-12">
+                    <div class="container">
+                        <div style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 5px;">
+                            <img src="@Url.Content("~/Content/order_header.png")" width="100%" />
+                            <div class="row">
+                                <div class="cell-3">
+                                    <h3 class="fg-gray">New Order</h3>
+                                </div>
+                                <div class="cell-9">
+                                </div>
+                            </div><br />
+                            <div id="smartwizard">
+                                <ul class="nav">
+                                    <li>
+                                        <a class="nav-link" href="#step-1">
+                                            <div class="num">1</div>
+                                            Customer Information
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="#step-2">
+                                            <div class="num">2</div>
+                                            Order Information
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="#step-3">
+                                            <div class="num">3</div>
+                                            Completion
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="step-1" class="tab-pane" role="tabpanel">
+                                        @Html.Partial("_customerCreate")
+                                    </div>
+                                    <div id="step-2" class="tab-pane" role="tabpanel"></div>
+                                    <div id="step-3" class="tab-pane" role="tabpanel"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- SMARTWIZARD Module ------------- -->
+    @Scripts.Render("~/bundles/smartwizard")
+    <script type="text/javascript">
+        // Smartwizard module
+        // ============================
+        $('#smartwizard').smartWizard({
+            selected: 0, // Initial selected step, 0 = first step
+            theme: 'round', // theme for the wizard, related css need to include for other than default theme
+            justified: true, // Nav menu justification. true/false
+            darkMode: true, // Enable/disable Dark Mode if the theme supports. true/false
+            autoAdjustHeight: false, // Automatically adjust content height
+            cycleSteps: false, // Allows to cycle the navigation of steps
+            backButtonSupport: false, // Enable the back button support
+            enableURLhash: true, // Enable selection of the step based on url hash
+            transition: {
+                animation: 'none', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+                speed: '400', // Transion animation speed
+                easing: '' // Transition animation easing. Not supported without a jQuery easing plugin
+            },
+            toolbarSettings: {
+                toolbarPosition: 'top', // none, top, bottom, both
+                toolbarButtonPosition: 'right', // left, right, center
+                showNextButton: false, // show/hide a Next button
+                showPreviousButton: false, // show/hide a Previous button
+                toolbarExtraButtons: [] // Extra buttons to show on toolbar, array of jQuery input/buttons elements
+            },
+            anchorSettings: {
+                anchorClickable: true, // Enable/Disable anchor navigation
+                enableAllAnchors: false, // Activates all anchors clickable all times
+                markDoneStep: true, // Add done state on navigation
+                markAllPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
+                removeDoneStepOnNavigateBack: false, // While navigate back done step after active step will be cleared
+                enableAnchorOnDoneStep: false // Enable/Disable the done steps navigation
+            },
+            keyboardSettings: {
+                keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                keyLeft: [37], // Left key code
+                keyRight: [39] // Right key code
+            },
+            lang: { // Language variables for button
+                next: 'Next',
+                previous: 'Previous'
+            },
+            disabledSteps: [], // Array Steps disabled
+            errorSteps: [], // Highlight step with errors
+            hiddenSteps: [] // Hidden steps
+        });
+
+        $("#customerCreate").on('click', function () {
+            // Show the loader
+            $('#smartwizard').smartWizard("loader", "show");
+        });
+    </script>
+
+</body>
+</html>

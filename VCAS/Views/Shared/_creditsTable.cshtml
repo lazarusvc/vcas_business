@@ -1,0 +1,65 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_capture_payments>
+
+<h5>Total Credits <span class="fg-grayBlue" style="border-bottom: 1px dashed; width: 20%; font-size: 12px;">For: @DateTime.Today.ToString("MMMM yyyy")</span></h5>
+
+<table class="table striped table-border cell-border row-border subcompact bg-white" data-role="table"  data-horizontal-scroll="true">
+    <thead>
+        <tr>
+            <th class="sortable-column">
+                DateTime
+            </th>
+            <th class="sortable-column">
+                Document No.
+            </th>
+            <th class="sortable-column">
+                Payer
+            </th>
+            <th class="sortable-column">
+                Item
+            </th>
+            <th class="sortable-column">
+                Amount
+            </th>
+            <th class="bg-yellow">
+                Document <span class="mif-document-file-pdf icon"></span>
+            </th>
+        </tr>
+    </thead>
+
+@foreach (var item in Model) {
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.datetime)
+            </td>
+            @if (item.invoice ?? false)
+            {
+            <td>
+                Invoice No.: @Html.DisplayFor(modelItem => item.receiptNo)
+            </td>
+            } else
+            {
+            <td>
+                Receipt No.: @Html.DisplayFor(modelItem => item.receiptNo)
+            
+            </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.payer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VCAS_REF_items.name)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.amount)
+            </td>
+            <td>
+                @using (Html.BeginForm("Print", "capture_payments", FormMethod.Post))
+                {
+        <input type="hidden" name="r" id="r" value="@item.receiptNo" />
+                            <button type="submit" class="button light"><span class="mif-tags icon"></span></button>                }
+            </td>
+        </tr>
+    </tbody>
+}
+</table>

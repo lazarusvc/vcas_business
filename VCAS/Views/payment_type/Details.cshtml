@@ -1,0 +1,25 @@
+﻿@model VCAS.Models.VCAS_REF_payment_type
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Details:: Payment Type</h2>
+    <hr class="bg-gray" />
+    <table class="table subcompact">
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.name)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.name)<td>
+        </tr>
+        </tbody> 
+    </table>
+    <a href="@Url.Action("Edit", new { id = Model.Id })" class="button info" style="width: 100%;"><span class="mif-pencil icon"></span></a>
+ 
+</div>

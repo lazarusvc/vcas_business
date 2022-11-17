@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "_customerCreate";
+}
+
+
+<div class="form-horizontal">
+    <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+        <div class="row">
+            <div class="cell-12">
+                <form method="POST">
+                    <input type="text" name="firstName" id="firstName" data-role="materialinput" data-label="First Name:" placeholder="Enter First Name" data-icon="<span class='mif-chevron-right'>" required />
+                    <input type="text" name="lastName" id="lastName" data-role="materialinput" data-label="Last Name:" placeholder="Enter Last Name" data-icon="<span class='mif-chevron-right'>" required />
+                    <input type="text" name="address" id="address" data-role="materialinput" data-label="Address:" placeholder="Address" data-icon="<span class='mif-chevron-right'>" />
+                    <input type="text" name="state" id="state" data-role="materialinput" data-label="State:" placeholder="State" data-icon="<span class='mif-chevron-right'>" />
+                    <input type="text" name="phone" id="phone" data-role="materialinput" data-label="Phone Number:" placeholder="Enter Phone Number" data-icon="<span class='mif-chevron-right'>" required />
+                    <input type="email" name="email" id="email" data-role="materialinput" data-label="Email:" placeholder="Enter Email" data-icon="<span class='mif-chevron-right'>" />
+                    <input type="submit" value="Save" class="button yellow" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

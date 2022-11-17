@@ -1,0 +1,42 @@
+﻿@model VCAS.Models.VCAS_users
+
+@{
+    ViewBag.Title = "Edit Registered User";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">Edit Registered:: User</h2>
+                    <hr class="bg-gray" />
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    @Html.EditorFor(model => model.fullName, new { htmlAttributes = new { data_role = "input", data_prepend = "FullName:" } })
+                    @Html.ValidationMessageFor(model => model.fullName, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.userName, new { htmlAttributes = new { data_role = "input", data_prepend = "UserName:" } })
+                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { data_role = "input", data_prepend = "Email:", @Type = "email" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { data_role = "input", data_prepend = "Password:", @Type = "password", data_reveal_button = "false" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+
+                    @Html.DropDownList("FK_userRolesId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_userRolesId, "", new { @class = "text-danger" })
+
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

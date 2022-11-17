@@ -1,0 +1,74 @@
+﻿@model VCAS.Models.VCAS_issuedChecks
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VCAS_issuedChecks</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.checkNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.checkNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.issuer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issuer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receiverID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receiverID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.signature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.signature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VCAS_REF_receiverID_Types.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VCAS_REF_receiverID_Types.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

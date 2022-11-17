@@ -1,0 +1,51 @@
+﻿@using ReportViewerForMvc;
+@{
+    ViewBag.Title = "VCAS Reports";
+}
+
+<!-- Quick Links ============================================= -->
+<div>
+    <h6 style="font-weight: 700;" class="fg-grayBlue">:: Quick Links</h6>
+    @Html.MvcSiteMap().Menu(false, true, true)
+</div>
+
+<div class="form-horizontal">
+    <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+        <div class="row">
+            <div class="cell-lg-12">
+                <div style="display: inline-flex;">
+                    <h2 class="fg-darkGray"><span class='mif-news icon'></span> Select a Report::</h2>
+                </div>
+                <hr class="bg-gray" />
+                @using (Html.BeginForm("Reports", "Home", FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="cell-lg-8">
+                            @Html.DropDownList("rp", null, htmlAttributes: new { data_role = "select"})
+                        </div>
+                        <div class="cell-lg-4">
+                            <input type="submit" value="Submit" class="button drop-shadow yellow" style="width: 100%;" />
+                        </div>
+                    </div>    
+                }
+            </div>
+            <br />
+            @if (ViewBag.Placeholder != null)
+            {
+                <p>test</p>
+            }
+            else
+            {
+                @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+            }
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#rp').val(@ViewBag.rp_default);
+        $('#rp option:eq(0)').text('Success Stories');
+    });
+</script>

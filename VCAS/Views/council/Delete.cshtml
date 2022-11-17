@@ -1,0 +1,38 @@
+﻿@model VCAS.Models.VCAS_council
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Delete:: Organization</h2>
+    <h3 class="fg-darkGray">Are you sure you want to delete this?</h3>
+    <hr class="bg-gray" />
+
+    <table class="table subcompact">
+
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.name)</th>
+                <th>@Html.DisplayNameFor(model => model.location)</th>
+                <th>@Html.DisplayNameFor(model => model.vendor_Id)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.name)</td>
+                <td>@Html.DisplayFor(model => model.location)</td>
+                <td>@Html.DisplayFor(model => model.vendor_Id)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="button alert" style="width: 100%;" />
+        </div>
+    }
+</div>

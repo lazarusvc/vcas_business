@@ -1,0 +1,55 @@
+﻿@model VCAS.Models.VCAS_debitAccounts
+
+@{
+    ViewBag.Title = "Create Debit Account";
+}
+
+@using (Html.BeginForm("Create", "debitAccounts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+                    <h2 class="fg-darkGray">Create new:: Debit Account</h2>
+                    <hr class="bg-gray" />
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "input", data_prepend = "Account Name:" } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.acctNum, new { htmlAttributes = new { data_role = "input", data_prepend = "Account Num:", Type = "number" } })
+                    @Html.ValidationMessageFor(model => model.acctNum, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "Amount:", Type = "number" } })
+                    @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
+
+                    @Html.DropDownList("FK_payment_Type", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_payment_Type, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.remittance, new { htmlAttributes = new { data_role = "input", data_prepend = "Remittance:" } })
+                    @Html.ValidationMessageFor(model => model.remittance, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.payee, new { htmlAttributes = new { data_role = "input", data_prepend = "Payee:" } })
+                    @Html.ValidationMessageFor(model => model.payee, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.datetime, new { @Value = System.DateTime.Now })
+                    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "text-danger" })
+
+                    @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "text-danger" })
+
+                    <div class="form-group files">
+                        <label>Upload Bank Statement *.pdf</label><br />
+                        <input type="file" class="form-control" multiple="" name="attach_statement" id="attach_statement">
+                        @Html.ValidationMessageFor(model => model.attach_statement, "", new { @class = "text-danger" })
+                    </div>
+
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div> 
+            </div>
+        </div>
+    </div>
+}

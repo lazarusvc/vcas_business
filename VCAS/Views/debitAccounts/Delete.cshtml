@@ -1,0 +1,46 @@
+﻿@model VCAS.Models.VCAS_debitAccounts
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Delete:: Debit Account</h2>
+    <h3 class="fg-darkGray">Are you sure you want to delete this?</h3>
+    <hr class="bg-gray" />
+
+    <table class="table subcompact">
+
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.name)</th>
+                <th>@Html.DisplayNameFor(model => model.acctNum)</th>
+                <th>@Html.DisplayNameFor(model => model.amount)</th>
+                <th>@Html.DisplayNameFor(model => model.remittance)</th>
+                <th>@Html.DisplayNameFor(model => model.payee)</th>
+                <th>@Html.DisplayNameFor(model => model.datetime)</th>
+                <th>@Html.DisplayNameFor(model => model.VCAS_REF_payment_type.name)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.name)</td>
+                <td>@Html.DisplayFor(model => model.acctNum)</td>
+                <td>@Html.DisplayFor(model => model.amount)</td>
+                <td>@Html.DisplayFor(model => model.remittance)</td>
+                <td>@Html.DisplayFor(model => model.payee)</td>
+                <td>@Html.DisplayFor(model => model.datetime)</td>
+                <td>@Html.DisplayFor(model => model.VCAS_REF_payment_type.name)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="button alert" style="width: 100%;" />
+        </div>
+    }
+</div>

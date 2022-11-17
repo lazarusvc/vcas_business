@@ -1,0 +1,252 @@
+﻿@model VCAS.Models.VCAS_issuedChecks
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 5px;">
+        <div class="row">
+            <div class="cell-3">
+                <h3 class="fg-gray">Issue Payments</h3>
+            </div>
+            <div class="cell-9">
+                @Html.EditorFor(model => model.approver, new { htmlAttributes = new { @class = "metro-input input-small", data_role = "input", data_prepend = "Approver:", @Value = User.Identity.Name, @Readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.approver, "", new { @class = "fg-magenta" })
+            </div>
+        </div><br />
+
+
+        <div id="smartwizard">
+            <ul class="nav">
+                <li>
+                    <a class="nav-link" href="#step-1">
+                        Entry
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#step-2">
+                        Pending Approvals
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#step-3">
+                        Pending Delivery
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="step-1" class="tab-pane" role="tabpanel"></div>
+                <div id="step-2" class="tab-pane" role="tabpanel">
+                    <div class="remark">
+                        <h6 class="fg-gray">Debit Account:</h6>
+                        @Html.DropDownList("FK_debitAccountsId", null, "-- select Account --", htmlAttributes: new { data_role = "select" })
+                        @Html.ValidationMessageFor(model => model.FK_debitAccountsId, "", new { @class = "fg-magenta" })
+                        <h6 class="fg-gray">Check Number:</h6>
+                        @Html.EditorFor(model => model.checkNo, new { htmlAttributes = new { data_role = "input", data_prepend = "CheckNo:" } })
+                        @Html.ValidationMessageFor(model => model.checkNo, "", new { @class = "fg-magenta" })
+                    </div>
+                    <div class="remark">
+                        <h6 class="fg-gray">Date:</h6>
+                        @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "datepicker" } })
+                        @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
+                        <h6 class="fg-gray">Location:</h6>
+                        @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
+                        @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
+                        <h6 class="fg-gray">Issuing Amount:</h6>
+                        @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "Amount:" } })
+                        @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
+                        <h6 class="fg-gray">Receiver:</h6>
+                        @Html.EditorFor(model => model.receiverName, new { htmlAttributes = new { data_role = "input", data_prepend = "Receiver Name:" } })
+                        @Html.ValidationMessageFor(model => model.receiverName, "", new { @class = "fg-magenta" })
+                        <h6 class="fg-gray">Receiver's ID:</h6>
+                        @Html.EditorFor(model => model.receiverID, new { htmlAttributes = new { data_role = "input", data_prepend = "ReceiverID:" } })
+                        @Html.ValidationMessageFor(model => model.receiverID, "", new { @class = "fg-magenta" })
+                        <h6 class="fg-gray">ID Type:</h6>
+                        @Html.DropDownList("FK_receiverID_TypesId", null, "-- select ID --", htmlAttributes: new { data_role = "select" })
+                        @Html.ValidationMessageFor(model => model.FK_receiverID_TypesId, "", new { @class = "fg-magenta" })
+                        <h6 class="fg-gray">ID Attachment (Optional):</h6>
+                        @Html.EditorFor(model => model.attach_ID, new { htmlAttributes = new { data_role = "input", data_prepend = "attached ID:", @Value = "NULL" } })
+                        @Html.ValidationMessageFor(model => model.attach_ID, "", new { @class = "fg-magenta" })
+                        <a href='#'><span class="mif-files-empty icon"></span> Upload ID</a>
+                    </div>
+                    <div class="remark">
+                        <h6 class="fg-green">Approve:</h6>
+                        <div class="row">
+                            <div class="cell-6">
+                                @Html.HiddenFor(model => model.auth_signature)
+                                @Html.ValidationMessageFor(model => model.auth_signature, "", new { @class = "fg-magenta" })
+                                <div id="signature-pad" class="signature-pad">
+                                    <div class="signature-pad--body">
+                                        <canvas></canvas>
+                                    </div>
+                                    <div class="signature-pad--footer">
+                                        <div class="description">Sign above</div>
+
+                                        <div class="signature-pad--actions">
+                                            <div>
+                                                <button type="button" class="button clear" data-action="clear">Clear</button>
+                                                <button type="button" class="button" data-action="change-color">Change color</button>
+                                                <button type="button" class="button" data-action="record">Record</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cell-6">
+                                <img src="" id="signature-sample" width="100%" />
+                            </div>
+                        </div>
+                    </div>
+
+                    @Html.HiddenFor(model => model.signature)
+                    @Html.ValidationMessageFor(model => model.signature, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.issuer)
+                    @Html.ValidationMessageFor(model => model.issuer, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.approval, new { @Value = 1 })
+                    @Html.ValidationMessageFor(model => model.approval, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.pending_approval)
+                    @Html.ValidationMessageFor(model => model.pending_approval, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.auth_signature)
+                    @Html.ValidationMessageFor(model => model.auth_signature, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.complete, new { @Value = false })
+                    @Html.ValidationMessageFor(model => model.complete, "", new { @class = "text-danger" })
+                    <br />
+                    <div class="row">
+                        <div class="cell-6">
+                            <input type="submit" value="Approve" class="button success" style="width: 100%;" />
+                        </div>
+                        <div class="cell-6">
+                            <button type="submit" class="button yellow" style="width: 100%; margin-left: 5px;">Reject</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="step-3" class="tab-pane" role="tabpanel"></div>
+            </div>
+        </div>
+    </div>
+}
+<!-- SIGNATURE Module ------------- -->
+@Scripts.Render("~/bundles/signature_pad")
+<!-- SMARTWIZARD Module ------------- -->
+@Scripts.Render("~/bundles/smartwizard")
+<script type="text/javascript">
+
+    // Readonly Inputs
+    // ==========================================
+    //$('#FK_debitAccountsId').attr("disabled", true);
+    //$('#FK_location').attr("disabled", true);
+    //$('#FK_receiverID_TypesId').attr("disabled", true);
+    $('#checkNo').prop('readonly', true);
+    $('#checkNo').css({ "background-color": "#e9e9e9", "color": "#989898" });
+    $('#amount').prop('readonly', true);
+    $('#amount').css({ "background-color": "#e9e9e9", "color": "#989898" });
+    $('#receiverName').prop('readonly', true);
+    $('#receiverName').css({ "background-color": "#e9e9e9", "color": "#989898" });
+    $('#receiverID').prop('readonly', true);
+    $('#receiverID').css({ "background-color": "#e9e9e9", "color": "#989898" });
+    $('#attach_ID').prop('readonly', true);
+    $('#attach_ID').css({ "background-color": "#e9e9e9", "color": "#989898" });
+
+    // Init signature library
+    // ===========================================
+    var canvas = document.querySelector("canvas");
+    var signaturePad = new SignaturePad(canvas);
+    var wrapper = document.getElementById("signature-pad");
+    var clearButton = wrapper.querySelector("[data-action=clear]");
+    var changeColorButton = wrapper.querySelector("[data-action=change-color]");
+    var recordButton = wrapper.querySelector("[data-action=record]");
+
+    // Clear signature canvas
+    // ===========================================
+    clearButton.addEventListener("click", function (event) {
+        signaturePad.clear();
+        document.getElementById("signature-sample").src = "";
+    });
+    // Change signature color style
+    // ===========================================
+    changeColorButton.addEventListener("click", function (event) {
+        var r = Math.round(Math.random() * 255);
+        var g = Math.round(Math.random() * 255);
+        var b = Math.round(Math.random() * 255);
+        var color = "rgb(" + r + "," + g + "," + b + ")";
+        signaturePad.penColor = color;
+    });
+    // Record Image and change signature input value
+    // ============================================
+    recordButton.addEventListener("click", function (event) {
+        document.getElementById("auth_signature").value = signaturePad.toDataURL();
+        document.getElementById("signature-sample").src = signaturePad.toDataURL();
+    });
+
+    // Adjust canvas coordinate space taking into account pixel ratio,
+    // to make it look crisp on mobile devices.
+    // This also causes canvas to be cleared.
+    function resizeCanvas() {
+        var ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear();
+    }
+
+    // On mobile devices it might make more sense to listen to orientation change,
+    // rather than window resize events.
+    window.onresize = resizeCanvas;
+    resizeCanvas();
+
+    // Smartwizard module
+    // ============================
+    $('#smartwizard').smartWizard({
+        selected: 1, // Initial selected step, 0 = first step
+        hiddenSteps: [0, 2], // Hidden steps
+        theme: 'dots', // theme for the wizard, related css need to include for other than default theme
+        justified: true, // Nav menu justification. true/false
+        darkMode: false, // Enable/disable Dark Mode if the theme supports. true/false
+        autoAdjustHeight: false, // Automatically adjust content height
+        cycleSteps: false, // Allows to cycle the navigation of steps
+        backButtonSupport: false, // Enable the back button support
+        enableURLhash: false, // Enable selection of the step based on url hash
+        transition: {
+            animation: 'none', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+            speed: '400', // Transion animation speed
+            easing: '' // Transition animation easing. Not supported without a jQuery easing plugin
+        },
+        toolbarSettings: {
+            toolbarPosition: 'top', // none, top, bottom, both
+            toolbarButtonPosition: 'right', // left, right, center
+            showNextButton: false, // show/hide a Next button
+            showPreviousButton: false, // show/hide a Previous button
+            toolbarExtraButtons: [] // Extra buttons to show on toolbar, array of jQuery input/buttons elements
+        },
+        anchorSettings: {
+            anchorClickable: true, // Enable/Disable anchor navigation
+            enableAllAnchors: false, // Activates all anchors clickable all times
+            markDoneStep: false, // Add done state on navigation
+            markAllPreviousStepsAsDone: false, // When a step selected by url hash, all previous steps are marked done
+            removeDoneStepOnNavigateBack: false, // While navigate back done step after active step will be cleared
+            enableAnchorOnDoneStep: false // Enable/Disable the done steps navigation
+        },
+        keyboardSettings: {
+            keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+            keyLeft: [37], // Left key code
+            keyRight: [39] // Right key code
+        },
+        lang: { // Language variables for button
+            next: 'Next',
+            previous: 'Previous'
+        },
+        disabledSteps: [], // Array Steps disabled
+        errorSteps: [], // Highlight step with errors
+        hiddenSteps: [] // Hidden steps
+    });
+</script>

@@ -1,0 +1,51 @@
+﻿@model VCAS.Models.VCAS_supportDocs
+
+@{
+    ViewBag.Title = "Create  VCAS_supportDocs";
+}
+
+@using (Html.BeginForm("Create", "supportDocs", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Create new:: VCAS_supportDocs</h2>
+                    <hr class="bg-gray" />
+                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "input", data_prepend = "Name: " } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "fg-magenta" })
+
+                    @Html.EditorFor(model => model.desc, new { htmlAttributes = new { data_role = "input", data_prepend = "Description: " } })
+                    @Html.ValidationMessageFor(model => model.desc, "", new { @class = "fg-magenta" })
+
+                    @Html.DropDownListFor(model => model.media_type, new List<SelectListItem>
+                        {
+                            new SelectListItem() { Text = "image/jpg", Value = "image/jpg" },
+                            new SelectListItem() { Text = "image/png", Value = "image/png" },
+                            new SelectListItem() { Text = "text/csv", Value = "text/csv" },
+                            new SelectListItem() { Text = "text/html", Value = "text/html" },
+                            new SelectListItem() { Text = "application/mp4", Value = "application/mp4" },
+                            new SelectListItem() { Text = "application/pdf", Value = "application/pdf" }
+                        }, null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.media_type, "", new { @class = "fg-magenta" })
+
+                    @Html.DropDownList("FK_REF_userRolesId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_REF_userRolesId, "", new { @class = "fg-magenta" })
+
+                    <div class="form-group files">
+                        <label>Upload Media</label><br />
+                        <input type="file" class="form-control" multiple="" name="media" id="media">
+                        @Html.ValidationMessageFor(model => model.media, "", new { @class = "fg-magenta" })
+                    </div>
+
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

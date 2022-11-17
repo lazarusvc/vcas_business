@@ -1,0 +1,43 @@
+﻿@model VCAS.Models.VCAS_council
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "council", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Edit:: Organization</h2>
+                    <hr class="bg-gray" />
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "input", data_prepend = "Name.: " } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "fg-magenta" })
+
+                    @Html.EditorFor(model => model.location, new { htmlAttributes = new { data_role = "input", data_prepend = "Location.: " } })
+                    @Html.ValidationMessageFor(model => model.location, "", new { @class = "fg-magenta" })
+
+                    @Html.EditorFor(model => model.vendor_Id, new { htmlAttributes = new { data_role = "input", data_prepend = "Vendor ID.: " } })
+                    @Html.ValidationMessageFor(model => model.vendor_Id, "", new { @class = "fg-magenta" })
+
+                    @Html.EditorFor(model => model.app_name, new { htmlAttributes = new { data_role = "input", data_prepend = "App Name.: " } })
+                    @Html.ValidationMessageFor(model => model.app_name, "", new { @class = "fg-magenta" })
+
+                    <div class="form-group files">
+                        <h6 class="fg-gray">Logo for receipts:</h6><br />
+                        <input type="file" class="form-control" name="receipt_logo" id="receipt_logo">
+                        @Html.ValidationMessageFor(model => model.receipt_logo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+                </div>
+            </div>
+        </div>
+}

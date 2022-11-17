@@ -1,0 +1,33 @@
+﻿@using MvcSiteMapProvider.Web.Html;
+@{
+    ViewBag.Title = "Approvals";
+}
+
+<h6 style="font-weight: 700;" class="fg-grayBlue">:: Navigation</h6>
+@Html.MvcSiteMap().Menu(false, true, false)
+
+
+<a href="#" class="image-button success m-1" style="text-decoration: none !important;">
+    <span class="mif-chevron-thin-right icon"></span>
+    <span class="caption">Pending Approvals</span>
+    <span class="badge bg-red fg-white">@ViewBag.pending_approvals</span>
+</a>
+<a href="@Url.Action("Delivery", "issuedChecks")" class="image-button m-1" style="text-decoration: none !important;">
+    <span class="mif-chevron-thin-right icon"></span>
+    <span class="caption">Pending Delivery</span>
+    <span class="badge bg-red fg-white">@ViewBag.pending_delivery</span>
+</a>
+<p class="fg-grayBlue"><strong>-- Entries to Approve --</strong></p>
+@Html.DropDownList("approvals", null, htmlAttributes: new { data_role = "select", @class = "input-large", @ViewBag.readOnly })
+
+
+<script>
+    $(document).ready(function () {
+        // Navigate to Approvals Form
+        // ==============================
+        $("#approvals").change(function () {
+            var data = $(this).val();
+            window.location.href = '@Url.Action("EditApprovals", "issuedChecks")?&id=' + data
+        });
+    });
+</script>

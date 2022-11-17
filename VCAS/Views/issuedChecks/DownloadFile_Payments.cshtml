@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "DownloadFile Payments";
+}
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <div class="row">
+        <div class="cell-4">
+            <label>Start Date: </label>
+            <input data-role="calendarpicker" id="startDate">
+        </div>
+        <div class="cell-4">
+            <label>End Date: </label>
+            <input data-role="calendarpicker" id="endDate">
+        </div>
+        <div class="cell-4">
+            <label>Location: </label>
+            @Html.DropDownList("council_select", null, htmlAttributes: new { data_role = "select" })
+        </div>
+        <button type="submit" id="downloadFPSubmit" class="button yellow" style="width: 100%">Submit</button>
+    </div>
+    <br />
+    <hr class="fg-grayBlue" />
+
+    @using (Html.BeginForm("DownloadFile", "issuedChecks", FormMethod.Post))
+    {
+        <button type="submit" class="image-button m-1" id="downloadFileBtn" style="text-decoration: none !important;">
+            <span class="mif-download icon"></span>
+            <span class="caption">Download File (.xlsx) for Bulk Upload</span>
+        </button>
+    }
+
+    <div id="partialview7">
+        @Html.Action("DownloadFile_PaymentsResults", "issuedChecks")
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Partial View Data Logic
+        // ==============================
+
+        // Disable Download Button on load
+        $('#downloadFileBtn').prop('disabled', true);
+
+        $("#downloadFPSubmit").on('click', function () {
+
+            // Params
+            var sd = $("#startDate").val();
+            var ed = $("#endDate").val();
+            var dloc = $("#council_select").val();
+
+            // Enable Download Button on click
+            $('#downloadFileBtn').prop('disabled', false);
+
+            $.ajax({
+                url: '@Url.Action("DownloadFile_PaymentsResults", "issuedChecks")?&d=' + dloc + '&s=' + sd + '&e=' + ed, 
+                type: "GET",
+                success: function (result) {
+                    $("#partialview7").html(result);
+                }
+            });
+        });
+    });
+</script>

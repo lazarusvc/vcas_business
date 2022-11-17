@@ -1,0 +1,39 @@
+﻿@model VCAS.Models.VCAS_orders
+
+@{
+    ViewBag.Title = "Edit  VCAS_orders";
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Edit:: VCAS_orders</h2>
+                    <hr class="bg-gray" />
+                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                    @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "fg-magenta" })
+                    @Html.DropDownList("FK_order_statusId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_order_statusId, "", new { @class = "fg-magenta" })
+                    @Html.DropDownList("FK_customerId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_customerId, "", new { @class = "fg-magenta" })
+                    @Html.DropDownList("FK_inventoryId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_inventoryId, "", new { @class = "fg-magenta" })
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

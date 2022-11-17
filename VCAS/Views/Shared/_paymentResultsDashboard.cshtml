@@ -1,0 +1,70 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_issuedChecks>
+
+@{
+    ViewBag.Title = "Issued Payments";
+}
+
+<table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
+    <thead>
+        <tr>
+            <th>
+                amount
+            </th>
+            <th>
+                check Num
+            </th>
+            <th>
+                receipent
+            </th>
+            <th>
+                receiver ID
+            </th>
+            <th>
+                receiver ID type
+            </th>
+            <th>
+                expense
+            </th>
+            <th>
+                debit account
+            </th>
+            <th>
+                signature
+            </th>
+        </tr>
+    </thead>
+
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    EC$ @Html.DisplayFor(modelItem => item.amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.checkNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receiverName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receiverID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_REF_receiverID_Types.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_expenses.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_debitAccounts.name)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.signature)" width="100%" style="max-width: 100px;" />
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>

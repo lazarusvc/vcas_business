@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "AccessDenied";
+}
+
+<div class="jumbotron" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 style="color: #d80073; background:#FFFFFF; padding:5px; font-weight:700;" align="center">Access Denied!</h2>
+    <h2 style="color: #ffffff; background: #d80073; border-radius: 10px;" align="center">You are not Authorized for this section</h2>
+    <p align="center">@Html.ActionLink("Please return from whence you came!", null, null, null, new { href = Request.UrlReferrer })</p>
+</div>
+

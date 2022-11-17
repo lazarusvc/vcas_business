@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "_debitTransIndex";
+}
+
+<h5>Total Debits</h5>
+<canvas id="barcanvas"></canvas>
+
+<script>
+    $(document).ready(function () {
+
+        // Account Converter module
+        // ========================
+        function float2dollar(value) {
+            return "EC$ " + (value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        // Debit Transaction Chart Logic
+        // ==============================
+            var mainAcctAmt = document.getElementById('mainAcctAmt');
+            let url = '@Url.Action("DebitAccountJson", "debitTrans")?&d=' + @ViewBag.data;
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                success: function (chData) {
+                    var aLabels = chData.map(function (e) {
+                        if (e.name == 6)
+                        {
+                            return 'June'
+                        }
+                        if (e.name == 7)
+                        {
+                            return 'July'
+                        }
+                        else
+                        {
+                           return e.name
+                        }                        
+                    });
+                    var aDatasets1 = chData.map(function (e) {
+                        mainAcctAmt.innerHTML = float2dollar(e.amount);
+                        return e.amount
+                    });
+
+                    const ctx1 = document.getElementById('barcanvas').getContext('2d');
+                    new Chart(ctx1, {
+                        type: 'bar',
+                        data: {
+                            labels: aLabels,
+                            datasets: [{
+                                label: "Total in account",
+                                data: aDatasets1,
+                                fill: true,
+                                backgroundColor: '#0077a3'
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                tooltip: {
+                                    caretSize: 0,
+                                    intersect: true,
+                                    mode: 'index',
+                                    position: 'nearest',
+                                }
+                            },
+                            responsive: true
+                        }
+                    });
+                }
+            });
+    });
+</script>

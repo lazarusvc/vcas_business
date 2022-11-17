@@ -1,0 +1,112 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_capture_payments>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="fg-darkGray">Captured Payments:: Index</h2>
+<p align="CENTER">List of Cancelled Receipts <span class="fg-grayBlue" style="border-bottom: 1px dashed; width: 20%; font-size: 12px;">For: @DateTime.Today.ToString("MMMM yyyy")</span></p>
+<hr class="bg-grayBlue" />
+<br/>
+<table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
+    <thead>
+        <tr>
+            <th>
+                manage
+            </th>
+            <th>
+                voided
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datetime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.payer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.checkNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.receiptNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.issuer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FK_paymentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FK_bankDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FK_items)
+            </th>
+        </tr>
+    </thead>
+
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    <ul class="pagination no-gap size-large">
+                        <li class="page-item">
+                            <a href="@Url.Action("Void", new { id = item.Id })" class="button light"><span class="mif-checkmark icon"></span></a>
+                        </li>
+                    </ul>
+                </td>
+                @if (item.voidCheck == true)
+                {
+                <td style="background-color:#FF0000 !important;">
+                       @Html.CheckBoxFor(modelItem => item.voidCheck, new { data_role = "checkbox", data_style = "1", data_indeterminate = "true", disabled = "disabled" })
+                </td>
+                }
+                else if (item.voidCheck == false)
+                {
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.voidCheck, new { data_role = "checkbox", data_style = "1", data_indeterminate = "false", disabled = "disabled" })
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.datetime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.payer)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.checkNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receiptNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.issuer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_REF_payment_type.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_REF_bank_details.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_REF_items.name) - @Html.DisplayFor(modelItem => item.VCAS_REF_items.desc)
+                </td>
+            </tr>
+        </tbody>
+
+    }
+
+</table>

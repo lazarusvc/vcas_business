@@ -1,0 +1,33 @@
+﻿@model VCAS.Models.VCAS_REF_items_location
+
+@{
+    ViewBag.Title = "Edit  VCAS_REF_items_location";
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Edit:: VCAS_REF_items_location</h2>
+                    <hr class="bg-gray" />
+                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    @Html.DropDownList("FK_councilId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_councilId, "", new { @class = "fg-magenta" })
+                    @Html.DropDownList("FK_REF_itemsId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_REF_itemsId, "", new { @class = "fg-magenta" })
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

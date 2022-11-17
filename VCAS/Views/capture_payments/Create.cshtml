@@ -1,0 +1,413 @@
+﻿@model VCAS.Models.VCAS_capture_payments
+@using MvcSiteMapProvider.Web.Html;
+@{
+    ViewBag.Title = "Capture Payment";
+}
+
+<!-- Quick Links ============================================= -->
+<div class="row">
+    <h6 style="font-weight: 700;" class="fg-grayBlue">:: Quick Links</h6>
+    <div class="cell-lg-12">
+        @Html.MvcSiteMap().Menu(false, true, true)
+    </div>    
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h3 class="fg-gray"><span id="rec_invName">Receipt</span> Capture</h3>
+    <div class="row">
+        <div class="cell-lg-6">
+            <div class="remark">
+                @Html.HiddenFor(model => model.invoice, new { @Value = false })
+                @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
+                @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
+                @Html.EditorFor(model => model.issuer, new { htmlAttributes = new { data_role = "input", data_prepend = "Issuer:", @Value = ViewBag.issuer, @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.issuer, "", new { @class = "fg-magenta" })
+                @Html.EditorFor(model => model.receiptNo, new { htmlAttributes = new { data_role = "input", data_prepend = "Receipt No:", @Value = ViewBag.recNo, placeholder = ViewBag.recNo, @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.receiptNo, "", new { @class = "fg-magenta" })
+                @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
+                @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
+            </div>
+            <div class="row">
+                <div class="cell-lg-12">
+                    <div class="remark">
+                        <div class="row">
+                            <div class="cell-lg-8">
+                                <div id="cusListDiv">
+                                    <label class="fg-darkBlue">Customer:</label>
+                                    @Html.DropDownList("cusList", null, "-- Select --", htmlAttributes: new { data_role = "select" })
+                                    <br />
+                                </div>
+                                @Html.EditorFor(model => model.payer, new { htmlAttributes = new { data_role = "input", data_prepend = "Payer: ", @Value = ViewBag.cusName } })
+                                @Html.ValidationMessageFor(model => model.payer, "", new { @class = "fg-magenta" })
+                            </div>
+                            <div class="cell-lg-4">
+                                @if (ViewBag.cusID != null)
+                                {
+                                    @Html.HiddenFor(model => model.payerID, new { @Value = ViewBag.cusID })
+                                }
+                                <input type="checkbox" data-role="checkbox" data-style="2" data-caption="NEW" class="fg-darkBlue" id="payerCheckInput" />
+                                <input type="checkbox" data-role="checkbox" data-style="2" data-caption="EXISTING" class="fg-darkBlue" id="payerCheckInput2" data-caption-position="left">
+                            </div>
+                        </div>
+                        @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "Amount: $", @type = "number", min = "1", step = "0.01" } })
+                        @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
+                        <br />
+                        <label class="fg-darkBlue">Payment Type:</label>
+                        @Html.DropDownList("FK_paymentType", null, htmlAttributes: new { data_role = "select" })
+                        @Html.ValidationMessageFor(model => model.FK_paymentType, "", new { @class = "fg-magenta" })
+                        <div id="checkDetails">
+                            @Html.EditorFor(model => model.checkNo, new { htmlAttributes = new { data_role = "input", data_prepend = "Check No.: " } })
+                            @Html.ValidationMessageFor(model => model.checkNo, "", new { @class = "fg-magenta" })
+                            <br />
+                            @Html.DropDownList("FK_bankDetails", null, htmlAttributes: new { data_role = "select" })
+                            @Html.ValidationMessageFor(model => model.FK_bankDetails, "", new { @class = "fg-magenta" })
+                        </div>
+
+                        <div class="row">
+                            <div class="cell-lg-8">
+                                <label class="fg-darkBlue">Sales Item:</label>
+                                @Html.DropDownList("FK_items", null, "-- Select --", htmlAttributes: new { data_role = "select" })
+                                @Html.ValidationMessageFor(model => model.FK_items, "", new { @class = "fg-magenta" })
+                                <div id="orderSelect">
+                                    <label class="fg-darkBlue">Customer Order:</label>
+                                    @Html.DropDownList("cusOrders", null, "N/A", htmlAttributes: new { data_role = "select" })
+                                    @Html.HiddenFor(model => model.orderID)
+                                </div>
+                            </div>
+                            <div class="cell-lg-2">
+                                <br />
+                                <input type="checkbox" data-role="checkbox" data-style="2" data-caption="ORDERS" class="fg-darkBlue" id="orderCheckInput" />
+                                <span class="badge inside bg-red fg-white" style="top: 20px !important;">@ViewBag.cusOrdersCount</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="remark">
+                @Html.TextAreaFor(model => model.comment, new { data_role = "textarea", placeholder = "... Comment" })
+                @Html.ValidationMessageFor(model => model.comment, "", new { @class = "fg-magenta" })
+            </div>
+        </div>
+        <div class="cell-lg-6">
+            <!-- PREVIEW ------------------ -->
+            <div data-role="panel"
+                 data-title-caption="Receipt"
+                 data-cls-panel="shadow-3"
+                 data-title-icon="<span class='mif-apps'></span>">
+                <img id="rec_logo" src="#" width="10%" />
+                <div class="row">
+                    <div class="cell-lg-6">
+                        <p><strong><span id="rec_invName2">Receipt</span> No.: </strong>@ViewBag.recNo</p>
+                        <hr class="bg-gray" />
+                        <p><strong>Location: </strong><span id="REC-loc"></span></p>
+                        <p><strong>Issuer: </strong><span id="REC-issuer"></span></p>
+                        <p><strong>Date: </strong><span id="REC-date"></span></p>
+                    </div>
+                    <div class="cell-lg-6">
+                        <p><strong>Order No.: </strong><span id="REC-orderNum"></span></p>
+                        <hr class="bg-gray" />
+                        <p><strong>Customer:</strong></p>
+                        <p><span id="REC-payer"></span></p>
+                        <hr class="bg-gray" />
+                        <p><strong>Billing:</strong></p>
+                        <p>Paid with: <span id="REC-payType"></span></p>
+                        <div id="billingCheck">
+                            <p></p>
+                            <p>Check Number: <span id="REC-check"></span></p>
+                            <p>Bank: <span id="REC-bank"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="cell-lg-12">
+                        <table class="table subcompact" data-horizontal-scroll="true">
+                            <thead>
+                                <tr>
+                                    <th>LINE #</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>AMOUNT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><span id="REC-desc"></span><br /><span id="REC-orderDesc"></span><br /><br /><span id="REC-comments"></span></td>
+                                    <td id="REC-amount"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table subcompact" data-horizontal-scroll="true">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <td align="right">TOTAL</td>
+                                    <td align="left" id="REC-total"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- BUTTONS ------------------ -->
+            <br />
+            <div class="remark">
+                <div class="row">
+                    <div class="cell-lg-4">
+                        <input type="checkbox" data-role="checkbox" data-caption="MAKE INVOICE" class="fg-darkBlue" id="rec_invNew">
+                    </div>
+                    <div class="cell-lg-4">
+                        <input type="checkbox" data-role="checkbox" data-caption="FETCH INVOICE" class="fg-darkBlue" id="rec_invGet">
+                    </div>
+                    <div class="cell-lg-4"></div>
+                </div>
+                <div id="rec_invGetDiv">
+                    <label class="fg-darkBlue">Saved Invoices:</label>
+                    @Html.DropDownList("invoiceFetch", null, "-- Select --", htmlAttributes: new { data_role = "select" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="cell-lg-12">
+                    <ul class="pagination no-gap size-large">
+                        <li class="page-item">
+                            <button type="submit" class="button large yellow">
+                                <span class="mif-done_all icon"></span> Capture
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button type="button" class="button large primary" id="moreBtn">
+                                <span class="mif-add icon"></span> More
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button type="button" class="button large default" id="printMore">
+                                <span class="mif-printer icon"></span> Print
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <a href='@Url.Action("RePrint")' class="button large default">
+                                <span class="mif-printer icon"></span> Reprint
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<script>
+    // Fetch & Show logo from DB
+    // =========================
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host;
+    document.getElementById("rec_logo").src = baseUrl + "@ViewBag.recLogo";
+
+    $(document).ready(function () {
+        var receiptNo = $("#receiptNo");
+        receiptNo.css("background-color", "#ffe484");
+        var issuer = $("#issuer");
+        issuer.css("background-color", "#f8f8f8");
+        var datetime = $("#datetime");
+        var payer = $("#payer");
+        var checkNo = $("#checkNo");
+        var amount = $("#amount");
+        var item = $("#FK_items");
+        var bank = $("#FK_bankDetails");
+        var payment = $("#FK_paymentType");
+        var paymentType = $("#REC-payType");
+        var checkDetails = $("#checkDetails");
+        var billing1 = $("#billingCheck");
+        var orderSelect = $("#orderSelect");
+        var cusOrders = $("#cusOrders");
+        var comment = $("#comment");
+        var location = $("#FK_location");
+        var rec_loc = $("#REC-loc").text(location.children("option:selected").text());
+        // Payment logic
+        // ==================================
+        checkDetails.hide();
+        billing1.hide();
+        paymentType.text(payment.children("option:selected").text());
+        payment.on('keyup change', function () {
+            paymentType.text(payment.children("option:selected").text());
+            if (payment.children("option:selected").text('Check')) {
+                checkDetails.show();
+                billing1.show();
+            } else if (payment.children("option:selected").text('Debit Card')) {
+                checkDetails.hide();
+                billing1.hide();
+                checkNo.val('');
+                bank.val(5);
+            } else if (payment.children("option:selected").text('Bank Transfer')) {
+                checkDetails.hide();
+                billing1.hide();
+                checkNo.val('');
+                bank.val(5);
+            } else {
+                checkDetails.hide();
+                billing1.hide();
+                checkNo.val('');
+                bank.val(5);
+            }
+        });
+        // Default onClick logic
+        // ==================================
+        // issuer
+        $("#REC-issuer").html(issuer.val());
+        issuer.on('keyup change', function () {
+            $("#REC-issuer").html(issuer.val());
+        });
+        // datetime
+        $("#REC-date").html(datetime.val());
+        datetime.on('keyup change', function () {
+            $("#REC-date").html(datetime.val());
+        });
+        // payer
+        $("#REC-payer").html(payer.val());
+        payer.on('keyup change', function () {
+            $("#REC-payer").html(payer.val());
+        });
+        // checkNo
+        checkNo.on('keyup change', function () {
+            $("#REC-check").html(checkNo.val());
+        });
+        // bank
+        bank.on('keyup change', function () {
+            $("#REC-bank").html(bank.children("option:selected").text());
+        });
+        // items + comment
+        item.on('keyup change', function () {
+            $("#REC-desc").text(item.children("option:selected").text());
+        });
+        // amount
+        amount.on('keyup change', function () {
+            $("#REC-amount").html('$' + amount.val());
+            $("#REC-total").html('$' + amount.val());
+        });
+        // comment
+        comment.on('keyup change', function () {
+            $("#REC-comments").html('<hr class="bg-gray" width="50" /><br/>' + comment.val());
+        });
+        // More onClick logic
+        // ==================================
+        $("#moreBtn").on('click', function () {
+            window.location = '@Url.Action("More", "capture_payments")';
+        });
+        // Print onClick logic
+        // ==================================
+        $("#printMore").on('click', function () {
+            window.location = '@Url.Action("PrintLast", "capture_payments")';
+        });
+        // Existing Customer onClick logic
+        // ==================================
+        $("#cusListDiv").hide();
+        $('#payerCheckInput2').change(function () {
+            if ($(this).is(":checked")) {
+                $("#cusListDiv").show();
+            } else {
+                $("#cusListDiv").hide();
+            }
+        });
+        $("#cusList").on('keyup change', function () {
+            var cusListSelectData = $("#cusList").children("option:selected").text();
+            payer.val(cusListSelectData);
+
+            payer.css("background-color", "#f8f8f8"); // make payer field READONLY after process
+            payer.prop('readonly', true);
+
+            window.location = '@Url.Action("Create", "capture_payments")?cusName=' + cusListSelectData.split(" ")[0];
+        });
+        // New Customer onClick logic
+        // ==================================
+        $('#payerCheckInput').change(function () {
+            if ($(this).is(":checked")) {
+                Metro.dialog.create({
+                    title: "<span class='mif-user-plus'></span> New Customer",
+                    content: "<div class='form-horizontal'> <div class='grid' style='background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;'> <div class='row'> <div class='cell-12'> <form method='POST'> <input type='text' name='firstName' id='firstName' data-role='materialinput' data-label='First Name:' placeholder='Enter First Name' required/> <input type='text' name='lastName' id='lastName' data-role='materialinput' data-label='Last Name:' placeholder='Enter Last Name' required/> <input type='text' name='address' id='address' data-role='materialinput' data-label='Address:' placeholder='Address'/> <input type='text' name='state' id='state' data-role='materialinput' data-label='State:' placeholder='State'/> <input type='text' name='phone' id='phone' data-role='materialinput' data-label='Phone Number:' placeholder='Enter Phone Number' required/> <input type='email' name='email' id='email' data-role='materialinput' data-label='Email:' placeholder='Enter Email'/></form> </div></div></div></div>",
+                    actions: [
+                        {
+                            caption: "Finish & Save",
+                            cls: "js-dialog-close primary",
+                            onclick: function () {
+                                    var formData =
+                                    {
+                                        firstName: $("#firstName").val(),
+                                        lastName: $("#lastName").val(),
+                                        address: $("#address").val(),
+                                        state: $("#state").val(),
+                                        phone: $("#phone").val(),
+                                        email: $("#email").val()
+                                    };
+
+                                    $.ajax({
+                                        url: '@Url.Action("CreateModal", "customer")',
+                                        type: "POST",
+                                        data: formData,
+                                        beforeSend: function () {
+                                            window.location = '@Url.Action("Create", "capture_payments")?cusName=' + formData.firstName;
+                                        }
+                                });
+                            }
+                        }
+                    ]
+                });
+                payer.css("background-color", "#f8f8f8"); // make payer field READONLY after process
+                payer.prop('readonly', true);
+            }
+        });
+        // Item Order onClick logic
+        // ==================================
+        orderSelect.hide();
+        $('#orderCheckInput').change(function () {
+            if ($(this).is(":checked")) {
+                orderSelect.show();
+                cusOrders.on('keyup change', function () {
+                    $("#orderID").val(cusOrders.children("option:selected").val());
+                    $("#REC-orderNum").text(cusOrders.children("option:selected").val());
+                    $("#REC-orderDesc").text(cusOrders.children("option:selected").text());
+                });
+            } else {
+                orderSelect.hide();
+            }
+        });
+        // Invoice Checkbox logic
+        // ===============================
+        $('#rec_invNew').change(function () { // New Invoice
+            if ($(this).is(":checked")) {
+                $("#rec_invName").text("Invoice");
+                $("#rec_invName2").text("Invoice");
+                $("#invoice").val(true);
+            } else {
+                $("#rec_invName").text("Receipt");
+                $("#rec_invName2").text("Receipt");
+                $("#invoice").val(false);
+            }
+        });
+        $('#rec_invGetDiv').hide();
+        $('#rec_invGet').change(function () { // Old Invoice
+            if ($(this).is(":checked")) {
+                $('#rec_invGetDiv').show();
+
+                var inv_option = $("#invoiceFetch");
+                inv_option.on('keyup change', function () {
+                    window.location = '@Url.Action("Edit", "capture_payments")/' + inv_option.val(); 
+                });
+            } else {
+                $('#rec_invGetDiv').hide();
+            }
+        });
+    });
+</script>

@@ -1,0 +1,43 @@
+﻿@model VCAS.Models.VCAS_customer
+
+@{
+    ViewBag.Title = "Create  VCAS_customer";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Create new:: VCAS_customer</h2>
+                    <hr class="bg-gray" />
+		            @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                    @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "fg-magenta" })
+
+                    @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                    @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "fg-magenta" })
+
+                    @Html.EditorFor(model => model.address, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                    @Html.ValidationMessageFor(model => model.address, "", new { @class = "fg-magenta" })
+
+                    @Html.EditorFor(model => model.state, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                    @Html.ValidationMessageFor(model => model.state, "", new { @class = "fg-magenta" })
+
+                    @Html.EditorFor(model => model.phone, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                    @Html.ValidationMessageFor(model => model.phone, "", new { @class = "fg-magenta" })
+
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "fg-magenta" })
+
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

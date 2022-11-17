@@ -1,0 +1,39 @@
+﻿@model VCAS.Models.VCAS_session
+
+@{
+    ViewBag.Title = "Create  VCAS_session";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Create new:: VCAS_session</h2>
+                    <hr class="bg-gray" />
+                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.username, new { htmlAttributes = new { data_role = "input", data_prepend = "Username: ", @Value = ViewBag.username } })
+                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "fg-magenta" })
+
+                    <br />
+                    <label>Select Role::</label>
+
+                    @Html.DropDownList("role", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.role, "", new { @class = "text-danger" })
+
+                    <br />
+                    <label>Location::</label>
+                    @Html.DropDownList("location", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.location, "", new { @class = "text-danger" })
+                    <br />
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

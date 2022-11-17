@@ -1,0 +1,168 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_orders>
+
+@{
+    ViewBag.Title = "_ordersIndex";
+}
+
+<div>
+    <div class="p-4 mb-3 border bd-default">
+        <input type="checkbox" data-role="switch" data-caption="Pending" data-cls-caption="fg-yellow" onclick="setFilter('filterPending', this.checked)">
+        <input type="checkbox" data-role="switch" data-caption="Cancelled" data-cls-caption="fg-red" onclick="setFilter('filterCancelled', this.checked)">
+        <input type="checkbox" data-role="switch" data-caption="Completed" data-cls-caption="fg-green" onclick="setFilter('filterCompleted', this.checked)">
+    </div>
+    <table id="t1" class="table striped table-border cell-border row-border compact bg-white" 
+           data-role="table" 
+           data-horizontal-scroll="true"
+            data-search-wrapper="#t1_search"
+            data-rows-wrapper="#t1_rows"
+            data-info-wrapper="#t1_info"
+            data-pagination-wrapper="#t1_pagination"
+            data-on-draw-cell="drawCell"
+            data-filters-operator="or"           
+           >
+        <thead>
+            <tr>
+                <th>
+                    Order ID
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Unit
+                </th>
+                <th>
+                    Customer
+                </th>
+                <th style="width: 50px;">
+                    Inventory
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    manage
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.datetime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VCAS_inventory.unit)
+                    </td>
+                    <td>
+                        @item.VCAS_customer.firstName @item.VCAS_customer.lastName - #: @item.VCAS_customer.phone
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VCAS_inventory.name)
+                    </td>
+                    <td>
+                        @if (item.VCAS_REF_order_status.name == "Pending")
+                        {
+                            <div class="data-wrapper"><code class="bg-yellow">PENDING</code></div>
+                        }
+                        @if (item.VCAS_REF_order_status.name == "Cancelled")
+                        {
+                            <div class="data-wrapper"><code class="bg-red fg-white">CANCELLED</code></div>
+                        }
+                        @if (item.VCAS_REF_order_status.name == "Completed")
+                        {
+                            <div class="data-wrapper"><code class="bg-green fg-white">COMPLETED</code></div>
+                        }
+
+                    </td>
+                    <td>
+                        <ul class="pagination no-gap size-large">
+                            <li class="page-item">
+                                <a href="@Url.Action("Edit", new { id = item.Id })" class="button outline"><span class="mif-pencil icon"></span></a>
+                            </li>
+                            <li class="page-item">
+                                <a href="@Url.Action("Delete", new { id = item.Id })" class="button outline"><span class="mif-bin icon"></span></a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        }
+
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    function drawCell(td, value, index, head, item) {
+        if (head.name === 'payment') {
+            $(td).html(payments[value]);
+        }
+        if (head.name === 'status') {
+            var span = $("<code>").html(statuses[value][0]).addClass(statuses[value][1]);
+            $(td).html(span);
+        }
+        if (head.name === 'total') {
+            var _value = parseInt(value.replace(/\$/g, ""));
+            var pb = Metro.makePlugin($("<div>"), "progress", {
+                value: _value,
+                clsBar: _value < 10 ? "bg-red" : _value < 20 ? "bg-orange" : _value <= 50 ? "bg-cyan" : _value < 70 ? "bg-cobalt" : "bg-green"
+            });
+            $(td).html("").append(value).append(pb);
+        }
+    }
+
+    function setFilter(flt, checked) {
+        var table = $('#t1').data('table');
+        var data;
+
+        if (checked) {
+            window[flt] = table.addFilter(function (row, heads) {
+                var is_active_index = 0;
+                heads.forEach(function (el, i) {
+                    if (el.name = "Status") {                        
+                        is_active_index = i;
+                        console.log(el);
+                    }
+                    
+                });
+
+                data = parseInt(row[is_active_index]);
+                // data = parseInt(document.getElementById('rowStatusData').value);
+                // console.log(data);
+                
+                if (flt === 'filterPending') {
+                    return data === 10;
+                }
+                if (flt === 'filterShipped') {
+                    return data === 7;
+                }
+                if (flt === 'filterPreparing') {
+                    return data === 5;
+                }
+                if (flt === 'filterAwaiting') {
+                    return data === 6;
+                }
+                if (flt === 'filterError') {
+                    return data === 3;
+                }
+                if (flt === 'filterPayed') {
+                    return [2, 4, 7].indexOf(data) > 0;
+                }
+            }, true);
+        } else {
+            table.removeFilter(window[flt], true);
+        }
+    }
+</script>

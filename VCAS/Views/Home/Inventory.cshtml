@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Inventory";
+}
+
+<h2>Inventory Management</h2>
+<!-- Quick Links ============================================= -->
+<div>
+    <h6 style="font-weight: 700;" class="fg-grayBlue">:: Quick Links</h6>
+    @Html.MvcSiteMap().Menu(false, true, true)
+</div>
+
+<div class="row" style="background: #FFFFFF;border-radius: 10px;width: 100%;padding: 20px;">
+    <div class="cell-lg-12">
+        <h3 class="fg-grayBlue">Stock::</h3>
+        @Html.Action("IndexPartial", "inventory")
+    </div>
+</div>
+

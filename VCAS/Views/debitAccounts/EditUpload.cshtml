@@ -1,0 +1,32 @@
+﻿@model VCAS.Models.VCAS_debitAccounts
+
+@{
+    ViewBag.Title = "Edit Debit Account";
+}
+
+@using (Html.BeginForm("EditUpload", "debitAccounts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+                    <h2 class="fg-darkGray">Edit:: Debit Account</h2>
+                    <hr class="bg-gray" />
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group files">
+                        <label>Upload Bank Statement *.pdf</label><br />
+                        <input type="file" class="form-control" multiple="" name="attach_statement" id="attach_statement" value = Model.attach_statement accept=".pdf,.png,.jpg,.jpeg">
+                        @Html.ValidationMessageFor(model => model.attach_statement, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

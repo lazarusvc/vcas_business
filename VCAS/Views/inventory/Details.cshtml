@@ -1,0 +1,146 @@
+﻿@model VCAS.Models.VCAS_inventory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Details:: VCAS_inventory</h2>
+    <hr class="bg-gray" />
+    <table class="table subcompact">
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.name)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.name)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.desc)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.desc)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.dateModified)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.dateModified)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.partNumber)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.partNumber)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.label)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.label)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.startStock)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.startStock)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.currentStock)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.currentStock)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.quantity)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.quantity)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.size)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.size)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.unit)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.unit)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.unitPrice)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.unitPrice)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.sellingPrice)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.sellingPrice)<td>
+        </tr>
+        </tbody> 
+    </table>
+    <a href="@Url.Action("Edit", new { id = Model.Id })" class="button info" style="width: 100%;"><span class="mif-pencil icon"></span></a>
+ 
+</div>

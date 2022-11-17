@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Customer Orders</h2>
+<!-- Quick Links ============================================= -->
+<div>
+    <h6 style="font-weight: 700;" class="fg-grayBlue">:: Quick Links</h6>
+    @Html.MvcSiteMap().Menu(false, true, true)
+</div>
+
+
+<div class="row" style="background: #FFFFFF;border-radius: 10px;width: 100%;padding: 20px;">
+    <div class="cell-lg-12">
+        <a href="@Url.Action("Create01", "orders")" class="image-button success" style="text-decoration: none !important;">
+            <span class="mif-chevron-thin-right icon"></span>
+            <span class="caption">Orders:: Create New</span>
+        </a><br/><br/>
+        @Html.Action("IndexPartial", "orders")
+    </div>
+</div>
+

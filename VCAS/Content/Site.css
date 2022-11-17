@@ -1,0 +1,384 @@
+﻿/*
+------------------------------
+DEFAULT `CUSTOM` CSS
+------------------------------
+*/
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default 
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+*/
+
+.prepend {
+    width: 20% !important;
+}
+
+#toggleSpan {
+    background: #bebebe;
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+    float: right;
+    clear: both;
+    top:-30px;
+    position:relative;
+}
+
+/*
+------------------------------
+LOADER CSS
+------------------------------
+*/
+#loader {
+    max-height: 100%;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    background: rgba(255,255,255,0.9);
+}
+#loader img {
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        display: block;
+    }
+/*
+------------------------------
+BREADCRUMBS CSS
+------------------------------
+*/
+#menu {
+    white-space: nowrap;
+}
+
+#menu li {
+    display: inline-block;
+    line-height: 16px;
+    margin: 0 9px 0 -10px;
+    padding: 0 20px;
+    position: relative;
+}
+
+#menu li::before,
+#menu li::after {
+    border-right: 1px solid #666666;
+    content: '';
+    display: block;
+    height: 50%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -1;
+    transform: skewX(45deg);
+}
+
+#menu li::after {
+    bottom: 0;
+    top: auto;
+    transform: skewX(-45deg);
+}
+
+#menu li:last-of-type::before,
+#menu li:last-of-type::after {
+    display: none;
+}
+
+#menu li a {
+    font: bold 16px Sans-Serif;
+    letter-spacing: -1px;
+    text-decoration: none;
+    color: #666666;
+}
+
+/*
+------------------------------
+SIGNATURE PAD CSS
+------------------------------
+*/
+.signature-pad {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    font-size: 10px;
+    height: 500px;
+    max-height: 100%;
+    border: 1px solid #e8e8e8;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
+    border-radius: 4px;
+    padding: 16px;
+}
+
+    .signature-pad::before,
+    .signature-pad::after {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        width: 40%;
+        height: 10px;
+        bottom: 10px;
+        background: transparent;
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .signature-pad::before {
+        left: 20px;
+        -webkit-transform: skew(-3deg) rotate(-3deg);
+        transform: skew(-3deg) rotate(-3deg);
+    }
+
+    .signature-pad::after {
+        right: 20px;
+        -webkit-transform: skew(3deg) rotate(3deg);
+        transform: skew(3deg) rotate(3deg);
+    }
+
+.signature-pad--body {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    border: 1px solid #f4f4f4;
+}
+
+    .signature-pad--body
+    canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;
+    }
+
+.signature-pad--footer {
+    color: #C3C3C3;
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 8px;
+}
+
+.signature-pad--actions {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+/*
+------------------------------
+ File Attachment CSS
+------------------------------
+*/
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 120px 0px 85px 2%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+}
+
+.files input:focus {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    border: 1px solid #92b0b3;
+}
+
+.files {
+    position: relative
+}
+
+/*
+.files:after {
+    pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 5%;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+    display: block;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+*/
+
+.color input {
+    background-color: #f1f1f1;
+}
+
+.files:before {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 80%;
+    pointer-events: none;
+    right: 0;
+    height: 57px;
+    display: block;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+    margin: 0 auto;
+    background-image: url('files-img.png');
+    background-color: #fff;
+    color: #607D8B;
+    content: "drop or choose files to upload"  !important;
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: center;
+    line-height: 0px;
+}
+
+#attach_IDFile {
+    outline: 2px solid #92b0b3;
+    margin-top: 72px;
+    max-height: 213px;
+}
+
+#attach_IDFile img {
+    width: 50%;
+}
+
+/*
+----------------------------------
+ FORCE ORIENTATION - Mobile Mode
+----------------------------------
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        width: 100vh;
+        height: 100vw;
+        overflow-x: hidden;
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+}
+*/
+
+/*
+----------------------------------
+ Alert Dialog
+----------------------------------
+*/
+.info-box {
+    position: absolute !important;
+    width: 95%;
+    max-width: 100% !important;
+    max-height: 100px !important;
+    text-align: center !important;
+    margin: 2% !important;
+    opacity: 75% !important;
+}
+
+
+/*
+----------------------------------
+ Scroll Bar
+----------------------------------
+*/
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #607d8b;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255,0,0,0.4);
+}
+
+/*
+----------------------------------
+ CARDS
+----------------------------------
+*/
+#app_card {
+    color: rgba(52,110,41,1);
+    background: white;
+}
+
+#app_box {
+    box-shadow: 4px 3px 5px 2px rgba(0,0,0,0.42);
+    -webkit-box-shadow: 4px 3px 5px 2px rgba(0,0,0,0.42);
+    -moz-box-shadow: 4px 3px 5px 2px rgba(0,0,0,0.42);
+}
+
+.card.image-header {
+    box-shadow: 4px 3px 5px 2px rgb(0 0 0 / 42%);
+    -webkit-box-shadow: 4px 3px 5px 2px rgb(0 0 0 / 42%);
+    -moz-box-shadow: 4px 3px 5px 2px rgba(0,0,0,0.42);
+}
+
+/*
+----------------------------------
+ MAKE SIGNATURE FIELDS HIDDEN
+ FOR FIELD INPUT VALIDATION
+----------------------------------
+*/
+#signature {
+    opacity: 0 !important;
+    width: 0 !important;
+    float: left !important; /* Reposition so the validation message shows over the label */
+    pointer-events: none !important;
+}
+
+/*
+----------------------------------
+  IFRAME EN-LARGENER
+----------------------------------
+*/
+iframe {
+    height: 1000px !important;
+    width: 100% !important;
+}

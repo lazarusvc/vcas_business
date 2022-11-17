@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+		<mvcSiteMapNode title="Dashboard" controller="Home" action="Index">
+			<mvcSiteMapNode title="Receipts" controller="capture_payments" action="Create" />
+			<mvcSiteMapNode title="Payments" controller="issuedChecks" action="Create"/>
+			<mvcSiteMapNode title="Disbursal" controller="issuedChecks" action="Delivery"/>
+			<mvcSiteMapNode title="Reports" controller="Home" action="Reports" />
+			<mvcSiteMapNode title="Support" controller="Home" action="Help" />
+		</mvcSiteMapNode>
+		
+
+</mvcSiteMap>

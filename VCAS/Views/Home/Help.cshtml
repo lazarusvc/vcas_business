@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Help & Support";
+}
+
+<!-- Quick Links ============================================= -->
+<div class="cell-lg-12">
+    <h6 style="font-weight: 700;" class="fg-grayBlue">:: Quick Links</h6>
+    @Html.MvcSiteMap().Menu(false, true, true)
+</div>
+
+<h2>@ViewBag.Title</h2>
+<h6 class="fg-darkGray">Support Documents</h6>
+
+@Html.Action("Index", "supportDocs")

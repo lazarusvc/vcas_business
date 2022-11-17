@@ -1,0 +1,49 @@
+﻿@model VCAS.Models.VCAS_district
+
+@{
+    ViewBag.Title = "Create  VCAS_district";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Create new:: User Area</h2>
+                    <hr class="bg-gray" />
+
+                    <label>Location:</label>
+                    @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
+
+                    <br />
+                    <label>User:</label>
+                    @Html.DropDownList("FK_usersId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_usersId, "", new { @class = "fg-magenta" })
+
+                    <br/>
+                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "input", data_prepend = "District: "} })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "fg-magenta" })
+                    <br />
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#name').prop('readonly', true);
+        $('#name').css({ "background-color": "#e9e9e9", "color": "#989898" });
+        var location = $("#FK_location");
+        location.on('keyup change', function () {
+            $("#name").val(location.children("option:selected").text());
+        });
+    });
+</script>

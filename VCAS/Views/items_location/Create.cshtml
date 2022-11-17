@@ -1,0 +1,43 @@
+﻿@model VCAS.Models.VCAS_REF_items_location
+
+@{
+    ViewBag.Title = "Create  VCAS_REF_items_location";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Create new:: VCAS_REF_items_location</h2>
+                    <hr class="bg-gray" />
+		            @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+
+                    <div class="row">
+                        <div class="cell-5">
+                            <label><span class="fg-grayBlue">Add -</span> Item:</label>
+                            @Html.DropDownList("FK_REF_itemsId", null, htmlAttributes: new { data_role = "select" })
+                            @Html.ValidationMessageFor(model => model.FK_REF_itemsId, "", new { @class = "fg-magenta" })
+                        </div>
+                        <div class="cell-2">
+                            <br />
+                            <span style="left:33%; position: relative;" class="mif-arrow-right icon"></span>
+                        </div>
+                        <div class="cell-5">
+                            <label><span class="fg-grayBlue">To -</span> Location:</label>
+                            @Html.DropDownList("FK_councilId", null, htmlAttributes: new { data_role = "select" })
+                            @Html.ValidationMessageFor(model => model.FK_councilId, "", new { @class = "fg-magenta" })
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

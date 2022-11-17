@@ -1,0 +1,40 @@
+﻿@model VCAS.Models.VCAS_supportDocs
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Details:: VCAS_supportDocs</h2>
+    <hr class="bg-gray" />
+    <table class="table subcompact">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.name)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.name)
+                <td>
+            </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.desc)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.desc)
+                <td>
+            </tr>
+        </tbody>
+    </table>
+    <hr class="bg-gray" />
+    <object data='@Url.Content("~/Content/Uploads/" + Model.media)' type='@Model.media_type' width="100%" height="1000">
+        <p>Click to access <a href='@Url.Content("~/Content/Uploads/" + Model.media)'>Media Document</a></p>
+    </object>
+</div>

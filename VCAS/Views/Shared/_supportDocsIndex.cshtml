@@ -1,0 +1,47 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_supportDocs>
+
+@{
+    ViewBag.Title = "_supportDocsIndex";
+}
+
+@if (ViewBag.roleID == "admin")
+{
+<a href="@Url.Action("Create")" class="image-button success" style="text-decoration: none !important;">
+    <span class="mif-chevron-thin-right icon"></span>
+    <span class="caption">Create New</span>
+</a>
+}
+<br />
+
+
+<div style="margin-top: 50px">
+    <div class="grid">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="cell-lg-3">
+                    <div class="card image-header">
+                        <div class="card-header fg-white" style='background-image: url(@Url.Content("~/Content/document.jpg)")'>
+                            <span style="color: #000000;font-weight: 500;box-shadow: 0px 0px 0px 4px rgba(0, 0, 0, 0.4);background: white;padding: 5px;">@Html.DisplayFor(modelItem => item.name)</span>
+                        </div>
+                        <div class="card-content p-2">
+                            <p class="fg-gray">ID: @Html.DisplayFor(modelItem => item.Id) - <a href="@Url.Action("Edit", new { id = item.Id })" class="button outline small"><span class="mif-pencil icon"></span></a> <a href="@Url.Action("Delete", new { id = item.Id })"  class="button outline small"><span class="mif-bin icon"></span></a></p>
+                            @if (item.desc != "")
+                            {
+                                <p>...</p>
+                            }
+                            else
+                            {
+                                <p>@Html.DisplayFor(modelItem => item.desc)</p>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <a href="@Url.Action("Details", new { id=item.Id })" class="button default"><span class="mif-arrow-up-right icon"></span> Access</a>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@model VCAS.Models.VCAS_users
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">Delete:: Registered User</h2>
+    <h3 class="fg-darkGray">Are you sure you want to delete this?</h3>
+    <hr class="bg-gray" />
+
+    <table class="table subcompact">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.fullName)</th>
+                <th>@Html.DisplayNameFor(model => model.userName)</th>
+                <th>@Html.DisplayNameFor(model => model.email)</th>
+                <th>@Html.DisplayNameFor(model => model.VCAS_REF_userRoles.name)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.fullName)</td>
+                <td>@Html.DisplayFor(model => model.userName)</td>
+                <td>@Html.DisplayFor(model => model.email)</td>
+                <td>@Html.DisplayFor(model => model.VCAS_REF_userRoles.name)</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="button alert" style="width: 100%;" />
+        </div>
+    }
+</div>

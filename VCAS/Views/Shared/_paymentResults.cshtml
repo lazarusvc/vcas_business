@@ -1,0 +1,58 @@
+﻿@model IEnumerable<VCAS.Models.Bulk_payments_to_download_Result>
+
+@{
+    ViewBag.Title = "Download File - Issued Payments";
+}
+
+<table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.checkNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.receiverName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.receiverID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.receiverIDType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.signature)
+            </th>
+        </tr>
+    </thead>
+
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    EC$ @Html.DisplayFor(modelItem => item.amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.checkNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receiverName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receiverID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receiverIDType)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.signature)" width="100%" style="max-width: 100px;" />
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>

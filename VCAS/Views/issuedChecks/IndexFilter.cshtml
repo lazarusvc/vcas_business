@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Index Filter";
+}
+
+<!-- Quick Links ============================================= -->
+<div>
+    <h6 style="font-weight: 700;" class="fg-grayBlue">:: Quick Links</h6>
+    @Html.MvcSiteMap().Menu(false, true, true)
+</div>
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <div class="row">
+        <div class="cell-3">
+            <label>Start Date: </label>
+            <input data-role="calendarpicker" id="startDate">
+        </div>
+        <div class="cell-3">
+            <label>End Date: </label>
+            <input data-role="calendarpicker" id="endDate">
+        </div>
+        <div class="cell-3">
+            <label>Location: </label>
+            @Html.DropDownList("council_select", null, htmlAttributes: new { data_role = "select" })
+        </div>
+        <div class="cell-3">
+            <lable>Status: </lable>
+            <select data-role="select" id="status">
+                <option value="A">Approved</option>
+                <option value="P">Pending</option>
+                <option value="C">Completed</option>
+            </select>
+        </div>
+        <button type="submit" id="SubmitIF" class="button yellow" style="width: 100%">Submit</button>
+    </div>
+    <br />
+    <hr class="fg-grayBlue" />
+
+    @using (Html.BeginForm("Print", "issuedChecks", FormMethod.Post))
+    {
+        <input type="hidden" name="p_loc" id="p_loc" />
+        <input type="hidden" name="p_start" id="p_start" />
+        <input type="hidden" name="p_end" id="p_end" />
+        <input type="hidden" name="p_status" id="p_status" />
+
+        <button type="submit" class="image-button m-1" id="printBtn" style="text-decoration: none !important;">
+            <span class="mif-print icon"></span>
+            <span class="caption">Print Results</span>
+        </button>
+    }
+
+    <div id="partialview8">
+        @Html.Action("IndexFilterResults", "issuedChecks")
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Partial View Data Logic
+        // ==============================
+
+        // Disable Download Button on load
+        $('#printBtn').prop('disabled', true);
+
+        $("#SubmitIF").on('click', function () {
+            // Params
+            var sd = $("#startDate").val();
+            var ed = $("#endDate").val();
+            var dloc = $("#council_select").val();
+            var stat = $("#status").val();
+
+            // Printing data
+            $("#p_loc").val(dloc);
+            $("#p_start").val(sd);
+            $("#p_end").val(ed);
+            $("#p_status").val(stat);
+
+            // Enable Download Button on click
+            $('#printBtn').prop('disabled', false);
+
+            $.ajax({
+                url: '@Url.Action("IndexFilterResults", "issuedChecks")?&loc=' + dloc + '&s=' + sd + '&e=' + ed + '&stat=' + stat,
+                type: "GET",
+                success: function (result) {
+                    $("#partialview8").html(result);
+                }
+            });
+        });
+    });
+</script>

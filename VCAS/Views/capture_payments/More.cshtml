@@ -1,0 +1,245 @@
+﻿@model VCAS.Models.VCAS_capture_payments
+@using MvcSiteMapProvider.Web.Html;
+@{
+    ViewBag.Title = "Capture Payment";
+}
+
+<!-- Quick Links ============================================= -->
+<div class="row">
+    <h6 style="font-weight: 700;" class="fg-grayBlue">:: Quick Links</h6>
+    <div class="cell-lg-12">
+        @Html.MvcSiteMap().Menu(false, true, true)
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+        <h3 class="fg-gray">Receipt Capture</h3>
+        <div class="row">
+            <div class="cell-lg-6">
+                <div class="remark">
+                    @Html.HiddenFor(model => model.invoice, new { @Value = false })
+                    @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.issuer, new { htmlAttributes = new { data_role = "input", data_prepend = "Issuer:", @Value = ViewBag.issuer, @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.issuer, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.receiptNo, new { htmlAttributes = new { data_role = "input", data_prepend = "Receipt No:", @Value = ViewBag.recNo, placeholder = ViewBag.recNo, @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.receiptNo, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
+                    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
+                </div>
+                <div class="row">
+                    <div class="cell-lg-12">
+                        <div class="remark">
+                            @Html.EditorFor(model => model.payer, new { htmlAttributes = new { data_role = "input", data_prepend = "Payer: ", @Value = ViewBag.payer } })
+                            @Html.ValidationMessageFor(model => model.payer, "", new { @class = "fg-magenta" })
+                            @if (ViewBag.cusID != null)
+                            {
+                                @Html.HiddenFor(model => model.payerID, new { @Value = ViewBag.cusID })
+                            }
+                            @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "Amount: ", @type = "number" } })
+                            @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
+                            @Html.DropDownList("FK_paymentType", null, htmlAttributes: new { data_role = "select" })
+                            @Html.ValidationMessageFor(model => model.FK_paymentType, "", new { @class = "fg-magenta" })
+                            <div id="checkDetails">
+                                @Html.EditorFor(model => model.checkNo, new { htmlAttributes = new { data_role = "input", data_prepend = "Check No.: " } })
+                                @Html.ValidationMessageFor(model => model.checkNo, "", new { @class = "fg-magenta" })
+
+                                @Html.DropDownList("FK_bankDetails", null, htmlAttributes: new { data_role = "select" })
+                                @Html.ValidationMessageFor(model => model.FK_bankDetails, "", new { @class = "fg-magenta" })
+                            </div>
+
+                            <div class="row">
+                                <div class="cell-lg-8">
+                                    <label class="fg-darkBlue">Sales Item:</label>
+                                    @Html.DropDownList("FK_items", null, " -- Select --", htmlAttributes: new { data_role = "select" })
+                                    @Html.ValidationMessageFor(model => model.FK_items, "", new { @class = "fg-magenta" })
+                                    <div id="orderSelect">
+                                        <label class="fg-darkBlue">Customer Order:</label>
+                                        @Html.DropDownList("cusOrders", null, "N/A", htmlAttributes: new { data_role = "select" })
+                                        @Html.HiddenFor(model => model.orderID)
+                                    </div>
+                                </div>
+                                <div class="cell-lg-2">
+                                    <br />
+                                    <input type="checkbox" data-role="checkbox" data-style="2" data-caption="ORDERS" class="fg-darkBlue" id="orderCheckInput" />
+                                    <span class="badge inside bg-red fg-white" style="top: 20px !important;">@ViewBag.cusOrdersCount</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="remark">
+                    @Html.TextAreaFor(model => model.comment, new { data_role = "textarea", placeholder = "... Comment" })
+                    @Html.ValidationMessageFor(model => model.comment, "", new { @class = "fg-magenta" })
+                </div>
+
+
+            </div>
+
+            <div class="cell-lg-6">
+                <!-- PREVIEW ------------------ -->
+                <div data-role="panel"
+                     data-title-caption="Receipt"
+                     data-cls-panel="shadow-3"
+                     data-title-icon="<span class='mif-apps'></span>">
+                    <img id="rec_logo" src="#" width="10%" />
+                    <div class="row">
+                        <div class="cell-lg-6">
+                            <p><strong>Receipt No.: </strong>@ViewBag.recNo</p>
+                            <hr class="bg-gray" />
+                            <p><strong>Location: </strong><span id="REC-loc"></span></p>
+                            <p><strong>Issuer: </strong><span id="REC-issuer"></span></p>
+                            <p><strong>Date: </strong><span id="REC-date"></span></p>
+                        </div>
+                        <div class="cell-lg-6">
+                            <p><strong>Order No.: </strong><span id="REC-orderNum"></span></p>
+                            <hr class="bg-gray" />
+                            <p><strong>Customer:</strong></p>
+                            <p><span id="REC-payer"></span></p>
+                            <hr class="bg-gray" />
+                            <p><strong>Billing:</strong></p>
+                            <p>Paid with: <span id="REC-payType"></span></p>
+                            <div id="billingCheck">
+                                <p></p>
+                                <p>Check Number: <span id="REC-check"></span></p>
+                                <p>Bank: <span id="REC-bank"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="cell-lg-12">
+                            @Html.Action("PrintMoreItems", "capture_payments", new { r = ViewBag.recNo })
+                        </div>
+                    </div>
+                </div>
+                <!-- BUTTONS ------------------ -->
+                <br />
+                <div class="row">
+                    <div class="cell-lg-12">
+                        <ul class="pagination no-gap size-large">
+                            <li class="page-item">
+                                <button type="submit" class="button large yellow">
+                                    <span class="mif-done_all icon"></span> Capture
+                                </button>
+                            </li>
+                            <li class="page-item">
+                                <input type="hidden" value="@ViewBag.recNo" main="r" id="r" />
+                                <button type="button" class="button large default" id="printMore">
+                                    <span class="mif-printer icon"></span> Print
+                                </button>
+                            </li>
+                            <li class="page-item">
+                                <a href='@Url.Action("RePrint")' class="button large default">
+                                    <span class="mif-printer icon"></span> Reprint
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        var receiptNo = $("#receiptNo");
+        receiptNo.css("background-color", "#ffe484");
+        var saved_receiptNo = receiptNo;
+        var issuer = $("#issuer");
+        issuer.css("background-color", "#f8f8f8");
+        var datetime = $("#datetime");
+        var payer = $("#payer");
+        var checkNo = $("#checkNo");
+        var amount = $("#amount");
+        var item = $("#FK_items");
+        var bank = $("#FK_bankDetails");
+        var payment = $("#FK_paymentType");
+        var checkDetails = $("#checkDetails");
+        var billing1 = $("#billingCheck");
+        var orderSelect = $("#orderSelect");
+        var cusOrders = $("#cusOrders");
+        var comment = $("#comment");
+        var location = $("#FK_location");
+        var rec_loc = $("#REC-loc").text(location.children("option:selected").text());
+        // Payment logic
+        // ==================================
+        checkDetails.hide();
+        billing1.hide();
+        var paymentType = $("#REC-payType").text(payment.children("option:selected").text());
+        payment.on('keyup change', function () {
+            $("#REC-payType").text(payment.children("option:selected").text());
+            if (paymentType === "Check") {
+                checkDetails.show();
+                billing1.show();
+            } else {
+                checkDetails.hide();
+                billing1.hide();
+            }
+        });
+        // Default onClick logic
+        // ==================================
+        // issuer
+        $("#REC-issuer").html(issuer.val());
+        issuer.on('keyup change', function () {
+            $("#REC-issuer").html(issuer.val());
+        });
+        // datetime
+        $("#REC-date").html(datetime.val());
+        datetime.on('keyup change', function () {
+            $("#REC-date").html(datetime.val());
+        });
+        // payer
+        $("#REC-payer").html(payer.val());
+        payer.on('keyup change', function () {
+            $("#REC-payer").html(payer.val());
+        });
+        // checkNo
+        checkNo.on('keyup change', function () {
+            $("#REC-check").html(checkNo.val());
+        });
+        // bank
+        bank.on('keyup change', function () {
+            $("#REC-bank").html(bank.text());
+        });
+        // items + comment
+        item.on('keyup change', function () {
+            $("#REC-desc").text(item.children("option:selected").text());
+        });
+        // amount
+        amount.on('keyup change', function () {
+            $("#REC-amount").html('$' + amount.val());
+            $("#REC-total").html('$' + amount.val());
+        });
+        // comment
+        comment.on('keyup change', function () {
+            $("#REC-comments").html('<hr class="bg-gray" width="50" /><br/>' + comment.val());
+        });
+        // More Print onClick logic
+        // ==================================
+        $("#printMore").on('click', function () {
+            window.location = '@Url.Action("Print", "capture_payments")';
+        });
+        // Item Order onClick logic
+        // ==================================
+        orderSelect.hide();
+        $('#orderCheckInput').change(function () {
+            if ($(this).is(":checked")) {
+                orderSelect.show();
+                cusOrders.on('keyup change', function () {
+                    $("#orderID").val(cusOrders.children("option:selected").val());
+                    $("#REC-orderNum").text(cusOrders.children("option:selected").val());
+                    $("#REC-orderDesc").text(cusOrders.children("option:selected").text());
+                });
+            } else {
+                orderSelect.hide();
+            }
+        });
+    });
+</script>

@@ -1,0 +1,53 @@
+@{
+    ViewBag.Title = "Index Admin";
+}
+
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h3 class="fg-grayBlue">Payments:: <span>Administration</span></h3>
+    <div class="row">
+        <div class="cell-lg-4">
+            <label>Start Date: </label>
+            <input data-role="calendarpicker" id="startDate">
+        </div>
+        <div class="cell-lg-4">
+            <label>End Date: </label>
+            <input data-role="calendarpicker" id="endDate">
+        </div>
+        <div class="cell-lg-4">
+            <label>Location: </label>
+            @Html.DropDownList("council_select", null, htmlAttributes: new { data_role = "select" })
+        </div>
+        <button type="submit" id="SubmitIA" class="button yellow" style="width: 100%">Submit</button>
+    </div>
+    <br />
+    <hr class="fg-grayBlue" />
+
+    <div id="partialview9">
+        @Html.Action("IndexAdminResults", "issuedChecks")
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Partial View Data Logic
+        // ==============================
+        $("#SubmitIA").on('click', function () {
+            // Params
+            var sd = $("#startDate").val();
+            var ed = $("#endDate").val();
+            var dloc = $("#council_select").val();
+            // Printing data
+            $("#p_loc").val(dloc);
+            $("#p_start").val(sd);
+            $("#p_end").val(ed);
+            $.ajax({
+                url: '@Url.Action("IndexAdminResults", "issuedChecks")?&loc=' + dloc + '&s=' + sd + '&e=' + ed,
+                type: "GET",
+                success: function (result) {
+                    $("#partialview9").html(result);
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_inventory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="fg-darkGray">VCAS_inventory:: Index</h2>
+<a href="@Url.Action("Create")" class="image-button success" style="text-decoration: none !important;">
+    <span class="mif-chevron-thin-right icon"></span>
+    <span class="caption">Create New</span>
+</a>
+<br />
+<table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
+    <thead>
+        <tr>
+            <th>
+                Image:
+            </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.desc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateModified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.partNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.label)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.currentStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.size)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sellingPrice)
+        </th>
+        <th>
+            manage
+        </th>
+    </tr>
+  </thead>
+
+@foreach (var item in Model) {
+    <tbody>
+    <tr>
+        <td>
+            <img src="@item.image" width="100%" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.desc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.partNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.label)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startStock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.currentStock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.size)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unitPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sellingPrice)
+        </td>
+        <td>
+                <ul class="pagination no-gap size-large">
+                    <li class="page-item">
+                        <a href="@Url.Action("Edit", new { id = item.Id })" class="button info"><span class="mif-pencil icon"></span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="@Url.Action("Delete", new { id = item.Id })" class="button alert"><span class="mif-bin icon"></span></a>
+                    </li>
+                </ul>
+        </td>
+    </tr>
+    </tbody>
+}
+
+</table>

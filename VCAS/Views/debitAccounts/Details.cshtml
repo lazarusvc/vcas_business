@@ -1,0 +1,39 @@
+﻿@model VCAS.Models.VCAS_debitAccounts
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">Details:: Debit Account</h2>
+    <hr class="bg-gray" />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>DateTime:</th>
+                <th>Account Name:</th>
+                <th>Account Num:</th>
+                <th>Amount:</th>
+                <th>Payment Type:</th>
+                <th>Remittance</th>
+                <th>Payee</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.datetime)</td>
+                <td>@Html.DisplayFor(model => model.name)</td>
+                <td>@Html.DisplayFor(model => model.acctNum)</td>
+                <td>@Html.DisplayFor(model => model.amount)</td>
+                <td>@Html.DisplayFor(model => model.VCAS_REF_payment_type.name)</td>
+                <td>@Html.DisplayFor(model => model.remittance)</td>
+                <td>@Html.DisplayFor(model => model.payee)</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr class="bg-gray" />
+    <object data='@Url.Content("~/Content/Uploads/" + Model.attach_statement)' type="application/pdf" width="100%" height="1000">
+        <p>Click to access <a href='@Url.Content("~/Content/Uploads/" + Model.attach_statement)'>Statement</a></p>
+    </object>
+</div>

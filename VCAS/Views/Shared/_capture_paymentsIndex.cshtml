@@ -1,0 +1,57 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_capture_payments>
+
+
+<table class="table subcompact" data-horizontal-scroll="true">
+    <thead>
+        <tr>
+            <th>
+                Line #
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Amount
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_REF_items.name) - @Html.DisplayFor(modelItem => item.VCAS_REF_items.desc)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.amount)
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+<table class="table subcompact" data-horizontal-scroll="true">
+    <thead>
+        <tr>
+            <th>
+                Comment
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.comment)
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+<h4 align="RIGHT">Total: <strong>$@ViewBag.total</strong></h4>

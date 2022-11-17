@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Bulk Create Users";
+}
+
+@using (Html.BeginForm("BulkCreate", "users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-horizontal">
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+                    <h2 class="fg-darkGray">Bulk Create:: Users</h2>
+                    <hr class="bg-gray" />
+                    <div class="form-group files">
+                        <label>Upload File *.xlsx</label><br />
+                        <input type="file" class="form-control" name="postedFile" id="postedFile" accept=".xls,.xlsx">
+                    </div>
+                    <br />
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

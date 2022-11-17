@@ -1,0 +1,47 @@
+﻿@model VCAS.Models.VCAS_undepositedFunds
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Details:: VCAS_undepositedFunds</h2>
+    <hr class="bg-gray" />
+    <table class="table subcompact">
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.amount)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.amount)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.datetime)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.datetime)<td>
+        </tr>
+        </tbody> 
+        <thead>
+        <tr>        
+        <th>@Html.DisplayNameFor(model => model.VCAS_council.name)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.VCAS_council.name)<td>
+        </tr>
+        </tbody> 
+    </table>
+    <a href="@Url.Action("Edit", new { id = Model.Id })" class="button info" style="width: 100%;"><span class="mif-pencil icon"></span></a>
+ 
+</div>

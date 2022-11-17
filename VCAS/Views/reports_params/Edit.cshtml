@@ -1,0 +1,43 @@
+﻿@model VCAS.Models.VCAS_REF_reports_params
+
+@{
+    ViewBag.Title = "Edit  VCAS_REF_reports_params";
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Edit:: VCAS_REF_reports_params</h2>
+                    <hr class="bg-gray" />
+                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    @Html.EditorFor(model => model.param_key, new { htmlAttributes = new { data_role = "input", data_prepend = "Key: " } })
+                    @Html.ValidationMessageFor(model => model.param_key, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.param_value, new { htmlAttributes = new { data_role = "input", data_prepend = "Value: " } })
+                    @Html.ValidationMessageFor(model => model.param_value, "", new { @class = "fg-magenta" })
+                    @Html.EditorFor(model => model.param_dataType, new { htmlAttributes = new { data_role = "input", data_prepend = "Data Type: " } })
+                    @Html.ValidationMessageFor(model => model.param_dataType, "", new { @class = "fg-magenta" })
+                    <br />
+                    <label>Select Report:</label>
+                    @Html.DropDownList("FK_REF_reportsId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_REF_reportsId, "", new { @class = "fg-magenta" })
+                    <br />
+                    <label>Select Location:</label>
+                    @Html.DropDownList("FK_Location", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

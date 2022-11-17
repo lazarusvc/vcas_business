@@ -1,0 +1,34 @@
+﻿@model VCAS.Models.VCAS_REF_items
+
+@{
+    ViewBag.Title = "Edit:: Sale Item";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-horizontal">
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Edit new:: Sale Item</h2>
+                    <hr class="bg-gray" />
+
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "input", data_prepend = "Item Name:" } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                    <br />
+                    @Html.TextAreaFor(model => model.desc, new { data_role = "textarea", placeholder = "... Item Description" })
+                    @Html.ValidationMessageFor(model => model.desc, "", new { @class = "text-danger" })
+                    <br />
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

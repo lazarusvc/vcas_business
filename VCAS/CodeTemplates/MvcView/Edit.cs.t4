@@ -1,0 +1,211 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+<#
+// "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
+string boolType = "System.Boolean";
+Version requiredMvcVersion = new Version("5.1.0.0");
+bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+    ViewBag.Title = "<#= ViewName#>  <#= ViewDataTypeShortName #>";
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+
+
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><#= ViewName #></title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+#>
+<#
+if (ReferenceScriptLibraries) {
+#>
+<#
+    if (!IsLayoutPageSelected && IsBundleConfigPresent) {
+#>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<#
+    }
+#>
+<#
+    else if (!IsLayoutPageSelected) {
+#>
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<#
+    }
+#>
+
+<#
+}
+#>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Edit:: <#= ViewDataTypeShortName #></h2>
+                    <hr class="bg-gray" />
+<# 
+    if (isControlHtmlAttributesSupported) {
+#>
+                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+<#        
+    } else {
+#>
+                    @Html.ValidationSummary(true)
+<#      
+    }
+#>
+<#
+foreach (PropertyMetadata property in ModelMetadata.Properties) {
+    if (property.Scaffold && !property.IsAssociation) {
+        if (property.IsPrimaryKey) {
+#>
+                    @Html.HiddenFor(model => model.<#= property.PropertyName #>)
+
+<#
+        } else if (!property.IsReadOnly) {
+
+            bool isCheckbox = property.TypeName.Equals(boolType);
+            if (property.IsForeignKey) {
+#>
+<# 
+            if (isControlHtmlAttributesSupported) {
+#>
+                    @Html.DropDownList("<#= property.PropertyName #>", null, htmlAttributes: new { data_role = "select" })
+<#
+            } else {
+#>
+                    @Html.DropDownList("<#= property.PropertyName #>", String.Empty)
+<#
+            }
+#>
+<#
+            } else  if (isControlHtmlAttributesSupported) {
+                if (isCheckbox) {
+#>
+                    <div class="checkbox">
+<#
+                    PushIndent("    ");
+#>
+                    @Html.EditorFor(model => model.<#= property.PropertyName #>)
+<#
+                } else if (property.IsEnum && !property.IsEnumFlags) {
+#>
+                    @Html.EnumDropDownListFor(model => model.<#= property.PropertyName #>, htmlAttributes: new { data_role = "input", data_prepend = "Data: " })
+<#
+                } else {
+#>
+                    @Html.EditorFor(model => model.<#= property.PropertyName #>, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+<#
+                }
+            } else {
+#>
+                    @Html.EditorFor(model => model.<#= property.PropertyName #>)
+<#
+            }
+#>
+<# 
+            if (isControlHtmlAttributesSupported) {
+#>
+                    @Html.ValidationMessageFor(model => model.<#= property.PropertyName #>, "", new { @class = "fg-magenta" })
+<#        
+            } else {
+#>
+                    @Html.ValidationMessageFor(model => model.<#= property.PropertyName #>)
+<#      
+            }
+#>
+<#
+            if (isCheckbox && isControlHtmlAttributesSupported) {
+                PopIndent();
+#>
+                    </div>
+<#
+            }
+#>
+<#
+        }
+    }
+}
+#>
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<#
+if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
+#>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<#
+}
+#>
+<#
+else if(IsLayoutPageSelected && ReferenceScriptLibraries) {
+#>
+
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<#
+}
+#>
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+    ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

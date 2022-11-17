@@ -1,0 +1,73 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_users>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="fg-darkGray">Users:: Index</h2>
+<a href="@Url.Action("Create")" class="image-button success" style="text-decoration: none !important;">
+    <span class="mif-chevron-thin-right icon"></span>
+    <span class="caption">Create New</span>
+</a>
+<a href="@Url.Action("BulkCreate")" class="image-button" style="text-decoration: none !important;">
+    <span class="mif-upload icon"></span>
+    <span class="caption">Bulk Upload</span>
+</a>
+<a href="@Url.Action("DownloadForBulkUsers")" class="image-button" style="text-decoration: none !important;">
+    <span class="mif-download icon"></span>
+    <span class="caption">Download File (.xlxs) for Bulk Upload</span>
+</a>
+<br/>
+<br />
+<table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.userName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VCAS_REF_userRoles.name)
+            </th>
+            <th>
+                manage
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VCAS_REF_userRoles.name)
+            </td>
+            <td>
+                <ul class="pagination no-gap size-large">
+                    <li class="page-item">
+                        <a href="@Url.Action("Edit", new { id = item.Id })" class="button info"><span class="mif-pencil icon"></span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="@Url.Action("Delete", new { id = item.Id })" class="button alert"><span class="mif-bin icon"></span></a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+    }
+
+</table>
