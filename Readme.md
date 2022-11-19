@@ -25,7 +25,6 @@ Edited with: https://stackedit.io/
     <img src="http://vouchcast.com/wp-content/uploads/2022/10/vouchcast_screenshots2-1024x648.png" alt="VC Accounting Software">
   </a>
 
-<h1 align="center">Source & Package Coming Soon</h1>
   <h3 align="center">VC Accounting Software</h3>
 
   <p align="center">
