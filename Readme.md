@@ -234,15 +234,15 @@ Website Link: [https://vouchcast.com](https:vouchcast.com)
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[contributors-url]: https://github.com/Lazarus118/vcas_open/graphs/contributors
+[contributors-url]: /graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[forks-url]: https://github.com/Lazarus118/vcas_open/network/members
+[forks-url]: /network/members
 [stars-shield]: https://img.shields.io/github/stars/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[stars-url]: https://github.com/Lazarus118/vcas_open/stargazers
+[stars-url]: /stargazers
 [issues-shield]: https://img.shields.io/github/issues/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[issues-url]: https://github.com/Lazarus118/vcas_open/issues
+[issues-url]: /issues
 [license-shield]: https://img.shields.io/github/license/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[license-url]: https://github.com/Lazarus118/vcas_open/blob/master/LICENSE.txt
+[license-url]: /blob/master/LICENSE.txt
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
