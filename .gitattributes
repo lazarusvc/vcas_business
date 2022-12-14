@@ -48,6 +48,8 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 *.sql filter=lfs diff=lfs merge=lfs -text
+
+*.htm linguist-detectable=false
 *.html linguist-detectable=false
 *.css linguist-detectable=false
-*.javascript linguist-detectable=false
+*.js linguist-detectable=false
