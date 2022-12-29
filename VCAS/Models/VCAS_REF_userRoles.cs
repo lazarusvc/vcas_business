@@ -28,6 +28,8 @@ public partial class VCAS_REF_userRoles
 
         this.VCAS_supportDocs = new HashSet<VCAS_supportDocs>();
 
+        this.VCAS_forms = new HashSet<VCAS_forms>();
+
     }
 
 
@@ -48,6 +50,10 @@ public partial class VCAS_REF_userRoles
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<VCAS_supportDocs> VCAS_supportDocs { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<VCAS_forms> VCAS_forms { get; set; }
 
 }
 

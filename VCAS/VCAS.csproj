@@ -236,6 +236,7 @@
     <Compile Include="Controllers\districtController.cs" />
     <Compile Include="Controllers\expensesController.cs" />
     <Compile Include="Controllers\expense_locationController.cs" />
+    <Compile Include="Controllers\formsController.cs" />
     <Compile Include="Controllers\inventoryController.cs" />
     <Compile Include="Controllers\items_locationController.cs" />
     <Compile Include="Controllers\ordersController.cs" />
@@ -306,6 +307,9 @@
     <Compile Include="Models\VCAS_expenses.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VCAS_forms.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VCAS_inventory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -319,6 +323,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VCAS_REF_expense_location.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VCAS_REF_forms.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VCAS_REF_items.cs">
@@ -751,9 +758,15 @@
     <Content Include="Views\Shared\_paymentAdmin.cshtml" />
     <Content Include="Views\issuedChecks\IndexAdmin.cshtml" />
     <Content Include="Views\capture_payments\Edit.cshtml" />
+    <Content Include="Views\forms\Create.cshtml" />
+    <Content Include="Views\forms\Delete.cshtml" />
+    <Content Include="Views\forms\Details.cshtml" />
+    <Content Include="Views\forms\Edit.cshtml" />
+    <Content Include="Views\forms\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="CodeTemplates\CodeTemplates\" />
     <Folder Include="Content\Uploads\" />
   </ItemGroup>
   <ItemGroup>

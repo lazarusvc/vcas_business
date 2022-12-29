@@ -145,7 +145,11 @@
                     <ul class="pagination no-gap size-large">
                         <li class="page-item" style="padding:5px;">
                             <label class="fg-darkBlue">Save as Receipt:</label>
-                            @Html.EditorFor(model => model.invoice, new { htmlAttributes = new { data_role = "select", @Class = "input-small" } })
+                            @Html.DropDownListFor(model => model.invoice, new List<SelectListItem>
+                            {
+                                new SelectListItem() { Text = "YES", Value = "false" },
+                                new SelectListItem() { Text = "NO", Value = "true" },
+                            }, null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
                         </li>
                         <li class="page-item">
                             <button type="submit" class="button large yellow">

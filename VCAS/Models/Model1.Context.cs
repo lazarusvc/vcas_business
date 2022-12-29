@@ -85,6 +85,10 @@ public partial class ModelContainer : DbContext
 
     public virtual DbSet<VCAS_capture_payments> VCAS_capture_payments { get; set; }
 
+    public virtual DbSet<VCAS_forms> VCAS_forms { get; set; }
+
+    public virtual DbSet<VCAS_REF_forms> VCAS_REF_forms { get; set; }
+
 
     public virtual int usp_DebitReducingbalance(Nullable<double> amt, Nullable<short> icID, Nullable<short> daID)
     {

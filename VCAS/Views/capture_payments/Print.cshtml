@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Print Receipt - @ViewBag.receiptNo</title>
     <!-- Metro 4 -->
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
@@ -41,6 +41,13 @@
             height: 2px !important;
             max-width: 50% !important;
             background-color: #1d1d1d !important;
+        }
+        html {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100%;
         }
     </style>
 </head>

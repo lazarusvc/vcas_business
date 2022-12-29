@@ -38,6 +38,8 @@ public partial class VCAS_council
 
         this.VCAS_capture_payments = new HashSet<VCAS_capture_payments>();
 
+        this.VCAS_forms = new HashSet<VCAS_forms>();
+
     }
 
 
@@ -88,6 +90,10 @@ public partial class VCAS_council
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<VCAS_capture_payments> VCAS_capture_payments { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<VCAS_forms> VCAS_forms { get; set; }
 
 }
 
