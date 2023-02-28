@@ -49,6 +49,8 @@ namespace VCAS.Controllers
             ViewBag.receiptNo = collection["r"].ToString();
             ViewBag.recLogo = db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_logo).FirstOrDefault();
             ViewBag.council = db.VCAS_district.Where(x => x.VCAS_users.userName == GlobalSession.User).Select(x => x.VCAS_council.name).FirstOrDefault();
+            ViewBag.recHeader = db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_header).FirstOrDefault();
+            ViewBag.recFooter = db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_footer).FirstOrDefault();
             var report = db.VCAS_capture_payments.Where(x => x.receiptNo == recNo && x.FK_location == GlobalSession.Location).FirstOrDefault();
             return View(report);
         }
@@ -59,6 +61,8 @@ namespace VCAS.Controllers
             ViewBag.receiptNo = lastRec;
             ViewBag.recLogo = db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_logo).FirstOrDefault();
             ViewBag.council = db.VCAS_district.Where(x => x.VCAS_users.userName == GlobalSession.User).Select(x => x.VCAS_council.name).FirstOrDefault();
+            ViewBag.recHeader = db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_header).FirstOrDefault();
+            ViewBag.recFooter = db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_footer).FirstOrDefault();
             var report = db.VCAS_capture_payments.Where(x => x.receiptNo == lastRec && x.FK_location == GlobalSession.Location).FirstOrDefault();
             return View(report);
         }
@@ -166,7 +170,7 @@ namespace VCAS.Controllers
                     SqlParameter[] Parameters = { new SqlParameter("@p_cusID", vCAS_capture_payments.payerID) };
                     db.Database.ExecuteSqlCommand("EXEC usp_UpdateCusOrderStat @p_cusID", Parameters);
                 }
-                return RedirectToAction("Create");
+                return RedirectToAction("PrintLast");
             }
             // Issuer
             ViewBag.issuer = db.VCAS_users.Where(x => x.userName == User.Identity.Name).Select(x => x.fullName).FirstOrDefault();

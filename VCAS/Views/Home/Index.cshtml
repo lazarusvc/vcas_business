@@ -1,6 +1,4 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@{ ViewBag.Title = "Home Page"; }
 
 <div class="row  bg-darkGray">
     <div class="cell-lg-4">
@@ -40,74 +38,88 @@
     <div class="cell-lg-12">
         <hr class="bg-grayBlue" />
         <h4>Actions ::</h4>
-        @if (ViewBag.URole == "cashier")
-        {
-            <a href="@Url.Action("Create", "capture_payments")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-tags icon"></span>
-                <span class="caption">Receipt Capture</span>
-            </a>
-            <a href="@Url.Action("Create", "issuedChecks")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-dollars icon"></span>
-                <span class="caption">Issue Payments</span>
-            </a>
-            <a href="@Url.Action("Orders", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-cart icon"></span>
-                <span class="caption">Orders</span>
-            </a>
-            <a href="@Url.Action("Inventory", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-barcode icon"></span>
-                <span class="caption">Inventory</span>
-            </a>
-        }
-        @if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
-        {
-            <a href="@Url.Action("Create", "capture_payments")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-tags icon"></span>
-                <span class="caption">Receipt Capture</span>
-            </a>
-            <a href="@Url.Action("Create", "issuedChecks")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-dollars icon"></span>
-                <span class="caption">Issue Payments</span>
-            </a>
-            <a href='@Url.Action("Approvals", "issuedChecks")' class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-thumbs-up icon"></span>
-                <span class="caption">Approve Payments</span>
-            </a>
-            <a href='#' class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-user-check icon"></span>
-                <span class="caption">Approval List</span>
-            </a>
-            <a href="@Url.Action("Orders", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-cart icon"></span>
-                <span class="caption">Customer Orders</span>
-            </a>
-            <a href="@Url.Action("Inventory", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-barcode icon"></span>
-                <span class="caption">Inventory</span>
-            </a>
-        }
-        @if (ViewBag.URole == "approver")
-        {
-            <a href='@Url.Action("Approvals", "issuedChecks")' class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-thumbs-up icon"></span>
-                <span class="caption">Approve Payments</span>
-            </a>
-            <a href='#' class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-user-check icon"></span>
-                <span class="caption">Approval List</span>
-            </a>
-            <a href="@Url.Action("Orders", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-cart icon"></span>
-                <span class="caption">Customer Orders</span>
-            </a>
-            <a href="@Url.Action("Inventory", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-                <span class="mif-barcode icon"></span>
-                <span class="caption">Inventory</span>
-            </a>
-        }
+    @if (ViewBag.URole == "cashier")
+    {
+        <a href="@Url.Action("Create", "capture_payments")" class="image-button large rounded" style="text-decoration: none !important;">
+        <span class="mif-tags icon"></span>
+        <span class="caption">Receipt Capture</span>
+        </a>
+        <a href="@Url.Action("Start", "issuedChecks")" class="image-button large rounded" style="text-decoration: none !important;">
+        <span class="mif-dollars icon"></span>
+        <span class="caption">Issue Payments</span>
+        </a>
+        <a href="@Url.Action("Orders", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
+        <span class="mif-cart icon"></span>
+        <span class="caption">Orders</span>
+        </a>
+        <a href="@Url.Action("Inventory", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
+        <span class="mif-barcode icon"></span>
+        <span class="caption">Inventory</span>
+        </a>
+    }
+    @if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
+    {
+        <a href="@Url.Action("Create", "capture_payments")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+        <span class="caption" style="font-size:x-small;">Receipt<br />Capture (POS)</span>
+        <span class="mif-tags icon"></span>
+        </a>
+        <a href="@Url.Action("Start", "issuedChecks")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+        <span class="caption" style="font-size:x-small;">Issue Payments</span>
+        <span class="mif-dollars icon"></span>
+        </a>
+        <a href='@Url.Action("Approvals", "issuedChecks")' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+        <span class="caption" style="font-size:x-small;">Approve<br />Payments</span>
+        <span class="mif-thumbs-up icon"></span>
+        </a>
+        <a href='#' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+        <span class="caption" style="font-size:x-small;">Approval List</span>
+        <span class="mif-user-check icon"></span>
+        </a>
+        <a href="@Url.Action("Orders", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+        <span class="caption" style="font-size:x-small;">Customer Orders</span>
+        <span class="mif-cart icon"></span>
+        </a>
+        <a href="@Url.Action("Inventory", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+        <span class="caption" style="font-size:x-small;">Inventory</span>
+        <span class="mif-barcode icon"></span>
+        </a>
+    }
+    @if (ViewBag.URole == "approver")
+    {
+        <a href='@Url.Action("Approvals", "issuedChecks")' class="image-button large rounded" style="text-decoration: none !important;">
+        <span class="mif-thumbs-up icon"></span>
+        <span class="caption">Approve Payments</span>
+        </a>
+        <a href='#' class="image-button large rounded" style="text-decoration: none !important;">
+        <span class="mif-user-check icon"></span>
+        <span class="caption">Approval List</span>
+        </a>
+        <a href="@Url.Action("Orders", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
+        <span class="mif-cart icon"></span>
+        <span class="caption">Customer Orders</span>
+        </a>
+        <a href="@Url.Action("Inventory", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
+        <span class="mif-barcode icon"></span>
+        <span class="caption">Inventory</span>
+        </a>
+    }
     </div>
 
 </div>
+<div class="row">
+    <div class="cell-lg-12">
+        <hr class="bg-darkGray" />
+        <h4>Forms ::</h4>
+        @foreach (var v in (IEnumerable<VCAS.Models.VCAS_forms>)ViewBag.frms)
+        {
+            <a href="@Url.Action("Details", "forms", new { id = v.Id })" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">@v.name</span>
+                <span class="mif-clipboard icon"></span>
+            </a>
+        }
+    </div>
+</div>
+
 
 <div class="row">
     <div id="partialview1" class="cell-lg-6" style="background-color: #b4b4b4;">
@@ -144,13 +156,13 @@
 
         // Default Undeposit Funds
         // ===============================
-        var uf_data = 0; 
+        var uf_data = 0;
         $.ajax({
             url: '@Url.Action("IndexJSON", "undepositedFunds")?&loc=' + parseInt(data_default),
             type: "GET",
             success: function (result) {
-                $.each(result, function (k, v) {                   
-                    
+                $.each(result, function (k, v) {
+
                     for (var i in v.amount) {
                         uf_data += v.amount;
                         document.getElementById('undeposited_funds').innerHTML = "EC$ " + (uf_data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
@@ -255,15 +267,15 @@
                     $("#partialview4").html(result);
                 }
             });
-            
+
             // ====
             var uf_data = 0; // Undeposit Funds
             $.ajax({
                 url: '@Url.Action("IndexJSON", "undepositedFunds")?&loc=' + parseInt(data),
                 type: "GET",
                 success: function (result) {
-                    $.each(result, function (k, v) {                   
-                        uf_data += v.amount;                        
+                    $.each(result, function (k, v) {
+                        uf_data += v.amount;
                     });
                     document.getElementById('undeposited_funds').innerHTML = "EC$ " + (uf_data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                 }

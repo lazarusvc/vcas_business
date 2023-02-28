@@ -2,7 +2,7 @@
 <RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DataSource1">
   <ConnectionProperties>
     <Extension>SQL</Extension>
-    <ConnectString>Data Source=gocdssr;Initial Catalog=VCAS_DB_Dev</ConnectString>
+    <ConnectString>Data Source=vouchcast01;Initial Catalog=VCAS_DB</ConnectString>
   </ConnectionProperties>
   <DataSourceID>e8732d0f-16c8-4be1-b843-eed000fee1a1</DataSourceID>
 </RptDataSource>

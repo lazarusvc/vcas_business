@@ -85,6 +85,7 @@ namespace VCAS.Controllers
 
         // INDEX ADMIN
         // ***********************************************************
+        [CustomAuthorize(Roles = "admin")]
         public ActionResult IndexAdmin()
         {
             // Select Organization
@@ -432,11 +433,30 @@ namespace VCAS.Controllers
             return RedirectToAction("Index");
         }
 
+        // START PAGE
+        // ***********************************************************
+        [CustomAuthorize(Roles = "cashier, admin")]
+        public ActionResult Start()
+        {
+            // Fixed location
+            // ----------------------------------------
+            var u = db.VCAS_session.Where(x => x.username == System.Web.HttpContext.Current.User.Identity.Name).Select(x => x.username).FirstOrDefault();
+            int loc = Convert.ToInt32(db.VCAS_session.Where(x => x.username == u).Select(x => x.location).FirstOrDefault());
+            // ----------------------------------------
+
+            var a1 = db.VCAS_issuedChecks.Where(x => x.complete == false && x.auth_signature == null && x.approval == null && x.FK_location == loc);
+            ViewBag.pending_approvals = a1.Count();
+            var a2 = db.VCAS_issuedChecks.Where(x => x.complete == false && x.auth_signature != null && x.approval == 1 && x.FK_location == loc);
+            ViewBag.pending_delivery = a2.Count();
+            var a3 = db.VCAS_issuedChecks.Where(x => x.complete == false && x.auth_signature == null && x.approval == null && x.FK_location == loc);
+            ViewBag.entries = a3.Count();
+            return View();
+        }
+
         // GET: issuedChecks/Create
         // CREATE PAGE
         // ***********************************************************
         [CustomAuthorize(Roles = "cashier, admin")]
-        // [MvcSiteMapNode(Title = "Issue Payments", ParentKey = "Home")]
         public ActionResult Create()
         {
 
@@ -537,6 +557,152 @@ namespace VCAS.Controllers
                     comments = vCAS_issuedChecks.comments
                 });
                 db.SaveChanges();
+                return RedirectToAction("Index", "Home", null);
+            }
+
+            ViewBag.issuer = db.VCAS_users.Where(x => x.userName == User.Identity.Name).Select(x => x.fullName).FirstOrDefault();
+            ViewBag.FK_receiverID_TypesId = new SelectList(db.VCAS_REF_receiverID_Types, "Id", "name", vCAS_issuedChecks.FK_receiverID_TypesId);
+            ViewBag.FK_expensesId = new SelectList((from e in db.VCAS_REF_expense_location.Where(x => x.FK_councilId == loc) select new { id = e.Id, e.VCAS_expenses.name }), "id", "name", vCAS_issuedChecks.FK_expensesId);
+            // var fk_locSession = db.VCAS_district.Where(x => x.VCAS_users.userName == System.Web.HttpContext.Current.User.Identity.Name).Select(x => x.FK_location).FirstOrDefault();
+            var debitAcctSession = db.VCAS_debitAccounts.Where(x => x.FK_location == loc).ToList();
+            ViewBag.FK_debitAccountsId = new SelectList(debitAcctSession, "Id", "name", vCAS_issuedChecks.FK_debitAccountsId);
+
+            var dis_user = db.VCAS_district.Where(x => x.VCAS_users.userName == System.Web.HttpContext.Current.User.Identity.Name).Select(x => x.VCAS_council).ToList();
+            ViewBag.FK_location = new SelectList(dis_user, "Id", "name");
+            return View(vCAS_issuedChecks);
+        }
+
+
+        // GET: issuedChecks/CreateApproved
+        // CREATE PAGE
+        // ***********************************************************
+        [CustomAuthorize(Roles = "admin, approver")]
+        public ActionResult CreateApproved()
+        {
+            // Fixed location
+            // ----------------------------------------
+            var u = db.VCAS_session.Where(x => x.username == System.Web.HttpContext.Current.User.Identity.Name).Select(x => x.username).FirstOrDefault();
+            int loc = Convert.ToInt32(db.VCAS_session.Where(x => x.username == u).Select(x => x.location).FirstOrDefault());
+            // ----------------------------------------
+
+            ViewBag.issuer = db.VCAS_users.Where(x => x.userName == User.Identity.Name).Select(x => x.fullName).FirstOrDefault();
+            ViewBag.FK_receiverID_TypesId = new SelectList(db.VCAS_REF_receiverID_Types, "Id", "name");
+
+            var debitAcctSession = db.VCAS_debitAccounts.Where(x => x.FK_location == loc).ToList();
+            ViewBag.FK_debitAccountsId = new SelectList(debitAcctSession, "Id", "name");
+            ViewBag.FK_expensesId = new SelectList((from e in db.VCAS_REF_expense_location.Where(x => x.FK_councilId == loc) select new { id = e.Id, e.VCAS_expenses.name }), "id", "name");
+
+            var dis_user = db.VCAS_district.Where(x => x.VCAS_users.userName == System.Web.HttpContext.Current.User.Identity.Name).Select(x => x.VCAS_council).ToList();
+            ViewBag.FK_location = new SelectList(dis_user, "Id", "name");
+
+            var a1 = db.VCAS_issuedChecks.Where(x => x.complete == false && x.auth_signature == null && x.approval == null && x.FK_location == loc);
+            ViewBag.pending_approvals = a1.Count();
+            var a2 = db.VCAS_issuedChecks.Where(x => x.complete == false && x.auth_signature != null && x.approval == 1 && x.FK_location == loc);
+            ViewBag.pending_delivery = a2.Count();
+            var a3 = db.VCAS_issuedChecks.Where(x => x.complete == false && x.auth_signature == null && x.approval == null && x.FK_location == loc);
+            ViewBag.entries = a3.Count();
+            return View();
+        }
+
+        // POST: issuedChecks/CreateApproved
+        // CREATE PAGE
+        // ***********************************************************
+        [HttpPost, ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateApproved([Bind(Include = "Id,datetime,amount,checkNo,issuer,receiverName,FK_receiverID_TypesId,receiverID,signature,FK_debitAccountsId,attach_ID,FK_location,approver, approval, pending_approval, auth_signature, complete, FK_expensesId, attach_Doc, attach_Receipt, comments")] VCAS_issuedChecks vCAS_issuedChecks, HttpPostedFileBase attach_ID, HttpPostedFileBase attach_Doc, HttpPostedFileBase attach_Receipt)
+        {
+            // Fixed location
+            // ----------------------------------------
+            var u = db.VCAS_session.Where(x => x.username == System.Web.HttpContext.Current.User.Identity.Name).Select(x => x.username).FirstOrDefault();
+            int loc = Convert.ToInt32(db.VCAS_session.Where(x => x.username == u).Select(x => x.location).FirstOrDefault());
+            // ----------------------------------------
+
+            // Attach Receiver's ID
+            if (attach_ID != null && attach_ID.ContentLength > 0)
+            {
+                fileName = Path.GetFileNameWithoutExtension(attach_ID.FileName);
+                string extension = Path.GetExtension(attach_ID.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssffff") + extension;
+                vCAS_issuedChecks.attach_ID = FilePath() + fileName;
+                fileName = Path.Combine(Server.MapPath(FilePath()), fileName);
+                attach_ID.SaveAs(fileName);
+            }
+            else
+            {
+                fileName = null;
+            }
+
+
+            // Attach Voucher Document
+            if (attach_Doc != null && attach_Doc.ContentLength > 0)
+            {
+                fileName2 = Path.GetFileNameWithoutExtension(attach_Doc.FileName);
+                string extension = Path.GetExtension(attach_Doc.FileName);
+                fileName2 = fileName2 + DateTime.Now.ToString("yymmssffff") + extension;
+                vCAS_issuedChecks.attach_Doc = FilePath() + fileName2;
+                fileName2 = Path.Combine(Server.MapPath(FilePath()), fileName2);
+                attach_Doc.SaveAs(fileName2);
+            }
+            else
+            {
+                fileName2 = null;
+            }
+
+            // Attach Receipt
+            if (attach_Receipt != null && attach_Receipt.ContentLength > 0)
+            {
+                fileName3 = Path.GetFileNameWithoutExtension(attach_Receipt.FileName);
+                string extension = Path.GetExtension(attach_Receipt.FileName);
+                fileName3 = fileName3 + DateTime.Now.ToString("yymmssffff") + extension;
+                vCAS_issuedChecks.attach_Receipt = FilePath() + fileName3;
+                fileName3 = Path.Combine(Server.MapPath(FilePath()), fileName3);
+                attach_Receipt.SaveAs(fileName3);
+            }
+            else
+            {
+                fileName3 = vCAS_issuedChecks.attach_Receipt;
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                db.VCAS_issuedChecks.Add(new VCAS_issuedChecks
+                {
+                    datetime = vCAS_issuedChecks.datetime,
+                    amount = vCAS_issuedChecks.amount,
+                    checkNo = vCAS_issuedChecks.checkNo,
+                    issuer = vCAS_issuedChecks.issuer,
+                    receiverName = vCAS_issuedChecks.receiverName,
+                    FK_receiverID_TypesId = vCAS_issuedChecks.FK_receiverID_TypesId,
+                    receiverID = vCAS_issuedChecks.receiverID,
+                    signature = vCAS_issuedChecks.signature,
+                    FK_debitAccountsId = vCAS_issuedChecks.FK_debitAccountsId,
+                    attach_ID = vCAS_issuedChecks.attach_ID,
+                    FK_location = vCAS_issuedChecks.FK_location,
+                    approver = vCAS_issuedChecks.approver,
+                    approval = vCAS_issuedChecks.approval,
+                    pending_approval = vCAS_issuedChecks.pending_approval,
+                    auth_signature = vCAS_issuedChecks.auth_signature,
+                    complete = vCAS_issuedChecks.complete,
+                    FK_expensesId = vCAS_issuedChecks.FK_expensesId,
+                    attach_Doc = vCAS_issuedChecks.attach_Doc,
+                    attach_Receipt = vCAS_issuedChecks.attach_Receipt,
+                    comments = vCAS_issuedChecks.comments
+                });
+                db.SaveChanges();
+
+                // Reducing Balance on debitAccounts
+                // EXEC Stored Procedure - usp_DebitReducingbalance
+                //////////////////////////////////////////////////
+                int lastID = db.VCAS_issuedChecks.OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefault();
+                SqlParameter[] Parameters =
+                {
+                    new SqlParameter("@p_amt", vCAS_issuedChecks.amount),
+                    new SqlParameter("@p_icID", lastID),
+                    new SqlParameter("@p_daID", vCAS_issuedChecks.FK_debitAccountsId)
+                };
+                db.Database.ExecuteSqlCommand("EXEC usp_DebitReducingbalance @p_amt, @p_icID, @p_daID", Parameters);
+                //////////////////////////////////////////////////
                 return RedirectToAction("Index", "Home", null);
             }
 

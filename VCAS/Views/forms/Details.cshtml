@@ -1,90 +1,33 @@
 ﻿@model VCAS.Models.VCAS_forms
 
 @{
-    Layout = null;
+    ViewBag.Title = "Form Details";
 }
 
-<!DOCTYPE html>
+@*<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <iframe id="myIframe" srcdoc='@Html.Raw(Model.form)'></iframe> 
+    <hr class="fg-gray" />
+    <p class="fg-darkGray" align="RIGHT">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer })</p>
+    <p align="RIGHT" class="fg-darkGray">@Model.name<br />@Model.desc<br />version: @Model.dateModified.ToString("dd-MM-yyyy")</p>
+</div>*@
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
-        <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Details:: VCAS_forms</h2>
-        <hr class="bg-gray" />
-        <table class="table subcompact">
-            <thead>
-            <tr>        
-            <th>@Html.DisplayNameFor(model => model.name)</th>
-            </tr>
-            </thead>
-    
-            <tbody>
-            <tr>
-            <td>@Html.DisplayFor(model => model.name)<td>
-            </tr>
-            </tbody> 
-            <thead>
-            <tr>        
-            <th>@Html.DisplayNameFor(model => model.desc)</th>
-            </tr>
-            </thead>
-    
-            <tbody>
-            <tr>
-            <td>@Html.DisplayFor(model => model.desc)<td>
-            </tr>
-            </tbody> 
-            <thead>
-            <tr>        
-            <th>@Html.DisplayNameFor(model => model.form)</th>
-            </tr>
-            </thead>
-    
-            <tbody>
-            <tr>
-            <td>@Html.DisplayFor(model => model.form)<td>
-            </tr>
-            </tbody> 
-            <thead>
-            <tr>        
-            <th>@Html.DisplayNameFor(model => model.dateModified)</th>
-            </tr>
-            </thead>
-    
-            <tbody>
-            <tr>
-            <td>@Html.DisplayFor(model => model.dateModified)<td>
-            </tr>
-            </tbody> 
-            <thead>
-            <tr>        
-            <th>@Html.DisplayNameFor(model => model.VCAS_council.name)</th>
-            </tr>
-            </thead>
-    
-            <tbody>
-            <tr>
-            <td>@Html.DisplayFor(model => model.VCAS_council.name)<td>
-            </tr>
-            </tbody> 
-            <thead>
-            <tr>        
-            <th>@Html.DisplayNameFor(model => model.VCAS_REF_userRoles.name)</th>
-            </tr>
-            </thead>
-    
-            <tbody>
-            <tr>
-            <td>@Html.DisplayFor(model => model.VCAS_REF_userRoles.name)<td>
-            </tr>
-            </tbody> 
-        </table>
-        <a href="@Url.Action("Edit", new { id = Model.Id })" class="button info" style="width: 100%;"><span class="mif-pencil icon"></span></a>
-     
+<div class="row">
+    <div class="cell-lg-6">
+        <div data-role="panel"
+             data-title-caption="Panel title"
+             data-title-icon="<span class='mif-apps'></span>"
+             data-collapsible="true">
+            <iframe id="myIframe" srcdoc='@Html.Raw(Model.form)'></iframe>
+            <hr class="fg-gray" />
+            <p class="fg-darkGray" align="RIGHT">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer })</p>
+            <p align="RIGHT" class="fg-darkGray">@Model.name<br />@Model.desc<br />version: @Model.dateModified.ToString("dd-MM-yyyy")</p>
+        </div>
     </div>
-</body>
-</html>
+    <div class="cell-lg-6">
+        <div data-role="panel"
+             data-title-caption="Panel title"
+             data-title-icon="<span class='mif-apps'></span>"
+             data-collapsible="true">
+        </div>
+    </div>
+</div>

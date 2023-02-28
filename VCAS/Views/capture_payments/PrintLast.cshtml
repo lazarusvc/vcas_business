@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width" />
     <title>Print Receipt - @ViewBag.receiptNo</title>
     <!-- Metro 4 -->
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
@@ -24,12 +24,7 @@
                 display: block;
                 margin-bottom: -20px;
             }
-            .rec_inv {
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-                display: block;
-            }
+
             .rec_body h1 {
                 font-weight: 700;
             }
@@ -49,7 +44,7 @@
     </button>
 
     <div class="rec_body">
-        <div class="rec_inv" style="width:50%; border-top: 1px black dotted;">
+        <div class="rec_inv" style="width:50%; border-top: 1px black dotted;margin: 0 auto;">
             @if (Model.invoice ?? false)
             {
                 <h1 align="CENTER">Invoice</h1>
@@ -60,11 +55,11 @@
             }
         </div>
         <img src="@Url.Content(ViewBag.recLogo)" width="100" />
-        <br />
-        <p align="CENTER"><strong>Commonwealth of Dominica <br />@ViewBag.council</strong></p>
-        <p align="CENTER" style="border-top: 1px black dotted;">@Html.DisplayFor(model => model.datetime)</p>
-        <br />
-        <br />
+        <p align="CENTER"><strong>@ViewBag.council</strong></p><br />
+        <div style="margin: 0 auto;">
+            @Html.Raw(ViewBag.recHeader)
+        </div>
+        <p align="CENTER" style="border-top: 1px black dotted;">@Html.DisplayFor(model => model.datetime)</p><br /><br />
 
         <table class="table" style="border-top: 1px black dotted;">
             <tr>
@@ -116,9 +111,9 @@
         <br />
         <br />
         <hr />
-        <p style="text-align: left; left: 30%; display: block; position: relative;">For <br />The Commissioner</p>
-        <br />
-        <strong style="text-align: center; display: block;">THANK YOU.<br />HAVE A NICE DAY</strong>
+        <div style="margin: 0 auto;">
+            @Html.Raw(ViewBag.recFooter)
+        </div>
         <hr />
     </div>
 

@@ -1,0 +1,121 @@
+﻿@model VCAS.Models.VCAS_issuedChecks
+
+@{
+    ViewBag.Title = "CreateApproved  VCAS_issuedChecks";
+}
+
+<h6 style="font-weight: 700;" class="fg-grayBlue">:: Navigation</h6>
+@Html.MvcSiteMap().Menu(false, true, false)
+
+@using (Html.BeginForm("CreateApproved", "issuedChecks", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 5px;">
+    <div class="row">
+        <div class="cell-3">
+            <h3 class="fg-gray">Issue Payments</h3>
+        </div>
+        <div class="cell-9">
+            @Html.EditorFor(model => model.issuer, new { htmlAttributes = new { @class = "metro-input input-small", data_role = "input", data_prepend = "Issuer:", @Value = User.Identity.Name, @Readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.issuer, "", new { @class = "fg-magenta" })
+        </div>
+    </div><br />
+
+    <div class="remark">
+        <h6 class="fg-gray">Debit Account:</h6>
+        @Html.DropDownList("FK_debitAccountsId", null, "-- select Account --", htmlAttributes: new { data_role = "select" })
+        @Html.ValidationMessageFor(model => model.FK_debitAccountsId, "", new { @class = "fg-magenta" })
+        <h6 class="fg-gray">Expense:</h6>
+        @Html.DropDownList("FK_expensesId", null, htmlAttributes: new { data_role = "select" })
+        @Html.ValidationMessageFor(model => model.FK_expensesId, "", new { @class = "fg-magenta" })
+        <h6 class="fg-gray">Check Number:</h6>
+        @Html.EditorFor(model => model.checkNo, new { htmlAttributes = new { data_role = "input", data_prepend = "CheckNo:" } })
+        @Html.ValidationMessageFor(model => model.checkNo, "", new { @class = "fg-magenta" })
+    </div>
+    <div class="remark">
+        <h6 class="fg-gray">Location:</h6>
+        @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
+        @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
+        <h6 class="fg-gray">Issuing Amount:</h6>
+        @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "Amount:" } })
+        @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
+        <h6 class="fg-gray">Vendor:</h6>
+        @Html.EditorFor(model => model.receiverName, new { htmlAttributes = new { data_role = "input", data_prepend = "Receiver Name:" } })
+        @Html.ValidationMessageFor(model => model.receiverName, "", new { @class = "fg-magenta" })
+        <h6 class="fg-gray">Vendor's ID:</h6>
+        @Html.EditorFor(model => model.receiverID, new { htmlAttributes = new { data_role = "input", data_prepend = "ReceiverID:" } })
+        @Html.ValidationMessageFor(model => model.receiverID, "", new { @class = "fg-magenta" })
+        <h6 class="fg-gray">ID Type:</h6>
+        @Html.DropDownList("FK_receiverID_TypesId", null, htmlAttributes: new { data_role = "select" })
+        @Html.ValidationMessageFor(model => model.FK_receiverID_TypesId, "", new { @class = "fg-magenta" })
+
+        <br />
+        <div class="grid">
+            <div class="row">
+                <div class="cell-8">
+                    <div class="form-group files">
+                        <h6 class="fg-gray">Attach Receiver's ID (Optional):</h6><br />
+                        <input type="file" class="form-control" name="attach_ID" id="attach_ID">
+                        @Html.HiddenFor(model => model.attach_ID)
+                        @Html.ValidationMessageFor(model => model.attach_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    @Html.HiddenFor(model => model.datetime, new { @Value = @System.DateTime.Now })
+    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.approver, new { @Value = User.Identity.Name })
+    @Html.ValidationMessageFor(model => model.approver, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.signature)
+    @Html.ValidationMessageFor(model => model.signature, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.issuer, new { @Value = User.Identity.Name })
+    @Html.ValidationMessageFor(model => model.issuer, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.approval, new { @Value = 1 })
+    @Html.ValidationMessageFor(model => model.approval, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.pending_approval, new { @Value = 1 })
+    @Html.ValidationMessageFor(model => model.pending_approval, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.auth_signature, new { @Value = "/Content/Uploads/stamp.png" })
+    @Html.ValidationMessageFor(model => model.auth_signature, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.complete, new { @Value = true })
+    @Html.ValidationMessageFor(model => model.complete, "", new { @class = "text-danger" })
+
+    <div class="remark">
+        <div class="form-group files">
+            <h6 class="fg-gray">Attach Voucher, Invoice, Purchase Order e.t.c (Optional):</h6><br />
+            <input type="file" class="form-control" name="attach_Doc" id="attach_Doc">
+            @Html.HiddenFor(model => model.attach_Doc)
+            @Html.ValidationMessageFor(model => model.attach_Doc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="remark">
+        <div class="form-group files">
+            <h6 class="fg-gray">Attach Receipt (Optional):</h6><br />
+            <input type="file" class="form-control" name="attach_Receipt" id="attach_Receipt">
+            @Html.HiddenFor(model => model.attach_Receipt)
+            @Html.ValidationMessageFor(model => model.attach_Receipt, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <h6 class="fg-gray">Comment (Optional):</h6><br />
+        @Html.TextAreaFor(model => model.comments, new { data_role = "textarea", @Id = "tinymce1" })
+        @Html.ValidationMessageFor(model => model.comments, "", new { @class = "text-danger" })
+    </div>
+    <div class="row">
+        <div class="cell-12">
+            <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+        </div>
+    </div>
+</div>
+}

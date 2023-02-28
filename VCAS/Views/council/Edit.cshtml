@@ -7,8 +7,8 @@
 @using (Html.BeginForm("Edit", "council", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">       
+
+    <div class="form-horizontal">
         <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
             <div class="row">
                 <div class="cell-12">
@@ -16,28 +16,77 @@
                     <hr class="bg-gray" />
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
 
-                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "input", data_prepend = "Name.: " } })
-                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "fg-magenta" })
+                    <div class="remark">
+                        <h6 class="fg-gray">Details:</h6><br />
+                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "input", data_prepend = "Organization Name.: " } })
+                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "fg-magenta" })
 
-                    @Html.EditorFor(model => model.location, new { htmlAttributes = new { data_role = "input", data_prepend = "Location.: " } })
-                    @Html.ValidationMessageFor(model => model.location, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.location, new { htmlAttributes = new { data_role = "input", data_prepend = "Organization Location.: " } })
+                        @Html.ValidationMessageFor(model => model.location, "", new { @class = "fg-magenta" })
 
-                    @Html.EditorFor(model => model.vendor_Id, new { htmlAttributes = new { data_role = "input", data_prepend = "Vendor ID.: " } })
-                    @Html.ValidationMessageFor(model => model.vendor_Id, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.vendor_Id, new { htmlAttributes = new { data_role = "input", data_prepend = "Organization Vendor ID.: " } })
+                        @Html.ValidationMessageFor(model => model.vendor_Id, "", new { @class = "fg-magenta" })
+                    </div>
 
-                    @Html.EditorFor(model => model.app_name, new { htmlAttributes = new { data_role = "input", data_prepend = "App Name.: " } })
-                    @Html.ValidationMessageFor(model => model.app_name, "", new { @class = "fg-magenta" })
+                    <div class="remark">
+                        <h6 class="fg-gray">Application details:</h6>
+                        <p class="fg-gray">Logo for cover:</p>
+                        <div class="row">
+                            <div class="cell-lg-4">
+                                @if (!string.IsNullOrWhiteSpace(Model.app_cover))
+                                {
+                                    <img src="@Url.Content(Model.app_cover)" />
+                                }
+                            </div>
+                            <div class="cell-lg-8">
+                                <div class="form-group files">
+                                    <input type="file" class="form-control" name="app_cover" id="app_cover">
+                                    @Html.ValidationMessageFor(model => model.app_cover, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="form-group files">
-                        <h6 class="fg-gray">Logo for receipts:</h6><br />
-                        <input type="file" class="form-control" name="receipt_logo" id="receipt_logo">
-                        @Html.ValidationMessageFor(model => model.receipt_logo, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.app_name, new { htmlAttributes = new { data_role = "input", data_prepend = "App Name.: " } })
+                        @Html.ValidationMessageFor(model => model.app_name, "", new { @class = "fg-magenta" })
+                    </div>
+
+                    <div class="remark">
+                        <h6 class="fg-gray">Receipt details:</h6>
+                        <p class="fg-gray">Logo for receipts:</p>
+                        <div class="row">
+                            <div class="cell-lg-4">
+                                @if (!string.IsNullOrWhiteSpace(Model.receipt_logo))
+                                {
+                                    <img src="@Url.Content(Model.receipt_logo)" />
+                                }
+                            </div>
+                            <div class="cell-lg-8">
+                                <div class="form-group files">
+                                    <input type="file" class="form-control" name="receipt_logo" id="receipt_logo">
+                                    @Html.ValidationMessageFor(model => model.receipt_logo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="cell-lg-6">
+                                <p class="fg-gray">Receipts header:</p>
+                                @Html.TextAreaFor(model => model.receipt_header, new { data_role = "textarea", @Id = "tinymce1" })
+                                @Html.ValidationMessageFor(model => model.receipt_header, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="cell-lg-6">
+                                <p class="fg-gray">Receipts footer:</p>
+                                @Html.TextAreaFor(model => model.receipt_footer, new { data_role = "textarea", @Id = "tinymce2" })
+                                @Html.ValidationMessageFor(model => model.receipt_footer, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
 
                     <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
                 </div>
-                </div>
             </div>
         </div>
+    </div>
 }

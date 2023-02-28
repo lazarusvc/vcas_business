@@ -65,13 +65,13 @@ public partial class VCAS_capture_payments
 
     public virtual ICollection<VCAS_creditTrans> VCAS_creditTrans1 { get; set; }
 
-    public virtual VCAS_council VCAS_council { get; set; }
-
     public virtual VCAS_REF_bank_details VCAS_REF_bank_details { get; set; }
 
     public virtual VCAS_REF_items VCAS_REF_items { get; set; }
 
     public virtual VCAS_REF_payment_type VCAS_REF_payment_type { get; set; }
+
+    public virtual VCAS_council VCAS_council { get; set; }
 
 }
 

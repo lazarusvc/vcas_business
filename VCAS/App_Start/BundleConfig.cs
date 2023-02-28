@@ -48,6 +48,11 @@ namespace VCAS
             bundles.Add(new ScriptBundle("~/bundles/main-index").Include(
                     "~/Scripts/main-index.js"
                 ));
+
+            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
+                    "~/Scripts/tinymce/jquery.tinymce.min.js",
+                    "~/Scripts/tinymce/tinymce.min.js"
+                ));
         }
     }
 }

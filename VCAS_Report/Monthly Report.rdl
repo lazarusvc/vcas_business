@@ -6,7 +6,7 @@
     <DataSource Name="DataSource">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=vouchcast;Initial Catalog=VCAS_DB</ConnectString>
+        <ConnectString>Data Source=vouchcast01;Initial Catalog=VCAS_DB</ConnectString>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>bc3c075a-c33b-43dd-9e9c-15b236d90edb</rd:DataSourceID>
@@ -1207,7 +1207,7 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
             </Textbox>
             <Image Name="Image1">
               <Source>External</Source>
-              <Value>="http://vcas.gov.dm" &amp; First(Fields!receipt_logo.Value, "DataSet1")</Value>
+              <Value>=First(Fields!receipt_logo.Value, "DataSet1")</Value>
               <MIMEType>image/png</MIMEType>
               <Sizing>FitProportional</Sizing>
               <Top>0.4445cm</Top>
@@ -1244,7 +1244,7 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
                       <Style />
                     </TextRun>
                     <TextRun>
-                      <Value>VC  Accounting  </Value>
+                      <Value>VC  Accounting   Software </Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontFamily>Impact</FontFamily>
@@ -1255,7 +1255,7 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
                       <Style />
                     </TextRun>
                     <TextRun>
-                      <Value>app.vouchcast.com</Value>
+                      <Value>vouchcast.com</Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontWeight>Bold</FontWeight>

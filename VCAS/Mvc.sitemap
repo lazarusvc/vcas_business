@@ -5,7 +5,7 @@
 
 		<mvcSiteMapNode title="Dashboard" controller="Home" action="Index">
 			<mvcSiteMapNode title="Receipts" controller="capture_payments" action="Create" />
-			<mvcSiteMapNode title="Payments" controller="issuedChecks" action="Create"/>
+			<mvcSiteMapNode title="Payments" controller="issuedChecks" action="Start"/>
 			<mvcSiteMapNode title="Disbursal" controller="issuedChecks" action="Delivery"/>
 			<mvcSiteMapNode title="Reports" controller="Home" action="Reports" />
 			<mvcSiteMapNode title="Support" controller="Home" action="Help" />

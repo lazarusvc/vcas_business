@@ -47,13 +47,13 @@ namespace VCAS.Controllers
         // POST: council/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
         [CustomAuthorize(Roles = "admin")]
-        public ActionResult Create([Bind(Include = "Id,name,location,vendor_Id,app_name,receipt_logo,receipt_footer")] VCAS_council vCAS_council, HttpPostedFileBase receipt_logo)
+        public ActionResult Create([Bind(Include = "Id,name,location,vendor_Id,app_name,app_cover,receipt_logo,receipt_header,receipt_footer")] VCAS_council vCAS_council, HttpPostedFileBase receipt_logo, HttpPostedFileBase app_cover)
         {
-            // Attach Receipt logo
-            if (receipt_logo != null && receipt_logo.ContentLength > 0)
+
+            if (receipt_logo != null && receipt_logo.ContentLength > 0) // Attach Receipt logo
             {
                 fileName = Path.GetFileNameWithoutExtension(receipt_logo.FileName);
                 string extension = Path.GetExtension(receipt_logo.FileName);
@@ -62,6 +62,15 @@ namespace VCAS.Controllers
                 fileName = Path.Combine(Server.MapPath("~/Content/Uploads/"), fileName);
                 receipt_logo.SaveAs(fileName);
             }
+            else if (app_cover != null && app_cover.ContentLength > 0) // Attach App cover image
+            {
+                fileName = Path.GetFileNameWithoutExtension(app_cover.FileName);
+                string extension = Path.GetExtension(app_cover.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssffff") + extension;
+                vCAS_council.app_cover = "/Content/Uploads/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Content/Uploads/"), fileName);
+                app_cover.SaveAs(fileName);
+            }
             else
             {
                 fileName = null;
@@ -69,13 +78,17 @@ namespace VCAS.Controllers
 
             if (ModelState.IsValid)
             {
-                db.VCAS_council.Add(new VCAS_council {
+                db.VCAS_council.Add(new VCAS_council
+                {
                     Id = vCAS_council.Id,
                     name = vCAS_council.name,
                     location = vCAS_council.location,
                     vendor_Id = vCAS_council.vendor_Id,
                     app_name = vCAS_council.app_name,
-                    receipt_logo = vCAS_council.receipt_logo
+                    app_cover = vCAS_council.app_cover,
+                    receipt_logo = vCAS_council.receipt_logo,
+                    receipt_header = vCAS_council.receipt_header,
+                    receipt_footer = vCAS_council.receipt_footer
                 });
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home", null);
@@ -102,12 +115,12 @@ namespace VCAS.Controllers
         // POST: council/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,location,vendor_Id,app_name,receipt_logo,receipt_footer")] VCAS_council vCAS_council, HttpPostedFileBase receipt_logo)
+        public ActionResult Edit([Bind(Include = "Id,name,location,vendor_Id,app_name,app_cover,receipt_logo,receipt_header,receipt_footer")] VCAS_council vCAS_council, HttpPostedFileBase receipt_logo, HttpPostedFileBase app_cover)
         {
-            // Attach Receipt logo
-            if (receipt_logo != null && receipt_logo.ContentLength > 0)
+
+            if (receipt_logo != null && receipt_logo.ContentLength > 0) // Attach Receipt logo
             {
                 fileName = Path.GetFileNameWithoutExtension(receipt_logo.FileName);
                 string extension = Path.GetExtension(receipt_logo.FileName);
@@ -115,6 +128,15 @@ namespace VCAS.Controllers
                 vCAS_council.receipt_logo = "/Content/Uploads/" + fileName;
                 fileName = Path.Combine(Server.MapPath("~/Content/Uploads/"), fileName);
                 receipt_logo.SaveAs(fileName);
+            }
+            else if (app_cover != null && app_cover.ContentLength > 0) // Attach App cover image
+            {
+                fileName = Path.GetFileNameWithoutExtension(app_cover.FileName);
+                string extension = Path.GetExtension(app_cover.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssffff") + extension;
+                vCAS_council.app_cover = "/Content/Uploads/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Content/Uploads/"), fileName);
+                app_cover.SaveAs(fileName);
             }
             else
             {

@@ -43,9 +43,9 @@ public partial class VCAS_forms
 
 
 
-    public virtual VCAS_council VCAS_council { get; set; }
-
     public virtual VCAS_REF_userRoles VCAS_REF_userRoles { get; set; }
+
+    public virtual VCAS_council VCAS_council { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 

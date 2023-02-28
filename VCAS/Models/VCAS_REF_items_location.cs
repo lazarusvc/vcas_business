@@ -26,9 +26,9 @@ public partial class VCAS_REF_items_location
 
 
 
-    public virtual VCAS_council VCAS_council { get; set; }
-
     public virtual VCAS_REF_items VCAS_REF_items { get; set; }
+
+    public virtual VCAS_council VCAS_council { get; set; }
 
 }
 

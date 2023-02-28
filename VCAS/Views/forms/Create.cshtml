@@ -1,14 +1,9 @@
 ﻿@model VCAS.Models.VCAS_forms
 
-@{
-    ViewBag.Title = "Create";
-}
+@{ ViewBag.Title = "Create"; }
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
+<form action="" method="post">
     <div class="form-horizontal">
         <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 10px;">
             <div class="row">
@@ -19,11 +14,7 @@
                 <div class="cell-lg-8">
                     <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Form Builder::</h2>
                     <hr class="bg-gray" />
-                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
-
                     @Html.HiddenFor(model => model.dateModified, new { @Value = System.DateTime.Now })
-                    @Html.ValidationMessageFor(model => model.dateModified, "", new { @class = "fg-magenta" })
-
                     <p><span class="mif-folder-open"></span> Drop Elements here:</p>
                     <div class="window">
                         <div class="window-caption">
@@ -35,43 +26,38 @@
                             </div>
                         </div>
                         <div class="window-content p-2">
+
+                            <!-- FORM ******************** -->
+                            <div style="height:1000px;border:1px dashed grey; padding: 10px;" id="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <input type="hidden" name="form" id="form" value="" />
+                            <!-- ************************** -->
+                            <hr />
                             <div class="row">
                                 <div class="cell-sm-4">Form Name:</div>
                                 <div class="cell-sm-8">
                                     @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "materialinput", data_label = "Form Name:", placeholder = "* Enter Form Name" } })
-                                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "fg-magenta" })
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="cell-sm-4">Form Description:</div>
                                 <div class="cell-sm-8">
                                     @Html.EditorFor(model => model.desc, new { htmlAttributes = new { data_role = "materialinput", data_label = "Form Description:", placeholder = "* Enter Form Description" } })
-                                    @Html.ValidationMessageFor(model => model.desc, "", new { @class = "fg-magenta" })
                                 </div>
                             </div>
-
-                            <!-- FORM ******************** -->
-                            <div style="height:1000px;border:1px dashed grey; padding: 10px;" id="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                            @Html.HiddenFor(model => model.form, new { @Value = "" })
-                            @Html.ValidationMessageFor(model => model.form, "", new { @class = "fg-magenta" })
-                            <!-- ************************** -->
-                            <hr />
                             <h6>Assign to:</h6><br />
                             <div class="cell-sm-6">
                                 <label>Location:</label>
                                 @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
-                                @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
                             </div>
                             <div class="cell-sm-6">
                                 <label>User Role:</label>
                                 @Html.DropDownList("FK_REF_userRolesId", null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
-                                @Html.ValidationMessageFor(model => model.FK_REF_userRolesId, "", new { @class = "fg-magenta" })
                             </div>
                         </div>
                     </div>
 
-                        <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
-                    </div>
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
 
                 <!-- ***************************************************************
                         DRAGGABLE ELEMENTS
@@ -85,7 +71,8 @@
                         <li><a href="#calendar">Calendar</a></li>
                         <li><a href="#separations">Separators</a></li>
                     </ul>
-                    <div style="margin-top: 112px">
+                    <div style="margin-top: 112px; overflow-y: scroll;height: 500px;">
+
                         <div id="input">
                             <div id="dragtxtInput1" draggable="true" ondragstart="drag(event)">
                                 <div id="inputTxt">
@@ -154,16 +141,18 @@
                     </div>
 
                 </div>
+
             </div>
         </div>
     </div>
-}
-
+</form>
 
 
 <script type="text/javascript">
     // DRAG AND DROP LOGIC
     // ************************
+    const stringArray = new Array();
+    var newElements = "";
     var hashID = "";
 
     function allowDrop(ev) {
@@ -191,6 +180,14 @@
         ev.target.appendChild(nodeCopy, nodeCopy);
 
         // console.log(nodeCopy);
+        var x1 = "#" + hashID;
+        newElements = $(x1).html();
+        stringArray.push(newElements);
+        // alert(stringArray);
+        console.log(stringArray);
+        document.getElementById("form").value = stringArray;
+
+
     }
 
     function sendIDMethod(id, h) {
@@ -209,12 +206,14 @@
                 if ($(this).find("#inputTxt")) {
                     Metro.dialog.create({
                         title: "Input Field",
+
                         content: "<div><input type='text' id='inputTxtLabel' data-role='materialinput' placeholder='Input field Label:' data-label='Input field Label:'><input type='text' id='inputTxtPlaceholder' data-role='materialinput' placeholder='Input field Placeholder:' data-label='Input field Placeholder:'><input type='checkbox' id='inputTxtPrependCheck' data-role='checkbox' data-caption='Prepend:'><input type='text' id='inputTxtPrepend' data-role='materialinput' placeholder='Input field Prepend text:' data-label='Input field Prepend:'></div>",
                         closeButton: true,
                         actions: [
                             {
                                 caption: "Finish",
                                 onclick: function () {
+
                                     $("#inputTxtLabel").val("Input Field:");
                                     $("#inputTxt > label").html($("#inputTxtLabel").val());
                                     $("#inputTxt").find("input > placeholder").html($("#inputTxtPlaceholder").val());
@@ -224,20 +223,22 @@
                                         }
                                     });
 
+
                                 }
                             }
                         ]
                     });
                     html += h;
                 }
-                if ($(this).find("#inputSelect")) {
-                    Metro.dialog.create({
-                        title: "Select Field",
-                        content: "<div>Bassus abactors ducunt ad triticum...</div>",
-                        closeButton: true
-                    });
-                    html += h;
-                }
+                // commint out, this is dublication
+                //if ($(this).find("#inputSelect")) {
+                //    Metro.dialog.create({
+                //        title: "Select Field",
+                //        content: "<div>Bassus abactors ducunt ad triticum...</div>",
+                //        closeButton: true
+                //    });
+                //    html += h;
+                //}
 
 
                 $("#form").val(html);

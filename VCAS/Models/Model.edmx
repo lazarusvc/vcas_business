@@ -37,6 +37,8 @@
           <Property Name="app_name" Type="nvarchar(max)" />
           <Property Name="receipt_logo" Type="nvarchar(max)" />
           <Property Name="receipt_footer" Type="nvarchar(max)" />
+          <Property Name="receipt_header" Type="nvarchar(max)" />
+          <Property Name="app_cover" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="VCAS_creditTrans1">
           <Key>
@@ -196,27 +198,27 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="txtInput_01" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="txtInput_02" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="txtInput_03" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="txtInput_04" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="txtInput_05" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="checkInput_01" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="checkInput_02" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="checkInput_03" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="selectInput_01" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="selectInput_02" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="selectInput_03" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="txtAreaInput_01" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="txtAreaInput_02" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="txtAreaInput_03" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="fileInput_01" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="fileInput_02" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="formBtn" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="txtInput_01" Type="nvarchar(max)" />
+          <Property Name="txtInput_02" Type="nvarchar(max)" />
+          <Property Name="txtInput_03" Type="nvarchar(max)" />
+          <Property Name="txtInput_04" Type="nvarchar(max)" />
+          <Property Name="txtInput_05" Type="nvarchar(max)" />
+          <Property Name="checkInput_01" Type="nvarchar(max)" />
+          <Property Name="checkInput_02" Type="nvarchar(max)" />
+          <Property Name="checkInput_03" Type="nvarchar(max)" />
+          <Property Name="selectInput_01" Type="nvarchar(max)" />
+          <Property Name="selectInput_02" Type="nvarchar(max)" />
+          <Property Name="selectInput_03" Type="nvarchar(max)" />
+          <Property Name="txtAreaInput_01" Type="nvarchar(max)" />
+          <Property Name="txtAreaInput_02" Type="nvarchar(max)" />
+          <Property Name="txtAreaInput_03" Type="nvarchar(max)" />
+          <Property Name="fileInput_01" Type="nvarchar(max)" />
+          <Property Name="fileInput_02" Type="nvarchar(max)" />
+          <Property Name="formBtn" Type="nvarchar(max)" />
           <Property Name="FK_formsId" Type="int" Nullable="false" />
-          <Property Name="frmHeader" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="frmFooter" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="signatureBox" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="frmHeader" Type="nvarchar(max)" />
+          <Property Name="frmFooter" Type="nvarchar(max)" />
+          <Property Name="signatureBox" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="VCAS_REF_items">
           <Key>
@@ -930,35 +932,6 @@
             <End Role="VCAS_REF_order_status" EntitySet="VCAS_REF_order_status" />
             <End Role="VCAS_orders" EntitySet="VCAS_orders" />
           </AssociationSet>
-          <EntitySet Name="VCAS_council" EntityType="Model.VCAS_council" />
-          <AssociationSet Name="FK_VCAS_councilVCAS_debitAccounts" Association="Model.FK_VCAS_councilVCAS_debitAccounts">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_debitAccounts" EntitySet="VCAS_debitAccounts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VCAS_councilVCAS_district" Association="Model.FK_VCAS_councilVCAS_district">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_district" EntitySet="VCAS_district" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VCAS_councilVCAS_issuedChecks" Association="Model.FK_VCAS_councilVCAS_issuedChecks">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_issuedChecks" EntitySet="VCAS_issuedChecks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VCAS_councilVCAS_REF_expense_location" Association="Model.FK_VCAS_councilVCAS_REF_expense_location">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_REF_expense_location" EntitySet="VCAS_REF_expense_location" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VCAS_councilVCAS_REF_items_location" Association="Model.FK_VCAS_councilVCAS_REF_items_location">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_REF_items_location" EntitySet="VCAS_REF_items_location" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VCAS_councilVCAS_REF_reports_params" Association="Model.FK_VCAS_councilVCAS_REF_reports_params">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_REF_reports_params" EntitySet="VCAS_REF_reports_params" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VCAS_councilVCAS_undepositedFunds" Association="Model.FK_VCAS_councilVCAS_undepositedFunds">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_undepositedFunds" EntitySet="VCAS_undepositedFunds" />
-          </AssociationSet>
           <EntitySet Name="VCAS_inventory" EntityType="Model.VCAS_inventory" />
           <AssociationSet Name="FK_VCAS_inventoryVCAS_orders" Association="Model.FK_VCAS_inventoryVCAS_orders">
             <End Role="VCAS_inventory" EntitySet="VCAS_inventory" />
@@ -979,10 +952,6 @@
             <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
             <End Role="VCAS_creditTrans" EntitySet="VCAS_creditTrans1" />
           </AssociationSet>
-          <AssociationSet Name="FK_VCAS_councilVCAS_Captured_Payment" Association="Model.FK_VCAS_councilVCAS_Captured_Payment">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
-          </AssociationSet>
           <AssociationSet Name="FK_VCAS_REF_bank_detailsVCAS_Captured_Payment" Association="Model.FK_VCAS_REF_bank_detailsVCAS_Captured_Payment">
             <End Role="VCAS_REF_bank_details" EntitySet="VCAS_REF_bank_details" />
             <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
@@ -996,13 +965,46 @@
             <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
           </AssociationSet>
           <EntitySet Name="VCAS_forms" EntityType="Model.VCAS_forms" />
-          <AssociationSet Name="VCAS_councilVCAS_forms" Association="Model.VCAS_councilVCAS_forms">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
-          </AssociationSet>
           <AssociationSet Name="VCAS_REF_userRolesVCAS_forms" Association="Model.VCAS_REF_userRolesVCAS_forms">
             <End Role="VCAS_REF_userRoles" EntitySet="VCAS_REF_userRoles" />
             <End Role="VCAS_forms" EntitySet="VCAS_forms" />
+          </AssociationSet>
+          <EntitySet Name="VCAS_council" EntityType="Model.VCAS_council" />
+          <AssociationSet Name="FK_VCAS_councilVCAS_Captured_Payment" Association="Model.FK_VCAS_councilVCAS_Captured_Payment">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_councilVCAS_debitAccounts" Association="Model.FK_VCAS_councilVCAS_debitAccounts">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_debitAccounts" EntitySet="VCAS_debitAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_councilVCAS_district" Association="Model.FK_VCAS_councilVCAS_district">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_district" EntitySet="VCAS_district" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_councilVCAS_forms" Association="Model.FK_VCAS_councilVCAS_forms">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_councilVCAS_issuedChecks" Association="Model.FK_VCAS_councilVCAS_issuedChecks">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_issuedChecks" EntitySet="VCAS_issuedChecks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_councilVCAS_REF_expense_location" Association="Model.FK_VCAS_councilVCAS_REF_expense_location">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_REF_expense_location" EntitySet="VCAS_REF_expense_location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_councilVCAS_REF_items_location" Association="Model.FK_VCAS_councilVCAS_REF_items_location">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_REF_items_location" EntitySet="VCAS_REF_items_location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_councilVCAS_REF_reports_params" Association="Model.FK_VCAS_councilVCAS_REF_reports_params">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_REF_reports_params" EntitySet="VCAS_REF_reports_params" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_councilVCAS_undepositedFunds" Association="Model.FK_VCAS_councilVCAS_undepositedFunds">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_undepositedFunds" EntitySet="VCAS_undepositedFunds" />
           </AssociationSet>
           <EntitySet Name="VCAS_REF_forms" EntityType="Model.VCAS_REF_forms" />
           <AssociationSet Name="FK_VCAS_formsVCAS_REF_forms" Association="Model.FK_VCAS_formsVCAS_REF_forms">
@@ -1324,8 +1326,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FK_councilId" Type="Int32" Nullable="false" />
           <Property Name="FK_REF_itemsId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_REF_items_location" FromRole="VCAS_REF_items_location" ToRole="VCAS_council" />
           <NavigationProperty Name="VCAS_REF_items" Relationship="Model.FK_VCAS_REF_itemsVCAS_REF_items_location" FromRole="VCAS_REF_items_location" ToRole="VCAS_REF_items" />
+          <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_REF_items_location" FromRole="VCAS_REF_items_location" ToRole="VCAS_council" />
         </EntityType>
         <EntityType Name="VCAS_REF_expense_location">
           <Key>
@@ -1438,111 +1440,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="VCAS_council">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="location" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="vendor_Id" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="app_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="receipt_logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="receipt_footer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="VCAS_debitAccounts" Relationship="Model.FK_VCAS_councilVCAS_debitAccounts" FromRole="VCAS_council" ToRole="VCAS_debitAccounts" />
-          <NavigationProperty Name="VCAS_district" Relationship="Model.FK_VCAS_councilVCAS_district" FromRole="VCAS_council" ToRole="VCAS_district" />
-          <NavigationProperty Name="VCAS_issuedChecks" Relationship="Model.FK_VCAS_councilVCAS_issuedChecks" FromRole="VCAS_council" ToRole="VCAS_issuedChecks" />
-          <NavigationProperty Name="VCAS_REF_expense_location" Relationship="Model.FK_VCAS_councilVCAS_REF_expense_location" FromRole="VCAS_council" ToRole="VCAS_REF_expense_location" />
-          <NavigationProperty Name="VCAS_REF_items_location" Relationship="Model.FK_VCAS_councilVCAS_REF_items_location" FromRole="VCAS_council" ToRole="VCAS_REF_items_location" />
-          <NavigationProperty Name="VCAS_REF_reports_params" Relationship="Model.FK_VCAS_councilVCAS_REF_reports_params" FromRole="VCAS_council" ToRole="VCAS_REF_reports_params" />
-          <NavigationProperty Name="VCAS_undepositedFunds" Relationship="Model.FK_VCAS_councilVCAS_undepositedFunds" FromRole="VCAS_council" ToRole="VCAS_undepositedFunds" />
-          <NavigationProperty Name="VCAS_capture_payments" Relationship="Model.FK_VCAS_councilVCAS_Captured_Payment" FromRole="VCAS_council" ToRole="VCAS_capture_payments" />
-          <NavigationProperty Name="VCAS_forms" Relationship="Model.VCAS_councilVCAS_forms" FromRole="VCAS_council" ToRole="VCAS_forms" />
-        </EntityType>
-        <Association Name="FK_VCAS_councilVCAS_debitAccounts">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_debitAccounts" Role="VCAS_debitAccounts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_debitAccounts">
-              <PropertyRef Name="FK_location" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_councilVCAS_district">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_district" Role="VCAS_district" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_district">
-              <PropertyRef Name="FK_location" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_councilVCAS_issuedChecks">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_issuedChecks" Role="VCAS_issuedChecks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_issuedChecks">
-              <PropertyRef Name="FK_location" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_councilVCAS_REF_expense_location">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_REF_expense_location" Role="VCAS_REF_expense_location" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_REF_expense_location">
-              <PropertyRef Name="FK_councilId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_councilVCAS_REF_items_location">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_REF_items_location" Role="VCAS_REF_items_location" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_REF_items_location">
-              <PropertyRef Name="FK_councilId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_councilVCAS_REF_reports_params">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="0..1" />
-          <End Type="Model.VCAS_REF_reports_params" Role="VCAS_REF_reports_params" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_REF_reports_params">
-              <PropertyRef Name="FK_location" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_councilVCAS_undepositedFunds">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_undepositedFunds" Role="VCAS_undepositedFunds" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_undepositedFunds">
-              <PropertyRef Name="FK_location" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="VCAS_inventory">
           <Key>
             <PropertyRef Name="Id" />
@@ -1627,10 +1524,10 @@
           <Property Name="orderID" Type="Int32" />
           <Property Name="invoice" Type="Boolean" />
           <NavigationProperty Name="VCAS_creditTrans1" Relationship="Model.FK_VCAS_capture_paymentsVCAS_creditTrans" FromRole="VCAS_capture_payments" ToRole="VCAS_creditTrans" />
-          <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_Captured_Payment" FromRole="VCAS_capture_payments" ToRole="VCAS_council" />
           <NavigationProperty Name="VCAS_REF_bank_details" Relationship="Model.FK_VCAS_REF_bank_detailsVCAS_Captured_Payment" FromRole="VCAS_capture_payments" ToRole="VCAS_REF_bank_details" />
           <NavigationProperty Name="VCAS_REF_items" Relationship="Model.FK_VCAS_REF_itemsVCAS_Captured_Payment" FromRole="VCAS_capture_payments" ToRole="VCAS_REF_items" />
           <NavigationProperty Name="VCAS_REF_payment_type" Relationship="Model.FK_VCAS_REF_payment_typeVCAS_Captured_Payment" FromRole="VCAS_capture_payments" ToRole="VCAS_REF_payment_type" />
+          <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_Captured_Payment" FromRole="VCAS_capture_payments" ToRole="VCAS_council" />
         </EntityType>
         <Association Name="FK_VCAS_capture_paymentsVCAS_creditTrans">
           <End Type="Model.VCAS_capture_payments" Role="VCAS_capture_payments" Multiplicity="1" />
@@ -1641,18 +1538,6 @@
             </Principal>
             <Dependent Role="VCAS_creditTrans">
               <PropertyRef Name="FK_capture_paymentsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_councilVCAS_Captured_Payment">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_capture_payments" Role="VCAS_capture_payments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_capture_payments">
-              <PropertyRef Name="FK_location" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1702,23 +1587,11 @@
           <Property Name="form" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="dateModified" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FK_location" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="VCAS_council" Relationship="Model.VCAS_councilVCAS_forms" FromRole="VCAS_forms" ToRole="VCAS_council" />
           <NavigationProperty Name="VCAS_REF_userRoles" Relationship="Model.VCAS_REF_userRolesVCAS_forms" FromRole="VCAS_forms" ToRole="VCAS_REF_userRoles" />
           <Property Name="FK_REF_userRolesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_forms" ToRole="VCAS_council" />
           <NavigationProperty Name="VCAS_REF_forms" Relationship="Model.FK_VCAS_formsVCAS_REF_forms" FromRole="VCAS_forms" ToRole="VCAS_REF_forms" />
         </EntityType>
-        <Association Name="VCAS_councilVCAS_forms">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_forms">
-              <PropertyRef Name="FK_location" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="VCAS_REF_userRolesVCAS_forms">
           <End Type="Model.VCAS_REF_userRoles" Role="VCAS_REF_userRoles" Multiplicity="1" />
           <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="*" />
@@ -1731,32 +1604,163 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VCAS_council">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="location" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="vendor_Id" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="app_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="receipt_logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="receipt_footer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="receipt_header" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="app_cover" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="VCAS_capture_payments" Relationship="Model.FK_VCAS_councilVCAS_Captured_Payment" FromRole="VCAS_council" ToRole="VCAS_capture_payments" />
+          <NavigationProperty Name="VCAS_debitAccounts" Relationship="Model.FK_VCAS_councilVCAS_debitAccounts" FromRole="VCAS_council" ToRole="VCAS_debitAccounts" />
+          <NavigationProperty Name="VCAS_district" Relationship="Model.FK_VCAS_councilVCAS_district" FromRole="VCAS_council" ToRole="VCAS_district" />
+          <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_council" ToRole="VCAS_forms" />
+          <NavigationProperty Name="VCAS_issuedChecks" Relationship="Model.FK_VCAS_councilVCAS_issuedChecks" FromRole="VCAS_council" ToRole="VCAS_issuedChecks" />
+          <NavigationProperty Name="VCAS_REF_expense_location" Relationship="Model.FK_VCAS_councilVCAS_REF_expense_location" FromRole="VCAS_council" ToRole="VCAS_REF_expense_location" />
+          <NavigationProperty Name="VCAS_REF_items_location" Relationship="Model.FK_VCAS_councilVCAS_REF_items_location" FromRole="VCAS_council" ToRole="VCAS_REF_items_location" />
+          <NavigationProperty Name="VCAS_REF_reports_params" Relationship="Model.FK_VCAS_councilVCAS_REF_reports_params" FromRole="VCAS_council" ToRole="VCAS_REF_reports_params" />
+          <NavigationProperty Name="VCAS_undepositedFunds" Relationship="Model.FK_VCAS_councilVCAS_undepositedFunds" FromRole="VCAS_council" ToRole="VCAS_undepositedFunds" />
+        </EntityType>
+        <Association Name="FK_VCAS_councilVCAS_Captured_Payment">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_capture_payments" Role="VCAS_capture_payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_capture_payments">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_councilVCAS_debitAccounts">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_debitAccounts" Role="VCAS_debitAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_debitAccounts">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_councilVCAS_district">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_district" Role="VCAS_district" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_district">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_councilVCAS_forms">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_forms">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_councilVCAS_issuedChecks">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_issuedChecks" Role="VCAS_issuedChecks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_issuedChecks">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_councilVCAS_REF_expense_location">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_REF_expense_location" Role="VCAS_REF_expense_location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_REF_expense_location">
+              <PropertyRef Name="FK_councilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_councilVCAS_REF_items_location">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_REF_items_location" Role="VCAS_REF_items_location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_REF_items_location">
+              <PropertyRef Name="FK_councilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_councilVCAS_REF_reports_params">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="0..1" />
+          <End Type="Model.VCAS_REF_reports_params" Role="VCAS_REF_reports_params" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_REF_reports_params">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_councilVCAS_undepositedFunds">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_undepositedFunds" Role="VCAS_undepositedFunds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_undepositedFunds">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="VCAS_REF_forms">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="txtInput_01" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_02" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_03" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_04" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_05" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="checkInput_01" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="checkInput_02" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="checkInput_03" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="selectInput_01" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="selectInput_02" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="selectInput_03" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtAreaInput_01" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtAreaInput_02" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtAreaInput_03" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fileInput_01" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fileInput_02" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="formBtn" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_04" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_05" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="checkInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="checkInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="checkInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="selectInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="selectInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="selectInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtAreaInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtAreaInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtAreaInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fileInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fileInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="formBtn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FK_formsId" Type="Int32" Nullable="false" />
-          <Property Name="frmHeader" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="frmFooter" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="signatureBox" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="frmHeader" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="frmFooter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="signatureBox" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_formsVCAS_REF_forms" FromRole="VCAS_REF_forms" ToRole="VCAS_forms" />
         </EntityType>
         <Association Name="FK_VCAS_formsVCAS_REF_forms">
@@ -2018,19 +2022,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="VCAS_council">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_council)">
-        <MappingFragment StoreEntitySet="VCAS_council">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="location" ColumnName="location" />
-          <ScalarProperty Name="vendor_Id" ColumnName="vendor_Id" />
-          <ScalarProperty Name="app_name" ColumnName="app_name" />
-          <ScalarProperty Name="receipt_logo" ColumnName="receipt_logo" />
-          <ScalarProperty Name="receipt_footer" ColumnName="receipt_footer" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="VCAS_inventory">
       <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_inventory)">
         <MappingFragment StoreEntitySet="VCAS_inventory">
@@ -2095,6 +2086,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+          <EntitySetMapping Name="VCAS_council">
+            <EntityTypeMapping TypeName="Model.VCAS_council">
+              <MappingFragment StoreEntitySet="VCAS_council">
+                <ScalarProperty Name="app_cover" ColumnName="app_cover" />
+                <ScalarProperty Name="receipt_header" ColumnName="receipt_header" />
+                <ScalarProperty Name="receipt_footer" ColumnName="receipt_footer" />
+                <ScalarProperty Name="receipt_logo" ColumnName="receipt_logo" />
+                <ScalarProperty Name="app_name" ColumnName="app_name" />
+                <ScalarProperty Name="vendor_Id" ColumnName="vendor_Id" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="VCAS_REF_forms">
             <EntityTypeMapping TypeName="Model.VCAS_REF_forms">
               <MappingFragment StoreEntitySet="VCAS_REF_forms">

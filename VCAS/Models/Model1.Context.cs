@@ -77,8 +77,6 @@ public partial class ModelContainer : DbContext
 
     public virtual DbSet<VCAS_REF_order_status> VCAS_REF_order_status { get; set; }
 
-    public virtual DbSet<VCAS_council> VCAS_council { get; set; }
-
     public virtual DbSet<VCAS_inventory> VCAS_inventory { get; set; }
 
     public virtual DbSet<VCAS_REF_items> VCAS_REF_items { get; set; }
@@ -86,6 +84,8 @@ public partial class ModelContainer : DbContext
     public virtual DbSet<VCAS_capture_payments> VCAS_capture_payments { get; set; }
 
     public virtual DbSet<VCAS_forms> VCAS_forms { get; set; }
+
+    public virtual DbSet<VCAS_council> VCAS_council { get; set; }
 
     public virtual DbSet<VCAS_REF_forms> VCAS_REF_forms { get; set; }
 

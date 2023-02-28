@@ -57,6 +57,10 @@ namespace VCAS.Controllers
             // User ID
             ViewBag.userID = db.VCAS_users.Where(x => x.userName == GlobalSession.User).Select(x => x.Id).FirstOrDefault();
 
+            // Form List
+            ViewBag.frms = db.VCAS_forms.Where(x => x.FK_location == GlobalSession.Location).ToList();
+                // new SelectList(db.VCAS_forms.Where(x => x.FK_location == GlobalSession.Location), "Id", "name");
+
             return View();
         }
 

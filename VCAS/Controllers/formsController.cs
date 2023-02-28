@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.HtmlControls;
 using VCAS.Models;
 
 namespace VCAS.Controllers
@@ -13,12 +15,19 @@ namespace VCAS.Controllers
     public class formsController : Controller
     {
         private ModelContainer db = new ModelContainer();
+        private VCAS_formsHTMLSave fhs = new VCAS_formsHTMLSave();
 
         // GET: forms
         public ActionResult Index()
         {
             var vCAS_forms = db.VCAS_forms.Include(v => v.VCAS_council).Include(v => v.VCAS_REF_userRoles);
             return View(vCAS_forms.ToList());
+        }
+
+        // GET: Complete
+        public ActionResult Complete()
+        {
+            return View();
         }
 
         // GET: forms/Details/5
@@ -48,12 +57,21 @@ namespace VCAS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,name,desc,form,dateModified,FK_location,FK_REF_userRolesId")] VCAS_forms vCAS_forms)
+        public ActionResult Create(VCAS_forms vCAS_forms, VCAS_formsHTMLSave vfHS)
         {
+
             if (ModelState.IsValid)
             {
-                db.VCAS_forms.Add(vCAS_forms);
+                db.VCAS_forms.Add(new VCAS_forms
+                {
+                    Id = vCAS_forms.Id,
+                    name = vCAS_forms.name,
+                    desc = vCAS_forms.desc,
+                    form = vfHS.form,
+                    dateModified = vCAS_forms.dateModified,
+                    FK_location = vCAS_forms.FK_location,
+                    FK_REF_userRolesId = vCAS_forms.FK_REF_userRolesId
+                });
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

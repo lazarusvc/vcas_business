@@ -382,3 +382,117 @@ iframe {
     height: 1000px !important;
     width: 100% !important;
 }
+
+/*
+----------------------------------
+  FORM
+----------------------------------
+*/
+.vc-form {
+max-width: 500px;
+padding: 10px 20px;
+background: #f4f7f8;
+margin: 10px auto;
+padding: 20px;
+background: #f4f7f8;
+border-radius: 8px;
+font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.vc-form fieldset {
+    border: none;
+}
+
+.vc-form legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.vc-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.vc-form input[type="text"],
+.vc-form input[type="date"],
+.vc-form input[type="datetime"],
+.vc-form input[type="email"],
+.vc-form input[type="number"],
+.vc-form input[type="search"],
+.vc-form input[type="time"],
+.vc-form input[type="url"],
+.vc-form input[type="tel"],
+.vc-form textarea,
+.vc-form select {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+}
+
+.vc-form input[type="text"]:focus,
+.vc-form input[type="date"]:focus,
+.vc-form input[type="datetime"]:focus,
+.vc-form input[type="email"]:focus,
+.vc-form input[type="number"]:focus,
+.vc-form input[type="search"]:focus,
+.vc-form input[type="time"]:focus,
+.vc-form input[type="url"]:focus,
+.vc-form textarea:focus,
+.vc-form select:focus {
+    background: #d2d9dd;
+}
+
+.vc-form select {
+    -webkit-appearance: menulist-button;
+    height: 35px;
+}
+
+.vc-form .number {
+    background: #1abc9c;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 15px 15px 15px 0px;
+}
+
+.vc-form input[type="submit"],
+.vc-form input[type="button"] {
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    background: #1abc9c;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: 1px solid #16a085;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+}
+
+.vc-form input[type="submit"]:hover,
+.vc-form input[type="button"]:hover {
+    background: #109177;
+}
