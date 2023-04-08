@@ -29,8 +29,6 @@ public partial class VCAS_inventory
 
     public int Id { get; set; }
 
-    public string image { get; set; }
-
     public string name { get; set; }
 
     public string desc { get; set; }
@@ -55,11 +53,21 @@ public partial class VCAS_inventory
 
     public Nullable<double> sellingPrice { get; set; }
 
+    public string image { get; set; }
 
+    public Nullable<int> FK_REF_itemsId { get; set; }
+
+    public Nullable<int> FK_location { get; set; }
+
+
+
+    public virtual VCAS_council VCAS_council { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<VCAS_orders> VCAS_orders { get; set; }
+
+    public virtual VCAS_REF_items VCAS_REF_items { get; set; }
 
 }
 

@@ -20,7 +20,7 @@ namespace VCAS.Controllers
         [CustomAuthorize(Roles = "admin")]
         public ActionResult Index()
         {
-            var vCAS_debitAccounts = db.VCAS_debitAccounts.Include(v => v.VCAS_REF_payment_type);
+            var vCAS_debitAccounts = db.VCAS_debitAccounts.Include(v => v.VCAS_REF_payment_type).Where(x => x.FK_location == GlobalSession.Location);
             return View(vCAS_debitAccounts.ToList());
         }
 

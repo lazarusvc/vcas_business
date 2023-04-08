@@ -15,7 +15,6 @@ namespace VCAS.Controllers
     public class formsController : Controller
     {
         private ModelContainer db = new ModelContainer();
-        private VCAS_formsHTMLSave fhs = new VCAS_formsHTMLSave();
 
         // GET: forms
         public ActionResult Index()
@@ -57,7 +56,7 @@ namespace VCAS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(VCAS_forms vCAS_forms, VCAS_formsHTMLSave vfHS)
+        public ActionResult Create(VCAS_forms vCAS_forms)
         {
 
             if (ModelState.IsValid)
@@ -67,7 +66,7 @@ namespace VCAS.Controllers
                     Id = vCAS_forms.Id,
                     name = vCAS_forms.name,
                     desc = vCAS_forms.desc,
-                    form = vfHS.form,
+                    form = vCAS_forms.form,
                     dateModified = vCAS_forms.dateModified,
                     FK_location = vCAS_forms.FK_location,
                     FK_REF_userRolesId = vCAS_forms.FK_REF_userRolesId

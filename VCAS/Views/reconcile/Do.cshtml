@@ -1,0 +1,97 @@
+﻿@model VCAS.Models.VCAS_reconcile
+
+@{
+    ViewBag.Title = "Reconcile";
+}
+
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="row">
+            <div class="cell-lg-8">
+                <h2>Reconcile:: @Model.VCAS_debitAccounts.name </h2>
+                <p>Statement ending date: @Model.bank_ending_date</p>
+            </div>
+            <div class="cell-lg-4">
+                <div class="dropdown-button place-right">
+                    <button class="button dropdown-toggle image-button">
+                        <span class="mif-cogs icon"></span>
+                        <span class="caption">Actions</span>
+                    </button>
+                    <ul class="d-menu place-right" data-role="dropdown">
+                        <li><a href="#">Edit</a></li>
+                        <li><input type="submit" value="Reconcile" class="button success" style="width: 100%;" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="cell-lg-4">
+                <h4>Beginning Balance - <span class="fg-grayBlue">$@Model.VCAS_debitAccounts.starting_balance</span></h4>
+            </div>
+            <div class="cell-lg-4">
+                @Html.HiddenFor(model => model.interest_earned_amt, new { @Value = Model.interest_earned_amt })
+                @Html.HiddenFor(model => model.interest_earned_date, new { @Value = Model.interest_earned_date })
+                @Html.HiddenFor(model => model.service_charge_amt, new { @Value = Model.service_charge_amt })
+                @Html.HiddenFor(model => model.interest_earned_date, new { @Value = Model.interest_earned_date })
+            </div>
+            <div class="cell-lg-4">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell-lg-4">
+                <label class="fg-grayBlue">Ending Balance:</label>
+                @Html.EditorFor(model => model.bank_ending_amt, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar2 icon'></span>", @Readonly = "readonly", @Class = "input-large" } })
+                @Html.ValidationMessageFor(model => model.bank_ending_amt, "", new { @class = "fg-magenta" })
+            </div>
+            <div class="cell-lg-4">
+                <label class="fg-grayBlue">Cleared Balance:</label>
+                <input type="text" data-role="input" name="cleared_balance" id="cleared_balance" data-prepend="<span class='mif-dollar2 icon'></span>" class="input-large" readonly>
+            </div>
+            <div class="cell-lg-4">
+                <label class="fg-grayBlue">Difference:</label>
+                @Html.EditorFor(model => model.difference, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar2 icon'></span>", @Class = "input-large", @Readonly = "readonly",  data_custom_buttons = "customButtons" } })
+                @Html.ValidationMessageFor(model => model.difference, "", new { @class = "fg-magenta" })
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.reconcile, new { @Value = Model.reconcile })
+        @Html.ValidationMessageFor(model => model.reconcile, "", new { @class = "fg-magenta" })
+        <br/>
+        <hr class="bg-gray" />
+        <h4>Records</h4>
+        @Html.Action("PartialIndex", "reconcile", new { id = Model.FK_debitAccountsId })
+    }
+</div>
+
+<script>
+    var customButtons = [
+        {
+            html: '<button class="button" data-role="hint" data-hint-position="top" data-hint-text="This is a hinted button"> <span class="mif-info fg-white"></span></button>',
+            cls: "yellow",
+            // onclick: "alert('You press user button')"
+        }
+    ]
+
+    $(document).ready(function () {
+        var cb = $("#cleared_balance");
+        var v = "";
+        var a = 0.0;  
+        $('input[type="checkbox"]').change(function () {
+            if (this.checked) {
+                v += parseFloat($(this).closest("tr").find("td:eq(5)").text().trim().replace("$", ""));
+            }
+            a = cb.val(v); 
+            // var a = v + cb;
+            console.log(a + v);
+            
+        });
+    });
+</script>
+

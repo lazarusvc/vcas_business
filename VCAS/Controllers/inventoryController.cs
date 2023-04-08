@@ -24,16 +24,26 @@ namespace VCAS.Controllers
             return (@"" + ConfigurationManager.ConnectionStrings["StoragePath"].ConnectionString);
         }
 
+        // JSON
+        // **********************************************************
+        public ActionResult Json(int? l, int? it)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.Database.SqlQuery<VCAS_inventory>
+                (@"SELECT * FROM VCAS_inventory 
+                 WHERE FK_REF_itemsId = '" + it + "' AND FK_location = '" + l + "' "), JsonRequestBehavior.AllowGet);
+        }
+
         // GET Partial: inventory
         public ActionResult IndexPartial()
         {
-            return PartialView("_inventoryIndex", db.VCAS_inventory.ToList());
+            return PartialView("_inventoryIndex", db.VCAS_inventory.Where(x => x.FK_location == GlobalSession.Location).ToList());
         }
 
         // GET: inventory
         public ActionResult Index()
         {
-            return View(db.VCAS_inventory.ToList());
+            return View(db.VCAS_inventory.Where(x => x.FK_location == GlobalSession.Location).ToList());
         }
 
         // GET: inventory/Details/5
@@ -62,7 +72,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,name,desc,dateModified,partNumber,label,startStock,currentStock,quantity,size,unit,unitPrice,sellingPrice,image")] VCAS_inventory vCAS_inventory, HttpPostedFileBase image)
+        public ActionResult Create([Bind(Include = "Id,name,desc,dateModified,partNumber,label,startStock,currentStock,quantity,size,unit,unitPrice,sellingPrice,image,FK_location")] VCAS_inventory vCAS_inventory, HttpPostedFileBase image)
         {
             // Attach image
             if (image != null && image.ContentLength > 0)
@@ -109,7 +119,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,desc,dateModified,partNumber,label,startStock,currentStock,quantity,size,unit,unitPrice,sellingPrice,image")] VCAS_inventory vCAS_inventory, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "Id,name,desc,dateModified,partNumber,label,startStock,currentStock,quantity,size,unit,unitPrice,sellingPrice,image,FK_location")] VCAS_inventory vCAS_inventory, HttpPostedFileBase image)
         {
             // Attach image
             if (image != null && image.ContentLength > 0)

@@ -27,6 +27,8 @@ namespace VCAS
             bundles.Add(new StyleBundle("~/Content/login").Include(
                       "~/Content/site-login.css"));
 
+            bundles.Add(new StyleBundle("~/Content/form").Include(
+                      "~/Content/site-form.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/metro").Include(
                         "~/Scripts/metro.js"));
@@ -52,6 +54,10 @@ namespace VCAS
             bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
                     "~/Scripts/tinymce/jquery.tinymce.min.js",
                     "~/Scripts/tinymce/tinymce.min.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/phoneNumber").Include(
+                    "~/Scripts/PhoneNumber.js"
                 ));
         }
     }

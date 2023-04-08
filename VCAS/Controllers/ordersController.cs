@@ -17,13 +17,13 @@ namespace VCAS.Controllers
         // GET Partial: inventory
         public ActionResult IndexPartial()
         {
-            return PartialView("_ordersIndex", db.VCAS_orders.Include(v => v.VCAS_customer).Include(v => v.VCAS_inventory).Include(v => v.VCAS_REF_order_status).ToList());
+            return PartialView("_ordersIndex", db.VCAS_orders.Where(x => x.FK_location == GlobalSession.Location).Include(v => v.VCAS_customer).Include(v => v.VCAS_inventory).Include(v => v.VCAS_REF_order_status).ToList());
         }
 
         // GET: orders
         public ActionResult Index()
         {
-            var vCAS_orders = db.VCAS_orders.Include(v => v.VCAS_customer).Include(v => v.VCAS_inventory).Include(v => v.VCAS_REF_order_status);
+            var vCAS_orders = db.VCAS_orders.Where(x => x.FK_location == GlobalSession.Location).Include(v => v.VCAS_customer).Include(v => v.VCAS_inventory).Include(v => v.VCAS_REF_order_status);
             return View(vCAS_orders.ToList());
         }
 
@@ -71,7 +71,7 @@ namespace VCAS.Controllers
                     email = form["email"]
                 });                
                 db.SaveChanges();
-                return RedirectToAction("Create02", "orders");
+                return RedirectToAction("Create02", "orders", "#step-2" );
             }            
             return View(vCAS_customer);
         }
@@ -99,7 +99,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create02([Bind(Include = "Id,datetime,quantity,FK_order_statusId,FK_customerId,FK_inventoryId")] VCAS_orders vCAS_orders)
+        public ActionResult Create02([Bind(Include = "Id,datetime,quantity,comment,FK_order_statusId,FK_customerId,FK_inventoryId,FK_location")] VCAS_orders vCAS_orders)
         {
             if (ModelState.IsValid)
             {
@@ -143,7 +143,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,datetime,quantity,FK_order_statusId,FK_customerId,FK_inventoryId")] VCAS_orders vCAS_orders)
+        public ActionResult Edit([Bind(Include = "Id,datetime,quantity,comment,FK_order_statusId,FK_customerId,FK_inventoryId,FK_location")] VCAS_orders vCAS_orders)
         {
             if (ModelState.IsValid)
             {

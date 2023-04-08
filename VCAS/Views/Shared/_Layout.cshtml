@@ -26,15 +26,19 @@
     <meta name="description" content="Accouting Software for Government Entities - Streamlined and Modernized Account made simple">
     <meta name="keywords" content="Accounting, Software, Organization, Government, Finance, Village Council, Local Authority">
 
+    <link rel="manifest" href="~/manifest.json">
+
     <title>@ViewBag.Title - @VCAS.Controllers.HomeController.gloabl_appName()</title>
     <!-- Global CSS ======================================================= -->
     @Styles.Render("~/Content/smartwizard")
     @Styles.Render("~/Content/metro")
+    @Styles.Render("~/Content/form")
     <!-- Global JS ======================================================== -->
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/tinymce")
     @Scripts.Render("~/bundles/metro")
+    @Scripts.Render("~/bundles/phoneNumber")
     @Scripts.Render("~/bundles/main-index")
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.0/dist/chart.min.js"></script>
     @RenderSection("scripts", required: false)
@@ -155,5 +159,13 @@
     {
         @Html.Partial("~/Views/Shared/_SessionTimeout.cshtml")
     }
+    <!-- PWA Implementation ============================================================= -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/serviceworker.js')
+                .then(function () { console.log('Service Worker Registered'); });
+        }
+    </script>
 </body>
 </html>

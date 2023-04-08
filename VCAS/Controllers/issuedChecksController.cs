@@ -868,7 +868,7 @@ namespace VCAS.Controllers
                 // EXEC Stored Procedure - usp_DebitReducingbalance
                 //////////////////////////////////////////////////
                 SqlParameter[] Parameters =
-{
+                    {
                     new SqlParameter("@p_amt", vCAS_issuedChecks.amount),
                     new SqlParameter("@p_icID", vCAS_issuedChecks.Id),
                     new SqlParameter("@p_daID", vCAS_issuedChecks.FK_debitAccountsId)

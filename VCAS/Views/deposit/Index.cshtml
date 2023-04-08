@@ -1,0 +1,53 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_deposit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="app_styleBG2">
+    <h2 class="fg-darkGray">Deposit:: List </h2>
+    <table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
+        <thead>
+            <tr>
+                <th>
+                    ID:
+                </th>
+                <th>
+                    Date Ending:
+                </th>
+                <th>
+                    Account Deposited To:
+                </th>
+                <th>
+                    manage
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.endind_date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FK_debitAccount)
+                    </td>
+                    <td>
+                        <ul class="pagination no-gap size-large">
+                            <li class="page-item">
+                                <a href="@Url.Action("Details", "deposit", new { id = item.Id })" class="button info"><span class="mif-pin icon"></span> Slip</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        }
+
+    </table>
+</div>
+

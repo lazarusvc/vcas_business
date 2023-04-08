@@ -1,12 +1,15 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
 
-<p>Village Council Accounting Software</p>
-<p> &copy; @DateTime.Now.Year - ver 1.0.0</p>
-<hr class="bg-darkGray" />
-<p>Developed by <a href="https://www.budgeat.co">Budgeat Co.</a></p>
-<p>Software Developer:: <span style="color: #0366d6;">Austin Lazarus</span></p>
-<p>Project Manager:: <span style="color: #0366d6;">Delian Thomas</span></p>
-<hr class="bg-darkGray" />
+<div id="app_styleBG">
+    <h2>@ViewBag.Title.</h2>
+
+    <p>@VCAS.Controllers.HomeController.gloabl_appName()</p>
+    <p> &copy; @DateTime.Now.Year - ver 1.0.0</p>
+    <hr class="bg-darkGray" style="width: 50%;"/>
+    <p>Developed by:: <a href="https://www.lazarusvc.com">Lazarus Ventures Co.</a></p>
+    <p>Software Developer:: <span style="color: #0366d6;">Austin Lazarus</span></p>
+    <p>Accounting/Design Input:: <span style="color: #0366d6;">Mrs. Beverly Pinard | Mrs. Delian Sandford-Thomas | Kerym Registe</span></p>
+</div>
+

@@ -4,20 +4,14 @@
     ViewBag.Title = "Form Details";
 }
 
-@*<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
-    <iframe id="myIframe" srcdoc='@Html.Raw(Model.form)'></iframe> 
-    <hr class="fg-gray" />
-    <p class="fg-darkGray" align="RIGHT">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer })</p>
-    <p align="RIGHT" class="fg-darkGray">@Model.name<br />@Model.desc<br />version: @Model.dateModified.ToString("dd-MM-yyyy")</p>
-</div>*@
-
 <div class="row">
     <div class="cell-lg-6">
         <div data-role="panel"
-             data-title-caption="Panel title"
+             data-title-caption="Form Entry"
              data-title-icon="<span class='mif-apps'></span>"
              data-collapsible="true">
-            <iframe id="myIframe" srcdoc='@Html.Raw(Model.form)'></iframe>
+
+            @Html.Raw(Model.form)
             <hr class="fg-gray" />
             <p class="fg-darkGray" align="RIGHT">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer })</p>
             <p align="RIGHT" class="fg-darkGray">@Model.name<br />@Model.desc<br />version: @Model.dateModified.ToString("dd-MM-yyyy")</p>
@@ -25,9 +19,11 @@
     </div>
     <div class="cell-lg-6">
         <div data-role="panel"
-             data-title-caption="Panel title"
+             data-title-caption="Form Data"
              data-title-icon="<span class='mif-apps'></span>"
              data-collapsible="true">
+
+            @Html.Action("IndexPartial", "formsData")
         </div>
     </div>
 </div>

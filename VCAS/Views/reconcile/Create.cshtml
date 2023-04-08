@@ -1,0 +1,95 @@
+﻿@model VCAS.Models.VCAS_reconcile
+
+@{
+    ViewBag.Title = "Reconcile";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-lg-12">
+
+                    <h4 class="fg-darkGray" align="right">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer })</h4>
+                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+                    <hr class="bg-gray" width="10%" align="right" />
+                    <h2>Reconcile Account::</h2>
+                    @Html.DropDownList("FK_debitAccountsId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_debitAccountsId, "", new { @class = "fg-magenta" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="cell-lg-4">
+                    <label>Beginning Balance:</label>
+                    <h4 id="begBalance"></h4>
+                </div>
+                <div class="cell-lg-4">
+                    <label><span class="fg-red">*</span> Ending Balance:</label>
+                    @Html.EditorFor(model => model.bank_ending_amt, new { htmlAttributes = new { data_role = "input", data_prepend = "$" } })
+                    @Html.ValidationMessageFor(model => model.bank_ending_amt, "", new { @class = "fg-magenta" })
+                </div>
+                <div class="cell-lg-4">
+                    <label><span class="fg-red">*</span> Ending Date:</label>
+                    @Html.EditorFor(model => model.bank_ending_date, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:" } })
+                    @Html.ValidationMessageFor(model => model.bank_ending_date, "", new { @class = "fg-magenta" })
+                </div>
+            </div>
+            <h2 style="border-top: 3px solid #bebebe; margin-top: 20px;">Enter the service charge or interest earned, if necessary::</h2>
+            <div class="row">
+                <div class="cell-lg-4">
+                    <label>Service Charge Amount:</label>
+                    @Html.EditorFor(model => model.service_charge_amt, new { htmlAttributes = new { data_role = "input", data_prepend = "$" } })
+                    @Html.ValidationMessageFor(model => model.service_charge_amt, "", new { @class = "fg-magenta" })
+                </div>
+                <div class="cell-lg-4">
+                    <label>Date:</label>
+                    @Html.EditorFor(model => model.service_charge_date, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:" } })
+                    @Html.ValidationMessageFor(model => model.service_charge_date, "", new { @class = "fg-magenta" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="cell-lg-4">
+                    <label>Interest Earned:</label>
+                    @Html.EditorFor(model => model.interest_earned_amt, new { htmlAttributes = new { data_role = "input", data_prepend = "$" } })
+                    @Html.ValidationMessageFor(model => model.interest_earned_amt, "", new { @class = "fg-magenta" })
+                </div>
+                <div class="cell-lg-4">
+                    <label>Date:</label>
+                    @Html.EditorFor(model => model.interest_earned_date, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:" } })
+                    @Html.ValidationMessageFor(model => model.interest_earned_date, "", new { @class = "fg-magenta" })
+                </div>
+            </div>
+
+            @Html.HiddenFor(model => model.difference, new { @Value = 0 })
+            @Html.ValidationMessageFor(model => model.difference, "", new { @class = "fg-magenta" })
+
+            @Html.HiddenFor(model => model.reconcile, new { @Value = false })
+            @Html.ValidationMessageFor(model => model.reconcile, "", new { @class = "fg-magenta" })
+
+            <br />
+            <br />
+            <input type="submit" value="Begin Reconciliation (1/2)" class="button yellow rounded" style="width: 100%;" />
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#FK_debitAccountsId").on('keyup change', function () {
+                $.ajax({
+                    url: '@Url.Action("JsonAccounts", "reconcile")?&id=' + $(this).children("option:selected").val(),
+                    type: 'GET',
+                    success: function (result) {
+                        $.each(result, function (k, v) {
+                            $("#begBalance").html("$" + v.starting_balance);
+                        });
+                    }
+                });
+        });
+    });
+</script>

@@ -1,0 +1,42 @@
+﻿{
+  "name": "VouchCast",
+  "short_name": "vouchcast[app]",
+  "description": "Accounting System",
+  "theme_color": "#202d3f",
+  "background_color": "#202d3f",
+  "display": "standalone",
+  "start_url": "/Home",
+  "icons": [
+    {
+      "src": "Content/icons/60x60.png",
+      "sizes": "60x60",
+      "type": "image/png"
+    },
+    {
+      "src": "Content/icons/76x76.png",
+      "sizes": "76x76",
+      "type": "image/png"
+    },
+    {
+      "src": "Content/icons/120x120.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "Content/icons/152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.example.app1",
+      "id": "com.example.app1"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://itunes.apple.com/app/example-app1/id123456789"
+    }
+  ]
+}

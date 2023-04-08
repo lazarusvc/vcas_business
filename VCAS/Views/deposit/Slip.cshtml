@@ -1,0 +1,110 @@
+﻿@model VCAS.Models.VCAS_capture_payments
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Deposit Slip</title>
+    <!-- Metro 4 -->
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <button type="submit" class="image-button m-1 primary" id="printBtn" style="text-decoration: none !important; width: 100%;">
+        <span class="mif-print icon"></span>
+        <span class="caption">Print</span>
+    </button>
+
+    <div class="rec_body">
+        <div class="rec_inv" style="width: 50%;border-top: 1px black dotted; margin: 0 auto;">
+            @if (Model.invoice ?? false)
+            {
+                <h1 align="CENTER">Invoice</h1>
+            }
+            else
+            {
+                <h1 align="CENTER">Receipt</h1>
+            }
+        </div>
+        <img src="@Url.Content(ViewBag.recLogo)" width="100" />
+        <p align="CENTER"><strong>@ViewBag.council</strong></p><br />
+        <div>
+            @Html.Raw(ViewBag.recHeader)
+        </div>
+        <p align="CENTER" style="border-top: 1px black dotted;">@Html.DisplayFor(model => model.datetime)</p><br /><br />
+
+        <table class="table" style="border-top: 1px black dotted;">
+            <tr>
+                <td>
+                    @if (Model.invoice ?? false)
+                    {
+                        <strong>Invoice No:</strong>
+                    }
+                    else
+                    {
+                        <strong>Receipt No:</strong>
+                    }
+                </td>
+                <td style="border-left: 1px black dotted;padding-left:10px;">
+                    @ViewBag.receiptNo
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px black dotted;">
+                    <strong>Cashier:</strong>
+                </td>
+                <td style="border-top: 1px black dotted;border-left: 1px black dotted;padding-left:10px">
+                    @Html.DisplayFor(model => model.issuer)
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px black dotted;">
+                    <strong>Location:</strong>
+                </td>
+                <td style="border-top: 1px black dotted;border-left: 1px black dotted;padding-left:10px;">
+                    @Html.DisplayFor(model => model.VCAS_council.name)
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px black dotted;">
+                    <strong>Payer:</strong>
+                </td>
+                <td style="border-left: 1px black dotted;border-top: 1px black dotted;padding-left:10px;">
+                    @Html.DisplayFor(model => model.payer)
+                </td>
+            </tr>
+        </table>
+        <br />
+        <div class="partialview">
+            @Html.Action("PrintMoreItems", "capture_payments", new { r = ViewBag.receiptNo })
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <hr />
+        <div>
+            @Html.Raw(ViewBag.recFooter)
+        </div>
+        <hr />
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var printBtn = $("#printBtn");
+            printBtn.click(function () {
+                printBtn.hide();
+                window.print();
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

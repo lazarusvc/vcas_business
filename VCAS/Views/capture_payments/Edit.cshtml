@@ -22,7 +22,7 @@
     <h3 class="fg-gray">Invoice Capture</h3>
     <div class="row">
         <div class="cell-lg-6">
-            <div class="remark">                
+            <div class="remark">
                 @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
                 @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
                 @Html.EditorFor(model => model.issuer, new { htmlAttributes = new { data_role = "input", data_prepend = "Issuer:", @readonly = "readonly" } })
@@ -31,56 +31,48 @@
                 @Html.ValidationMessageFor(model => model.receiptNo, "", new { @class = "fg-magenta" })
                 @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:" } })
                 @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
-            </div>
-            <div class="row">
-                <div class="cell-lg-12">
-                    <div class="remark">
-                        <div class="row">
-                            <div class="cell-lg-12">
-                                @Html.EditorFor(model => model.payer, new { htmlAttributes = new { data_role = "input", data_prepend = "Payer: "} })
-                                @Html.ValidationMessageFor(model => model.payer, "", new { @class = "fg-magenta" })
-                                @Html.HiddenFor(model => model.payerID)
-                            </div>
-                        </div>
-                        @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "Amount: $", @type = "number", min = "1", step = "0.01" } })
-                        @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
-                        <br />
-                        <label class="fg-darkBlue">Payment Type:</label>
-                        @Html.DropDownList("FK_paymentType", null, htmlAttributes: new { data_role = "select" })
-                        @Html.ValidationMessageFor(model => model.FK_paymentType, "", new { @class = "fg-magenta" })
-                        <div id="checkDetails">
-                            @Html.EditorFor(model => model.checkNo, new { htmlAttributes = new { data_role = "input", data_prepend = "Check No.: " } })
-                            @Html.ValidationMessageFor(model => model.checkNo, "", new { @class = "fg-magenta" })
-                            <br />
-                            @Html.DropDownList("FK_bankDetails", null, htmlAttributes: new { data_role = "select" })
-                            @Html.ValidationMessageFor(model => model.FK_bankDetails, "", new { @class = "fg-magenta" })
-                        </div>
 
-                        <div class="row">
-                            <div class="cell-lg-12">
-                                <label class="fg-darkBlue">Sales Item:</label>
-                                @Html.DropDownList("FK_items", null, htmlAttributes: new { data_role = "select" })
-                                @Html.ValidationMessageFor(model => model.FK_items, "", new { @class = "fg-magenta" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @Html.HiddenFor(model => model.payer, new { @Value = Model.payer })
+                @Html.HiddenFor(model => model.payerID, new { @Value = Model.payerID })
+                @Html.HiddenFor(model => model.FK_paymentType, new { @Value = Model.FK_paymentType })
+                @Html.HiddenFor(model => model.checkNo, new { @Value = Model.checkNo })
+                @Html.HiddenFor(model => model.FK_bankDetails, new { @Value = Model.FK_bankDetails })
+                @Html.HiddenFor(model => model.FK_items, new { @Value = Model.FK_items })
             </div>
+
             <div class="remark">
+                <label class="fg-darkBlue">Payment:</label>
+                @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Amount $", @type = "number", min = "1", step = "0.01" } })
+                @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
+
+                @Html.EditorFor(model => model.recieved_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Received $", @type = "number", min = "1", step = "0.01" } })
+                @Html.ValidationMessageFor(model => model.recieved_amount, "", new { @class = "fg-magenta" })
+
                 @Html.TextAreaFor(model => model.comment, new { data_role = "textarea", placeholder = "... Comment" })
                 @Html.ValidationMessageFor(model => model.comment, "", new { @class = "fg-magenta" })
+                <!-- BUTTONS ------------------ -->
+                <br />
+                <label class="fg-darkBlue">Save as Receipt:</label>
+                @Html.DropDownListFor(model => model.invoice, new List<SelectListItem>
+                {
+                    new SelectListItem() { Text = "YES", Value = "false" },
+                    new SelectListItem() { Text = "NO", Value = "true" },
+                }, null, htmlAttributes: new { data_role = "select", @Class = "input-large" })
+                <button type="submit" class="button large yellow" style="width: 100%;">
+                    <span class="mif-done_all icon"></span> Capture
+                </button>
             </div>
         </div>
         <div class="cell-lg-6">
             <!-- PREVIEW ------------------ -->
             <div data-role="panel"
-                 data-title-caption="Invoice"
+                 data-title-caption="Receipt"
                  data-cls-panel="shadow-3"
                  data-title-icon="<span class='mif-apps'></span>">
-                <img id="rec_logo" src="#" width="10%" />
+                <img id="rec_logo" src="#" width="10" />
                 <div class="row">
                     <div class="cell-lg-6">
-                        <p><strong>Invoice No.: </strong>@ViewBag.recNo</p>
+                        <p><strong><span id="rec_invName2">Receipt</span> No.: </strong>@ViewBag.recNo</p>
                         <hr class="bg-gray" />
                         <p><strong>Location: </strong><span id="REC-loc"></span></p>
                         <p><strong>Issuer: </strong><span id="REC-issuer"></span></p>
@@ -108,7 +100,7 @@
                                 <tr>
                                     <th>LINE #</th>
                                     <th>DESCRIPTION</th>
-                                    <th>AMOUNT</th>
+                                    <th>SALES PRICE</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,6 +108,27 @@
                                     <td>1</td>
                                     <td><span id="REC-desc"></span><br /><span id="REC-orderDesc"></span><br /><br /><span id="REC-comments"></span></td>
                                     <td id="REC-amount"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="cell-lg-6"></div>
+                    <div class="cell-lg-6">
+                        <table class="table subcompact" data-horizontal-scroll="true">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <td align="right">TOTAL:</td>
+                                    <td align="left" id="REC-total"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -130,33 +143,28 @@
                             <tbody>
                                 <tr>
                                     <th></th>
-                                    <td align="right">TOTAL</td>
-                                    <td align="left" id="REC-total"></td>
+                                    <td align="right">PAYMENT:</td>
+                                    <td align="left" id="REC-payment"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table subcompact" data-horizontal-scroll="true">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <td align="right">BALANCE:</td>
+                                    <td align="left" id="REC-balance"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <!-- BUTTONS ------------------ -->
-            <br />
-            <div class="row">                
-                <div class="cell-lg-12">
-                    <ul class="pagination no-gap size-large">
-                        <li class="page-item" style="padding:5px;">
-                            <label class="fg-darkBlue">Save as Receipt:</label>
-                            @Html.DropDownListFor(model => model.invoice, new List<SelectListItem>
-                            {
-                                new SelectListItem() { Text = "YES", Value = "false" },
-                                new SelectListItem() { Text = "NO", Value = "true" },
-                            }, null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
-                        </li>
-                        <li class="page-item">
-                            <button type="submit" class="button large yellow">
-                                <span class="mif-done_all icon"></span> Capture
-                            </button>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -180,6 +188,7 @@
         var payer = $("#payer");
         var checkNo = $("#checkNo");
         var amount = $("#amount");
+        var amount_received = $("#recieved_amount");
         var item = $("#FK_items");
         var bank = $("#FK_bankDetails");
         var payment = $("#FK_paymentType");
@@ -250,11 +259,18 @@
             $("#REC-desc").text(item.children("option:selected").text());
         });
         // amount
-        $("#REC-amount").html('$' + amount.val());
         $("#REC-total").html('$' + amount.val());
         amount.on('keyup change', function () {
             $("#REC-amount").html('$' + amount.val());
             $("#REC-total").html('$' + amount.val());
+        });
+        // amount_received
+        var bal = 0;
+        amount_received.on('keyup change', function () {
+            $("#REC-payment").html('$' + amount_received.val());
+
+            bal = amount.val() - amount_received.val();
+            $("#REC-balance").html('$' + bal);
         });
         // comment
         $("#REC-comments").html('<hr class="bg-gray" width="50" /><br/>' + comment.val());

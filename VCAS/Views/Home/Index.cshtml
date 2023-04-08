@@ -1,6 +1,6 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
 
-<div class="row  bg-darkGray">
+<div class="row" id="app_styleBG">
     <div class="cell-lg-4">
         <div class="icon-box">
             <div class="icon bg-grayBlue fg-white"><span class="mif-location-city"></span></div>
@@ -26,17 +26,20 @@
             <div class="icon bg-red fg-white"><span class="mif-dollars"></span></div>
             <div class="content p-4">
                 <div class="text-upper">Undeposited Funds</div>
-                <div class="text-upper text-bold text-lead"><p id="undeposited_funds"></p></div>
+                <div class="text-upper text-bold text-lead">
+                    <p id="undeposited_funds"></p>
+                    <a href="@Url.Action("Create", "deposit", new { loc = ViewBag.loc })" class="button image-button bg-amazon fg-white" style="text-decoration: none !important; margin:5px;">
+                        <span class="mif-arrow-up-right icon"></span>
+                        <span class="caption">Deposit</span>
+                    </a>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
-
-
-<div class="row">
+<br/>
+<div class="row"  id="app_styleBG">
     <div class="cell-lg-12">
-        <hr class="bg-grayBlue" />
         <h4>Actions ::</h4>
     @if (ViewBag.URole == "cashier")
     {
@@ -106,9 +109,9 @@
     </div>
 
 </div>
-<div class="row">
+<br />
+<div class="row"  id="app_styleBG">
     <div class="cell-lg-12">
-        <hr class="bg-darkGray" />
         <h4>Forms ::</h4>
         @foreach (var v in (IEnumerable<VCAS.Models.VCAS_forms>)ViewBag.frms)
         {
@@ -119,28 +122,27 @@
         }
     </div>
 </div>
-
-
-<div class="row">
-    <div id="partialview1" class="cell-lg-6" style="background-color: #b4b4b4;">
+<br />
+<div class="row"  id="app_styleBG">
+    <div id="partialview1" class="cell-lg-6">
         @Html.Action("DebitsChart", "debitTrans", new { d = 0 })
     </div>
-    <div id="partialview2" class="cell-lg-6" style="background-color: #b4b4b4;">
+    <div id="partialview2" class="cell-lg-6">
         @Html.Action("CreditsChart", "creditTrans", new { d = 0 })
     </div>
 </div>
-
-<hr class="bg-grayBlue" />
-
-<div class="row">
-    <div id="partialview2b" class="cell-lg-12" style="background-color: #b4b4b4;">
+<br />
+<div class="row"  id="app_styleBG">
+    <div id="partialview2b" class="cell-lg-12">
         @Html.Action("CreditsChart2", "creditTrans", new { d = 0 })
     </div>
 </div>
-<div class="row">
-    <div id="partialview3" class="cell-lg-12">
+<br />
+<div class="row" id="app_styleBG">
+    <div id="partialview3" class="cell-lg-12" >
         @Html.Action("CreditsTable", "creditTrans")
     </div>
+    <hr style="        background-color: #bebebe !important; width: 50%;" />
     <div id="partialview4" class="cell-lg-12">
         @Html.Action("Index", "issuedChecks")
     </div>
@@ -171,6 +173,11 @@
                 });
             }
         });
+
+        // Deposit logic
+        // ================================
+
+
 
         // Organization innerHtml / Select logic
         // ================================

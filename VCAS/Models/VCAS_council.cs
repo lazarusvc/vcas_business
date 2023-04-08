@@ -22,10 +22,6 @@ public partial class VCAS_council
     public VCAS_council()
     {
 
-        this.VCAS_capture_payments = new HashSet<VCAS_capture_payments>();
-
-        this.VCAS_debitAccounts = new HashSet<VCAS_debitAccounts>();
-
         this.VCAS_district = new HashSet<VCAS_district>();
 
         this.VCAS_forms = new HashSet<VCAS_forms>();
@@ -37,6 +33,16 @@ public partial class VCAS_council
         this.VCAS_REF_items_location = new HashSet<VCAS_REF_items_location>();
 
         this.VCAS_REF_reports_params = new HashSet<VCAS_REF_reports_params>();
+
+        this.VCAS_inventory = new HashSet<VCAS_inventory>();
+
+        this.VCAS_orders = new HashSet<VCAS_orders>();
+
+        this.VCAS_capture_payments = new HashSet<VCAS_capture_payments>();
+
+        this.VCAS_debitAccounts = new HashSet<VCAS_debitAccounts>();
+
+        this.VCAS_deposit = new HashSet<VCAS_deposit>();
 
         this.VCAS_undepositedFunds = new HashSet<VCAS_undepositedFunds>();
 
@@ -65,14 +71,6 @@ public partial class VCAS_council
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<VCAS_capture_payments> VCAS_capture_payments { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<VCAS_debitAccounts> VCAS_debitAccounts { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
     public virtual ICollection<VCAS_district> VCAS_district { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -94,6 +92,26 @@ public partial class VCAS_council
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<VCAS_REF_reports_params> VCAS_REF_reports_params { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<VCAS_inventory> VCAS_inventory { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<VCAS_orders> VCAS_orders { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<VCAS_capture_payments> VCAS_capture_payments { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<VCAS_debitAccounts> VCAS_debitAccounts { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<VCAS_deposit> VCAS_deposit { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 

@@ -24,6 +24,8 @@ public partial class VCAS_REF_items
 
         this.VCAS_REF_items_location = new HashSet<VCAS_REF_items_location>();
 
+        this.VCAS_inventory = new HashSet<VCAS_inventory>();
+
         this.VCAS_capture_payments = new HashSet<VCAS_capture_payments>();
 
     }
@@ -40,6 +42,10 @@ public partial class VCAS_REF_items
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<VCAS_REF_items_location> VCAS_REF_items_location { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<VCAS_inventory> VCAS_inventory { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 

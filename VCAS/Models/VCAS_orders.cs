@@ -30,13 +30,19 @@ public partial class VCAS_orders
 
     public int FK_inventoryId { get; set; }
 
+    public Nullable<int> FK_location { get; set; }
 
+    public string comment { get; set; }
+
+
+
+    public virtual VCAS_council VCAS_council { get; set; }
 
     public virtual VCAS_customer VCAS_customer { get; set; }
 
-    public virtual VCAS_REF_order_status VCAS_REF_order_status { get; set; }
-
     public virtual VCAS_inventory VCAS_inventory { get; set; }
+
+    public virtual VCAS_REF_order_status VCAS_REF_order_status { get; set; }
 
 }
 

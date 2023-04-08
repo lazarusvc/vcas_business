@@ -238,6 +238,7 @@
     <Compile Include="Controllers\customerController.cs" />
     <Compile Include="Controllers\debitAccountsController.cs" />
     <Compile Include="Controllers\debitTransController.cs" />
+    <Compile Include="Controllers\depositController.cs" />
     <Compile Include="Controllers\districtController.cs" />
     <Compile Include="Controllers\expensesController.cs" />
     <Compile Include="Controllers\expense_locationController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Controllers\items_locationController.cs" />
     <Compile Include="Controllers\ordersController.cs" />
     <Compile Include="Controllers\order_statusController.cs" />
+    <Compile Include="Controllers\reconcileController.cs" />
     <Compile Include="Controllers\reports_paramsController.cs" />
     <Compile Include="Controllers\sessionController.cs" />
     <Compile Include="GlobalSession.cs" />
@@ -286,7 +288,16 @@
     <Compile Include="Models\usp_BulkDownloadPayments_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\usp_InsertDeposit_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usp_SelectCreditChart_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_SelectDeposit_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_SelectRecon_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VCAS_capture_payments.cs">
@@ -307,6 +318,9 @@
     <Compile Include="Models\VCAS_debitTrans.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VCAS_deposit.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VCAS_district.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -316,7 +330,6 @@
     <Compile Include="Models\VCAS_forms.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VCAS_formsHTMLSave.cs" />
     <Compile Include="Models\VCAS_inventory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -324,6 +337,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VCAS_orders.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VCAS_reconcile.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VCAS_REF_bank_details.cs">
@@ -390,16 +406,14 @@
     <Content Include="CodeTemplates\MvcView\List.cs.t4" />
     <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
     <Content Include="CodeTemplates\PackageVersions.xml" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cover.jpg" />
     <Content Include="Content\document.jpg" />
     <Content Include="Content\files-img.png" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\icon.png" />
+    <Content Include="Content\icons\120x120.png" />
+    <Content Include="Content\icons\152x152.png" />
+    <Content Include="Content\icons\60x60.png" />
+    <Content Include="Content\icons\76x76.png" />
     <Content Include="Content\landing\images\cta-illustration-dark.svg" />
     <Content Include="Content\landing\images\cta-illustration-light.svg" />
     <Content Include="Content\landing\images\feature-01-dark.svg" />
@@ -425,7 +439,6 @@
     <Content Include="Content\landing\style.css" />
     <Content Include="Content\loader.gif" />
     <Content Include="Content\metro-all.css" />
-    <Content Include="Content\metro-all.min.css" />
     <Content Include="Content\metro-colors.css" />
     <Content Include="Content\metro-colors.min.css" />
     <Content Include="Content\metro-common.css" />
@@ -436,9 +449,8 @@
     <Content Include="Content\metro-icons.min.css" />
     <Content Include="Content\metro-reset.css" />
     <Content Include="Content\metro-reset.min.css" />
-    <Content Include="Content\metro.css" />
-    <Content Include="Content\metro.min.css" />
     <Content Include="Content\order_header.png" />
+    <Content Include="Content\site-form.css" />
     <Content Include="Content\Site-login.css" />
     <Content Include="Content\smart_wizard.min.css" />
     <Content Include="Content\style.css" />
@@ -490,6 +502,7 @@
     <Content Include="Mvc.sitemap">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="manifest.json" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -512,6 +525,7 @@
     <Content Include="Scripts\metro.js" />
     <Content Include="Scripts\metro.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\PhoneNumber.js" />
     <Content Include="Scripts\signature_pad.js" />
     <Content Include="Scripts\signature_pad.min.js" />
     <Content Include="Scripts\tether.js" />
@@ -650,6 +664,7 @@
     <Content Include="Scripts\tinymce\themes\silver\theme.min.js" />
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="serviceworker.js" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -733,7 +748,6 @@
     <Content Include="Views\issuedChecks\Approvals.cshtml" />
     <Content Include="Views\issuedChecks\Delivery.cshtml" />
     <Content Include="Views\Shared\_issuedChecksEdit1.cshtml" />
-    <Content Include="Views\capture_payments\Create.cshtml" />
     <Content Include="Views\capture_payments\Index.cshtml" />
     <Content Include="Views\capture_payments\More.cshtml" />
     <Content Include="Views\capture_payments\Print.cshtml" />
@@ -864,6 +878,19 @@
     <Content Include="Scripts\tinymce\langs\README.md" />
     <Content Include="Views\Shared\_LayoutForms.cshtml" />
     <Content Include="Views\forms\Complete.cshtml" />
+    <Content Include="Views\Shared\_formsDataTable.cshtml" />
+    <Content Include="Views\capture_payments\Create.cshtml" />
+    <Content Include="Views\reconcile\Create.cshtml" />
+    <Content Include="Views\reconcile\Delete.cshtml" />
+    <Content Include="Views\reconcile\Details.cshtml" />
+    <Content Include="Views\reconcile\Edit.cshtml" />
+    <Content Include="Views\reconcile\Index.cshtml" />
+    <Content Include="Views\reconcile\Do.cshtml" />
+    <Content Include="Views\Shared\_reconList.cshtml" />
+    <Content Include="Views\deposit\Create.cshtml" />
+    <Content Include="Views\Shared\_depositList.cshtml" />
+    <Content Include="Views\deposit\Index.cshtml" />
+    <Content Include="Views\deposit\Slip.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -873,10 +900,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -26,6 +26,22 @@ public partial class VCAS_undepositedFunds
 
     public int FK_location { get; set; }
 
+    public Nullable<double> recieved_amount { get; set; }
+
+    public Nullable<int> checkNo { get; set; }
+
+    public string comment { get; set; }
+
+    public string receiptNo { get; set; }
+
+    public Nullable<int> FK_paymentType { get; set; }
+
+    public Nullable<int> FK_bankDetails { get; set; }
+
+    public Nullable<bool> deposited { get; set; }
+
+    public Nullable<int> depositedID { get; set; }
+
 
 
     public virtual VCAS_council VCAS_council { get; set; }

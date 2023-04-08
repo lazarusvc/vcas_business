@@ -41,7 +41,7 @@ namespace VCAS.Controllers
         // GET: reports_params/Create
         public ActionResult Create()
         {
-            ViewBag.FK_REF_reportsId = new SelectList(db.VCAS_reports, "Id", "name");
+            ViewBag.FK_REF_reportsId = new SelectList(db.VCAS_reports, "Id", "desc");
             ViewBag.FK_location = new SelectList(db.VCAS_council, "Id", "name");
             return View();
         }

@@ -62,13 +62,13 @@ public partial class VCAS_issuedChecks
 
 
 
-    public virtual VCAS_debitAccounts VCAS_debitAccounts { get; set; }
-
     public virtual VCAS_expenses VCAS_expenses { get; set; }
 
     public virtual VCAS_REF_receiverID_Types VCAS_REF_receiverID_Types { get; set; }
 
     public virtual VCAS_council VCAS_council { get; set; }
+
+    public virtual VCAS_debitAccounts VCAS_debitAccounts { get; set; }
 
 }
 

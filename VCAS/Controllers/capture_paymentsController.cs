@@ -72,13 +72,21 @@ namespace VCAS.Controllers
             if (r != null)
             {
                 model = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList();
-                ViewBag.total = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.amount).Sum();
+                var tot = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.amount).Sum();
+                var pay = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.recieved_amount).Sum();
+                ViewBag.total = tot;
+                ViewBag.payment = pay;
+                ViewBag.balance = tot - pay;
             }
             else
             {
                 string lastRec = Session["printRec"].ToString();
                 model = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList();
-                ViewBag.total = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.amount).Sum();
+                var tot = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.amount).Sum();
+                var pay = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.recieved_amount).Sum();
+                ViewBag.total = tot;
+                ViewBag.payment = pay;
+                ViewBag.balance = tot - pay;
             }
             return PartialView("_capture_paymentsIndex", model);
         }
@@ -123,6 +131,8 @@ namespace VCAS.Controllers
                 ViewBag.recNo = "VCR" + DateTime.Now.ToString("MMddyyyy") + 0;
             }
 
+            // Fetch Invoice
+            ViewBag.invoiceFetches = new SelectList((from i in db.VCAS_capture_payments.Where(x => x.FK_location == GlobalSession.Location && x.invoice == true) select new { id = i.Id, name = i.receiptNo + " :- " + i.payer }), "id", "name");
             // Receipt Logo
             ViewBag.recLogo = db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_logo).FirstOrDefault();
             // Issuer
@@ -147,9 +157,7 @@ namespace VCAS.Controllers
             // Customer Orders dropdown
             ViewBag.cusOrders = new SelectList((from o in db.VCAS_orders.Where(x => x.FK_customerId == cusID_data && x.FK_order_statusId == 1) select new { id = o.Id, name = "Order #:" + o.Id + " " + o.VCAS_inventory.name }), "id", "name");
             ViewBag.cusOrdersCount = db.VCAS_orders.Where(x => x.FK_customerId == cusID_data && x.FK_order_statusId == 1).Select(x => x.Id).Count();
-            // Fetch Invoice
-            ViewBag.invoiceFetch = new SelectList((from i in db.VCAS_capture_payments.Where(x => x.FK_location == GlobalSession.Location && x.invoice == true) select new { id = i.Id, name = i.receiptNo + " :- " + i.payer }), "id", "name");
-            
+
             return View();
         }
 
@@ -157,7 +165,7 @@ namespace VCAS.Controllers
         // ======================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
+        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
         {
             if (ModelState.IsValid)
             {
@@ -172,6 +180,8 @@ namespace VCAS.Controllers
                 }
                 return RedirectToAction("PrintLast");
             }
+            // Fetch Invoice
+            ViewBag.invoiceFetches = new SelectList((from i in db.VCAS_capture_payments.Where(x => x.FK_location == GlobalSession.Location && x.invoice == true) select new { id = i.Id, name = i.receiptNo + " :- " + i.payer }), "id", "name");
             // Issuer
             ViewBag.issuer = db.VCAS_users.Where(x => x.userName == User.Identity.Name).Select(x => x.fullName).FirstOrDefault();
             // Default Council
@@ -188,9 +198,13 @@ namespace VCAS.Controllers
             // Items
             ViewBag.FK_items = new SelectList((from s in db.VCAS_REF_items_location.Where(x => x.FK_councilId == GlobalSession.Location) select new { id = s.VCAS_REF_items.Id, name = s.VCAS_REF_items.name + " - " + s.VCAS_REF_items.desc }), "id", "name", vCAS_capture_payments.VCAS_REF_items);
             // Customer Information
+            var cusName_data = db.VCAS_customer.Where(x => x.Id == vCAS_capture_payments.payerID).Select(x => x.firstName).FirstOrDefault();
+            ViewBag.cusName = cusName_data + " " + db.VCAS_customer.Where(x => x.Id == vCAS_capture_payments.payerID).Select(x => x.lastName).FirstOrDefault();
+            ViewBag.cusID = vCAS_capture_payments.payerID;
             ViewBag.cusList = new SelectList((from c in db.VCAS_customer select new { id = c.Id, name = c.firstName + " " + c.lastName }), "id", "name");
             // Customer Orders dropdown
-            ViewBag.cusOrders = new SelectList(db.VCAS_orders, "id", "name");
+            ViewBag.cusOrders = new SelectList((from o in db.VCAS_orders.Where(x => x.FK_customerId == vCAS_capture_payments.payerID && x.FK_order_statusId == 1) select new { id = o.Id, name = "Order #:" + o.Id + " " + o.VCAS_inventory.name }), "id", "name");
+            ViewBag.cusOrdersCount = db.VCAS_orders.Where(x => x.FK_customerId == vCAS_capture_payments.payerID && x.FK_order_statusId == 1).Select(x => x.Id).Count();
             return View(vCAS_capture_payments);
         }
 
@@ -242,7 +256,7 @@ namespace VCAS.Controllers
         // ======================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult More([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
+        public ActionResult More([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
         {
             if (ModelState.IsValid)
             {
@@ -331,7 +345,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
+        public ActionResult Edit([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
         {
             if (ModelState.IsValid)
             {

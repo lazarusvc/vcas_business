@@ -30,6 +30,22 @@ public partial class VCAS_REF_forms
 
     public string txtInput_05 { get; set; }
 
+    public string txtInput_06 { get; set; }
+
+    public string txtInput_07 { get; set; }
+
+    public string txtInput_08 { get; set; }
+
+    public string txtInput_09 { get; set; }
+
+    public string txtInput_10 { get; set; }
+
+    public string txtInput_11 { get; set; }
+
+    public string txtInput_12 { get; set; }
+
+    public string txtInput_13 { get; set; }
+
     public string checkInput_01 { get; set; }
 
     public string checkInput_02 { get; set; }

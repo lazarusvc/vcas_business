@@ -22,9 +22,11 @@ public partial class VCAS_debitAccounts
     public VCAS_debitAccounts()
     {
 
-        this.VCAS_debitTrans = new HashSet<VCAS_debitTrans>();
+        this.VCAS_debitTrans1 = new HashSet<VCAS_debitTrans>();
 
         this.VCAS_issuedChecks = new HashSet<VCAS_issuedChecks>();
+
+        this.VCAS_reconcile = new HashSet<VCAS_reconcile>();
 
     }
 
@@ -49,19 +51,29 @@ public partial class VCAS_debitAccounts
 
     public int FK_location { get; set; }
 
+    public string starting_balance { get; set; }
+
+    public string type { get; set; }
+
+    public string active { get; set; }
 
 
-    public virtual VCAS_REF_payment_type VCAS_REF_payment_type { get; set; }
+
+    public virtual VCAS_council VCAS_council { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<VCAS_debitTrans> VCAS_debitTrans { get; set; }
+    public virtual ICollection<VCAS_debitTrans> VCAS_debitTrans1 { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<VCAS_issuedChecks> VCAS_issuedChecks { get; set; }
 
-    public virtual VCAS_council VCAS_council { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<VCAS_reconcile> VCAS_reconcile { get; set; }
+
+    public virtual VCAS_REF_payment_type VCAS_REF_payment_type { get; set; }
 
 }
 

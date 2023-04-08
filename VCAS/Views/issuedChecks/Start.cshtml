@@ -8,40 +8,42 @@
     @Html.MvcSiteMap().Menu(false, true, true)
 </div>
 
+<div id="app_styleBG">
+    <a href="@Url.Action("Create", "issuedChecks")" class="image-button yellow m-1" style="text-decoration: none !important;">
+        <span class="mif-add icon"></span>
+        <span class="caption">New (Pre-Approved)</span>
+    </a>
+    <a href="@Url.Action("CreateApproved", "issuedChecks")" class="image-button yellow m-1" style="text-decoration: none !important;">
+        <span class="mif-add icon"></span>
+        <span class="caption">New (Approved)</span>
+    </a>
+    <span> | </span>
+    <a href="@Url.Action("Entry", "issuedChecks")" class="image-button primary m-1" style="text-decoration: none !important;">
+        <span class="mif-pencil icon"></span>
+        <span class="caption">Pending Entries</span>
+        <span class="badge bg-red fg-white">@ViewBag.entries</span>
+    </a>
+    <a href="@Url.Action("Approvals", "issuedChecks")" class="image-button success m-1" style="text-decoration: none !important;">
+        <span class="mif-chevron-thin-right icon"></span>
+        <span class="caption">Pending Approvals</span>
+        <span class="badge bg-red fg-white">@ViewBag.pending_approvals</span>
+    </a>
+    <a href="@Url.Action("Delivery", "issuedChecks")" class="image-button bg-white m-1" style="text-decoration: none !important;">
+        <span class="mif-chevron-thin-right icon"></span>
+        <span class="caption">Pending Delivery</span>
+        <span class="badge bg-red fg-white">@ViewBag.pending_delivery</span>
+    </a>
+    <span> | </span>
+    <a href="@Url.Action("DownloadFile_Payments", "issuedChecks")" class="image-button bg-white m-1" style="text-decoration: none !important;">
+        <span class="mif-download icon"></span>
+        <span class="caption">Select & Download File</span>
+    </a>
+    <a href="@Url.Action("BulkCreate", "issuedChecks")" class="image-button bg-white m-1" style="text-decoration: none !important;">
+        <span class="mif-upload icon"></span>
+        <span class="caption">Bulk Upload</span>
+    </a>
+</div>
 
-<a href="@Url.Action("Create", "issuedChecks")" class="image-button yellow m-1" style="text-decoration: none !important;">
-    <span class="mif-add icon"></span>
-    <span class="caption">New (Pre-Approved)</span>
-</a>
-<a href="@Url.Action("CreateApproved", "issuedChecks")" class="image-button yellow m-1" style="text-decoration: none !important;">
-    <span class="mif-add icon"></span>
-    <span class="caption">New (Approved)</span>
-</a>
-<span> | </span>
-<a href="@Url.Action("Entry", "issuedChecks")" class="image-button primary m-1" style="text-decoration: none !important;">
-    <span class="mif-pencil icon"></span>
-    <span class="caption">Pending Entries</span>
-    <span class="badge bg-red fg-white">@ViewBag.entries</span>
-</a>
-<a href="@Url.Action("Approvals", "issuedChecks")" class="image-button success m-1" style="text-decoration: none !important;">
-    <span class="mif-chevron-thin-right icon"></span>
-    <span class="caption">Pending Approvals</span>
-    <span class="badge bg-red fg-white">@ViewBag.pending_approvals</span>
-</a>
-<a href="@Url.Action("Delivery", "issuedChecks")" class="image-button m-1" style="text-decoration: none !important;">
-    <span class="mif-chevron-thin-right icon"></span>
-    <span class="caption">Pending Delivery</span>
-    <span class="badge bg-red fg-white">@ViewBag.pending_delivery</span>
-</a>
-<span> | </span>
-<a href="@Url.Action("DownloadFile_Payments", "issuedChecks")" class="image-button m-1" style="text-decoration: none !important;">
-    <span class="mif-download icon"></span>
-    <span class="caption">Select & Download File</span>
-</a>
-<a href="@Url.Action("BulkCreate", "issuedChecks")" class="image-button m-1" style="text-decoration: none !important;">
-    <span class="mif-upload icon"></span>
-    <span class="caption">Bulk Upload</span>
-</a>
 <br />
 <br />
 <div style="-webkit-box-shadow: inset 0px -1px 67px -9px rgb(82 82 82);-moz-box-shadow: inset 0px -1px 67px -9px rgba(82,82,82,1); box-shadow: inset 0px -1px 67px -9px rgb(82 82 82); border-radius: 10px; width: 100%; padding: 5px;">

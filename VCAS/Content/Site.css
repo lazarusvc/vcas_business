@@ -21,14 +21,6 @@ body {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default 
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-*/
-
 .prepend {
     width: 20% !important;
 }
@@ -42,6 +34,40 @@ textarea {
     clear: both;
     top:-30px;
     position:relative;
+}
+
+.sales_inventory .tile-small .icon {
+    max-width: 0% !important;
+    height: 50% !important;
+    font-size: 14px !important;
+    line-height: 45px;
+}
+
+.sales_inventory .tile-small .branding-bar, .tile-medium .branding-bar, .tile-wide .branding-bar, .tile-large .branding-bar, .tile-app .branding-bar {
+    height: 31px;
+    line-height: 33px !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 0 10px 5px;
+    font-size: 8px !important;
+    font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    z-index: 2;
+}
+
+.sales_inventory .tile-small .badge-top, .tile-medium .badge-top, .tile-wide .badge-top, .tile-large .badge-top, .tile-app .badge-top {
+    top: 10px;
+    right: 40px !important;
+}
+
+.sales_inventory .tile-small {
+    margin-right: 10px;
+    display: inline-block;
+    position: relative;
 }
 
 /*
@@ -137,29 +163,29 @@ SIGNATURE PAD CSS
     padding: 16px;
 }
 
-    .signature-pad::before,
-    .signature-pad::after {
-        position: absolute;
-        z-index: -1;
-        content: "";
-        width: 40%;
-        height: 10px;
-        bottom: 10px;
-        background: transparent;
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
-    }
+.signature-pad::before,
+.signature-pad::after {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    width: 40%;
+    height: 10px;
+    bottom: 10px;
+    background: transparent;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
 
-    .signature-pad::before {
-        left: 20px;
-        -webkit-transform: skew(-3deg) rotate(-3deg);
-        transform: skew(-3deg) rotate(-3deg);
-    }
+.signature-pad::before {
+    left: 20px;
+    -webkit-transform: skew(-3deg) rotate(-3deg);
+    transform: skew(-3deg) rotate(-3deg);
+}
 
-    .signature-pad::after {
-        right: 20px;
-        -webkit-transform: skew(3deg) rotate(3deg);
-        transform: skew(3deg) rotate(3deg);
-    }
+.signature-pad::after {
+    right: 20px;
+    -webkit-transform: skew(3deg) rotate(3deg);
+    transform: skew(3deg) rotate(3deg);
+}
 
 .signature-pad--body {
     position: relative;
@@ -169,16 +195,16 @@ SIGNATURE PAD CSS
     border: 1px solid #f4f4f4;
 }
 
-    .signature-pad--body
-    canvas {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 4px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;
-    }
+.signature-pad--body
+canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;
+}
 
 .signature-pad--footer {
     color: #C3C3C3;
@@ -280,24 +306,6 @@ SIGNATURE PAD CSS
     width: 50%;
 }
 
-/*
-----------------------------------
- FORCE ORIENTATION - Mobile Mode
-----------------------------------
-
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
-    html {
-        transform: rotate(-90deg);
-        transform-origin: left top;
-        width: 100vh;
-        height: 100vw;
-        overflow-x: hidden;
-        position: absolute;
-        top: 100%;
-        left: 0;
-    }
-}
-*/
 
 /*
 ----------------------------------
@@ -385,114 +393,28 @@ iframe {
 
 /*
 ----------------------------------
-  FORM
+ MOBILE CONTAINERS
 ----------------------------------
 */
-.vc-form {
-max-width: 500px;
-padding: 10px 20px;
-background: #f4f7f8;
-margin: 10px auto;
-padding: 20px;
-background: #f4f7f8;
-border-radius: 8px;
-font-family: Georgia, "Times New Roman", Times, serif;
+#m_container {
+    background-color: white !important;
+    padding: 10px !important;
+    border-radius: 5px !important;
 }
 
-.vc-form fieldset {
-    border: none;
+#app_styleBG {
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #dcdcdc;
+    background-color: #ebebeb !important;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1);
 }
 
-.vc-form legend {
-    font-size: 1.4em;
-    margin-bottom: 10px;
-}
-
-.vc-form label {
-    display: block;
-    margin-bottom: 8px;
-}
-
-.vc-form input[type="text"],
-.vc-form input[type="date"],
-.vc-form input[type="datetime"],
-.vc-form input[type="email"],
-.vc-form input[type="number"],
-.vc-form input[type="search"],
-.vc-form input[type="time"],
-.vc-form input[type="url"],
-.vc-form input[type="tel"],
-.vc-form textarea,
-.vc-form select {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    background: rgba(255,255,255,.1);
-    border: none;
-    border-radius: 4px;
-    font-size: 15px;
-    margin: 0;
-    outline: 0;
-    padding: 10px;
+#app_styleBG2 {
+    background-color: white !important;
+    border-radius: 10px;
     width: 100%;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    background-color: #e8eeef;
-    color: #8a97a0;
-    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 30px;
-}
-
-.vc-form input[type="text"]:focus,
-.vc-form input[type="date"]:focus,
-.vc-form input[type="datetime"]:focus,
-.vc-form input[type="email"]:focus,
-.vc-form input[type="number"]:focus,
-.vc-form input[type="search"]:focus,
-.vc-form input[type="time"]:focus,
-.vc-form input[type="url"]:focus,
-.vc-form textarea:focus,
-.vc-form select:focus {
-    background: #d2d9dd;
-}
-
-.vc-form select {
-    -webkit-appearance: menulist-button;
-    height: 35px;
-}
-
-.vc-form .number {
-    background: #1abc9c;
-    color: #fff;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    font-size: 0.8em;
-    margin-right: 4px;
-    line-height: 30px;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-    border-radius: 15px 15px 15px 0px;
-}
-
-.vc-form input[type="submit"],
-.vc-form input[type="button"] {
-    position: relative;
-    display: block;
-    padding: 19px 39px 18px 39px;
-    color: #FFF;
-    margin: 0 auto;
-    background: #1abc9c;
-    font-size: 18px;
-    text-align: center;
-    font-style: normal;
-    width: 100%;
-    border: 1px solid #16a085;
-    border-width: 1px 1px 3px;
-    margin-bottom: 10px;
-}
-
-.vc-form input[type="submit"]:hover,
-.vc-form input[type="button"]:hover {
-    background: #109177;
+    padding: 20px;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1);
 }

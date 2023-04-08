@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<VCAS.Models.VCAS_capture_payments>
 
 
-<table class="table subcompact" data-horizontal-scroll="true">
+<table class="table subcompact">
     <thead>
         <tr>
             <th>
@@ -11,7 +11,7 @@
                 Description
             </th>
             <th>
-                Amount
+                Sales Price
             </th>
         </tr>
     </thead>
@@ -33,7 +33,8 @@
         </tbody>
     }
 </table>
-<table class="table subcompact" data-horizontal-scroll="true">
+<br/>
+<table class="table subcompact">
     <thead>
         <tr>
             <th>
@@ -54,4 +55,6 @@
     }
 </table>
 
-<h4 align="RIGHT">Total: <strong>$@ViewBag.total</strong></h4>
+<p align="RIGHT">Total: <strong>$@ViewBag.total</strong></p>
+<p align="RIGHT">Payment: <strong>$@ViewBag.payment</strong></p>
+<p align="RIGHT">Balance: <strong>$@ViewBag.balance</strong></p>

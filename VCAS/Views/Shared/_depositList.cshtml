@@ -1,0 +1,58 @@
+﻿@model IEnumerable<VCAS.Models.usp_SelectDeposit_Result>
+
+@{
+    Layout = null;
+}
+
+<table class="table cell-border compact"
+       data-rows="-1"
+       data-show-pagination="false"
+       data-show-rows-steps="false"
+       data-show-search="false"
+       data-role="table"
+       data-rownum="true"
+       data-horizontal-scroll="true">
+    <thead>
+        <tr>
+            <th>
+                Receipt No
+            </th>
+            <th>
+                Payment Type
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Check No
+            </th>
+            <th>
+                Bank Type
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receiptNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.payType)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.checkNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.bankType)
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>

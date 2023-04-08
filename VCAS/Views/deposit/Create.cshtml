@@ -1,0 +1,126 @@
+﻿@model VCAS.Models.VCAS_deposit
+
+@{
+    ViewBag.Title = "Create Deposits";
+}
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+    <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+
+        <div class="row">
+            <div class="cell-lg-8">
+                <h2>Deposit:: Undeposit Funds</h2>
+                <p>Date Ending: <span style="text-decoration: underline;">@ViewBag.endDate.ToString("dd MMM, yyyy")</span></p>
+            </div>
+            <div class="cell-lg-4">
+                @Html.HiddenFor(model => model.endind_date, new { @Value = @ViewBag.endDate })
+                @Html.ValidationMessageFor(model => model.endind_date, "", new { @class = "fg-magenta" })
+                <div class="dropdown-button place-right">
+                    <button class="button dropdown-toggle image-button">
+                        <span class="mif-cogs icon"></span>
+                        <span class="caption">Actions</span>
+                    </button>
+                    <ul class="d-menu place-right" data-role="dropdown">
+                        <li><a href="#" class="button bg-gray fg-white" id="editBtn">Edit</a></li>
+                        <li><input type="submit" value="Deposit" class="button success" style="width: 100%;" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell-lg-5">
+                <lable class="fg-grayBlue">Location:</lable>
+                @Html.DropDownList("FK_councilId", null, htmlAttributes: new { data_role = "select" })
+                @Html.ValidationMessageFor(model => model.FK_councilId, "", new { @class = "fg-magenta" })
+            </div>
+            <div class="cell-lg-2">
+                <br />
+                <span style="left:33%; position: relative;" class="mif-arrow-right icon"></span>
+            </div>
+            <div class="cell-lg-5">
+                <lable class="fg-grayBlue">To Account:</lable>
+                @Html.DropDownList("FK_debitAccount", null, htmlAttributes: new { data_role = "select" })
+                @Html.ValidationMessageFor(model => model.FK_debitAccount, "", new { @class = "fg-magenta" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="cell-lg-4">
+                <lable class="fg-grayBlue">Cash:</lable>
+                @Html.EditorFor(model => model.cash_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar2 icon'></span>", @Class = "input-large", @Value = ViewBag.cashAmt } })
+                @Html.ValidationMessageFor(model => model.cash_amount, "", new { @class = "fg-magenta" })
+            </div>
+            <div class="cell-lg-4">
+                <lable class="fg-grayBlue">Checks:</lable>
+                @Html.EditorFor(model => model.check_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar2 icon'></span>", @Class = "input-large", @Value = ViewBag.checkAmt } })
+                @Html.ValidationMessageFor(model => model.check_amount, "", new { @class = "fg-magenta" })
+            </div>
+            <div class="cell-lg-4">
+                <lable class="fg-grayBlue">Visa Card (Debit):</lable>
+                @Html.EditorFor(model => model.visa_debit_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar2 icon'></span>", @Class = "input-large", @Value = ViewBag.visaDAmt } })
+                @Html.ValidationMessageFor(model => model.visa_debit_amount, "", new { @class = "fg-magenta" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell-lg-4">
+                <lable class="fg-grayBlue">Visa Card (Credit):</lable>
+                @Html.EditorFor(model => model.visa_credit_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar2 icon'></span>", @Class = "input-large", @Value = ViewBag.visaCAmt } })
+                @Html.ValidationMessageFor(model => model.visa_credit_amount, "", new { @class = "fg-magenta" })
+            </div>
+            <div class="cell-lg-4">
+                <lable class="fg-grayBlue">Bank Transfer:</lable>
+                @Html.EditorFor(model => model.bt_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar2 icon'></span>", @Class = "input-large", @Value = ViewBag.btAmt } })
+                @Html.ValidationMessageFor(model => model.bt_amount, "", new { @class = "fg-magenta" })
+            </div>
+            <div class="cell-lg-4">
+
+            </div>
+        </div>
+        <br />
+        <hr class="bg-gray" />
+        <h4>Records</h4>
+        @Html.Action("PartialIndex", "deposit", new { loc = ViewBag.locParam })
+
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+
+        var cash_amount = $("#cash_amount");
+        var check_amount = $("#check_amount");
+        var visa_debit_amount = $("#visa_debit_amount");
+        var visa_credit_amount = $("#visa_credit_amount");
+        var bt_amount = $("#bt_amount");
+
+        cash_amount.css("background-color", "#f8f8f8"); // make field READONLY
+        check_amount.css("background-color", "#f8f8f8"); 
+        visa_debit_amount.css("background-color", "#f8f8f8");
+        visa_credit_amount.css("background-color", "#f8f8f8");
+        bt_amount.css("background-color", "#f8f8f8");
+        cash_amount.prop('readonly', true);
+        check_amount.prop('readonly', true);
+        visa_debit_amount.prop('readonly', true);
+        visa_credit_amount.prop('readonly', true);
+        bt_amount.prop('readonly', true);
+
+        $("#editBtn").on('click', function() {
+            cash_amount.css("background-color", "white"); // make field READONLY
+            check_amount.css("background-color", "white");
+            visa_debit_amount.css("background-color", "white");
+            visa_credit_amount.css("background-color", "white");
+            bt_amount.css("background-color", "white");
+            cash_amount.prop('readonly', false);
+            check_amount.prop('readonly', false);
+            visa_debit_amount.prop('readonly', false);
+            visa_credit_amount.prop('readonly', false);
+            bt_amount.prop('readonly', false);
+        });
+    });
+</script>

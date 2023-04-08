@@ -49,13 +49,9 @@ public partial class ModelContainer : DbContext
 
     public virtual DbSet<VCAS_REF_userRoles> VCAS_REF_userRoles { get; set; }
 
-    public virtual DbSet<VCAS_debitAccounts> VCAS_debitAccounts { get; set; }
-
     public virtual DbSet<VCAS_reports> VCAS_reports { get; set; }
 
     public virtual DbSet<VCAS_district> VCAS_district { get; set; }
-
-    public virtual DbSet<VCAS_undepositedFunds> VCAS_undepositedFunds { get; set; }
 
     public virtual DbSet<VCAS_supportDocs> VCAS_supportDocs { get; set; }
 
@@ -73,21 +69,29 @@ public partial class ModelContainer : DbContext
 
     public virtual DbSet<VCAS_customer> VCAS_customer { get; set; }
 
-    public virtual DbSet<VCAS_orders> VCAS_orders { get; set; }
-
     public virtual DbSet<VCAS_REF_order_status> VCAS_REF_order_status { get; set; }
 
-    public virtual DbSet<VCAS_inventory> VCAS_inventory { get; set; }
-
     public virtual DbSet<VCAS_REF_items> VCAS_REF_items { get; set; }
-
-    public virtual DbSet<VCAS_capture_payments> VCAS_capture_payments { get; set; }
 
     public virtual DbSet<VCAS_forms> VCAS_forms { get; set; }
 
     public virtual DbSet<VCAS_council> VCAS_council { get; set; }
 
     public virtual DbSet<VCAS_REF_forms> VCAS_REF_forms { get; set; }
+
+    public virtual DbSet<VCAS_inventory> VCAS_inventory { get; set; }
+
+    public virtual DbSet<VCAS_orders> VCAS_orders { get; set; }
+
+    public virtual DbSet<VCAS_capture_payments> VCAS_capture_payments { get; set; }
+
+    public virtual DbSet<VCAS_debitAccounts> VCAS_debitAccounts { get; set; }
+
+    public virtual DbSet<VCAS_reconcile> VCAS_reconcile { get; set; }
+
+    public virtual DbSet<VCAS_deposit> VCAS_deposit { get; set; }
+
+    public virtual DbSet<VCAS_undepositedFunds> VCAS_undepositedFunds { get; set; }
 
 
     public virtual int usp_DebitReducingbalance(Nullable<double> amt, Nullable<short> icID, Nullable<short> daID)
@@ -189,6 +193,76 @@ public partial class ModelContainer : DbContext
 
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_BulkDownloadPayments_Result>("usp_BulkDownloadPayments", locParameter, startDateParameter, endDateParameter);
+    }
+
+
+    public virtual ObjectResult<usp_SelectRecon_Result> usp_SelectRecon(Nullable<int> dAccount)
+    {
+
+        var dAccountParameter = dAccount.HasValue ?
+            new ObjectParameter("dAccount", dAccount) :
+            new ObjectParameter("dAccount", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectRecon_Result>("usp_SelectRecon", dAccountParameter);
+    }
+
+
+    public virtual ObjectResult<usp_InsertDeposit_Result> usp_InsertDeposit(Nullable<int> location)
+    {
+
+        var locationParameter = location.HasValue ?
+            new ObjectParameter("location", location) :
+            new ObjectParameter("location", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_InsertDeposit_Result>("usp_InsertDeposit", locationParameter);
+    }
+
+
+    public virtual ObjectResult<usp_SelectDeposit_Result> usp_SelectDeposit(Nullable<int> loc)
+    {
+
+        var locParameter = loc.HasValue ?
+            new ObjectParameter("loc", loc) :
+            new ObjectParameter("loc", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectDeposit_Result>("usp_SelectDeposit", locParameter);
+    }
+
+
+    public virtual int usp_UpdateAcctAmt(Nullable<double> amt, Nullable<int> id)
+    {
+
+        var amtParameter = amt.HasValue ?
+            new ObjectParameter("amt", amt) :
+            new ObjectParameter("amt", typeof(double));
+
+
+        var idParameter = id.HasValue ?
+            new ObjectParameter("id", id) :
+            new ObjectParameter("id", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateAcctAmt", amtParameter, idParameter);
+    }
+
+
+    public virtual int usp_UpdateUndepositedFundsStatus(Nullable<int> loc, Nullable<int> dID)
+    {
+
+        var locParameter = loc.HasValue ?
+            new ObjectParameter("loc", loc) :
+            new ObjectParameter("loc", typeof(int));
+
+
+        var dIDParameter = dID.HasValue ?
+            new ObjectParameter("dID", dID) :
+            new ObjectParameter("dID", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateUndepositedFundsStatus1", locParameter, dIDParameter);
     }
 
 }

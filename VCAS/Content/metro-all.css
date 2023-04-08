@@ -39794,16 +39794,20 @@ body.vegas-container > .vegas-slide {
   background-color: #f8f8f8 !important;
 }
 .bg-grayBlue {
-  background-color: #607d8b !important;
+    /*background-color: #607d8b !important;*/
+    background-color: #202d3f !important;
 }
 .bg-grayBlue-active:active {
-  background-color: #607d8b !important;
+    /*background-color: #607d8b !important;*/
+    background-color: #202d3f !important;
 }
 .bg-grayBlue-hover:hover {
-  background-color: #607d8b !important;
+    /*background-color: #607d8b !important;*/
+    background-color: #202d3f !important;
 }
 .bg-grayBlue-focus:focus {
-  background-color: #607d8b !important;
+    /*background-color: #607d8b !important;*/
+    background-color: #202d3f !important;
 }
 .bg-grayWhite {
   background-color: #f5f5f5 !important;
@@ -40106,16 +40110,20 @@ body.vegas-container > .vegas-slide {
   background-color: #87794e !important;
 }
 .bg-gray {
-  background-color: #bebebe !important;
+    background-color: #f0f2f5 !important;
+    /*background-color: #bebebe !important;*/
 }
 .bg-gray-active:active {
-  background-color: #bebebe !important;
+    background-color: #f0f2f5 !important;
+    /*background-color: #bebebe !important;*/
 }
 .bg-gray-hover:hover {
-  background-color: #bebebe !important;
+    background-color: #f0f2f5 !important;
+    /*background-color: #bebebe !important;*/
 }
 .bg-gray-focus:focus {
-  background-color: #bebebe !important;
+    background-color: #f0f2f5 !important;
+    /*background-color: #bebebe !important;*/
 }
 .bg-lightLime {
   background-color: #d8ff12 !important;
@@ -42803,16 +42811,20 @@ body.vegas-container > .vegas-slide {
   color: #f8f8f8 !important;
 }
 .fg-grayBlue {
-  color: #607d8b !important;
+    color: #202d3f !important;
+    /*color: #607d8b !important;*/
 }
 .fg-grayBlue-active:active {
-  color: #607d8b !important;
+    color: #202d3f !important;
+    /*color: #607d8b !important;*/
 }
 .fg-grayBlue-hover:hover {
-  color: #607d8b !important;
+    color: #202d3f !important;
+    /*color: #607d8b !important;*/
 }
 .fg-grayBlue-focus:focus {
-  color: #607d8b !important;
+    color: #202d3f !important;
+    /*color: #607d8b !important;*/
 }
 .fg-grayWhite {
   color: #f5f5f5 !important;

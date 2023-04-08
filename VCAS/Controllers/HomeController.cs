@@ -59,7 +59,9 @@ namespace VCAS.Controllers
 
             // Form List
             ViewBag.frms = db.VCAS_forms.Where(x => x.FK_location == GlobalSession.Location).ToList();
-                // new SelectList(db.VCAS_forms.Where(x => x.FK_location == GlobalSession.Location), "Id", "name");
+
+            // Location ID
+            ViewBag.loc = GlobalSession.Location;
 
             return View();
         }
@@ -114,7 +116,7 @@ namespace VCAS.Controllers
                 Height = Unit.Pixel(750),
                 AsyncRendering = true
             };
-            reportViewer.ServerReport.ReportServerUrl = new Uri("http://vouchcast/ReportServer/");
+            reportViewer.ServerReport.ReportServerUrl = new Uri("http://127.0.0.1/ReportServer/");
             reportViewer.ServerReport.ReportPath = @"/App_Reports/" + rn.Replace(".rdl", "");
             ViewBag.ReportViewer = reportViewer;
 

@@ -13,9 +13,6 @@
         success: function () { }
     });
 
-    $("input[type='text']").blur();
-
-
     // iFrame CSS
     // **********************************
     $('#myIframe').ready(function () {
@@ -55,6 +52,8 @@
             'alignleft aligncenter alignright alignjustify | ' +
             'bullist numlist outdent indent | removeformat | help'
     });
+
+
 });
 
 

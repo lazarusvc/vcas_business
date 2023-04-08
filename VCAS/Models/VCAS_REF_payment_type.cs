@@ -22,9 +22,9 @@ public partial class VCAS_REF_payment_type
     public VCAS_REF_payment_type()
     {
 
-        this.VCAS_debitAccounts = new HashSet<VCAS_debitAccounts>();
-
         this.VCAS_capture_payments = new HashSet<VCAS_capture_payments>();
+
+        this.VCAS_debitAccounts = new HashSet<VCAS_debitAccounts>();
 
     }
 
@@ -37,11 +37,11 @@ public partial class VCAS_REF_payment_type
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<VCAS_debitAccounts> VCAS_debitAccounts { get; set; }
+    public virtual ICollection<VCAS_capture_payments> VCAS_capture_payments { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<VCAS_capture_payments> VCAS_capture_payments { get; set; }
+    public virtual ICollection<VCAS_debitAccounts> VCAS_debitAccounts { get; set; }
 
 }
 

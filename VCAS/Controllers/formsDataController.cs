@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -25,6 +25,12 @@ namespace VCAS.Controllers
         {
             var vCAS_REF_forms = db.VCAS_REF_forms.Include(v => v.VCAS_forms);
             return View(vCAS_REF_forms.ToList());
+        }
+        public ActionResult IndexPartial()
+
+        {
+            var vCAS_REF_forms = db.VCAS_REF_forms.Include(v => v.VCAS_forms);
+            return PartialView("_formsDataTable", vCAS_REF_forms.ToList());
         }
 
         // GET: formsData/Details/5
@@ -62,7 +68,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Id,txtInput_01,txtInput_02,txtInput_03,txtInput_04,txtInput_05,checkInput_01,checkInput_02,checkInput_03,selectInput_01,selectInput_02,selectInput_03,txtAreaInput_01,txtAreaInput_02,txtAreaInput_03,fileInput_01,fileInput_02,formBtn,FK_formsId,frmHeader,frmFooter,signatureBox")] VCAS_REF_forms vCAS_REF_forms)
+        public ActionResult Create([Bind(Include = "Id,txtInput_01,txtInput_02,txtInput_03,txtInput_04,txtInput_05,txtInput_06,txtInput_07,txtInput_08,txtInput_09,txtInput_10,txtInput_11,txtInput_12,txtInput_13,checkInput_01,checkInput_02,checkInput_03,selectInput_01,selectInput_02,selectInput_03,txtAreaInput_01,txtAreaInput_02,txtAreaInput_03,fileInput_01,fileInput_02,formBtn,FK_formsId,frmHeader,frmFooter,signatureBox")] VCAS_REF_forms vCAS_REF_forms)
 
         {
             if (ModelState.IsValid)
@@ -112,7 +118,7 @@ namespace VCAS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Edit([Bind(Include = "Id,txtInput_01,txtInput_02,txtInput_03,txtInput_04,txtInput_05,checkInput_01,checkInput_02,checkInput_03,selectInput_01,selectInput_02,selectInput_03,txtAreaInput_01,txtAreaInput_02,txtAreaInput_03,fileInput_01,fileInput_02,formBtn,FK_formsId,frmHeader,frmFooter,signatureBox")] VCAS_REF_forms vCAS_REF_forms)
+        public ActionResult Edit([Bind(Include = "Id,txtInput_01,txtInput_02,txtInput_03,txtInput_04,txtInput_05,txtInput_06,txtInput_07,txtInput_08,txtInput_09,txtInput_10,txtInput_11,txtInput_12,txtInput_13,checkInput_01,checkInput_02,checkInput_03,selectInput_01,selectInput_02,selectInput_03,txtAreaInput_01,txtAreaInput_02,txtAreaInput_03,fileInput_01,fileInput_02,formBtn,FK_formsId,frmHeader,frmFooter,signatureBox")] VCAS_REF_forms vCAS_REF_forms)
 
         {
             if (ModelState.IsValid)

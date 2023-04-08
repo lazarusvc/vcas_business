@@ -1,0 +1,133 @@
+﻿@model VCAS.Models.VCAS_reconcile
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    
+    <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+        <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Delete:: VCAS_reconcile</h2>
+        <h3 class="fg-darkGray">Are you sure you want to delete this?</h3>
+        <hr class="bg-gray" />
+    
+        <table class="table subcompact">
+    
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.bank_ending_amt)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.bank_ending_amt)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.bank_ending_date)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.bank_ending_date)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.service_charge_amt)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.service_charge_amt)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.service_charge_date)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.service_charge_date)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.interest_earned_amt)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.interest_earned_amt)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.interest_earned_date)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.interest_earned_date)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.difference)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.difference)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.reconcile)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.reconcile)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.VCAS_debitAccounts.name)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.VCAS_debitAccounts.name)</td>
+            </tr>
+            </tbody>        
+        </table>   
+    
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="button alert" style="width: 100%;" />
+            </div>
+        }
+    </div>
+</body>
+</html>

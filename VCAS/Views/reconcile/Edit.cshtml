@@ -1,0 +1,56 @@
+﻿@model VCAS.Models.VCAS_reconcile
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">       
+            <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+                <div class="row">
+                    <div class="cell-12">
+    
+                        <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Edit:: VCAS_reconcile</h2>
+                        <hr class="bg-gray" />
+                        @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+                        @Html.HiddenFor(model => model.Id)
+    
+                        @Html.DropDownList("FK_debitAccountsId", null, htmlAttributes: new { data_role = "select" })
+                        @Html.ValidationMessageFor(model => model.FK_debitAccountsId, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.bank_ending_amt, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                        @Html.ValidationMessageFor(model => model.bank_ending_amt, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.bank_ending_date, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                        @Html.ValidationMessageFor(model => model.bank_ending_date, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.service_charge_amt, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                        @Html.ValidationMessageFor(model => model.service_charge_amt, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.service_charge_date, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                        @Html.ValidationMessageFor(model => model.service_charge_date, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.interest_earned_amt, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                        @Html.ValidationMessageFor(model => model.interest_earned_amt, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.interest_earned_date, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                        @Html.ValidationMessageFor(model => model.interest_earned_date, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.difference, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                        @Html.ValidationMessageFor(model => model.difference, "", new { @class = "fg-magenta" })
+                        @Html.EditorFor(model => model.reconcile, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
+                        @Html.ValidationMessageFor(model => model.reconcile, "", new { @class = "fg-magenta" })
+                        <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+    
+</body>
+</html>

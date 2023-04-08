@@ -20,8 +20,8 @@ namespace VCAS.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             return Json(db.Database.SqlQuery<VCAS_undepositedFunds>
                 (@"SELECT *
-                FROM VCAS_DB.dbo.VCAS_undepositedFunds
-                WHERE FK_location = '"+loc+"'"), JsonRequestBehavior.AllowGet);
+                FROM VCAS_undepositedFunds
+                WHERE FK_location = '"+loc+"' and deposited = 0"), JsonRequestBehavior.AllowGet);
         }
 
         // GET: undepositedFunds
