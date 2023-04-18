@@ -53,7 +53,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,name,acctNum,amount,FK_payment_Type,remittance,payee,datetime,attach_statement,FK_location")] VCAS_debitAccounts vCAS_debitAccounts, HttpPostedFileBase attach_statement)
+        public ActionResult Create([Bind(Include = "Id,name,acctNum,amount,FK_payment_Type,remittance,payee,datetime,attach_statement,FK_location,starting_balance,active,type")] VCAS_debitAccounts vCAS_debitAccounts, HttpPostedFileBase attach_statement)
         {
             if (ModelState.IsValid)
             {
@@ -112,7 +112,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,acctNum,amount,FK_payment_Type,remittance,payee,datetime,attach_statement,FK_location")] VCAS_debitAccounts vCAS_debitAccounts)
+        public ActionResult Edit([Bind(Include = "Id,name,acctNum,amount,FK_payment_Type,remittance,payee,datetime,attach_statement,FK_location,starting_balance,active,type")] VCAS_debitAccounts vCAS_debitAccounts)
         {
             if (ModelState.IsValid)
             {

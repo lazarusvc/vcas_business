@@ -1,5 +1,3 @@
-Edited with: https://stackedit.io/
-
 <a name="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
@@ -10,13 +8,9 @@ Edited with: https://stackedit.io/
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 
 
+[![Stable-Release][Stable-Release]][Stable-Release] [![Forks][Forks]][Forks] [![Contribution][Contribution]][Contribution] [![Check][Check]][Check] [![License][License]][License]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -25,10 +19,9 @@ Edited with: https://stackedit.io/
     <img src="http://vouchcast.com/wp-content/uploads/2022/10/vouchcast_screenshots2-1024x648.png" alt="VC Accounting Software">
   </a>
 
-  <h3 align="center">VC Accounting Software</h3>
-
+<h1 align="center">VouchCast (VC) Accounting Software</h1>
   <p align="center">
-    Open Source Self-Hosted Accounting Software based on ASP.NET web technology
+    Open Source Self-Hosted Accounting Software based on ASP.NET (MVC5) web technology
     <br />
     <a href="https://app.vouchcast.com"><strong>Access Demo »</strong></a>
     <br />
@@ -71,7 +64,7 @@ Edited with: https://stackedit.io/
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The VC Accounting software allows SMEs to manage their Financing through a streamlined, simple and clean interface on the web, which can be hosted on a PC, Server or any Windows based Computer with the necessary configurations. 
+The VouchCast software is a Progressive Web Application built on Microsoft ASP.NET MVC5 Web Application that allow SMEs to manage their Financials through a streamlined, simple and clean interface online. The app can be hosted and accessed on a PC, Mobile (Android / iOS), Server or any Windows based Computer with the necessary configurations. 
 
 The App has some standard features for accounting such as:
 
@@ -90,7 +83,7 @@ The App has some standard features for accounting such as:
 
 ### Built With
 
-VC Accounting is developed with 
+VC Accounting is developed with these dependencies:
 
 [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 [![JQuery][JQuery.com]][JQuery-url]
@@ -109,22 +102,24 @@ VC Accounting is developed with
 
 To get a local copy up and running follow these simple steps.
 
-### Download Latest Package
+### Download the Latest Release::
+[![Stable-Release][Stable-Release]][Stable-Release]
 
 
-### Prerequisites
+### Prerequisites::
 
-Code base tested and works on the below technologies:
+tested technologies --
 
-* Windows Server 2008 R2 / 2016
-* ASP.NET Web Application ( .NET Framework 4.5 )
+* Windows Server 2008 R2 / 2016 
+	* with Internet Information Service (IIS 7.5+)
+* ASP.NET Web Application MVC5 ( .NET Framework 4.5 )
 
 
-### Installation
+### Installation (Developers)::
 
 Steps for Developer Installation:
 
-1. Install Windows SQL Server on your Machine with Instances:
+1. Install **Windows SQL Server** on your Machine with Instances:
 
 	*	Database Engine Services
 	*	Analysis Services
@@ -132,19 +127,19 @@ Steps for Developer Installation:
 	
 => Follow [this](https://phoenixnap.com/kb/install-sql-server) by (Kovacevic, n.d. & https://phoenixnap.com/) for detailed instructions on `How to install SQL Server on Windows 10`
 
-2.	 Set up SRSS
+2.	 Set up **SRSS**
 
-3. Add a New Database through SSMS, then install the DB script located at:
-	=>  VCAS -> Resouces -> SQL Scripts -> file.sql
+3. Install a **New Database** (called VCAS) through SSMS, then restore the backup file `VCAS.bak` - file can be found in :
+	=>  Our Latest Release [![Stable-Release][Stable-Release]][Stable-Release]
 
-4. Install Visual Studio with the following extensions:
+4. Install **Visual Studio** (2019 Recommended) with the following extensions:
 	* Microsoft Analysis Services Project
 	* Microsoft Reporting Services Project
 	* Microsoft RDLC Report Designer
 
-5.  Download and Load the repo into Visual Studio
+5.  Download and Load the Source Files into Visual Studio
 
-6. Open the `web.config` to update the below connection string configurations:
+6. Open the **web.config** to update the below connection string configurations:
 	*	{0} DB - Database Instance
 	*	{1} DB - Database 
 	*	{2} DB - username
@@ -163,7 +158,9 @@ Steps for Developer Installation:
 
 7. Load and Test the project
 
-
+### Installation (Regular User)::
+1. The Progressive Web App can be accessed here:
+-	<a href="https://app.vouchcast.com"><strong>Access Demo »</strong></a>
 
 <!-- Troubleshooting -->
 ## Troubleshooting
@@ -229,20 +226,19 @@ Website Link: [https://vouchcast.com](https:vouchcast.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+-- Edited with: [https://stackedit.io/](https://stackedit.io/)
+
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[contributors-url]: ../../graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[forks-url]: ../../network/members
-[stars-shield]: https://img.shields.io/github/stars/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[stars-url]: ../../stargazers
-[issues-shield]: https://img.shields.io/github/issues/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[issues-url]: ../../issues
-[license-shield]: https://img.shields.io/github/license/Lazarus118/vcas-open?logo=stars&logoColor=white&style=for-the-badge
-[license-url]: ../LICENSE.txt
+
+[Stable-Release]:https://badgen.net/github/release/Lazarus118/vcas_open/stable
+[Forks]:https://badgen.net/github/forks/Lazarus118/vcas_open
+[License]:https://badgen.net/github/license/Lazarus118/vcas_open
+[Contribution]:https://badgen.net/github/contributors/Lazarus118/vcas_open
+[Check]:https://badgen.net/github/checks/Lazarus118/vcas_open/main
+
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white

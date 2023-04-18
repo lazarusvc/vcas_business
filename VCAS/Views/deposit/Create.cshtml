@@ -17,6 +17,7 @@
             <div class="cell-lg-8">
                 <h2>Deposit:: Undeposit Funds</h2>
                 <p>Date Ending: <span style="text-decoration: underline;">@ViewBag.endDate.ToString("dd MMM, yyyy")</span></p>
+                @Html.ActionLink(">> Past Statements", "Index", "deposit")
             </div>
             <div class="cell-lg-4">
                 @Html.HiddenFor(model => model.endind_date, new { @Value = @ViewBag.endDate })

@@ -13,94 +13,514 @@
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
     <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
     <style>
+        h1, tb, p, img {
+            writing-mode: tb-rl;
+            display: inline-block;
+        }
 
+        @@media print {
+            html, body {
+                width: 100%;
+                height: 279mm;
+                position: absolute;
+            }
+
+            .body {
+                width: 100%;
+                height: 279mm;
+            }
+        }
+
+        @@import url("https://fonts.googleapis.com/css?family=Roboto");
+        @@-webkit-keyframes come-in {
+            0% {
+                -webkit-transform: translatey(100px);
+                transform: translatey(100px);
+                opacity: 0;
+            }
+
+            30% {
+                -webkit-transform: translateX(-50px) scale(0.4);
+                transform: translateX(-50px) scale(0.4);
+            }
+
+            70% {
+                -webkit-transform: translateX(0px) scale(1.2);
+                transform: translateX(0px) scale(1.2);
+            }
+
+            100% {
+                -webkit-transform: translatey(0px) scale(1);
+                transform: translatey(0px) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @@keyframes come-in {
+            0% {
+                -webkit-transform: translatey(100px);
+                transform: translatey(100px);
+                opacity: 0;
+            }
+
+            30% {
+                -webkit-transform: translateX(-50px) scale(0.4);
+                transform: translateX(-50px) scale(0.4);
+            }
+
+            70% {
+                -webkit-transform: translateX(0px) scale(1.2);
+                transform: translateX(0px) scale(1.2);
+            }
+
+            100% {
+                -webkit-transform: translatey(0px) scale(1);
+                transform: translatey(0px) scale(1);
+                opacity: 1;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .floating-container {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            bottom: 0;
+            right: 0;
+            margin: 35px 25px;
+        }
+
+            .floating-container:hover {
+                height: 300px;
+            }
+
+                .floating-container:hover .floating-button {
+                    box-shadow: 0 10px 25px rgba(44, 179, 240, 0.6);
+                    -webkit-transform: translatey(5px);
+                    transform: translatey(5px);
+                    -webkit-transition: all 0.3s;
+                    transition: all 0.3s;
+                }
+
+                .floating-container:hover .element-container .float-element:nth-child(1) {
+                    -webkit-animation: come-in 0.4s forwards 0.2s;
+                    animation: come-in 0.4s forwards 0.2s;
+                }
+
+                .floating-container:hover .element-container .float-element:nth-child(2) {
+                    -webkit-animation: come-in 0.4s forwards 0.4s;
+                    animation: come-in 0.4s forwards 0.4s;
+                }
+
+                .floating-container:hover .element-container .float-element:nth-child(3) {
+                    -webkit-animation: come-in 0.4s forwards 0.6s;
+                    animation: come-in 0.4s forwards 0.6s;
+                }
+
+            .floating-container .floating-button {
+                position: absolute;
+                width: 65px;
+                height: 65px;
+                background: #202d3f;
+                bottom: 0;
+                border-radius: 50%;
+                left: 0;
+                right: 0;
+                margin: auto;
+                color: white;
+                line-height: 65px;
+                text-align: center;
+                font-size: 23px;
+                z-index: 100;
+                box-shadow: 0 10px 25px -5px rgba(44, 179, 240, 0.6);
+                cursor: pointer;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+            }
+
+            .floating-container .float-element {
+                position: relative;
+                display: block;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                margin: 40px auto;
+                color: white;
+                font-weight: 500;
+                text-align: center;
+                line-height: 50px;
+                z-index: 0;
+                opacity: 0;
+                -webkit-transform: translateY(100px);
+                transform: translateY(100px);
+            }
+
+                .floating-container .float-element .material-icons {
+                    vertical-align: middle;
+                    font-size: 16px;
+                }
+
+                .floating-container .float-element:nth-child(1) {
+                    background: #202d3f;
+                    box-shadow: 0 20px 20px -10px rgba(66, 165, 245, 0.5);
+                }
+
+                .floating-container .float-element:nth-child(2) {
+                    background: #202d3f;
+                    box-shadow: 0 20px 20px -10px rgba(76, 175, 80, 0.5);
+                }
+
+                .floating-container .float-element:nth-child(3) {
+                    background: #202d3f;
+                    box-shadow: 0 20px 20px -10px rgba(255, 152, 0, 0.5);
+                }
     </style>
 </head>
+                
 <body>
-    <button type="submit" class="image-button m-1 primary" id="printBtn" style="text-decoration: none !important; width: 100%;">
-        <span class="mif-print icon"></span>
-        <span class="caption">Print</span>
-    </button>
+    <div class="body">
 
-    <div class="rec_body">
-        <div class="rec_inv" style="width: 50%;border-top: 1px black dotted; margin: 0 auto;">
-            @if (Model.invoice ?? false)
-            {
-                <h1 align="CENTER">Invoice</h1>
-            }
-            else
-            {
-                <h1 align="CENTER">Receipt</h1>
-            }
-        </div>
-        <img src="@Url.Content(ViewBag.recLogo)" width="100" />
-        <p align="CENTER"><strong>@ViewBag.council</strong></p><br />
-        <div>
-            @Html.Raw(ViewBag.recHeader)
-        </div>
-        <p align="CENTER" style="border-top: 1px black dotted;">@Html.DisplayFor(model => model.datetime)</p><br /><br />
+        <div class="row">
+            <div class="cell-lg-12">
+                <table>
+                    <tbody>
+                        <tr>
+                            <tb>
+                                <p>Signature: ________________________ </p>
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                Date: <p style="text-decoration:underline;">@ViewBag.dateEnding </p>
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                <p align="CENTER">@Html.Raw(ViewBag.recHeader)</p>
+                            </tb>
+                            <tb style="margin: 165px auto; position: absolute;">
+                                <img src="@Url.Content(ViewBag.recLogo)" width="100" />
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                <h1><strong>Deposit Ticket</strong></h1>
+                            </tb>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="cell-lg-12">
+                <table>
+                    <tbody>
+                        <tr>
+                            <tb>
+                                <p>x $0.25</p>
+                            </tb>
+                            <tb>
+                                <p>x $0.50</p>
+                            </tb>
+                            <tb>
+                                <p>x $1</p>
+                            </tb>
+                            <tb>
+                                <p>x $5</p>
+                            </tb>
+                            <tb>
+                                <p>x $10</p>
+                            </tb>
+                            <tb>
+                                <p>x $20</p>
+                            </tb>
+                            <tb>
+                                <p>x $50</p>
+                            </tb>
+                            <tb>
+                                <p>x $100</p>
+                            </tb>
+                            <tb>
+                                <p><strong>CASH</strong></p>
+                            </tb>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
 
-        <table class="table" style="border-top: 1px black dotted;">
-            <tr>
-                <td>
-                    @if (Model.invoice ?? false)
-                    {
-                        <strong>Invoice No:</strong>
-                    }
-                    else
-                    {
-                        <strong>Receipt No:</strong>
-                    }
-                </td>
-                <td style="border-left: 1px black dotted;padding-left:10px;">
-                    @ViewBag.receiptNo
-                </td>
-            </tr>
-            <tr>
-                <td style="border-top: 1px black dotted;">
-                    <strong>Cashier:</strong>
-                </td>
-                <td style="border-top: 1px black dotted;border-left: 1px black dotted;padding-left:10px">
-                    @Html.DisplayFor(model => model.issuer)
-                </td>
-            </tr>
-            <tr>
-                <td style="border-top: 1px black dotted;">
-                    <strong>Location:</strong>
-                </td>
-                <td style="border-top: 1px black dotted;border-left: 1px black dotted;padding-left:10px;">
-                    @Html.DisplayFor(model => model.VCAS_council.name)
-                </td>
-            </tr>
-            <tr>
-                <td style="border-top: 1px black dotted;">
-                    <strong>Payer:</strong>
-                </td>
-                <td style="border-left: 1px black dotted;border-top: 1px black dotted;padding-left:10px;">
-                    @Html.DisplayFor(model => model.payer)
-                </td>
-            </tr>
-        </table>
-        <br />
-        <div class="partialview">
-            @Html.Action("PrintMoreItems", "capture_payments", new { r = ViewBag.receiptNo })
+                            </tb>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                <p><strong>CHECK No.</strong></p>
+                            </tb>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <tb>
+                                <p>______________</p>
+                            </tb>
+                            <tb>
+                                <p>______________</p>
+                            </tb>
+                            <tb>
+                                <p>______________</p>
+                            </tb>
+                            <tb>
+                                <p>______________</p>
+                            </tb>
+                            <tb>
+                                <p>______________</p>
+                            </tb>
+                            <tb>
+                                <p>______________</p>
+                            </tb>
+                            <tb>
+                                <p>______________</p>
+                            </tb>
+                            <tb>
+                                <p>______________</p>
+                            </tb>
+                            <tb>
+
+                            </tb>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                <p><strong>CHECK $</strong></p>
+                            </tb>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+
+                            </tb>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                <p><strong>LESS CASH<br />RECEIVED</strong></p>
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                <p><strong>SUBTOTAL</strong></p>
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                <p>________</p>
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                <p style="text-decoration: underline;">$@ViewBag.total</p>
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <hr />
-        <div>
-            @Html.Raw(ViewBag.recFooter)
+
+        <!-- ********************************************************************************
+             FLOATING BUTTON
+        ********************************************************************************** -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <div class="floating-container" id="printBtnArea">
+            <div class="floating-button">+</div>
+            <div class="element-container">
+
+                <span class="float-element tooltip-left" id="printBtn">
+                    <i class="material-icons">
+                        print
+                    </i>
+                </span>
+                <a href="@Url.Action("Index", "Home")">
+                    <span class="float-element">
+                        <i class="material-icons">
+                            home
+                        </i>
+                    </span>
+                </a>
+            </div>
         </div>
-        <hr />
     </div>
 
     <script type="text/javascript">
         $(document).ready(function () {
             var printBtn = $("#printBtn");
             printBtn.click(function () {
-                printBtn.hide();
+                $("#printBtnArea").hide();
                 window.print();
                 return false;
             });

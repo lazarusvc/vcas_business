@@ -25,16 +25,16 @@
         <div class="icon-box">
             <div class="icon bg-red fg-white"><span class="mif-dollars"></span></div>
             <div class="content p-4">
-                <div class="text-upper">Undeposited Funds</div>
+                <div class="text-upper">Undeposited Funds </div>
                 <div class="text-upper text-bold text-lead">
                     <p id="undeposited_funds"></p>
-                    <a href="@Url.Action("Create", "deposit", new { loc = ViewBag.loc })" class="button image-button bg-amazon fg-white" style="text-decoration: none !important; margin:5px;">
-                        <span class="mif-arrow-up-right icon"></span>
-                        <span class="caption">Deposit</span>
-                    </a>
                 </div>
             </div>
         </div>
+        <a href="@Url.Action("Create", "deposit", new { loc = ViewBag.loc })" class="button image-button bg-red fg-white" style="text-decoration: none !important; width: 90px; border-top: 1px solid #83494b;">
+            <span class="mif-arrow-up-right icon"></span>
+            <span class="caption">Deposit</span>
+        </a>
     </div>
 </div>
 <br/>
@@ -123,7 +123,7 @@
     </div>
 </div>
 <br />
-<div class="row"  id="app_styleBG">
+<div class="row"  id="app_styleBG2">
     <div id="partialview1" class="cell-lg-6">
         @Html.Action("DebitsChart", "debitTrans", new { d = 0 })
     </div>
@@ -132,13 +132,13 @@
     </div>
 </div>
 <br />
-<div class="row"  id="app_styleBG">
+<div class="row"  id="app_styleBG2">
     <div id="partialview2b" class="cell-lg-12">
         @Html.Action("CreditsChart2", "creditTrans", new { d = 0 })
     </div>
 </div>
 <br />
-<div class="row" id="app_styleBG">
+<div class="row" id="app_styleBG2">
     <div id="partialview3" class="cell-lg-12" >
         @Html.Action("CreditsTable", "creditTrans")
     </div>

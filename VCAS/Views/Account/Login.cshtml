@@ -18,7 +18,7 @@
 <body class="h-vh-100">
 
     <!-- ALERT Module ************************************************************** -->
-    @if (@TempData["Alert"] != null)
+    @*@if (@TempData["Alert"] != null)
     {
         <div class="info-box @TempData["Alert-Color"]">
             <span class="button square closer"></span>
@@ -26,7 +26,7 @@
                 <p>Your Session has expired, please log back in to continue</p>
             </div>
         </div>
-    }
+    }*@
 
     <div class="img-bg"></div>
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form bg-white p-6 mx-auto border bd-default win-shadow", role = "form" }))
@@ -55,9 +55,7 @@
         <div class="form-group mt-10">
             @Html.CheckBoxFor(m => m.RememberMe, new { data_role = "checkbox", @Class = "place-left" })
             @Html.LabelFor(m => m.RememberMe)
-            <br />
-            <br />
-            <button class="button primary rounded">Login</button>
+            <button class="button primary rounded large" style="width:100%;">Login</button>
         </div>
 
 

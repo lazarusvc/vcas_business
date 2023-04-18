@@ -1,7 +1,7 @@
 ﻿@model VCAS.Models.VCAS_debitAccounts
 
 @{
-    ViewBag.Title = "Edit Debit Account";
+    ViewBag.Title = "Edit Account";
 }
 
 @using (Html.BeginForm())
@@ -24,9 +24,13 @@
                     @Html.EditorFor(model => model.acctNum, new { htmlAttributes = new { data_role = "input", data_prepend = "Account Num:", Type = "number" } })
                     @Html.ValidationMessageFor(model => model.acctNum, "", new { @class = "text-danger" })
 
-                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "Amount:", Type = "number" } })
+                    @Html.EditorFor(model => model.starting_balance, new { htmlAttributes = new { data_role = "input", data_prepend = "Starting Balance:", Type = "number" } })
                     @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
 
+                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "Amount:", Type = "number" } })
+                    @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
+                    <br />
+                    <label>Payment Type:</label>
                     @Html.DropDownList("FK_payment_Type", null, htmlAttributes: new { data_role = "select" })
                     @Html.ValidationMessageFor(model => model.FK_payment_Type, "", new { @class = "text-danger" })
 
@@ -35,12 +39,31 @@
 
                     @Html.EditorFor(model => model.payee, new { htmlAttributes = new { data_role = "input", data_prepend = "Payee:" } })
                     @Html.ValidationMessageFor(model => model.payee, "", new { @class = "text-danger" })
+                    <br />
+                    <label>Type:</label>
+                    @Html.DropDownListFor(model => model.type, new List<SelectListItem>
+                                                        {
+                            new SelectListItem() { Text = "Income", Value = "Income" },
+                            new SelectListItem() { Text = "Liability", Value = "Liability" },
+                            new SelectListItem() { Text = "Assets", Value = "Assets" }
+                        }, null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.type, "", new { @class = "fg-magenta" })
 
                     @Html.HiddenFor(model => model.datetime, new { @Value = System.DateTime.Now })
                     @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "text-danger" })
-
+                    <br />
+                    <label>Location:</label>
                     @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
                     @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "text-danger" })
+                    <br />
+                    <label>Active:</label>
+                    @Html.DropDownListFor(model => model.active, new List<SelectListItem>
+                                                        {
+                            new SelectListItem() { Text = "True", Value = "True" },
+                            new SelectListItem() { Text = "False", Value = "False" }
+                        }, null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.active, "", new { @class = "fg-magenta" })
+
 
                     <a href='@Url.Action("EditUpload", new { id = Model.Id })'><span class="mif-files-empty icon"></span> Upload Statement</a>
                     <object data='@Url.Content("~/Content/Uploads/" + Model.attach_statement)' type="application/pdf" width="100%" height="1000">

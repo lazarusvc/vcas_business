@@ -27,8 +27,18 @@ namespace VCAS.Controllers
         }
         public ActionResult Index()
         {
-            var vCAS_deposit = db.VCAS_deposit.Include(v => v.VCAS_council);
+            var vCAS_deposit = db.VCAS_deposit.Where(v => v.FK_councilId == GlobalSession.Location);
             return View(vCAS_deposit.ToList());
+        }
+
+        public ActionResult Slip(int? id)
+        {
+            var vCAS_deposit = db.VCAS_deposit.Where(v => v.FK_councilId == GlobalSession.Location && v.Id == id);
+            ViewBag.total = vCAS_deposit.Select(v => v.cash_amount).FirstOrDefault();
+            ViewBag.dateEnding = vCAS_deposit.Select(v => v.endind_date).FirstOrDefault();
+            ViewBag.recLogo = db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_logo).FirstOrDefault();
+            ViewBag.recHeader = db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_header).FirstOrDefault();
+            return View();
         }
 
         // GET: deposit/Details/5
@@ -115,7 +125,7 @@ namespace VCAS.Controllers
                 }; 
                 db.Database.ExecuteSqlCommand("EXEC usp_UpdateUndepositedFundsStatus @p_loc, @p_dID", Parameters02);
 
-                return RedirectToAction("Index", "Home", null);
+                return RedirectToAction("Slip", new { id = vCAS_deposit.Id });
             }
 
             ViewBag.FK_councilId = new SelectList(db.VCAS_council, "Id", "name", vCAS_deposit.FK_councilId);

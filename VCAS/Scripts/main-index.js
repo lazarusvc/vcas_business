@@ -2,7 +2,7 @@
 
     // AJAX LOADER
     // **********************************
-    $('#loader').hide();
+     $('#loader').hide();
     jQuery.ajaxSetup({
         beforeSend: function () {
             $('#loader').show();
@@ -12,6 +12,9 @@
         },
         success: function () { }
     });
+    //$(":button").click(function () {
+    //    $('#loader').show();
+    //});
 
     // iFrame CSS
     // **********************************

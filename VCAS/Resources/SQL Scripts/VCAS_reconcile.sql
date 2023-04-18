@@ -140,6 +140,23 @@ BEGIN
 	FROM inserted;
 END
 
+SET ANSI_NULLS ON -- Create Trigger
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [dbo].[trg_upd_undepositedFunds]  
+ON [dbo].[VCAS_capture_payments]
+FOR UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+	UPDATE dbo.VCAS_undepositedFunds 
+	SET dbo.VCAS_undepositedFunds.recieved_amount = inserted.recieved_amount
+	FROM inserted
+	WHERE dbo.VCAS_undepositedFunds.receiptNo = inserted.receiptNo
+END
+
 SET ANSI_NULLS ON  -- Create Stored Procedure
 GO
 SET QUOTED_IDENTIFIER ON

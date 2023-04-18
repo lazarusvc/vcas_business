@@ -6,7 +6,7 @@
     <h2>@ViewBag.Title.</h2>
 
     <p>@VCAS.Controllers.HomeController.gloabl_appName()</p>
-    <p> &copy; @DateTime.Now.Year - ver 1.0.0</p>
+    <p> &copy; @DateTime.Now.Year - ver @typeof(VCAS.MvcApplication).Assembly.GetName().Version</p>
     <hr class="bg-darkGray" style="width: 50%;"/>
     <p>Developed by:: <a href="https://www.lazarusvc.com">Lazarus Ventures Co.</a></p>
     <p>Software Developer:: <span style="color: #0366d6;">Austin Lazarus</span></p>

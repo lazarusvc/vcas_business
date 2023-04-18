@@ -28,7 +28,7 @@ namespace VCAS.Controllers
         public ActionResult DebitAccountJson(string d)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.Database.SqlQuery<VCAS_debitAccounts>("SELECT * FROM VCAS_debitAccounts WHERE FK_location = '"+ d + "' ORDER BY Id DESC"), JsonRequestBehavior.AllowGet);
+            return Json(db.Database.SqlQuery<VCAS_debitAccounts>("SELECT * FROM VCAS_debitAccounts WHERE FK_location = '"+ d + "' AND active = 'True' ORDER BY Id DESC"), JsonRequestBehavior.AllowGet);
         }
 
         // GET: debitTrans/Details/5

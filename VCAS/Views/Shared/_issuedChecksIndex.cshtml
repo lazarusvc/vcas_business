@@ -9,7 +9,10 @@
 </div>
 
 
-<table class="table striped table-border cell-border row-border subcompact bg-white" data-role="table" data-horizontal-scroll="true">
+<table class="table cell-border compact"
+       data-role="table"
+       data-rownum="true"
+       data-horizontal-scroll="true">
     <thead>
         <tr>
             <th class="sortable-column">
@@ -40,62 +43,56 @@
     </thead>
 
 
-@foreach (var item in Model) {
-    <tbody>
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.datetime)
-            </td>
-            <td>
-                $@Html.DisplayFor(modelItem => item.amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.checkNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.issuer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.receiverName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VCAS_REF_receiverID_Types.name)
-            </td>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.auth_signature)" width="100" style="max-width: 80px;" />
-            </td>
-            <td>
-                @if (item.complete == true)
-                {
+    @foreach (var item in Model)
+    {
+<tbody>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.datetime)
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.checkNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issuer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.receiverName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VCAS_REF_receiverID_Types.name)
+        </td>
+        <td>
+            <img src="@Html.DisplayFor(modelItem => item.auth_signature)" width="100" style="max-width: 80px;" />
+        </td>
+        <td>
+            @if (item.complete == true)
+            {
 
-                    if (item.attach_ID == "")
-                    {
-                        <p>...</p>
-                    }
+                if (item.attach_ID == "")
+                {
+<p>...</p> }
                     else if (item.attach_ID != null)
                     {
-                        <a href='@Url.Content(item.attach_ID)'><span class="mif-attachment icon"></span> ID Attachment</a>
-                    }
+<a href='@Url.Content(item.attach_ID)'><span class="mif-attachment icon"></span> ID Attachment</a> }
                     if (item.attach_Doc == "")
                     {
-                        <p>...</p>
-                    }
+<p>...</p> }
                     else if (item.attach_Doc != null)
                     {
-                        <br />
-                        <a href='@Url.Content(item.attach_Doc)'><span class="mif-attachment icon"></span> Document Attachment</a>
-                    }
-                    if (item.signature == "")
-                    {
-                        <p>...</p>
-                    }
-                    else if (item.signature != null)
-                    {
-                        <img src="@Html.DisplayFor(modelItem => item.signature)" width="100%" style="max-width: 100px;" />
-                    }
-                }
-            </td>
-        </tr>
-    </tbody>
-}
+<br />
+                        <a href='@Url.Content(item.attach_Doc)'><span class="mif-attachment icon"></span> Document Attachment</a> }
+                                            if (item.signature == "")
+                                            {
+                        <p>...</p> }
+                                            else if (item.signature != null)
+                                            {
+                        <img src="@Html.DisplayFor(modelItem => item.signature)" width="100%" style="max-width: 100px;" />                    }
+                                        }
+        </td>
+    </tr>
+</tbody>}
 </table>

@@ -6,7 +6,7 @@
     <DataSource Name="DataSource">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=vouchcast01;Initial Catalog=VCAS_DB</ConnectString>
+        <ConnectString>Data Source=vouchcast;Initial Catalog=VCAS_DB</ConnectString>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>bc3c075a-c33b-43dd-9e9c-15b236d90edb</rd:DataSourceID>
