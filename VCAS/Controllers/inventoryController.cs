@@ -64,6 +64,8 @@ namespace VCAS.Controllers
         // GET: inventory/Create
         public ActionResult Create()
         {
+            ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
+            ViewBag.FK_location = GlobalSession.Location;
             return View();
         }
 
@@ -72,7 +74,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,name,desc,dateModified,partNumber,label,startStock,currentStock,quantity,size,unit,unitPrice,sellingPrice,image,FK_location")] VCAS_inventory vCAS_inventory, HttpPostedFileBase image)
+        public ActionResult Create([Bind(Include = "Id,name,desc,dateModified,partNumber,label,startStock,currentStock,quantity,size,unit,unitPrice,sellingPrice,image,FK_location,FK_REF_itemsId,FK_location")] VCAS_inventory vCAS_inventory, HttpPostedFileBase image)
         {
             // Attach image
             if (image != null && image.ContentLength > 0)
@@ -96,6 +98,8 @@ namespace VCAS.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
+            ViewBag.FK_location = GlobalSession.Location;
             return View(vCAS_inventory);
         }
 
@@ -111,6 +115,9 @@ namespace VCAS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
+            ViewBag.FK_location = GlobalSession.Location;
             return View(vCAS_inventory);
         }
 
@@ -119,7 +126,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,desc,dateModified,partNumber,label,startStock,currentStock,quantity,size,unit,unitPrice,sellingPrice,image,FK_location")] VCAS_inventory vCAS_inventory, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "Id,name,desc,dateModified,partNumber,label,startStock,currentStock,quantity,size,unit,unitPrice,sellingPrice,image,FK_location,FK_REF_itemsId,FK_location")] VCAS_inventory vCAS_inventory, HttpPostedFileBase image)
         {
             // Attach image
             if (image != null && image.ContentLength > 0)
@@ -141,6 +148,9 @@ namespace VCAS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
+            ViewBag.FK_location = GlobalSession.Location;
             return View(vCAS_inventory);
         }
 

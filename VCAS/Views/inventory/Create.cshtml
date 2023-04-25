@@ -53,6 +53,14 @@
                     @Html.EditorFor(model => model.sellingPrice, new { htmlAttributes = new { data_role = "input", data_prepend = "Selling Price: ", @Type = "number", min = "1", step = "0.01" } })
                     @Html.ValidationMessageFor(model => model.sellingPrice, "", new { @class = "fg-magenta" })
 
+                    @Html.HiddenFor(model => model.FK_location, new { @Value = ViewBag.FK_location })
+                    @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
+
+                    <br />
+                    <label>Item Category:</label>
+                    @Html.DropDownList("FK_REF_itemsId", null, htmlAttributes: new { data_role = "select" })
+                    @Html.ValidationMessageFor(model => model.FK_REF_itemsId, "", new { @class = "fg-magenta" })
+
                     <div class="form-group files">
                         <h6 class="fg-gray">Image:</h6><br />
                         <input type="file" class="form-control" name="image" id="image">

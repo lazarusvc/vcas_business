@@ -379,6 +379,8 @@
           <Property Name="password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FK_userRolesId" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <Association Name="FK_VCAS_capture_paymentsVCAS_creditTrans">
           <End Role="VCAS_capture_payments" Type="Self.VCAS_capture_payments" Multiplicity="1" />
           <End Role="VCAS_creditTrans1" Type="Self.VCAS_creditTrans1" Multiplicity="*" />
@@ -809,6 +811,11 @@
           <Parameter Name="amt" Type="float" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_UpdateStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+          <Parameter Name="loc" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_UpdateUndepositedFundsStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loc" Type="int" Mode="In" />
           <Parameter Name="dID" Type="int" Mode="In" />
@@ -1201,6 +1208,11 @@
           <FunctionImport Name="usp_UpdateUndepositedFundsStatus1">
             <Parameter Name="loc" Mode="In" Type="Int32" />
             <Parameter Name="dID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateStock">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="loc" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="VCAS_debitTrans">
@@ -2546,6 +2558,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_UpdateUndepositedFundsStatus1" FunctionName="Model.Store.usp_UpdateUndepositedFundsStatus" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateStock" FunctionName="Model.Store.usp_UpdateStock" />
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

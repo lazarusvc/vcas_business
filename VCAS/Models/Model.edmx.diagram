@@ -7,7 +7,7 @@
       <Diagram DiagramId="a9d0a18fde104a4eb3a53d7ec3bc8fbb" Name="Diagram1" ZoomLevel="93" >
         <EntityTypeShape EntityType="Model.VCAS_debitTrans" Width="2.25" PointX="2.875" PointY="7.75" />
         <EntityTypeShape EntityType="Model.VCAS_creditTrans" Width="2.25" PointX="5.5" PointY="7.75" />
-        <EntityTypeShape EntityType="Model.VCAS_REF_payment_type" Width="2.125" PointX="8.875" PointY="6.375" FillColor="Green" />
+        <EntityTypeShape EntityType="Model.VCAS_REF_payment_type" Width="2.125" PointX="9" PointY="6.5" FillColor="Green" />
         <EntityTypeShape EntityType="Model.VCAS_REF_bank_details" Width="2.125" PointX="8.875" PointY="8.375" FillColor="Green" />
         <EntityTypeShape EntityType="Model.VCAS_REF_receiverID_Types" Width="2.125" PointX="8.75" PointY="12.875" FillColor="Green" />
         <EntityTypeShape EntityType="Model.VCAS_users" Width="2.25" PointX="17" PointY="2.375" />

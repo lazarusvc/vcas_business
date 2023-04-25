@@ -38,6 +38,9 @@
                 @Html.HiddenFor(model => model.checkNo, new { @Value = Model.checkNo })
                 @Html.HiddenFor(model => model.FK_bankDetails, new { @Value = Model.FK_bankDetails })
                 @Html.HiddenFor(model => model.FK_items, new { @Value = Model.FK_items })
+
+                <input type="hidden" name="itemID" id="itemID" />
+                <input type="hidden" name="inventoryID" id="inventoryID" />
             </div>
 
             <div class="remark">

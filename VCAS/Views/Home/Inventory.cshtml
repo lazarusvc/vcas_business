@@ -13,6 +13,10 @@
 <div class="row" style="background: #FFFFFF;border-radius: 10px;width: 100%;padding: 20px;">
     <div class="cell-lg-12">
         <h3 class="fg-grayBlue">Stock::</h3>
+        <a href="@Url.Action("Create", "inventory")" class="image-button success" style="text-decoration: none !important;">
+            <span class="mif-chevron-thin-right icon"></span>
+            <span class="caption">+ New</span>
+        </a><br/>
         @Html.Action("IndexPartial", "inventory")
     </div>
 </div>

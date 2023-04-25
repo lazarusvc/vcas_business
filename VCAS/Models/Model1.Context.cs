@@ -249,7 +249,19 @@ public partial class ModelContainer : DbContext
     }
 
 
-    public virtual int usp_UpdateUndepositedFundsStatus(Nullable<int> loc, Nullable<int> dID)
+    public virtual int usp_UpdateUndepositedFundsStatus(Nullable<int> loc)
+    {
+
+        var locParameter = loc.HasValue ?
+            new ObjectParameter("loc", loc) :
+            new ObjectParameter("loc", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateUndepositedFundsStatus", locParameter);
+    }
+
+
+    public virtual int usp_UpdateUndepositedFundsStatus1(Nullable<int> loc, Nullable<int> dID)
     {
 
         var locParameter = loc.HasValue ?
@@ -263,6 +275,28 @@ public partial class ModelContainer : DbContext
 
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateUndepositedFundsStatus1", locParameter, dIDParameter);
+    }
+
+
+    public virtual int usp_UpdateStock(Nullable<int> item, Nullable<int> loc, Nullable<int> id)
+    {
+
+        var itemParameter = item.HasValue ?
+            new ObjectParameter("item", item) :
+            new ObjectParameter("item", typeof(int));
+
+
+        var locParameter = loc.HasValue ?
+            new ObjectParameter("loc", loc) :
+            new ObjectParameter("loc", typeof(int));
+
+
+        var idParameter = id.HasValue ?
+            new ObjectParameter("id", id) :
+            new ObjectParameter("id", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateStock", itemParameter, locParameter, idParameter);
     }
 
 }

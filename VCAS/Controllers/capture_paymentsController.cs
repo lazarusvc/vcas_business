@@ -165,7 +165,7 @@ namespace VCAS.Controllers
         // ======================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
+        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -173,11 +173,25 @@ namespace VCAS.Controllers
                 db.SaveChanges();
 
                 // EXEC Stored Procedure - usp_UpdateCusOrderStat
+                // ***********************************************
                 if (vCAS_capture_payments.orderID > 0 && vCAS_capture_payments.orderID != null)
                 {
                     SqlParameter[] Parameters = { new SqlParameter("@p_cusID", vCAS_capture_payments.payerID) };
                     db.Database.ExecuteSqlCommand("EXEC usp_UpdateCusOrderStat @p_cusID", Parameters);
                 }
+
+                // EXEC Stored Procedure - usp_UpdateStock
+                // ***********************************************
+                if(vCAS_capture_payments.recieved_amount > 0 && vCAS_capture_payments.recieved_amount != null)
+                {
+                    SqlParameter[] Parameters = {
+                        new SqlParameter("@p_item", form["itemID"]),
+                        new SqlParameter("@p_id", form["inventoryID"]),
+                        new SqlParameter("@p_loc", GlobalSession.Location)
+                    };
+                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_id, @p_loc, @p_item", Parameters);
+                }
+
                 return RedirectToAction("PrintLast");
             }
             // Fetch Invoice
@@ -345,12 +359,25 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
+        public ActionResult Edit([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments, FormCollection form)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(vCAS_capture_payments).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+
+                // EXEC Stored Procedure - usp_UpdateStock
+                // ***********************************************
+                if (vCAS_capture_payments.recieved_amount > 0 && vCAS_capture_payments.recieved_amount != null)
+                {
+                    SqlParameter[] Parameters = {
+                        new SqlParameter("@p_item", form["itemID"]),
+                        new SqlParameter("@p_id", form["inventoryID"]),
+                        new SqlParameter("@p_loc", GlobalSession.Location)
+                    };
+                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_id, @p_loc, @p_item", Parameters);
+                }
+
                 return RedirectToAction("Create");
             }
 
