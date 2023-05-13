@@ -44,23 +44,23 @@ namespace VCAS.Controllers
         // POST: customer/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,firstName,lastName,address,state,phone,email")] VCAS_customer vCAS_customer)
-        {
-            if (ModelState.IsValid)
-            {
-                db.VCAS_customer.Add(vCAS_customer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,firstName,lastName,address,state,phone,email")] VCAS_customer vCAS_customer)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.VCAS_customer.Add(vCAS_customer);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(vCAS_customer);
-        }
+        //    return View(vCAS_customer);
+        //}
 
         // POST: customer/CreateModal
         [HttpPost]
-        public ActionResult CreateModal([Bind(Include = "Id,firstName,lastName,address,state,phone,email")] VCAS_customer vCAS_customer, FormCollection form)
+        public ActionResult Create([Bind(Include = "Id,firstName,lastName,address,state,phone,email")] VCAS_customer vCAS_customer, FormCollection form)
         {
             if (ModelState.IsValid)
             {

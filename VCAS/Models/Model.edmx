@@ -381,6 +381,16 @@
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_inventoryItems">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="FK_councilId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FK_councilId" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_VCAS_capture_paymentsVCAS_creditTrans">
           <End Role="VCAS_capture_payments" Type="Self.VCAS_capture_payments" Multiplicity="1" />
           <End Role="VCAS_creditTrans1" Type="Self.VCAS_creditTrans1" Multiplicity="*" />
@@ -850,6 +860,13 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <EntitySet Name="VCAS_supportDocs" EntityType="Self.VCAS_supportDocs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_undepositedFunds" EntityType="Self.VCAS_undepositedFunds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_users" EntityType="Self.VCAS_users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_inventoryItems" EntityType="Self.vw_inventoryItems" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_inventoryItems].[Id] AS [Id], 
+    [vw_inventoryItems].[name] AS [name], 
+    [vw_inventoryItems].[FK_councilId] AS [FK_councilId]
+    FROM [dbo].[vw_inventoryItems] AS [vw_inventoryItems]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_VCAS_capture_paymentsVCAS_creditTrans" Association="Self.FK_VCAS_capture_paymentsVCAS_creditTrans">
             <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
             <End Role="VCAS_creditTrans1" EntitySet="VCAS_creditTrans1" />
@@ -1214,6 +1231,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <Parameter Name="loc" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="vw_inventoryItems" EntityType="Model.vw_inventoryItems" />
           </EntityContainer>
         <EntityType Name="VCAS_debitTrans">
           <Key>
@@ -2123,6 +2141,16 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="vw_inventoryItems">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="FK_councilId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FK_councilId" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2559,6 +2587,15 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_UpdateUndepositedFundsStatus1" FunctionName="Model.Store.usp_UpdateUndepositedFundsStatus" />
           <FunctionImportMapping FunctionImportName="usp_UpdateStock" FunctionName="Model.Store.usp_UpdateStock" />
+          <EntitySetMapping Name="vw_inventoryItems">
+            <EntityTypeMapping TypeName="Model.vw_inventoryItems">
+              <MappingFragment StoreEntitySet="vw_inventoryItems">
+                <ScalarProperty Name="FK_councilId" ColumnName="FK_councilId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

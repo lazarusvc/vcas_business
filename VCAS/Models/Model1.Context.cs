@@ -93,6 +93,8 @@ public partial class ModelContainer : DbContext
 
     public virtual DbSet<VCAS_undepositedFunds> VCAS_undepositedFunds { get; set; }
 
+    public virtual DbSet<vw_inventoryItems> vw_inventoryItems { get; set; }
+
 
     public virtual int usp_DebitReducingbalance(Nullable<double> amt, Nullable<short> icID, Nullable<short> daID)
     {

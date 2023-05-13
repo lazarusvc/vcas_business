@@ -34,40 +34,25 @@
                     <div class="cell-lg-12">
                         <div class="remark">
                             <div class="row">
-                                <div class="cell-lg-4">
-                                    <input type="checkbox" data-role="checkbox" data-caption="MAKE INVOICE" class="fg-darkBlue" id="rec_invNew">
+                                <div class="cell-lg-8">
+                                    <!-- CUSTOMER SECTION ====== -->
+                                    <div id="cusListDiv">
+                                        <label class="fg-darkBlue">Customer:</label>
+                                        @Html.DropDownList("cusList", null, "-- Select --", htmlAttributes: new { data_role = "select" })
+                                    </div>
+                                    @Html.HiddenFor(model => model.payer)
+                                    @Html.ValidationMessageFor(model => model.payer, "", new { @class = "fg-magenta" })
+                                    @Html.HiddenFor(model => model.payerID)
+                                    @Html.ValidationMessageFor(model => model.payerID, "", new { @class = "fg-magenta" })
                                 </div>
-                                <div class="cell-lg-4">
-                                    <input type="checkbox" data-role="checkbox" data-caption="FETCH INVOICE" class="fg-darkBlue" id="rec_invGet">
-                                </div>
-                                <div class="cell-lg-4"></div>
-                            </div>
-                            <div id="rec_invGetDiv">
-                                <label class="fg-darkBlue">Saved Invoices:</label>
-                                @Html.DropDownList("invoiceFetches", null, "-- Select --", htmlAttributes: new { data_role = "select" })
-                            </div>
-                        </div>
-                        <div class="remark">
-                            <div class="row">
-                                <label class="fg-darkBlue">Date:</label>
-                                @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
-                                @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
-                            <div class="cell-lg-8">
-                                <div id="cusListDiv">
-                                    <label class="fg-darkBlue">Customer:</label>
-                                    @Html.DropDownList("cusList", null, "-- Select --", htmlAttributes: new { data_role = "select" })
-                                </div>
-                                @Html.EditorFor(model => model.payer, new { htmlAttributes = new { data_role = "input" } })
-                                @Html.ValidationMessageFor(model => model.payer, "", new { @class = "fg-magenta" })
-                                @Html.HiddenFor(model => model.payerID)
-                                @Html.ValidationMessageFor(model => model.payerID, "", new { @class = "fg-magenta" })
-                            </div>
                                 <div class="cell-lg-4">
                                     <br />
                                     <input type="checkbox" data-role="checkbox" data-style="2" data-caption="+NEW" class="fg-green" id="payerCheckInput" />
                                 </div>
                             </div>
+
                             <div class="row">
+                                <!-- SALES ITEM / CUSTOMER ORDERS / INVENTORY SECTION ====== -->
                                 <div class="cell-lg-8">
                                     <label class="fg-darkBlue">Sales Item:</label>
                                     @Html.DropDownList("FK_items", null, "-- Select --", htmlAttributes: new { data_role = "select" })
@@ -96,13 +81,14 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <!-- PAYMENT SECTION ====== -->
                                 <div class="cell-lg-8">
                                     <br />
                                     <label class="fg-darkBlue">Payment:</label>
-                                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Amount $", @type = "number", min = "1", step = "0.01" } })
+                                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Amount $", @type = "number", min = "1", step = "1.0" } })
                                     @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
 
-                                    @Html.EditorFor(model => model.recieved_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Received $", @type = "number", min = "1", step = "0.01" } })
+                                    @Html.EditorFor(model => model.recieved_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Received $", @type = "number", min = "1", step = "1.0" } })
                                     @Html.ValidationMessageFor(model => model.recieved_amount, "", new { @class = "fg-magenta" })
 
                                     @Html.DropDownList("FK_paymentType", null, htmlAttributes: new { data_role = "select" })
@@ -119,16 +105,39 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="cell-lg-8">
+                                    <label class="fg-darkBlue">Date:</label><!-- DATE SECTION ====== -->
+                                    @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
+                                    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="remark">
+                    <!-- INVOICE SECTION ====== -->
+                    <div class="row">
+                        <div class="cell-lg-4">
+                            <input type="checkbox" data-role="checkbox" data-caption="MAKE INVOICE" class="fg-darkBlue" id="rec_invNew">
+                        </div>
+                        <div class="cell-lg-4">
+                            <input type="checkbox" data-role="checkbox" data-caption="FETCH INVOICE" class="fg-darkBlue" id="rec_invGet">
+                        </div>
+                        <div class="cell-lg-4"></div>
+                    </div>
+                    <div id="rec_invGetDiv">
+                        <label class="fg-darkBlue">Saved Invoices:</label>
+                        @Html.DropDownList("invoiceFetches", null, "-- Select --", htmlAttributes: new { data_role = "select" })
+                    </div>
+                </div>
+                <div class="remark">
+                    <!-- COMMENTS SECTION ====== -->
                     @Html.TextAreaFor(model => model.comment, new { data_role = "textarea", placeholder = "... Comment" })
                     @Html.ValidationMessageFor(model => model.comment, "", new { @class = "fg-magenta" })
                 </div>
             </div>
-            <div class="cell-lg-6">
-                <!-- PREVIEW ------------------ -->
+            <div class="cell-lg-6"><!-- RECEIPT PREVIEW ===== -->
                 <div data-role="panel"
                      data-title-caption="Receipt"
                      data-cls-panel="shadow-3"
@@ -230,10 +239,9 @@
                             </table>
                         </div>
                     </div>
-                    </div>
-                <!-- BUTTONS ------------------ -->
+                </div>
                 <br />
-                <div class="row">
+                <div class="row"><!-- BUTTONS SECTION ====== -->
                     <div class="cell-lg-12">
                         <ul class="pagination no-gap size-large">
                             <li class="page-item">
@@ -274,7 +282,7 @@
     // Stock tile logic
     // ========================
     function tileData(id, invID, itemID) {
-        var amount = document.getElementById("amount"); 
+        var amount = document.getElementById("amount");
         amount.value = id;
         amount.style.backgroundColor = "#f8f8f8"; // make field READONLY
         amount.readOnly = true;
@@ -300,14 +308,16 @@
         issuer.css("background-color", "#f8f8f8");
         var datetime = $("#datetime");
         var payer = $("#payer");
+        var payerID = $("#payerID");
+        var payerREC = $("#REC-payer");
         payer.val("@ViewBag.cusName");
-        var payerID = $("payerID");
+        payerREC.html("@ViewBag.cusName");
         payerID.val("@ViewBag.cusID");
         var checkNo = $("#checkNo");
         var amount = $("#amount");
         var amount_received = $("#recieved_amount");
         var item = $("#FK_items");
-        var  bank = $("#FK_bankDetails");
+        var bank = $("#FK_bankDetails");
         var payment = $("#FK_paymentType");
         var paymentType = $("#REC-payType");
         var checkDetails = $("#checkDetails");
@@ -382,14 +392,14 @@
                         html += "<span class='mif-tags icon'></span>";
                         html += "<span class='branding-bar'>" + iName + "</span>";
                         html += "<span class='badge-top'>" + iPrice + "</span>";
-                        html += "</div>"; 
+                        html += "</div>";
                         $(".sales_inventory").html(html);
-                    });                    
+                    });
                 }
             });
-            
+
         });
-        // amount        
+        // amount
         amount.on('keyup change', function () {
             $("#REC-amount").html('$' + amount.val());
             $("#REC-total").html('$' + amount.val());
@@ -449,19 +459,17 @@
                                     };
 
                                     $.ajax({
-                                        url: '@Url.Action("CreateModal", "customer")',
+                                        url: '@Url.Action("Create", "customer")',
                                         type: "POST",
                                         data: formData,
                                         beforeSend: function () {
-                                            window.location = '@Url.Action("Create", "capture_payments")?cusName=' + formData.firstName;
+                                           window.location = '@Url.Action("Create", "capture_payments")?cusName=' + formData.firstName;
                                         }
                                 });
                             }
                         }
                     ]
                 });
-                payer.css("background-color", "#f8f8f8"); // make payer field READONLY after process
-                payer.prop('readonly', true);
             }
         });
         // Item Order onClick logic

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a9d0a18fde104a4eb3a53d7ec3bc8fbb" Name="Diagram1" ZoomLevel="93" >
+      <Diagram DiagramId="a9d0a18fde104a4eb3a53d7ec3bc8fbb" Name="Diagram1" ZoomLevel="40" >
         <EntityTypeShape EntityType="Model.VCAS_debitTrans" Width="2.25" PointX="2.875" PointY="7.75" />
         <EntityTypeShape EntityType="Model.VCAS_creditTrans" Width="2.25" PointX="5.5" PointY="7.75" />
         <EntityTypeShape EntityType="Model.VCAS_REF_payment_type" Width="2.125" PointX="9" PointY="6.5" FillColor="Green" />
@@ -69,6 +69,7 @@
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_deposit" />
         <EntityTypeShape EntityType="Model.VCAS_undepositedFunds" Width="2.375" PointX="12.875" PointY="28.25" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_undepositedFunds" />
+        <EntityTypeShape EntityType="Model.vw_inventoryItems" Width="3.625" PointX="20.625" PointY="11.875" FillColor="255, 128, 0" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

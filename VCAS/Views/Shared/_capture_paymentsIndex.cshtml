@@ -1,15 +1,12 @@
 ﻿@model IEnumerable<VCAS.Models.VCAS_capture_payments>
 
 
-<table class="table compact"
-       data-rows="-1"
-       data-show-pagination="false"
-       data-show-rows-steps="false"
-       data-show-search="false"
-       data-role="table"
-       data-rownum="true">
+<table class="table compact">
     <thead>
         <tr>
+            <th>
+                #
+            </th>
             <th>
                 Description
             </th>
@@ -24,6 +21,9 @@
         <tbody>
             <tr>
                 <td>
+                    -
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.VCAS_REF_items.name) - @Html.DisplayFor(modelItem => item.VCAS_REF_items.desc)
                 </td>
                 <td>
@@ -34,13 +34,7 @@
     }
 </table>
 <br/>
-<table class="table compact"
-       data-rows="-1"
-       data-show-pagination="false"
-       data-show-rows-steps="false"
-       data-show-search="false"
-       data-role="table"
-       data-rownum="true">
+<table class="table compact">
     <thead>
         <tr>
             <th>
