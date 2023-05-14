@@ -15,7 +15,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Lazarus118/vcas_open">
+  <a href="https://github.com/Lazarusvc/vcas_open">
     <img src="http://vouchcast.com/wp-content/uploads/2022/10/vouchcast_screenshots2-1024x648.png" alt="VC Accounting Software">
   </a>
 
@@ -26,9 +26,9 @@
     <a href="https://app.vouchcast.com"><strong>Access Demo »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Lazarus118/vcas_open/issues">Report Bug</a>
+    <a href="https://github.com/Lazarusvc/vcas_open/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Lazarus118/vcas_open/issues">Request Feature</a>
+    <a href="https://github.com/Lazarusvc/vcas_open/issues">Request Feature</a>
   </p>
 </div>
 
@@ -182,7 +182,7 @@ If loading up your reports show the below error, SSRS report permissions needs t
 - [ ] Implement Feature : Reconciliation
 
 
-See the [open issues](https://github.com/Lazarus118/vcas_open/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/Lazarusvc/vcas_open/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -220,7 +220,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Austin Lazarus - [@_ra_lazarus](https://twitter.com/_ra_lazarus) - [austin.lazarus@gmail.com](mailto:austin.lazarus@gmail.com)
 
-Project Link: [https://github.com/Lazarus118/vcas_open](https://github.com/Lazarus118/vcas_open)
+Project Link: [https://github.com/Lazarusvc/vcas_open](https://github.com/Lazarusvc/vcas_open)
 
 Website Link: [https://vouchcast.com](https:vouchcast.com)
 
