@@ -85,10 +85,10 @@
                                 <div class="cell-lg-8">
                                     <br />
                                     <label class="fg-darkBlue">Payment:</label>
-                                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Amount $", @type = "number", min = "1", step = "1.0" } })
+                                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Amount $", @type = "number", min = "1" } })
                                     @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
 
-                                    @Html.EditorFor(model => model.recieved_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Received $", @type = "number", min = "1", step = "1.0" } })
+                                    @Html.EditorFor(model => model.recieved_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Received $", @type = "number", min = "1" } })
                                     @Html.ValidationMessageFor(model => model.recieved_amount, "", new { @class = "fg-magenta" })
 
                                     @Html.DropDownList("FK_paymentType", null, htmlAttributes: new { data_role = "select" })
@@ -245,7 +245,7 @@
                     <div class="cell-lg-12">
                         <ul class="pagination no-gap size-large">
                             <li class="page-item">
-                                <button type="submit" class="button large yellow">
+                                <button type="submit" class="button large yellow" id="submitBtn">
                                     <span class="mif-done_all icon"></span> Capture
                                 </button>
                             </li>
@@ -281,7 +281,7 @@
 
     // Stock tile logic
     // ========================
-    function tileData(id, invID, itemID) {
+    function tileData(name, id, invID, itemID) {
         var amount = document.getElementById("amount");
         amount.value = id;
         amount.style.backgroundColor = "#f8f8f8"; // make field READONLY
@@ -292,6 +292,9 @@
 
         document.getElementById("inventoryID").value = invID; // stock fields update
         document.getElementById("itemID").value = itemID;
+
+        document.getElementById("comment").innerHTML = "inventory item: " + name + "\n"; // append inventory selected item to comments
+        document.getElementById("REC-comments").innerHTML = "inventory item: " + name;
     }
 
     // Phone Number Auto-format
@@ -377,6 +380,9 @@
         var html = "";
         var iName = "";
         var iPrice = "";
+        var siDIV = $(".sales_inventory");
+        // siDIV.clone();
+        
         item.on('keyup change', function () {
             $("#REC-desc").text(item.children("option:selected").text());
 
@@ -387,18 +393,22 @@
                     $.each(result, function (k, v) {
                         iName = v.name;
                         iPrice = v.sellingPrice;
-                        html += '<div data-role="tile"  onclick="tileData(\'' + iPrice + '\', \'' + v.Id + '\', \'' + v.FK_REF_itemsId + '\')" ';
+                        html += '<div data-role="tile"  onclick="tileData(\'' + iName + '\', \'' + iPrice + '\', \'' + v.Id + '\', \'' + v.FK_REF_itemsId + '\')" ';
                         html += "data-size='small'>";
                         html += "<span class='mif-tags icon'></span>";
                         html += "<span class='branding-bar'>" + iName + "</span>";
                         html += "<span class='badge-top'>" + iPrice + "</span>";
-                        html += "</div>";
-                        $(".sales_inventory").html(html);
-                    });
+                        html += "</div>";                           
+                        siDIV.html(html);
+                    });                    
+                    
                 }
             });
-
         });
+        //setTimeout(function () {
+        //    siDIV.replaceWith(siDIV.clone());
+        //}, 7000);
+        
         // amount
         amount.on('keyup change', function () {
             $("#REC-amount").html('$' + amount.val());
@@ -429,6 +439,7 @@
         var cusListSelectData = "";
         $("#cusList").on('keyup change', function () {
             cusListSelectData = $(this).children("option:selected").text();
+            $(this).get(0).focus();
 
             $("#REC-payer").html(cusListSelectData);
             payer.val(cusListSelectData);
@@ -512,6 +523,21 @@
             } else {
                 $('#rec_invGetDiv').hide();
             }
+        });
+        // Update Stock Post
+        // ===============================
+        $("#submitBtn").submit(function () {
+            var formData =
+            {
+                itemID: $("#itemID").val(),
+                inventoryID: $("#inventoryID").val(),
+                recieved_amount: $("#recieved_amount").val()
+            };
+             $.ajax({
+                url: '@Url.Action("Stock", "capture_payments")',
+                type: "POST",
+                data: formData
+            });
         });
     });
 </script>

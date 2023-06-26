@@ -40,6 +40,10 @@
           <Property Name="receipt_footer" Type="nvarchar(max)" />
           <Property Name="receipt_header" Type="nvarchar(max)" />
           <Property Name="app_cover" Type="nvarchar(max)" />
+          <Property Name="twilio_SID" Type="nvarchar(max)" />
+          <Property Name="twilio_TOKEN" Type="nvarchar(max)" />
+          <Property Name="twilio_NUMBER" Type="nvarchar(max)" />
+          <Property Name="twilio_XML" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="VCAS_creditTrans1">
           <Key>
@@ -1099,28 +1103,28 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </AssociationSet>
           <EntitySet Name="VCAS_council" EntityType="Model.VCAS_council" />
           <AssociationSet Name="FK_VCAS_councilVCAS_district" Association="Model.FK_VCAS_councilVCAS_district">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_district" EntitySet="VCAS_district" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_district" Role="VCAS_district" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_councilVCAS_forms" Association="Model.FK_VCAS_councilVCAS_forms">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_forms" Role="VCAS_forms" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_councilVCAS_issuedChecks" Association="Model.FK_VCAS_councilVCAS_issuedChecks">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_issuedChecks" EntitySet="VCAS_issuedChecks" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_issuedChecks" Role="VCAS_issuedChecks" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_councilVCAS_REF_expense_location" Association="Model.FK_VCAS_councilVCAS_REF_expense_location">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_REF_expense_location" EntitySet="VCAS_REF_expense_location" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_REF_expense_location" Role="VCAS_REF_expense_location" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_councilVCAS_REF_items_location" Association="Model.FK_VCAS_councilVCAS_REF_items_location">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_REF_items_location" EntitySet="VCAS_REF_items_location" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_REF_items_location" Role="VCAS_REF_items_location" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_councilVCAS_REF_reports_params" Association="Model.FK_VCAS_councilVCAS_REF_reports_params">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_REF_reports_params" EntitySet="VCAS_REF_reports_params" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_REF_reports_params" Role="VCAS_REF_reports_params" />
           </AssociationSet>
           <EntitySet Name="VCAS_REF_forms" EntityType="Model.VCAS_REF_forms" />
           <AssociationSet Name="FK_VCAS_formsVCAS_REF_forms" Association="Model.FK_VCAS_formsVCAS_REF_forms">
@@ -1130,12 +1134,12 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <EntitySet Name="VCAS_inventory" EntityType="Model.VCAS_inventory" />
           <EntitySet Name="VCAS_orders" EntityType="Model.VCAS_orders" />
           <AssociationSet Name="FK_VCAS_councilVCAS_inventory" Association="Model.FK_VCAS_councilVCAS_inventory">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_inventory" EntitySet="VCAS_inventory" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_inventory" Role="VCAS_inventory" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_councilVCAS_orders" Association="Model.FK_VCAS_councilVCAS_orders">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_orders" EntitySet="VCAS_orders" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_orders" Role="VCAS_orders" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_customerVCAS_orders" Association="Model.FK_VCAS_customerVCAS_orders">
             <End Role="VCAS_customer" EntitySet="VCAS_customer" />
@@ -1159,8 +1163,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <End Role="VCAS_creditTrans" EntitySet="VCAS_creditTrans1" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_councilVCAS_Captured_Payment" Association="Model.FK_VCAS_councilVCAS_Captured_Payment">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_capture_payments" Role="VCAS_capture_payments" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_REF_bank_detailsVCAS_Captured_Payment" Association="Model.FK_VCAS_REF_bank_detailsVCAS_Captured_Payment">
             <End Role="VCAS_REF_bank_details" EntitySet="VCAS_REF_bank_details" />
@@ -1177,8 +1181,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <EntitySet Name="VCAS_debitAccounts" EntityType="Model.VCAS_debitAccounts" />
           <EntitySet Name="VCAS_reconcile" EntityType="Model.VCAS_reconcile" />
           <AssociationSet Name="FK_VCAS_councilVCAS_debitAccounts" Association="Model.FK_VCAS_councilVCAS_debitAccounts">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_debitAccounts" EntitySet="VCAS_debitAccounts" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_debitAccounts" Role="VCAS_debitAccounts" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_debitAccountsVCAS_debitTrans" Association="Model.FK_VCAS_debitAccountsVCAS_debitTrans">
             <End Role="VCAS_debitAccounts" EntitySet="VCAS_debitAccounts" />
@@ -1207,11 +1211,11 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </FunctionImport>
           <EntitySet Name="VCAS_deposit" EntityType="Model.VCAS_deposit" />
           <AssociationSet Name="FK_VCAS_councilVCAS_deposit" Association="Model.FK_VCAS_councilVCAS_deposit">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_deposit" EntitySet="VCAS_deposit" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_deposit" Role="VCAS_deposit" />
           </AssociationSet>
           <FunctionImport Name="usp_UpdateAcctAmt">
-            <Parameter Name="amt" Mode="In" Type="Double" />
+          <Parameter Name="amt" Mode="In" Type="Double" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_UpdateUndepositedFundsStatus">
@@ -1219,15 +1223,15 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </FunctionImport>
           <EntitySet Name="VCAS_undepositedFunds" EntityType="Model.VCAS_undepositedFunds" />
           <AssociationSet Name="FK_VCAS_councilVCAS_undepositedFunds" Association="Model.FK_VCAS_councilVCAS_undepositedFunds">
-            <End Role="VCAS_council" EntitySet="VCAS_council" />
-            <End Role="VCAS_undepositedFunds" EntitySet="VCAS_undepositedFunds" />
+            <End EntitySet="VCAS_council" Role="VCAS_council" />
+            <End EntitySet="VCAS_undepositedFunds" Role="VCAS_undepositedFunds" />
           </AssociationSet>
           <FunctionImport Name="usp_UpdateUndepositedFundsStatus1">
-            <Parameter Name="loc" Mode="In" Type="Int32" />
+          <Parameter Name="loc" Mode="In" Type="Int32" />
             <Parameter Name="dID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_UpdateStock">
-            <Parameter Name="item" Mode="In" Type="Int32" />
+          <Parameter Name="item" Mode="In" Type="Int32" />
             <Parameter Name="loc" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1621,15 +1625,15 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="location" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="vendor_Id" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="app_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="receipt_logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="receipt_footer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="receipt_header" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="app_cover" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="location" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="vendor_Id" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="app_name" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="receipt_logo" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="receipt_footer" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="receipt_header" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="app_cover" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="VCAS_district" Relationship="Model.FK_VCAS_councilVCAS_district" FromRole="VCAS_council" ToRole="VCAS_district" />
           <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_council" ToRole="VCAS_forms" />
           <NavigationProperty Name="VCAS_issuedChecks" Relationship="Model.FK_VCAS_councilVCAS_issuedChecks" FromRole="VCAS_council" ToRole="VCAS_issuedChecks" />
@@ -1642,10 +1646,14 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <NavigationProperty Name="VCAS_debitAccounts" Relationship="Model.FK_VCAS_councilVCAS_debitAccounts" FromRole="VCAS_council" ToRole="VCAS_debitAccounts" />
           <NavigationProperty Name="VCAS_deposit" Relationship="Model.FK_VCAS_councilVCAS_deposit" FromRole="VCAS_council" ToRole="VCAS_deposit" />
           <NavigationProperty Name="VCAS_undepositedFunds" Relationship="Model.FK_VCAS_councilVCAS_undepositedFunds" FromRole="VCAS_council" ToRole="VCAS_undepositedFunds" />
-        </EntityType>
+          <Property Name="twilio_SID" Type="String" />
+          <Property Name="twilio_TOKEN" Type="String" />
+          <Property Name="twilio_NUMBER" Type="String" />
+          <Property Name="twilio_XML" Type="String" />
+          </EntityType>
         <Association Name="FK_VCAS_councilVCAS_district">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_district" Role="VCAS_district" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
+          <End Type="Model.VCAS_district" Multiplicity="*" Role="VCAS_district" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -1656,8 +1664,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VCAS_councilVCAS_forms">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
+          <End Type="Model.VCAS_forms" Multiplicity="*" Role="VCAS_forms" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -1668,8 +1676,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VCAS_councilVCAS_issuedChecks">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_issuedChecks" Role="VCAS_issuedChecks" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
+          <End Type="Model.VCAS_issuedChecks" Multiplicity="*" Role="VCAS_issuedChecks" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -1680,8 +1688,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VCAS_councilVCAS_REF_expense_location">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_REF_expense_location" Role="VCAS_REF_expense_location" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
+          <End Type="Model.VCAS_REF_expense_location" Multiplicity="*" Role="VCAS_REF_expense_location" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -1692,8 +1700,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VCAS_councilVCAS_REF_items_location">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_REF_items_location" Role="VCAS_REF_items_location" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
+          <End Type="Model.VCAS_REF_items_location" Multiplicity="*" Role="VCAS_REF_items_location" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -1704,8 +1712,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VCAS_councilVCAS_REF_reports_params">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="0..1" />
-          <End Type="Model.VCAS_REF_reports_params" Role="VCAS_REF_reports_params" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="0..1" Role="VCAS_council" />
+          <End Type="Model.VCAS_REF_reports_params" Multiplicity="*" Role="VCAS_REF_reports_params" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -1805,8 +1813,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <NavigationProperty Name="VCAS_REF_order_status" Relationship="Model.FK_VCAS_order_statusVCAS_orders" FromRole="VCAS_orders" ToRole="VCAS_REF_order_status" />
         </EntityType>
         <Association Name="FK_VCAS_councilVCAS_inventory">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="0..1" />
-          <End Type="Model.VCAS_inventory" Role="VCAS_inventory" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="0..1" Role="VCAS_council" />
+          <End Type="Model.VCAS_inventory" Multiplicity="*" Role="VCAS_inventory" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -1817,8 +1825,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VCAS_councilVCAS_orders">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="0..1" />
-          <End Type="Model.VCAS_orders" Role="VCAS_orders" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="0..1" Role="VCAS_council" />
+          <End Type="Model.VCAS_orders" Multiplicity="*" Role="VCAS_orders" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -1916,8 +1924,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VCAS_councilVCAS_Captured_Payment">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_capture_payments" Role="VCAS_capture_payments" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
+          <End Type="Model.VCAS_capture_payments" Multiplicity="*" Role="VCAS_capture_payments" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -2003,8 +2011,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <NavigationProperty Name="VCAS_debitAccounts" Relationship="Model.FK_VCAS_debitAccountsVCAS_reconcile" FromRole="VCAS_reconcile" ToRole="VCAS_debitAccounts" />
         </EntityType>
         <Association Name="FK_VCAS_councilVCAS_debitAccounts">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_debitAccounts" Role="VCAS_debitAccounts" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
+          <End Type="Model.VCAS_debitAccounts" Multiplicity="*" Role="VCAS_debitAccounts" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -2100,8 +2108,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_deposit" FromRole="VCAS_deposit" ToRole="VCAS_council" />
         </EntityType>
         <Association Name="FK_VCAS_councilVCAS_deposit">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_deposit" Role="VCAS_deposit" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
+          <End Type="Model.VCAS_deposit" Multiplicity="*" Role="VCAS_deposit" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -2130,8 +2138,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_undepositedFunds" FromRole="VCAS_undepositedFunds" ToRole="VCAS_council" />
         </EntityType>
         <Association Name="FK_VCAS_councilVCAS_undepositedFunds">
-          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
-          <End Type="Model.VCAS_undepositedFunds" Role="VCAS_undepositedFunds" Multiplicity="*" />
+          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
+          <End Type="Model.VCAS_undepositedFunds" Multiplicity="*" Role="VCAS_undepositedFunds" />
           <ReferentialConstraint>
             <Principal Role="VCAS_council">
               <PropertyRef Name="Id" />
@@ -2385,7 +2393,11 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
     <EntitySetMapping Name="VCAS_council">
       <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_council)">
         <MappingFragment StoreEntitySet="VCAS_council">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="twilio_XML" ColumnName="twilio_XML" />
+                <ScalarProperty Name="twilio_NUMBER" ColumnName="twilio_NUMBER" />
+                <ScalarProperty Name="twilio_TOKEN" ColumnName="twilio_TOKEN" />
+                <ScalarProperty Name="twilio_SID" ColumnName="twilio_SID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="location" ColumnName="location" />
           <ScalarProperty Name="vendor_Id" ColumnName="vendor_Id" />

@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,15 +15,16 @@ namespace VCAS.Controllers
         // LOGIN PAGE
         // ===========================
         private ModelContainer db = new ModelContainer();
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             @TempData["Alert"] = "";
             @TempData["Alert-Color"] = "success";
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +57,13 @@ namespace VCAS.Controllers
 
                     // Store username in Session
                     Session["u"] = Convert.ToString(model.UserName);
+
+                    // Redirect to last page logoff
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        ViewBag.ReturnUrl = returnUrl;
+                        return Redirect(returnUrl);
+                    }
 
                     // Pass: Return to home
                     return RedirectToAction("Index", "Home");

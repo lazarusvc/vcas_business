@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Communicate:: Voice & SMS</h2>
+                    <a href="https://console.twilio.com/" class="image-button info" style="text-decoration: none !important;">
+                        <span class="mif-link icon"></span>
+                        <span class="caption">Dashboard</span>
+                    </a>
+                    <hr class="bg-gray" />
+
+                    @ViewBag.Response
+
+                    <div class="remark">
+                        <label class="fg-grayBlue">Phone #:</label>
+                        <input type="tel" name="tel" id="tel" data-role="input" />
+                        <br />
+                        <label class="fg-grayBlue">SMS Body:</label>
+                        <textarea type="text" name="body" id="body" data-role="textarea"></textarea>
+                    </div>
+
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

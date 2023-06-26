@@ -182,14 +182,16 @@ namespace VCAS.Controllers
 
                 // EXEC Stored Procedure - usp_UpdateStock
                 // ***********************************************
-                if(vCAS_capture_payments.recieved_amount > 0 && vCAS_capture_payments.recieved_amount != null)
+                int iID = Convert.ToInt32(form["itemID"]);
+                int invID = Convert.ToInt32(form["inventoryID"]);
+                if (vCAS_capture_payments.recieved_amount > 0 && vCAS_capture_payments.recieved_amount != null)
                 {
-                    SqlParameter[] Parameters = {
-                        new SqlParameter("@p_item", form["itemID"]),
-                        new SqlParameter("@p_id", form["inventoryID"]),
+                    SqlParameter[] Parameters1 = {
+                        new SqlParameter("@p_item", iID),
+                        new SqlParameter("@p_id", invID),
                         new SqlParameter("@p_loc", GlobalSession.Location)
                     };
-                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_id, @p_loc, @p_item", Parameters);
+                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_item, @p_loc, @p_id", Parameters1);
                 }
 
                 return RedirectToAction("PrintLast");
@@ -221,6 +223,7 @@ namespace VCAS.Controllers
             ViewBag.cusOrdersCount = db.VCAS_orders.Where(x => x.FK_customerId == vCAS_capture_payments.payerID && x.FK_order_statusId == 1).Select(x => x.Id).Count();
             return View(vCAS_capture_payments);
         }
+
 
         // GET: More Items - capture_payments
         // ======================================================================
@@ -368,14 +371,16 @@ namespace VCAS.Controllers
 
                 // EXEC Stored Procedure - usp_UpdateStock
                 // ***********************************************
+                int iID = Convert.ToInt32(form["itemID"]);
+                int invID = Convert.ToInt32(form["inventoryID"]);
                 if (vCAS_capture_payments.recieved_amount > 0 && vCAS_capture_payments.recieved_amount != null)
                 {
-                    SqlParameter[] Parameters = {
-                        new SqlParameter("@p_item", form["itemID"]),
-                        new SqlParameter("@p_id", form["inventoryID"]),
+                    SqlParameter[] Parameters1 = {
+                        new SqlParameter("@p_item", iID),
+                        new SqlParameter("@p_id", invID),
                         new SqlParameter("@p_loc", GlobalSession.Location)
                     };
-                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_id, @p_loc, @p_item", Parameters);
+                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_item, @p_loc, @p_id", Parameters1);
                 }
 
                 return RedirectToAction("Create");

@@ -50,7 +50,7 @@ namespace VCAS.Controllers
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
         [CustomAuthorize(Roles = "admin")]
-        public ActionResult Create([Bind(Include = "Id,name,location,vendor_Id,app_name,app_cover,receipt_logo,receipt_header,receipt_footer")] VCAS_council vCAS_council, HttpPostedFileBase receipt_logo, HttpPostedFileBase app_cover)
+        public ActionResult Create([Bind(Include = "Id,name,location,vendor_Id,app_name,app_cover,receipt_logo,receipt_header,receipt_footer,twilio_SID,twilio_TOKEN,twilio_NUMBER,twilio_XML")] VCAS_council vCAS_council, HttpPostedFileBase receipt_logo, HttpPostedFileBase app_cover)
         {
 
             if (receipt_logo != null && receipt_logo.ContentLength > 0) // Attach Receipt logo
@@ -117,7 +117,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,location,vendor_Id,app_name,app_cover,receipt_logo,receipt_header,receipt_footer")] VCAS_council vCAS_council, HttpPostedFileBase receipt_logo, HttpPostedFileBase app_cover)
+        public ActionResult Edit([Bind(Include = "Id,name,location,vendor_Id,app_name,app_cover,receipt_logo,receipt_header,receipt_footer,twilio_SID,twilio_TOKEN,twilio_NUMBER,twilio_XML")] VCAS_council vCAS_council, HttpPostedFileBase receipt_logo, HttpPostedFileBase app_cover)
         {
 
             if (receipt_logo != null && receipt_logo.ContentLength > 0) // Attach Receipt logo

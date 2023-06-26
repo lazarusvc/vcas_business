@@ -67,6 +67,14 @@ public partial class VCAS_council
 
     public string app_cover { get; set; }
 
+    public string twilio_SID { get; set; }
+
+    public string twilio_TOKEN { get; set; }
+
+    public string twilio_NUMBER { get; set; }
+
+    public string twilio_XML { get; set; }
+
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

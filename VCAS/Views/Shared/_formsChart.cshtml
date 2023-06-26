@@ -1,0 +1,51 @@
+﻿<canvas id="linecanvas"></canvas>
+
+<script>
+$(document).ready(function () {
+
+// Account Converter module
+// ========================
+function float2dollar(value) {
+    return "EC$ " + (value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+
+// Credit Transaction Chart Logic
+// ==============================
+    let url = '@Url.Action("CreditTransJson", "creditTrans")?&d=' + @ViewBag.data;
+    $.ajax({
+        type: "POST",
+        url: url,
+        dataType: "json",
+        success: function (chData) {
+            var aLabels = chData.map(function (e) {
+                var d = new Date(parseInt(e.datetime.replace("/Date(", "").replace(")/", "")));
+                return d.toDateString();
+            });
+            var aDatasets1 = chData.map(function (e) {
+                return e.amount;
+            });
+
+            const ctx2 = document.getElementById('linecanvas').getContext('2d');
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: aLabels,
+                    datasets: [{
+                        label: "Total Credits",
+                        data: aDatasets1,
+                        fill: true,
+                        backgroundColor: '#60a917',
+                        borderColor: '#607d8b'
+                    }]
+                },
+                options: {
+                        tooltips: {
+                            enabled: true
+                        },
+                        responsive: true
+                }
+            });
+        }
+    });
+});
+</script>

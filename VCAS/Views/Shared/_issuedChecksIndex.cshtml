@@ -66,33 +66,34 @@
             @Html.DisplayFor(modelItem => item.VCAS_REF_receiverID_Types.name)
         </td>
         <td>
-            <img src="@Html.DisplayFor(modelItem => item.auth_signature)" width="100" style="max-width: 80px;" />
+            <img src="@Html.DisplayFor(modelItem => item.auth_signature)" width="100" style="max-width: 35px;" />
         </td>
         <td>
-            @if (item.complete == true)
-            {
+                @if (item.complete == true)
+                {
 
                 if (item.attach_ID == "")
                 {
-<p>...</p> }
-                    else if (item.attach_ID != null)
-                    {
-<a href='@Url.Content(item.attach_ID)'><span class="mif-attachment icon"></span> ID Attachment</a> }
-                    if (item.attach_Doc == "")
-                    {
-<p>...</p> }
-                    else if (item.attach_Doc != null)
-                    {
-<br />
-                        <a href='@Url.Content(item.attach_Doc)'><span class="mif-attachment icon"></span> Document Attachment</a> }
-                                            if (item.signature == "")
-                                            {
-                        <p>...</p> }
-                                            else if (item.signature != null)
-                                            {
-                        <img src="@Html.DisplayFor(modelItem => item.signature)" width="100%" style="max-width: 100px;" />                    }
-                                        }
+                <p>...</p> }
+                else if (item.attach_ID != null)
+                {
+                <a href='@Url.Content(item.attach_ID)'><span class="mif-attachment icon"></span> ID Attachment</a> }
+                if (item.attach_Doc == "")
+                {
+                <p>...</p> }
+                else if (item.attach_Doc != null)
+                {
+                <br />
+                <a href='@Url.Content(item.attach_Doc)'><span class="mif-attachment icon"></span> Document Attachment</a> }
+                if (item.signature == "")
+                {
+                <p>...</p> }
+                else if (item.signature != null)
+                {
+                <img src="@Html.DisplayFor(modelItem => item.signature)" width="100%" style="max-width: 100px;" />                    }
+                }
         </td>
     </tr>
-</tbody>}
+</tbody>
+    }
 </table>

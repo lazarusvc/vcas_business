@@ -23,6 +23,9 @@
           <QueryParameter Name="@date">
             <Value>=Parameters!date.Value</Value>
           </QueryParameter>
+          <QueryParameter Name="@date2">
+            <Value>=Parameters!date2.Value</Value>
+          </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT VCAS_capture_payments.datetime, 
 VCAS_capture_payments.payer, 
@@ -46,7 +49,7 @@ VCAS_REF_bank_details ON
 VCAS_capture_payments.FK_bankDetails = VCAS_REF_bank_details.Id INNER JOIN
 VCAS_council ON VCAS_capture_payments.FK_location = VCAS_council.Id
 WHERE (VCAS_capture_payments.FK_location = @loc) AND 
-(VCAS_capture_payments.datetime &gt;= @date)
+(VCAS_capture_payments.datetime between @date AND @date2)
 ORDER BY VCAS_capture_payments.datetime</CommandText>
       </Query>
       <Fields>
@@ -1042,18 +1045,6 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
             <Width>15.325in</Width>
             <Style />
           </Tablix>
-          <Line Name="Line1">
-            <Top>0.24334in</Top>
-            <Left>2.83112in</Left>
-            <Height>0in</Height>
-            <Width>8.06667in</Width>
-            <ZIndex>1</ZIndex>
-            <Style>
-              <Border>
-                <Style>Solid</Style>
-              </Border>
-            </Style>
-          </Line>
         </ReportItems>
         <Height>1.42667in</Height>
         <Style />
@@ -1061,7 +1052,7 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
       <Width>15.64279in</Width>
       <Page>
         <PageHeader>
-          <Height>1.48889in</Height>
+          <Height>2.30139in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <ReportItems>
             <Textbox Name="Textbox23">
@@ -1071,21 +1062,63 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Monthly Accounts Report</Value>
+                      <Value>Income Report</Value>
                       <Style>
-                        <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>24pt</FontSize>
+                        <FontFamily>Tekton Pro Cond</FontFamily>
+                        <FontSize>36pt</FontSize>
                         <FontWeight>Bold</FontWeight>
+                        <TextDecoration>Underline</TextDecoration>
                       </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value />
+                      <Style />
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>From: </Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!date.Value</Value>
+                      <Style>
+                        <Format>MMM d, yyyy</Format>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> - to - </Value>
+                      <Style>
+                        <Format>MMM d, yyyy</Format>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!date2.Value</Value>
+                      <Style>
+                        <Format>MMM d, yyyy</Format>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox23</rd:DefaultName>
-              <Left>2.83112in</Left>
-              <Height>0.455in</Height>
-              <Width>4.945in</Width>
+              <Top>0.04861in</Top>
+              <Left>2.65in</Left>
+              <Height>1.0118in</Height>
+              <Width>3.46583in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1142,10 +1175,10 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox21</rd:DefaultName>
-              <Top>0.61889in</Top>
-              <Left>2.83112in</Left>
+              <Top>1.12986in</Top>
+              <Left>3.48737in</Left>
               <Height>0.31667in</Height>
-              <Width>10.01555in</Width>
+              <Width>9.3593in</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -1176,24 +1209,18 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>                                      From: </Value>
+                      <Value xml:space="preserve">                                      </Value>
                       <Style />
-                    </TextRun>
-                    <TextRun>
-                      <Value>=Parameters!date.Value</Value>
-                      <Style>
-                        <Format>MMM d, yyyy</Format>
-                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox22</rd:DefaultName>
-              <Top>1.00723in</Top>
-              <Left>2.83112in</Left>
+              <Top>1.51597in</Top>
+              <Left>3.48737in</Left>
               <Height>0.31667in</Height>
-              <Width>10.01555in</Width>
+              <Width>9.3593in</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -1207,7 +1234,7 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
             </Textbox>
             <Image Name="Image1">
               <Source>External</Source>
-              <Value>=First(Fields!receipt_logo.Value, "DataSet1")</Value>
+              <Value>="file://127.0.0.1/c$/inetpub/wwwroot/app" + Fields!receipt_logo.Value</Value>
               <MIMEType>image/png</MIMEType>
               <Sizing>FitProportional</Sizing>
               <Top>0.4445cm</Top>
@@ -1221,6 +1248,18 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
                 </Border>
               </Style>
             </Image>
+            <Line Name="Line1">
+              <Top>2.00306in</Top>
+              <Left>2.83112in</Left>
+              <Height>0in</Height>
+              <Width>8.06667in</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>Solid</Style>
+                </Border>
+              </Style>
+            </Line>
           </ReportItems>
           <Style>
             <Border>
@@ -1244,7 +1283,7 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
                       <Style />
                     </TextRun>
                     <TextRun>
-                      <Value>VC  Accounting   Software </Value>
+                      <Value>VOUCHCAST </Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontFamily>Impact</FontFamily>
@@ -1298,13 +1337,17 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
     </ReportSection>
   </ReportSections>
   <ReportParameters>
+    <ReportParameter Name="date">
+      <DataType>DateTime</DataType>
+      <Prompt>Select Start Date:</Prompt>
+    </ReportParameter>
     <ReportParameter Name="loc">
       <DataType>Integer</DataType>
       <Prompt>Select Location ID: e.g. 12</Prompt>
     </ReportParameter>
-    <ReportParameter Name="date">
+    <ReportParameter Name="date2">
       <DataType>DateTime</DataType>
-      <Prompt>Select Date:</Prompt>
+      <Prompt>Select End Date:</Prompt>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
@@ -1318,9 +1361,14 @@ ORDER BY VCAS_capture_payments.datetime</CommandText>
           <ParameterName>loc</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
+          <ColumnIndex>0</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>date</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>date2</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

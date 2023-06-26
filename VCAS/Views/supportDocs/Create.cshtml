@@ -29,7 +29,9 @@
                             new SelectListItem() { Text = "text/csv", Value = "text/csv" },
                             new SelectListItem() { Text = "text/html", Value = "text/html" },
                             new SelectListItem() { Text = "application/mp4", Value = "application/mp4" },
-                            new SelectListItem() { Text = "application/pdf", Value = "application/pdf" }
+                            new SelectListItem() { Text = "application/pdf", Value = "application/pdf" },
+                            new SelectListItem() { Text = "application/xml", Value = "application/xml"},
+                            new SelectListItem() { Text = "audio/mpeg", Value = "audio/mpeg"}
                         }, null, htmlAttributes: new { data_role = "select" })
                     @Html.ValidationMessageFor(model => model.media_type, "", new { @class = "fg-magenta" })
 

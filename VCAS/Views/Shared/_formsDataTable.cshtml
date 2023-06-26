@@ -5,7 +5,7 @@
 }
 
 <table class="table striped table-border cell-border row-border subcompact bg-white" data-role="table" data-horizontal-scroll="true">
-    <thead>
+    @*<thead>
         <tr>
             @if (Model.Select(x => x.txtInput_01).Count() > 0)
             {
@@ -137,7 +137,7 @@
                 manage
             </th>
         </tr>
-    </thead>
+    </thead>*@
 
 @foreach (var item in Model) {
     <tbody>

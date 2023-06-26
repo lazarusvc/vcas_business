@@ -8,11 +8,11 @@
     <OverwriteDataSources>False</OverwriteDataSources>
     <TargetServerVersion>SSRS2008R2</TargetServerVersion>
     <Platform>Win32</Platform>
-    <TargetReportFolder>VCAS_Report</TargetReportFolder>
+    <TargetReportFolder>App_Reports</TargetReportFolder>
     <TargetDatasetFolder>Datasets</TargetDatasetFolder>
     <TargetDatasourceFolder>Data Sources</TargetDatasourceFolder>
-    <TargetReportPartFolder>VCAS_Report</TargetReportPartFolder>
-    <TargetServerURL>http://gocdssr/reportserver</TargetServerURL>
+    <TargetReportPartFolder>App_Reports</TargetReportPartFolder>
+    <TargetServerURL>http://vouchcast/reportserver</TargetServerURL>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DebugLocal' ">
     <FullPath>DebugLocal</FullPath>
@@ -55,6 +55,7 @@
     <DataSource Include="DataSource1.rds" />
   </ItemGroup>
   <ItemGroup>
+    <Report Include="Monthly Report (Grouped).rdl" />
     <Report Include="Monthly Report.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />

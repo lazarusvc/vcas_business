@@ -64,9 +64,24 @@
                         </div>
                     </div>
 
-                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                    <div class="remark">
+                        <h6 class="fg-gray">Communication:</h6><br />
+                        @Html.EditorFor(model => model.twilio_SID, new { htmlAttributes = new { data_role = "input", data_prepend = "TWILIO SID: " } })
+                        @Html.ValidationMessageFor(model => model.twilio_SID, "", new { @class = "fg-magenta" })
+
+                        @Html.EditorFor(model => model.twilio_TOKEN, new { htmlAttributes = new { data_role = "input", data_prepend = "TWILIO TOKEN: " } })
+                        @Html.ValidationMessageFor(model => model.twilio_TOKEN, "", new { @class = "fg-magenta" })
+
+                        @Html.EditorFor(model => model.twilio_NUMBER, new { htmlAttributes = new { data_role = "input", data_prepend = "TWILIO NUMBER: ", @Type = "number" } })
+                        @Html.ValidationMessageFor(model => model.twilio_NUMBER, "", new { @class = "fg-magenta" })
+
+                        @Html.EditorFor(model => model.twilio_XML, new { htmlAttributes = new { data_role = "input", data_prepend = "TWILIO XML: " } })
+                        @Html.ValidationMessageFor(model => model.twilio_XML, "", new { @class = "fg-magenta" })
+                    </div>
+
+                        <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
 }

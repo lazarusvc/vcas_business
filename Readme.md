@@ -233,11 +233,11 @@ Website Link: [https://vouchcast.com](https:vouchcast.com)
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[Stable-Release]:https://badgen.net/github/release/Lazarus118/vcas_open/stable
-[Forks]:https://badgen.net/github/forks/Lazarus118/vcas_open
-[License]:https://badgen.net/github/license/Lazarus118/vcas_open
-[Contribution]:https://badgen.net/github/contributors/Lazarus118/vcas_open
-[Check]:https://badgen.net/github/checks/Lazarus118/vcas_open/main
+[Stable-Release]:https://badgen.net/github/release/lazarusvc/vcas_open/stable
+[Forks]:https://badgen.net/github/forks/lazarusvc/vcas_open
+[License]:https://badgen.net/github/license/lazarusvc/vcas_open
+[Contribution]:https://badgen.net/github/contributors/lazarusvc/vcas_open
+[Check]:https://badgen.net/github/checks/lazarusvc/vcas_open/main
 
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com

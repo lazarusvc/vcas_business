@@ -188,6 +188,21 @@
     var baseUrl = getUrl.protocol + "//" + getUrl.host;
     document.getElementById("rec_logo").src = baseUrl + "@ViewBag.recLogo";
 
+    // Stock tile logic
+    // ========================
+    function tileData(id, invID, itemID) {
+        var amount = document.getElementById("amount");
+        amount.value = id;
+        amount.style.backgroundColor = "#f8f8f8"; // make field READONLY
+        amount.readOnly = true;
+
+        document.getElementById("REC-amount").innerHTML = id; // update receipt preview price
+        document.getElementById("REC-total").innerHTML = id;
+
+        document.getElementById("inventoryID").value = invID; // stock fields update
+        document.getElementById("itemID").value = itemID;
+    }
+
     $(document).ready(function () {
         var receiptNo = $("#receiptNo");
         receiptNo.css("background-color", "#ffe484");
@@ -264,8 +279,19 @@
         });
         // items + comment
         $("#REC-desc").text(item.children("option:selected").text());
-        item.on('keyup change', function () {
-            $("#REC-desc").text(item.children("option:selected").text());
+        // items
+        var iPrice = "";
+        $("#REC-desc").text(item.children("option:selected").text());
+
+        $.ajax({
+            url: '@Url.Action("Json", "inventory")?&l=' + location.val() + "&it=" + item.val(),
+            type: "GET",
+            success: function (result) {
+                $.each(result, function (k, v) {
+                    iPrice = v.sellingPrice;
+                    tileData(iPrice, v.Id, v.FK_REF_itemsId);
+                });
+            }
         });
         // amount
         $("#REC-total").html('$' + amount.val());
