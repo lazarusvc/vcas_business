@@ -182,10 +182,14 @@ namespace VCAS.Controllers
 
                 // EXEC Stored Procedure - usp_UpdateStock
                 // ***********************************************
-                int iID = Convert.ToInt32(form["itemID"]);
-                int invID = Convert.ToInt32(form["inventoryID"]);
-                if (vCAS_capture_payments.recieved_amount > 0 && vCAS_capture_payments.recieved_amount != null)
+                if (vCAS_capture_payments.recieved_amount > 0 && 
+                    vCAS_capture_payments.recieved_amount != null && 
+                    Convert.ToInt32(form["itemID"]) > 0 && 
+                    Convert.ToInt32(form["inventoryID"]) > 0)
                 {
+                    int iID = Convert.ToInt32(form["itemID"]);
+                    int invID = Convert.ToInt32(form["inventoryID"]);
+
                     SqlParameter[] Parameters1 = {
                         new SqlParameter("@p_item", iID),
                         new SqlParameter("@p_id", invID),
@@ -371,10 +375,14 @@ namespace VCAS.Controllers
 
                 // EXEC Stored Procedure - usp_UpdateStock
                 // ***********************************************
-                int iID = Convert.ToInt32(form["itemID"]);
-                int invID = Convert.ToInt32(form["inventoryID"]);
-                if (vCAS_capture_payments.recieved_amount > 0 && vCAS_capture_payments.recieved_amount != null)
+                if (vCAS_capture_payments.recieved_amount > 0 &&
+                    vCAS_capture_payments.recieved_amount != null &&
+                    Convert.ToInt32(form["itemID"]) > 0 &&
+                    Convert.ToInt32(form["inventoryID"]) > 0)
                 {
+                    int iID = Convert.ToInt32(form["itemID"]);
+                    int invID = Convert.ToInt32(form["inventoryID"]);
+
                     SqlParameter[] Parameters1 = {
                         new SqlParameter("@p_item", iID),
                         new SqlParameter("@p_id", invID),

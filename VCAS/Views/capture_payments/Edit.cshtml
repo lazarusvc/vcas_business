@@ -31,15 +31,15 @@
                 @Html.ValidationMessageFor(model => model.receiptNo, "", new { @class = "fg-magenta" })
                 @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:" } })
                 @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
-                
+
                 @Html.HiddenFor(model => model.payerID, new { @Value = Model.payerID })
                 @Html.HiddenFor(model => model.FK_paymentType, new { @Value = Model.FK_paymentType })
                 @Html.HiddenFor(model => model.checkNo, new { @Value = Model.checkNo })
                 @Html.HiddenFor(model => model.FK_bankDetails, new { @Value = Model.FK_bankDetails })
                 @Html.HiddenFor(model => model.FK_items, new { @Value = Model.FK_items })
 
-                <input type="hidden" name="itemID" id="itemID" />
-                <input type="hidden" name="inventoryID" id="inventoryID" />
+                <input type="hidden" name="itemID" id="itemID" value="0" />
+                <input type="hidden" name="inventoryID" id="inventoryID" value="0" />
             </div>
 
             <div class="remark">
