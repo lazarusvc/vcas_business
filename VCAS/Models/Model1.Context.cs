@@ -67,8 +67,6 @@ public partial class ModelContainer : DbContext
 
     public virtual DbSet<VCAS_REF_reports_params> VCAS_REF_reports_params { get; set; }
 
-    public virtual DbSet<VCAS_customer> VCAS_customer { get; set; }
-
     public virtual DbSet<VCAS_REF_order_status> VCAS_REF_order_status { get; set; }
 
     public virtual DbSet<VCAS_REF_items> VCAS_REF_items { get; set; }
@@ -94,6 +92,8 @@ public partial class ModelContainer : DbContext
     public virtual DbSet<VCAS_undepositedFunds> VCAS_undepositedFunds { get; set; }
 
     public virtual DbSet<vw_inventoryItems> vw_inventoryItems { get; set; }
+
+    public virtual DbSet<VCAS_customer> VCAS_customer { get; set; }
 
 
     public virtual int usp_DebitReducingbalance(Nullable<double> amt, Nullable<short> icID, Nullable<short> daID)

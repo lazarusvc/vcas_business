@@ -20,10 +20,17 @@ namespace VCAS.Controllers
         [Authorize]
         public ActionResult CreditsTable(int? d)
         {
-            var cvt = db.Database.SqlQuery<VCAS_capture_payments>("SELECT TOP(0) * FROM VCAS_capture_payments WHERE datepart(month,datetime) = datepart(month,getdate())").ToList();
+            var cvt = db.Database.SqlQuery<VCAS_capture_payments>
+                (@"SELECT TOP(0) * FROM VCAS_capture_payments 
+                WHERE datepart(month,datetime) = datepart(month,getdate())").ToList();
             if (d != null)
             {
-                cvt = db.Database.SqlQuery<VCAS_capture_payments>("SELECT TOP(100) * FROM VCAS_capture_payments WHERE datepart(month,datetime) = datepart(month,getdate()) AND FK_location = '" + d + "' AND voidCheck != 1").ToList();
+                cvt = db.Database.SqlQuery<VCAS_capture_payments>
+                (@"SELECT TOP(100) * FROM VCAS_capture_payments 
+                 WHERE datepart(year,datetime) = YEAR(GETDATE()) 
+                 AND datepart(month,datetime) = datepart(month,getdate())
+                 AND voidCheck != 1   
+                 AND FK_location = '" + d + "' ORDER BY datetime ASC").ToList();
             }
             ViewBag.data = d;
             return PartialView("_creditsTable", cvt);
@@ -33,7 +40,8 @@ namespace VCAS.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             return Json(db.Database.SqlQuery<VCAS_capture_payments>
                 (@"SELECT * FROM VCAS_capture_payments 
-                 WHERE datepart(month,datetime) = datepart(month,getdate())
+                 WHERE datepart(year,datetime) = YEAR(GETDATE()) 
+                 AND datepart(month,datetime) = datepart(month,getdate())
                  AND voidCheck != 1   
                  AND invoice = 0
                  AND FK_location = '" + d + "' ORDER BY datetime ASC"), JsonRequestBehavior.AllowGet);

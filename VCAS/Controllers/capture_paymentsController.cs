@@ -142,6 +142,7 @@ namespace VCAS.Controllers
             // Location
             var dis_user = db.VCAS_district.Where(x => x.VCAS_users.userName == GlobalSession.User).Select(x => x.VCAS_council).ToList();
             ViewBag.FK_location = new SelectList(dis_user, "Id", "name");
+            ViewBag.cusLoc = GlobalSession.Location;
             // Payment Types
             ViewBag.FK_paymentType = new SelectList(db.VCAS_REF_payment_type, "id", "name");
             // Bank Details
@@ -153,7 +154,7 @@ namespace VCAS.Controllers
             ViewBag.cusName = cusName_data + " " + db.VCAS_customer.Where(x => x.firstName == cusName).Select(x => x.lastName).FirstOrDefault();
             var cusID_data = db.VCAS_customer.Where(x => x.firstName == cusName).Select(x => x.Id).FirstOrDefault();
             ViewBag.cusID = cusID_data;
-            ViewBag.cusList = new SelectList((from c in db.VCAS_customer select new { id = c.Id, name = c.firstName + " " + c.lastName }), "id", "name");
+            ViewBag.cusList = new SelectList((from c in db.VCAS_customer.Where(x => x.FK_Location == GlobalSession.Location) select new { id = c.Id, name = c.firstName + " " + c.lastName }), "id", "name");
             // Customer Orders dropdown
             ViewBag.cusOrders = new SelectList((from o in db.VCAS_orders.Where(x => x.FK_customerId == cusID_data && x.FK_order_statusId == 1) select new { id = o.Id, name = "Order #:" + o.Id + " " + o.VCAS_inventory.name }), "id", "name");
             ViewBag.cusOrdersCount = db.VCAS_orders.Where(x => x.FK_customerId == cusID_data && x.FK_order_statusId == 1).Select(x => x.Id).Count();

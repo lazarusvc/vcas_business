@@ -17,7 +17,7 @@ namespace VCAS.Controllers
         // GET: customer
         public ActionResult Index()
         {
-            return View(db.VCAS_customer.ToList());
+            return View(db.VCAS_customer.Where(x => x.FK_Location == GlobalSession.Location).ToList());
         }
 
         // GET: customer/Details/5
@@ -60,7 +60,7 @@ namespace VCAS.Controllers
 
         // POST: customer/CreateModal
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Id,firstName,lastName,address,state,phone,email")] VCAS_customer vCAS_customer, FormCollection form)
+        public ActionResult Create([Bind(Include = "Id,firstName,lastName,address,state,phone,email, FK_Location")] VCAS_customer vCAS_customer, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,8 @@ namespace VCAS.Controllers
                     address = form["address"],
                     state = form["state"],
                     phone = form["phone"],
-                    email = form["email"]
+                    email = form["email"],
+                    FK_Location = Convert.ToInt16(form["FK_Location"])
                 });
                 db.SaveChanges();
             }
@@ -99,7 +100,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,firstName,lastName,address,state,phone,email")] VCAS_customer vCAS_customer)
+        public ActionResult Edit([Bind(Include = "Id,firstName,lastName,address,state,phone,email, FK_Location")] VCAS_customer vCAS_customer)
         {
             if (ModelState.IsValid)
             {

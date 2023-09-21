@@ -41,6 +41,8 @@ public partial class VCAS_customer
 
     public string email { get; set; }
 
+    public Nullable<int> FK_Location { get; set; }
+
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

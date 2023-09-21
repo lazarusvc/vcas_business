@@ -65,28 +65,13 @@
                     Stock Status:
                 </td>
                 <th>
-                    @Html.DisplayNameFor(model => model.name)
+                    Name:
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.dateModified)
+                   Selling Price:
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.partNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.label)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.startStock)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.currentStock)
-                </th>
-                <th>
-                   @Html.DisplayNameFor(model => model.unitPrice)
-                </th>
-                <th>
-                   @Html.DisplayNameFor(model => model.sellingPrice)
+                    Category:
                 </th>
                 <th>
                     manage
@@ -117,25 +102,10 @@
                     @Html.DisplayFor(modelItem => item.name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.dateModified)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.partNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.label)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.startStock)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.currentStock)
-                </td>
-                <td>
-                    $@Html.DisplayFor(modelItem => item.unitPrice)
-                </td>
-                <td>
                     $@Html.DisplayFor(modelItem => item.sellingPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_REF_items.name)
                 </td>
                 <td>
                     <ul class="pagination no-gap size-large">

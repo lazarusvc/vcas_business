@@ -14,16 +14,28 @@
 
                     <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Communicate:: Voice & SMS</h2>
                     <a href="https://console.twilio.com/" class="image-button info" style="text-decoration: none !important;">
-                        <span class="mif-link icon"></span>
+                        <span class="mif-arrow-up-right icon"></span>
                         <span class="caption">Dashboard</span>
                     </a>
+                    <br />
+                    <br />
+                    <div class="more-info-box bg-teal fg-white">
+                        <div class="content">
+                            <h2 class="text-bold mb-0">$@ViewBag.accountBalance</h2>
+                            <div>Twilio Balance</div>
+                        </div>
+                        <div class="icon">
+                            <span class="mif-chart-bars"></span>
+                        </div>
+                        <a href="#" class="more"> Current balance in USD $</a>
+                    </div>
                     <hr class="bg-gray" />
 
                     @ViewBag.Response
 
                     <div class="remark">
-                        <label class="fg-grayBlue">Phone #:</label>
-                        <input type="tel" name="tel" id="tel" data-role="input" />
+                        <label class="fg-grayBlue">Enter Customer's Phone #:</label>
+                        <input type="tel" name="tel" id="tel" data-role="input" , placeholder="e.g. (767) 555-5555" />
                         <br />
                         <label class="fg-grayBlue">SMS Body:</label>
                         <textarea type="text" name="body" id="body" data-role="textarea"></textarea>
@@ -36,3 +48,11 @@
     </div>
 }
 
+<script>
+
+    // Phone Number Auto-format
+    // ==================================
+    $('#tel').usPhoneFormat({
+        format: '(xxx) xxx-xxxx',
+    });
+</script>

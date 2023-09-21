@@ -116,8 +116,13 @@ namespace VCAS.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
+            ViewBag.FK_REF_itemsId = new SelectList(
+                db.VCAS_REF_items
+                .Where(x => x.VCAS_REF_items_location.Select(z => z.FK_councilId)
+                .FirstOrDefault() == GlobalSession.Location),
+                "Id", "name", vCAS_inventory.FK_REF_itemsId);
             ViewBag.FK_location = GlobalSession.Location;
+
             return View(vCAS_inventory);
         }
 
@@ -146,11 +151,16 @@ namespace VCAS.Controllers
             {
                 db.Entry(vCAS_inventory).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Inventory", "Home");
             }
 
-            ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
+            ViewBag.FK_REF_itemsId = new SelectList(
+                db.VCAS_REF_items
+                .Where(x => x.VCAS_REF_items_location.Select(z => z.FK_councilId)
+                .FirstOrDefault() == GlobalSession.Location), 
+                "Id", "name", vCAS_inventory.FK_REF_itemsId);
             ViewBag.FK_location = GlobalSession.Location;
+
             return View(vCAS_inventory);
         }
 

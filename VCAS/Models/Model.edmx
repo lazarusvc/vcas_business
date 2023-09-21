@@ -69,6 +69,7 @@
           <Property Name="state" Type="nvarchar(max)" />
           <Property Name="phone" Type="nvarchar(max)" />
           <Property Name="email" Type="nvarchar(max)" />
+          <Property Name="FK_Location" Type="int" />
         </EntityType>
         <EntityType Name="VCAS_debitAccounts">
           <Key>
@@ -1084,7 +1085,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <FunctionImport Name="usp_SelectCreditChart" ReturnType="Collection(Model.usp_SelectCreditChart_Result)">
             <Parameter Name="loc" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="VCAS_customer" EntityType="Model.VCAS_customer" />
           <EntitySet Name="VCAS_REF_order_status" EntityType="Model.VCAS_REF_order_status" />
           <EntitySet Name="VCAS_REF_items" EntityType="Model.VCAS_REF_items" />
           <AssociationSet Name="FK_VCAS_REF_itemsVCAS_REF_items_location" Association="Model.FK_VCAS_REF_itemsVCAS_REF_items_location">
@@ -1140,10 +1140,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <AssociationSet Name="FK_VCAS_councilVCAS_orders" Association="Model.FK_VCAS_councilVCAS_orders">
             <End EntitySet="VCAS_council" Role="VCAS_council" />
             <End EntitySet="VCAS_orders" Role="VCAS_orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VCAS_customerVCAS_orders" Association="Model.FK_VCAS_customerVCAS_orders">
-            <End Role="VCAS_customer" EntitySet="VCAS_customer" />
-            <End Role="VCAS_orders" EntitySet="VCAS_orders" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_inventoryVCAS_orders" Association="Model.FK_VCAS_inventoryVCAS_orders">
             <End Role="VCAS_inventory" EntitySet="VCAS_inventory" />
@@ -1215,7 +1211,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <End EntitySet="VCAS_deposit" Role="VCAS_deposit" />
           </AssociationSet>
           <FunctionImport Name="usp_UpdateAcctAmt">
-          <Parameter Name="amt" Mode="In" Type="Double" />
+            <Parameter Name="amt" Mode="In" Type="Double" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_UpdateUndepositedFundsStatus">
@@ -1227,15 +1223,20 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <End EntitySet="VCAS_undepositedFunds" Role="VCAS_undepositedFunds" />
           </AssociationSet>
           <FunctionImport Name="usp_UpdateUndepositedFundsStatus1">
-          <Parameter Name="loc" Mode="In" Type="Int32" />
+            <Parameter Name="loc" Mode="In" Type="Int32" />
             <Parameter Name="dID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_UpdateStock">
-          <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="item" Mode="In" Type="Int32" />
             <Parameter Name="loc" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="vw_inventoryItems" EntityType="Model.vw_inventoryItems" />
+          <EntitySet Name="VCAS_customer" EntityType="Model.VCAS_customer" />
+          <AssociationSet Name="FK_VCAS_customerVCAS_orders" Association="Model.FK_VCAS_customerVCAS_orders">
+            <End Role="VCAS_customer" EntitySet="VCAS_customer" />
+            <End Role="VCAS_orders" EntitySet="VCAS_orders" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="VCAS_debitTrans">
           <Key>
@@ -1540,19 +1541,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Type="Double" Name="amount" Nullable="true" />
           <Property Type="Int32" Name="datetime" Nullable="true" />
         </ComplexType>
-        <EntityType Name="VCAS_customer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="firstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="lastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="state" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="VCAS_orders" Relationship="Model.FK_VCAS_customerVCAS_orders" FromRole="VCAS_customer" ToRole="VCAS_orders" />
-        </EntityType>
         <EntityType Name="VCAS_REF_order_status">
           <Key>
             <PropertyRef Name="Id" />
@@ -1646,10 +1634,10 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <NavigationProperty Name="VCAS_debitAccounts" Relationship="Model.FK_VCAS_councilVCAS_debitAccounts" FromRole="VCAS_council" ToRole="VCAS_debitAccounts" />
           <NavigationProperty Name="VCAS_deposit" Relationship="Model.FK_VCAS_councilVCAS_deposit" FromRole="VCAS_council" ToRole="VCAS_deposit" />
           <NavigationProperty Name="VCAS_undepositedFunds" Relationship="Model.FK_VCAS_councilVCAS_undepositedFunds" FromRole="VCAS_council" ToRole="VCAS_undepositedFunds" />
-          <Property Name="twilio_SID" Type="String" />
-          <Property Name="twilio_TOKEN" Type="String" />
-          <Property Name="twilio_NUMBER" Type="String" />
-          <Property Name="twilio_XML" Type="String" />
+          <Property Name="twilio_SID" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="twilio_TOKEN" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="twilio_NUMBER" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="twilio_XML" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           </EntityType>
         <Association Name="FK_VCAS_councilVCAS_district">
           <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
@@ -1808,9 +1796,9 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Name="FK_location" Type="Int32" />
           <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_orders" FromRole="VCAS_orders" ToRole="VCAS_council" />
-          <NavigationProperty Name="VCAS_customer" Relationship="Model.FK_VCAS_customerVCAS_orders" FromRole="VCAS_orders" ToRole="VCAS_customer" />
           <NavigationProperty Name="VCAS_inventory" Relationship="Model.FK_VCAS_inventoryVCAS_orders" FromRole="VCAS_orders" ToRole="VCAS_inventory" />
           <NavigationProperty Name="VCAS_REF_order_status" Relationship="Model.FK_VCAS_order_statusVCAS_orders" FromRole="VCAS_orders" ToRole="VCAS_REF_order_status" />
+          <NavigationProperty Name="VCAS_customer" Relationship="Model.FK_VCAS_customerVCAS_orders" FromRole="VCAS_orders" ToRole="VCAS_customer" />
         </EntityType>
         <Association Name="FK_VCAS_councilVCAS_inventory">
           <End Type="Model.VCAS_council" Multiplicity="0..1" Role="VCAS_council" />
@@ -1833,18 +1821,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             </Principal>
             <Dependent Role="VCAS_orders">
               <PropertyRef Name="FK_location" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_customerVCAS_orders">
-          <End Type="Model.VCAS_customer" Role="VCAS_customer" Multiplicity="1" />
-          <End Type="Model.VCAS_orders" Role="VCAS_orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_orders">
-              <PropertyRef Name="FK_customerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2159,6 +2135,32 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FK_councilId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="VCAS_customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FK_Location" Type="Int32" />
+          <NavigationProperty Name="VCAS_orders" Relationship="Model.FK_VCAS_customerVCAS_orders" FromRole="VCAS_customer" ToRole="VCAS_orders" />
+        </EntityType>
+        <Association Name="FK_VCAS_customerVCAS_orders">
+          <End Type="Model.VCAS_customer" Role="VCAS_customer" Multiplicity="1" />
+          <End Type="Model.VCAS_orders" Role="VCAS_orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_orders">
+              <PropertyRef Name="FK_customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2343,19 +2345,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <ScalarProperty Name="param_dataType" ColumnName="param_dataType" />
           <ScalarProperty Name="FK_REF_reportsId" ColumnName="FK_REF_reportsId" />
           <ScalarProperty Name="FK_location" ColumnName="FK_location" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="VCAS_customer">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_customer)">
-        <MappingFragment StoreEntitySet="VCAS_customer">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="firstName" ColumnName="firstName" />
-          <ScalarProperty Name="lastName" ColumnName="lastName" />
-          <ScalarProperty Name="address" ColumnName="address" />
-          <ScalarProperty Name="state" ColumnName="state" />
-          <ScalarProperty Name="phone" ColumnName="phone" />
-          <ScalarProperty Name="email" ColumnName="email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -2604,6 +2593,20 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
               <MappingFragment StoreEntitySet="vw_inventoryItems">
                 <ScalarProperty Name="FK_councilId" ColumnName="FK_councilId" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VCAS_customer">
+            <EntityTypeMapping TypeName="Model.VCAS_customer">
+              <MappingFragment StoreEntitySet="VCAS_customer">
+                <ScalarProperty Name="FK_Location" ColumnName="FK_Location" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

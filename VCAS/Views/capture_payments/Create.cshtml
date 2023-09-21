@@ -65,7 +65,7 @@
                                         @Html.ValidationMessageFor(model => model.orderID, "", new { @class = "fg-magenta" })
                                     </div>
                                     <div class="sales_inventory">
-                                        <div id="invTile" data-role="tile" data-size="small" onclick="tileData(0)">
+                                        <div id="invTile" data-role="tile" data-size="medium" onclick="tileData(0)">
                                             <span class="mif-tags icon"></span>
                                             <span class="branding-bar">...</span>
                                             <span class="badge-top">0</span>
@@ -394,7 +394,7 @@
                         iName = v.name;
                         iPrice = v.sellingPrice;
                         html += '<div data-role="tile"  onclick="tileData(\'' + iName + '\', \'' + iPrice + '\', \'' + v.Id + '\', \'' + v.FK_REF_itemsId + '\')" ';
-                        html += "data-size='small'>";
+                        html += "data-size='medium'>";
                         html += "<span class='mif-tags icon'></span>";
                         html += "<span class='branding-bar'>" + iName + "</span>";
                         html += "<span class='badge-top'>" + iPrice + "</span>";
@@ -466,15 +466,16 @@
                                         address: $("#address").val(),
                                         state: $("#state").val(),
                                         phone: $("#phone").val(),
-                                        email: $("#email").val()
+                                        email: $("#email").val(),
+                                        FK_Location: @ViewBag.cusLoc
                                     };
 
                                     $.ajax({
                                         url: '@Url.Action("Create", "customer")',
                                         type: "POST",
                                         data: formData,
-                                        beforeSend: function () {
-                                           window.location = '@Url.Action("Create", "capture_payments")?cusName=' + formData.firstName;
+                                        success: function () {
+                                          window.location = '@Url.Action("Create", "capture_payments")?cusName=' + formData.firstName;
                                         }
                                 });
                             }
