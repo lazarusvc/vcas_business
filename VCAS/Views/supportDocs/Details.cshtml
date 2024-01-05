@@ -1,40 +1,33 @@
 ﻿@model VCAS.Models.VCAS_supportDocs
-
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
 }
 
-<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
-    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Details:: VCAS_supportDocs</h2>
-    <hr class="bg-gray" />
-    <table class="table subcompact">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.name)</th>
-            </tr>
-        </thead>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.media</title>
 
-        <tbody>
-            <tr>
-                <td>@Html.DisplayFor(model => model.name)
-                <td>
-            </tr>
-        </tbody>
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.desc)</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-                <td>@Html.DisplayFor(model => model.desc)
-                <td>
-            </tr>
-        </tbody>
-    </table>
-    <hr class="bg-gray" />
-    <object data='@Url.Content("~/Content/Uploads/" + Model.media)' type='@Model.media_type' width="100%" height="1000">
-        <p>Click to access <a href='@Url.Content("~/Content/Uploads/" + Model.media)'>Media Document</a></p>
+    <style>
+        body {
+            margin: 0px !important;
+        }
+    </style>
+</head>
+<body>
+    <object data='@Url.Content("~/Content/Uploads/" + Model.media)' width="100%">
+        <p>Click to access <a id="objectVAL" href='@Url.Content("~/Content/Uploads/" + Model.media)'>Attachment</a></p>
     </object>
-</div>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            obj = $("#objectVAL").attr('href').split('.').pop(); // find file from link and check it's extention
+            if (obj == 'pdf') {                                  // if extention ===> pdf do something
+                $('object').css("height", "1000px");             // in this instance, something is to increase the height of the pdf for readability
+            }
+        });
+    </script>
+</body>
+</html>

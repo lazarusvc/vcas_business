@@ -56,6 +56,11 @@
             'bullist numlist outdent indent | removeformat | help'
     });
 
+    // Select 2 DROPDOWN 
+    // **********************************
+    $(".select2").select2({
+        theme: "classic"
+    });
 
 });
 

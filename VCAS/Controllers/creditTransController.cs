@@ -38,13 +38,16 @@ namespace VCAS.Controllers
         public ActionResult CreditTransJson(string d)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.Database.SqlQuery<VCAS_capture_payments>
-                (@"SELECT * FROM VCAS_capture_payments 
-                 WHERE datepart(year,datetime) = YEAR(GETDATE()) 
-                 AND datepart(month,datetime) = datepart(month,getdate())
-                 AND voidCheck != 1   
-                 AND invoice = 0
-                 AND FK_location = '" + d + "' ORDER BY datetime ASC"), JsonRequestBehavior.AllowGet);
+            return Json(db.Database.SqlQuery<CreditsJson>
+                (@"WITH cte AS (SELECT *
+                    FROM VCAS_capture_payments 
+                    WHERE datepart(year,datetime) = YEAR(GETDATE()) 
+                    AND datepart(month,datetime) = datepart(month,getdate())
+                    AND voidCheck != 1   
+                    AND invoice = 0
+                    AND FK_location = '" + d + "' ) " +
+                    "SELECT datetime, SUM(recieved_amount) as amount " +
+                    "FROM cte GROUP BY datetime"), JsonRequestBehavior.AllowGet);
         }
         public ActionResult CreditsChart(string d)
         {

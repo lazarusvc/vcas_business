@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/30/2023 09:27:38
+-- Date Created: 11/22/2023 15:59:46
 -- Generated from EDMX file: C:\Users\g-sta\OneDrive\Documents\GitHub\VCAS_v2\VCAS\Models\Model.edmx
 -- --------------------------------------------------
 
@@ -25,6 +25,9 @@ IF OBJECT_ID(N'[dbo].[FK_VCAS_councilVCAS_Captured_Payment]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_VCAS_councilVCAS_debitAccounts]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[VCAS_debitAccounts] DROP CONSTRAINT [FK_VCAS_councilVCAS_debitAccounts];
+GO
+IF OBJECT_ID(N'[dbo].[FK_VCAS_councilVCAS_deposit]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[VCAS_deposit] DROP CONSTRAINT [FK_VCAS_councilVCAS_deposit];
 GO
 IF OBJECT_ID(N'[dbo].[FK_VCAS_councilVCAS_district]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[VCAS_district] DROP CONSTRAINT [FK_VCAS_councilVCAS_district];
@@ -142,6 +145,9 @@ GO
 IF OBJECT_ID(N'[dbo].[VCAS_debitTrans1]', 'U') IS NOT NULL
     DROP TABLE [dbo].[VCAS_debitTrans1];
 GO
+IF OBJECT_ID(N'[dbo].[VCAS_deposit]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[VCAS_deposit];
+GO
 IF OBJECT_ID(N'[dbo].[VCAS_district]', 'U') IS NOT NULL
     DROP TABLE [dbo].[VCAS_district];
 GO
@@ -207,6 +213,9 @@ IF OBJECT_ID(N'[dbo].[VCAS_undepositedFunds]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[VCAS_users]', 'U') IS NOT NULL
     DROP TABLE [dbo].[VCAS_users];
+GO
+IF OBJECT_ID(N'[ModelStoreContainer].[vw_inventoryItems]', 'U') IS NOT NULL
+    DROP TABLE [ModelStoreContainer].[vw_inventoryItems];
 GO
 
 -- --------------------------------------------------
@@ -297,15 +306,6 @@ CREATE TABLE [dbo].[VCAS_district] (
 );
 GO
 
--- Creating table 'VCAS_undepositedFunds'
-CREATE TABLE [dbo].[VCAS_undepositedFunds] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [amount] float  NULL,
-    [datetime] datetime  NULL,
-    [FK_location] int  NOT NULL
-);
-GO
-
 -- Creating table 'VCAS_supportDocs'
 CREATE TABLE [dbo].[VCAS_supportDocs] (
     [Id] int IDENTITY(1,1) NOT NULL,
@@ -387,18 +387,6 @@ CREATE TABLE [dbo].[VCAS_REF_reports_params] (
 );
 GO
 
--- Creating table 'VCAS_customer'
-CREATE TABLE [dbo].[VCAS_customer] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [firstName] nvarchar(max)  NULL,
-    [lastName] nvarchar(max)  NULL,
-    [address] nvarchar(max)  NULL,
-    [state] nvarchar(max)  NULL,
-    [phone] nvarchar(max)  NULL,
-    [email] nvarchar(max)  NULL
-);
-GO
-
 -- Creating table 'VCAS_REF_order_status'
 CREATE TABLE [dbo].[VCAS_REF_order_status] (
     [Id] int IDENTITY(1,1) NOT NULL,
@@ -437,7 +425,11 @@ CREATE TABLE [dbo].[VCAS_council] (
     [receipt_logo] nvarchar(max)  NULL,
     [receipt_footer] nvarchar(max)  NULL,
     [receipt_header] nvarchar(max)  NULL,
-    [app_cover] nvarchar(max)  NULL
+    [app_cover] nvarchar(max)  NULL,
+    [twilio_SID] nvarchar(max)  NULL,
+    [twilio_TOKEN] nvarchar(max)  NULL,
+    [twilio_NUMBER] nvarchar(max)  NULL,
+    [twilio_XML] nvarchar(max)  NULL
 );
 GO
 
@@ -574,7 +566,57 @@ CREATE TABLE [dbo].[VCAS_deposit] (
     [visa_debit_amount] nvarchar(max)  NULL,
     [visa_credit_amount] nvarchar(max)  NULL,
     [bt_amount] nvarchar(max)  NULL,
+    [FK_councilId] int  NOT NULL,
+    [FK_debitAccount] int  NULL
+);
+GO
+
+-- Creating table 'VCAS_undepositedFunds'
+CREATE TABLE [dbo].[VCAS_undepositedFunds] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [amount] float  NULL,
+    [datetime] datetime  NULL,
+    [FK_location] int  NOT NULL,
+    [recieved_amount] float  NULL,
+    [checkNo] int  NULL,
+    [comment] nvarchar(max)  NULL,
+    [receiptNo] nvarchar(max)  NULL,
+    [FK_paymentType] int  NULL,
+    [FK_bankDetails] int  NULL,
+    [deposited] bit  NULL,
+    [depositedID] int  NULL
+);
+GO
+
+-- Creating table 'vw_inventoryItems'
+CREATE TABLE [dbo].[vw_inventoryItems] (
+    [Id] int  NOT NULL,
+    [name] nvarchar(max)  NOT NULL,
     [FK_councilId] int  NOT NULL
+);
+GO
+
+-- Creating table 'VCAS_customer'
+CREATE TABLE [dbo].[VCAS_customer] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [firstName] nvarchar(max)  NULL,
+    [lastName] nvarchar(max)  NULL,
+    [address] nvarchar(max)  NULL,
+    [state] nvarchar(max)  NULL,
+    [phone] nvarchar(max)  NULL,
+    [email] nvarchar(max)  NULL,
+    [FK_Location] int  NULL
+);
+GO
+
+-- Creating table 'VCAS_inventory_AUDIT'
+CREATE TABLE [dbo].[VCAS_inventory_AUDIT] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [name] nvarchar(max)  NULL,
+    [startStock] float  NULL,
+    [currentStock] float  NULL,
+    [FK_REF_itemsId] int  NULL,
+    [datetime] datetime  NULL
 );
 GO
 
@@ -636,12 +678,6 @@ ADD CONSTRAINT [PK_VCAS_district]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'VCAS_undepositedFunds'
-ALTER TABLE [dbo].[VCAS_undepositedFunds]
-ADD CONSTRAINT [PK_VCAS_undepositedFunds]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'VCAS_supportDocs'
 ALTER TABLE [dbo].[VCAS_supportDocs]
 ADD CONSTRAINT [PK_VCAS_supportDocs]
@@ -681,12 +717,6 @@ GO
 -- Creating primary key on [Id] in table 'VCAS_REF_reports_params'
 ALTER TABLE [dbo].[VCAS_REF_reports_params]
 ADD CONSTRAINT [PK_VCAS_REF_reports_params]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'VCAS_customer'
-ALTER TABLE [dbo].[VCAS_customer]
-ADD CONSTRAINT [PK_VCAS_customer]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -753,6 +783,30 @@ GO
 -- Creating primary key on [Id] in table 'VCAS_deposit'
 ALTER TABLE [dbo].[VCAS_deposit]
 ADD CONSTRAINT [PK_VCAS_deposit]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'VCAS_undepositedFunds'
+ALTER TABLE [dbo].[VCAS_undepositedFunds]
+ADD CONSTRAINT [PK_VCAS_undepositedFunds]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id], [name], [FK_councilId] in table 'vw_inventoryItems'
+ALTER TABLE [dbo].[vw_inventoryItems]
+ADD CONSTRAINT [PK_vw_inventoryItems]
+    PRIMARY KEY CLUSTERED ([Id], [name], [FK_councilId] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'VCAS_customer'
+ALTER TABLE [dbo].[VCAS_customer]
+ADD CONSTRAINT [PK_VCAS_customer]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'VCAS_inventory_AUDIT'
+ALTER TABLE [dbo].[VCAS_inventory_AUDIT]
+ADD CONSTRAINT [PK_VCAS_inventory_AUDIT]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -1000,21 +1054,6 @@ ON [dbo].[VCAS_REF_reports_params]
     ([FK_location]);
 GO
 
--- Creating foreign key on [FK_location] in table 'VCAS_undepositedFunds'
-ALTER TABLE [dbo].[VCAS_undepositedFunds]
-ADD CONSTRAINT [FK_VCAS_councilVCAS_undepositedFunds]
-    FOREIGN KEY ([FK_location])
-    REFERENCES [dbo].[VCAS_council]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_VCAS_councilVCAS_undepositedFunds'
-CREATE INDEX [IX_FK_VCAS_councilVCAS_undepositedFunds]
-ON [dbo].[VCAS_undepositedFunds]
-    ([FK_location]);
-GO
-
 -- Creating foreign key on [FK_formsId] in table 'VCAS_REF_forms'
 ALTER TABLE [dbo].[VCAS_REF_forms]
 ADD CONSTRAINT [FK_VCAS_formsVCAS_REF_forms]
@@ -1058,21 +1097,6 @@ GO
 CREATE INDEX [IX_FK_VCAS_councilVCAS_orders]
 ON [dbo].[VCAS_orders]
     ([FK_location]);
-GO
-
--- Creating foreign key on [FK_customerId] in table 'VCAS_orders'
-ALTER TABLE [dbo].[VCAS_orders]
-ADD CONSTRAINT [FK_VCAS_customerVCAS_orders]
-    FOREIGN KEY ([FK_customerId])
-    REFERENCES [dbo].[VCAS_customer]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_VCAS_customerVCAS_orders'
-CREATE INDEX [IX_FK_VCAS_customerVCAS_orders]
-ON [dbo].[VCAS_orders]
-    ([FK_customerId]);
 GO
 
 -- Creating foreign key on [FK_inventoryId] in table 'VCAS_orders'
@@ -1283,6 +1307,36 @@ GO
 CREATE INDEX [IX_FK_VCAS_councilVCAS_deposit]
 ON [dbo].[VCAS_deposit]
     ([FK_councilId]);
+GO
+
+-- Creating foreign key on [FK_location] in table 'VCAS_undepositedFunds'
+ALTER TABLE [dbo].[VCAS_undepositedFunds]
+ADD CONSTRAINT [FK_VCAS_councilVCAS_undepositedFunds]
+    FOREIGN KEY ([FK_location])
+    REFERENCES [dbo].[VCAS_council]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_VCAS_councilVCAS_undepositedFunds'
+CREATE INDEX [IX_FK_VCAS_councilVCAS_undepositedFunds]
+ON [dbo].[VCAS_undepositedFunds]
+    ([FK_location]);
+GO
+
+-- Creating foreign key on [FK_customerId] in table 'VCAS_orders'
+ALTER TABLE [dbo].[VCAS_orders]
+ADD CONSTRAINT [FK_VCAS_customerVCAS_orders]
+    FOREIGN KEY ([FK_customerId])
+    REFERENCES [dbo].[VCAS_customer]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_VCAS_customerVCAS_orders'
+CREATE INDEX [IX_FK_VCAS_customerVCAS_orders]
+ON [dbo].[VCAS_orders]
+    ([FK_customerId]);
 GO
 
 -- --------------------------------------------------

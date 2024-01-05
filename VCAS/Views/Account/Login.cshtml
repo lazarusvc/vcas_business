@@ -9,24 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <meta name="author" content="Austin Lazarus">
-    <meta name="description" content="VC (Open) Accounting Software">
+    <meta name="description" content="VouchCast Business Software">
     @Styles.Render("~/Content/metro")
     @Styles.Render("~/Content/login")
 
-<title>VC (Open) Accounting Software</title>
+<title>VouchCast Business Software</title>
 </head>
 <body class="h-vh-100">
-
-    <!-- ALERT Module ************************************************************** -->
-    @*@if (@TempData["Alert"] != null)
-    {
-        <div class="info-box @TempData["Alert-Color"]">
-            <span class="button square closer"></span>
-            <div class="info-box-content">
-                <p>Your Session has expired, please log back in to continue</p>
-            </div>
-        </div>
-    }*@
 
     <div class="img-bg"></div>
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form bg-white p-6 mx-auto border bd-default win-shadow", role = "form" }))

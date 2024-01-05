@@ -21,7 +21,7 @@ namespace VCAS.Controllers
         [CustomAuthorize(Roles = "admin")]
         public ActionResult Index()
         {
-            return View(db.VCAS_capture_payments.Where(x => x.datetime.Month == System.DateTime.Now.Month).ToList());
+            return View(db.VCAS_capture_payments.Where(x => x.datetime.Month == System.DateTime.Now.Month && x.FK_location == GlobalSession.Location).ToList());
         }
 
         // GET: capture_payments/Details/5
@@ -166,7 +166,7 @@ namespace VCAS.Controllers
         // ======================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments, FormCollection form)
+        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice,recieved_amount")] VCAS_capture_payments vCAS_capture_payments, FormCollection form) 
         {
             if (ModelState.IsValid)
             {
@@ -185,18 +185,15 @@ namespace VCAS.Controllers
                 // ***********************************************
                 if (vCAS_capture_payments.recieved_amount > 0 && 
                     vCAS_capture_payments.recieved_amount != null && 
-                    Convert.ToInt32(form["itemID"]) > 0 && 
                     Convert.ToInt32(form["inventoryID"]) > 0)
                 {
-                    int iID = Convert.ToInt32(form["itemID"]);
                     int invID = Convert.ToInt32(form["inventoryID"]);
 
                     SqlParameter[] Parameters1 = {
-                        new SqlParameter("@p_item", iID),
                         new SqlParameter("@p_id", invID),
                         new SqlParameter("@p_loc", GlobalSession.Location)
                     };
-                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_item, @p_loc, @p_id", Parameters1);
+                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_loc, @p_id", Parameters1);
                 }
 
                 return RedirectToAction("PrintLast");
@@ -278,7 +275,7 @@ namespace VCAS.Controllers
         // ======================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult More([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
+        public ActionResult More([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice,recieved_amount")] VCAS_capture_payments vCAS_capture_payments)
         {
             if (ModelState.IsValid)
             {
@@ -297,7 +294,8 @@ namespace VCAS.Controllers
                     FK_bankDetails = vCAS_capture_payments.FK_bankDetails,
                     FK_items = vCAS_capture_payments.FK_items,
                     FK_location = vCAS_capture_payments.FK_location,
-                    invoice = vCAS_capture_payments.invoice
+                    invoice = vCAS_capture_payments.invoice,
+                    recieved_amount = vCAS_capture_payments.recieved_amount
                 });
                 db.SaveChanges();
 
@@ -331,7 +329,7 @@ namespace VCAS.Controllers
 
         // GET: capture_payments/Edit/5
         // ======================================================================
-        [CustomAuthorize(Roles = "admin,cashier")]
+        [CustomAuthorize(Roles = "admin, cashier")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -367,7 +365,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments, FormCollection form)
+        public ActionResult Edit([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice,recieved_amount")] VCAS_capture_payments vCAS_capture_payments, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -378,18 +376,15 @@ namespace VCAS.Controllers
                 // ***********************************************
                 if (vCAS_capture_payments.recieved_amount > 0 &&
                     vCAS_capture_payments.recieved_amount != null &&
-                    Convert.ToInt32(form["itemID"]) > 0 &&
                     Convert.ToInt32(form["inventoryID"]) > 0)
                 {
-                    int iID = Convert.ToInt32(form["itemID"]);
                     int invID = Convert.ToInt32(form["inventoryID"]);
 
                     SqlParameter[] Parameters1 = {
-                        new SqlParameter("@p_item", iID),
                         new SqlParameter("@p_id", invID),
                         new SqlParameter("@p_loc", GlobalSession.Location)
                     };
-                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_item, @p_loc, @p_id", Parameters1);
+                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_loc, @p_id", Parameters1);
                 }
 
                 return RedirectToAction("Create");
@@ -415,7 +410,7 @@ namespace VCAS.Controllers
 
         // VOID: capture_payments
         // ======================================================================
-        [CustomAuthorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "admin, cashier")]
         public ActionResult Void(int? id)
         {
             // Reducing Balance on debitAccounts

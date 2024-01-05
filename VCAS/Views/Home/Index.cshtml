@@ -1,10 +1,10 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
 
-<div class="row" id="app_styleBG">
+<div class="row" id="app_styleBG2">
     <div class="cell-lg-4">
         <div class="icon-box">
             <div class="icon bg-grayBlue fg-white"><span class="mif-location-city"></span></div>
-            <div class="content p-4">
+            <div class="content p-4 bg-gray">
                 <div class="text-upper">Organization</div>
                 <div class="text-upper text-bold text-lead"><p id="org"></p></div>
             </div>
@@ -14,8 +14,8 @@
     <div class="cell-lg-4">
         <div class="icon-box">
             <div class="icon bg-green fg-white"><span class="mif-chart-pie"></span></div>
-            <div class="content p-4">
-                <div class="text-upper">Main Account</div>
+            <div class="content p-4 bg-gray">
+                <div class="text-upper">Account's Total</div>
                 <div class="text-upper text-bold text-lead"><p id="mainAcctAmt"></p></div>
             </div>
         </div>
@@ -24,7 +24,7 @@
     <div class="cell-lg-4">
         <div class="icon-box">
             <div class="icon bg-red fg-white"><span class="mif-dollars"></span></div>
-            <div class="content p-4">
+            <div class="content p-4 bg-gray">
                 <div class="text-upper">Undeposited Funds </div>
                 <div class="text-upper text-bold text-lead">
                     <p id="undeposited_funds"></p>
@@ -38,79 +38,79 @@
     </div>
 </div>
 <br/>
-<div class="row"  id="app_styleBG">
+<div class="row"  id="app_styleBG2">
     <div class="cell-lg-12">
         <h4>Actions ::</h4>
-    @if (ViewBag.URole == "cashier")
-    {
-        <a href="@Url.Action("Create", "capture_payments")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-tags icon"></span>
-        <span class="caption">Receipt Capture</span>
-        </a>
-        <a href="@Url.Action("Start", "issuedChecks")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-dollars icon"></span>
-        <span class="caption">Issue Payments</span>
-        </a>
-        <a href="@Url.Action("Orders", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-cart icon"></span>
-        <span class="caption">Orders</span>
-        </a>
-        <a href="@Url.Action("Inventory", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-barcode icon"></span>
-        <span class="caption">Inventory</span>
-        </a>
-    }
-    @if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
-    {
-        <a href="@Url.Action("Create", "capture_payments")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Receipt<br />Capture (POS)</span>
-        <span class="mif-tags icon"></span>
-        </a>
-        <a href="@Url.Action("Start", "issuedChecks")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Issue Payments</span>
-        <span class="mif-dollars icon"></span>
-        </a>
-        <a href='@Url.Action("Approvals", "issuedChecks")' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Approve<br />Payments</span>
-        <span class="mif-thumbs-up icon"></span>
-        </a>
-        <a href='#' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Approval List</span>
-        <span class="mif-user-check icon"></span>
-        </a>
-        <a href="@Url.Action("Orders", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Customer Orders</span>
-        <span class="mif-cart icon"></span>
-        </a>
-        <a href="@Url.Action("Inventory", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Inventory</span>
-        <span class="mif-barcode icon"></span>
-        </a>
-    }
-    @if (ViewBag.URole == "approver")
-    {
-        <a href='@Url.Action("Approvals", "issuedChecks")' class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-thumbs-up icon"></span>
-        <span class="caption">Approve Payments</span>
-        </a>
-        <a href='#' class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-user-check icon"></span>
-        <span class="caption">Approval List</span>
-        </a>
-        <a href="@Url.Action("Orders", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-cart icon"></span>
-        <span class="caption">Customer Orders</span>
-        </a>
-        <a href="@Url.Action("Inventory", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-barcode icon"></span>
-        <span class="caption">Inventory</span>
-        </a>
-    }
+        @if (ViewBag.URole == "cashier")
+        {
+            <a href="@Url.Action("Create", "capture_payments")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Receipt<br />Capture (POS)</span>
+            <span class="mif-tags icon"></span>
+            </a>
+            <a href="@Url.Action("Start", "issuedChecks")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Issue Payments</span>
+            <span class="mif-dollars icon"></span>
+            </a>
+            <a href="@Url.Action("Orders", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Customer Orders</span>
+            <span class="mif-cart icon"></span>
+            </a>
+            <a href="@Url.Action("Inventory", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Inventory</span>
+            <span class="mif-barcode icon"></span>
+            </a>
+        }
+        @if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
+        {
+            <a href="@Url.Action("Create", "capture_payments")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Receipt<br />Capture (POS)</span>
+            <span class="mif-tags icon"></span>
+            </a>
+            <a href="@Url.Action("Start", "issuedChecks")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Issue Payments</span>
+            <span class="mif-dollars icon"></span>
+            </a>
+            <a href='@Url.Action("Approvals", "issuedChecks")' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Approve<br />Payments</span>
+            <span class="mif-thumbs-up icon"></span>
+            </a>
+            <a href='#' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Approval List</span>
+            <span class="mif-user-check icon"></span>
+            </a>
+            <a href="@Url.Action("Orders", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Customer Orders</span>
+            <span class="mif-cart icon"></span>
+            </a>
+            <a href="@Url.Action("Inventory", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Inventory</span>
+            <span class="mif-barcode icon"></span>
+            </a>
+        }
+        @if (ViewBag.URole == "approver")
+        {
+            <a href='@Url.Action("Approvals", "issuedChecks")' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Approve<br />Payments</span>
+            <span class="mif-thumbs-up icon"></span>
+            </a>
+            <a href='#' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Approval List</span>
+            <span class="mif-user-check icon"></span>
+            </a>
+            <a href="@Url.Action("Orders", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Customer Orders</span>
+            <span class="mif-cart icon"></span>
+            </a>
+            <a href="@Url.Action("Inventory", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+            <span class="caption" style="font-size:x-small;">Inventory</span>
+            <span class="mif-barcode icon"></span>
+            </a>
+        }
     </div>
 
 </div>
 <br />
-<div class="row"  id="app_styleBG">
+<div class="row"  id="app_styleBG2">
     <div class="cell-lg-12">
         <h4>Forms ::</h4>
         @foreach (var v in (IEnumerable<VCAS.Models.VCAS_forms>)ViewBag.frms)
@@ -150,6 +150,15 @@
 
 
 <script type="text/javascript">
+
+    // Account Converter module
+    // ========================
+    function float2dollar(value) {
+        return "EC$ " + (value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+    document.getElementById('mainAcctAmt').innerHTML = float2dollar(@ViewBag.totAcct);
+
+
     $(document).ready(function () {
 
         // Default location

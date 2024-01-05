@@ -111,6 +111,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorGenerator.Mvc.2.4.9\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="ReportViewerForMvc, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ReportViewerForMvc14.140.1000.523\lib\net45\ReportViewerForMvc.dll</HintPath>
     </Reference>
@@ -188,7 +191,7 @@
       <HintPath>..\packages\Twilio.6.7.0\lib\net35\Twilio.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
+      <HintPath>..\packages\WebActivatorEx.2.0.3\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -235,6 +238,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\bank_detailsController.cs" />
@@ -276,6 +280,7 @@
     <Compile Include="Models\Bulk_payments_to_download_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreditsJson.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Model.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -338,6 +343,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VCAS_inventory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VCAS_inventory_AUDIT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VCAS_issuedChecks.cs">
@@ -417,6 +425,8 @@
     <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
     <Content Include="CodeTemplates\PackageVersions.xml" />
     <Content Include="Content\cover.jpg" />
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\select2.min.css" />
     <Content Include="Content\document.jpg" />
     <Content Include="Content\files-img.png" />
     <Content Include="Content\icon.png" />
@@ -518,9 +528,69 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\PRODUCTION EXPORT.pubxml" />
+    <None Include="Properties\PublishProfiles\PRODUCTION FOLDER 02.pubxml" />
     <None Include="Properties\PublishProfiles\PRODUCTION FOLDER.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\i18n\af.js" />
+    <Content Include="Scripts\i18n\ar.js" />
+    <Content Include="Scripts\i18n\az.js" />
+    <Content Include="Scripts\i18n\bg.js" />
+    <Content Include="Scripts\i18n\bn.js" />
+    <Content Include="Scripts\i18n\bs.js" />
+    <Content Include="Scripts\i18n\ca.js" />
+    <Content Include="Scripts\i18n\cs.js" />
+    <Content Include="Scripts\i18n\da.js" />
+    <Content Include="Scripts\i18n\de.js" />
+    <Content Include="Scripts\i18n\dsb.js" />
+    <Content Include="Scripts\i18n\el.js" />
+    <Content Include="Scripts\i18n\en.js" />
+    <Content Include="Scripts\i18n\es.js" />
+    <Content Include="Scripts\i18n\et.js" />
+    <Content Include="Scripts\i18n\eu.js" />
+    <Content Include="Scripts\i18n\fa.js" />
+    <Content Include="Scripts\i18n\fi.js" />
+    <Content Include="Scripts\i18n\fr.js" />
+    <Content Include="Scripts\i18n\gl.js" />
+    <Content Include="Scripts\i18n\he.js" />
+    <Content Include="Scripts\i18n\hi.js" />
+    <Content Include="Scripts\i18n\hr.js" />
+    <Content Include="Scripts\i18n\hsb.js" />
+    <Content Include="Scripts\i18n\hu.js" />
+    <Content Include="Scripts\i18n\hy.js" />
+    <Content Include="Scripts\i18n\id.js" />
+    <Content Include="Scripts\i18n\is.js" />
+    <Content Include="Scripts\i18n\it.js" />
+    <Content Include="Scripts\i18n\ja.js" />
+    <Content Include="Scripts\i18n\ka.js" />
+    <Content Include="Scripts\i18n\km.js" />
+    <Content Include="Scripts\i18n\ko.js" />
+    <Content Include="Scripts\i18n\lt.js" />
+    <Content Include="Scripts\i18n\lv.js" />
+    <Content Include="Scripts\i18n\mk.js" />
+    <Content Include="Scripts\i18n\ms.js" />
+    <Content Include="Scripts\i18n\nb.js" />
+    <Content Include="Scripts\i18n\ne.js" />
+    <Content Include="Scripts\i18n\nl.js" />
+    <Content Include="Scripts\i18n\pl.js" />
+    <Content Include="Scripts\i18n\ps.js" />
+    <Content Include="Scripts\i18n\pt-BR.js" />
+    <Content Include="Scripts\i18n\pt.js" />
+    <Content Include="Scripts\i18n\ro.js" />
+    <Content Include="Scripts\i18n\ru.js" />
+    <Content Include="Scripts\i18n\sk.js" />
+    <Content Include="Scripts\i18n\sl.js" />
+    <Content Include="Scripts\i18n\sq.js" />
+    <Content Include="Scripts\i18n\sr-Cyrl.js" />
+    <Content Include="Scripts\i18n\sr.js" />
+    <Content Include="Scripts\i18n\sv.js" />
+    <Content Include="Scripts\i18n\th.js" />
+    <Content Include="Scripts\i18n\tk.js" />
+    <Content Include="Scripts\i18n\tr.js" />
+    <Content Include="Scripts\i18n\uk.js" />
+    <Content Include="Scripts\i18n\vi.js" />
+    <Content Include="Scripts\i18n\zh-CN.js" />
+    <Content Include="Scripts\i18n\zh-TW.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -536,6 +606,8 @@
     <Content Include="Scripts\metro.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\PhoneNumber.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\signature_pad.js" />
     <Content Include="Scripts\signature_pad.min.js" />
     <Content Include="Scripts\tether.js" />
@@ -698,27 +770,63 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Home\Contact.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Home\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Scripts\metro.min.js.map" />
-    <Content Include="Views\council\Create.cshtml" />
-    <Content Include="Views\council\Delete.cshtml" />
-    <Content Include="Views\council\Edit.cshtml" />
-    <Content Include="Views\council\Index.cshtml" />
-    <Content Include="Views\items\Create.cshtml" />
-    <Content Include="Views\items\Delete.cshtml" />
-    <Content Include="Views\items\Edit.cshtml" />
-    <Content Include="Views\items\Index.cshtml" />
-    <Content Include="Views\creditTrans\Create.cshtml" />
-    <Content Include="Views\creditTrans\Delete.cshtml" />
-    <Content Include="Views\creditTrans\Details.cshtml" />
-    <Content Include="Views\creditTrans\Edit.cshtml" />
-    <Content Include="Views\creditTrans\Index.cshtml" />
-    <Content Include="Views\Shared\_creditsTable.cshtml" />
+    <Content Include="Views\council\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\council\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\council\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\council\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\items\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\items\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\items\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\items\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\creditTrans\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\creditTrans\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\creditTrans\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\creditTrans\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\creditTrans\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_creditsTable.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
@@ -727,74 +835,186 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
-    <Content Include="Views\issuedChecks\Create.cshtml" />
-    <Content Include="Views\issuedChecks\Delete.cshtml" />
-    <Content Include="Views\issuedChecks\Details.cshtml" />
-    <Content Include="Views\issuedChecks\Index.cshtml" />
-    <Content Include="Views\Shared\_issuedChecksIndex.cshtml" />
+    <Content Include="Views\issuedChecks\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_issuedChecksIndex.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\users\Create.cshtml" />
     <Content Include="Views\users\Delete.cshtml" />
     <Content Include="Views\users\Details.cshtml" />
     <Content Include="Views\users\Edit.cshtml" />
     <Content Include="Views\users\Index.cshtml" />
-    <Content Include="Views\Shared\_capture_paymentsIndex.cshtml" />
-    <Content Include="Views\Home\Help.cshtml" />
-    <Content Include="Views\Home\AccessDenied.cshtml" />
-    <Content Include="Views\debitAccounts\Create.cshtml" />
-    <Content Include="Views\debitAccounts\Delete.cshtml" />
-    <Content Include="Views\debitAccounts\Details.cshtml" />
-    <Content Include="Views\debitAccounts\Edit.cshtml" />
-    <Content Include="Views\debitAccounts\Index.cshtml" />
-    <Content Include="Views\Shared\_debitsChart.cshtml" />
-    <Content Include="Views\debitTrans\Create.cshtml" />
-    <Content Include="Views\debitTrans\Delete.cshtml" />
-    <Content Include="Views\debitTrans\Details.cshtml" />
-    <Content Include="Views\debitTrans\Edit.cshtml" />
-    <Content Include="Views\debitTrans\Index0.cshtml" />
-    <Content Include="Views\debitAccounts\EditUpload.cshtml" />
-    <Content Include="Views\Home\Reports.cshtml" />
-    <Content Include="Views\Shared\_creditsChart.cshtml" />
-    <Content Include="Views\Shared\_issuedChecksEdit0.cshtml" />
-    <Content Include="Views\issuedChecks\Approvals.cshtml" />
-    <Content Include="Views\issuedChecks\Delivery.cshtml" />
-    <Content Include="Views\Shared\_issuedChecksEdit1.cshtml" />
-    <Content Include="Views\capture_payments\Index.cshtml" />
-    <Content Include="Views\capture_payments\More.cshtml" />
-    <Content Include="Views\capture_payments\Print.cshtml" />
-    <Content Include="Views\capture_payments\RePrint.cshtml" />
+    <Content Include="Views\Shared\_capture_paymentsIndex.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Home\Help.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Home\AccessDenied.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitAccounts\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitAccounts\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitAccounts\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitAccounts\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitAccounts\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_debitsChart.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitTrans\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitTrans\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitTrans\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitTrans\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitTrans\Index0.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\debitAccounts\EditUpload.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Home\Reports.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_creditsChart.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_issuedChecksEdit0.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\Approvals.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\Delivery.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_issuedChecksEdit1.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\capture_payments\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\capture_payments\More.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\capture_payments\Print.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\capture_payments\RePrint.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\users\BulkCreate.cshtml" />
-    <Content Include="Views\issuedChecks\DownloadFile_Payments.cshtml" />
+    <Content Include="Views\issuedChecks\DownloadFile_Payments.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\Shared\_paymentResults.cshtml" />
-    <Content Include="Views\issuedChecks\BulkCreate.cshtml" />
-    <Content Include="Views\issuedChecks\EditApprovals.cshtml" />
-    <Content Include="Views\issuedChecks\EditDelivery.cshtml" />
+    <Content Include="Views\issuedChecks\BulkCreate.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\EditApprovals.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\EditDelivery.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\undepositedFunds\Create.cshtml" />
     <Content Include="Views\undepositedFunds\Delete.cshtml" />
     <Content Include="Views\undepositedFunds\Details.cshtml" />
     <Content Include="Views\undepositedFunds\Edit.cshtml" />
     <Content Include="Views\undepositedFunds\Index.cshtml" />
-    <Content Include="Views\payment_type\Create.cshtml" />
-    <Content Include="Views\payment_type\Delete.cshtml" />
-    <Content Include="Views\payment_type\Details.cshtml" />
-    <Content Include="Views\payment_type\Edit.cshtml" />
-    <Content Include="Views\payment_type\Index.cshtml" />
-    <Content Include="Views\bank_details\Create.cshtml" />
-    <Content Include="Views\bank_details\Delete.cshtml" />
-    <Content Include="Views\bank_details\Details.cshtml" />
-    <Content Include="Views\bank_details\Edit.cshtml" />
-    <Content Include="Views\bank_details\Index.cshtml" />
-    <Content Include="Views\district\Create.cshtml" />
-    <Content Include="Views\district\Delete.cshtml" />
-    <Content Include="Views\district\Edit.cshtml" />
-    <Content Include="Views\district\Index.cshtml" />
-    <Content Include="Views\receiverID_Types\Create.cshtml" />
-    <Content Include="Views\receiverID_Types\Delete.cshtml" />
-    <Content Include="Views\receiverID_Types\Edit.cshtml" />
-    <Content Include="Views\receiverID_Types\Index.cshtml" />
-    <Content Include="Views\reportsPage\Create.cshtml" />
-    <Content Include="Views\reportsPage\Delete.cshtml" />
-    <Content Include="Views\reportsPage\Edit.cshtml" />
-    <Content Include="Views\reportsPage\Index.cshtml" />
+    <Content Include="Views\payment_type\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\payment_type\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\payment_type\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\payment_type\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\payment_type\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\bank_details\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\bank_details\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\bank_details\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\bank_details\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\bank_details\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\district\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\district\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\district\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\district\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\receiverID_Types\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\receiverID_Types\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\receiverID_Types\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\receiverID_Types\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reportsPage\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reportsPage\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reportsPage\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reportsPage\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\userRoles\Create.cshtml" />
     <Content Include="Views\userRoles\Delete.cshtml" />
     <Content Include="Views\userRoles\Edit.cshtml" />
@@ -807,102 +1027,274 @@
     <Content Include="Views\supportDocs\Edit.cshtml" />
     <Content Include="Views\supportDocs\Index.cshtml" />
     <Content Include="Views\Shared\_supportDocsIndex.cshtml" />
-    <Content Include="Views\issuedChecks\Entry.cshtml" />
-    <Content Include="Views\issuedChecks\EditEntry.cshtml" />
-    <Content Include="Views\expenses\Create.cshtml" />
-    <Content Include="Views\expenses\Delete.cshtml" />
-    <Content Include="Views\expenses\Details.cshtml" />
-    <Content Include="Views\expenses\Edit.cshtml" />
-    <Content Include="Views\expenses\Index.cshtml" />
+    <Content Include="Views\issuedChecks\Entry.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\EditEntry.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expenses\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expenses\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expenses\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expenses\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expenses\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\Shared\_SessionTimeout.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\session\Create.cshtml" />
-    <Content Include="Views\session\Delete.cshtml" />
-    <Content Include="Views\session\Details.cshtml" />
-    <Content Include="Views\session\Edit.cshtml" />
-    <Content Include="Views\session\Index.cshtml" />
-    <Content Include="Views\reports_params\Create.cshtml" />
-    <Content Include="Views\reports_params\Edit.cshtml" />
-    <Content Include="Views\reports_params\Delete.cshtml" />
-    <Content Include="Views\reports_params\Index.cshtml" />
-    <Content Include="Views\issuedChecks\IndexFilter.cshtml" />
+    <Content Include="Views\Account\Login.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\session\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\session\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\session\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\session\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\session\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reports_params\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reports_params\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reports_params\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\IndexFilter.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\Shared\_paymentResultsDashboard.cshtml" />
-    <Content Include="Views\issuedChecks\Print.cshtml" />
-    <Content Include="Views\landing\Index.cshtml" />
-    <Content Include="Views\items_location\Create.cshtml" />
-    <Content Include="Views\items_location\Delete.cshtml" />
-    <Content Include="Views\items_location\Details.cshtml" />
-    <Content Include="Views\items_location\Edit.cshtml" />
-    <Content Include="Views\items_location\Index.cshtml" />
-    <Content Include="Views\expense_location\Create.cshtml" />
-    <Content Include="Views\expense_location\Delete.cshtml" />
-    <Content Include="Views\expense_location\Details.cshtml" />
-    <Content Include="Views\expense_location\Edit.cshtml" />
-    <Content Include="Views\expense_location\Index.cshtml" />
-    <Content Include="Views\Shared\_creditsChart2.cshtml" />
-    <Content Include="Views\customer\Create.cshtml" />
-    <Content Include="Views\customer\Delete.cshtml" />
-    <Content Include="Views\customer\Details.cshtml" />
-    <Content Include="Views\customer\Edit.cshtml" />
-    <Content Include="Views\customer\Index.cshtml" />
-    <Content Include="Views\orders\Create01.cshtml" />
-    <Content Include="Views\orders\Delete.cshtml" />
-    <Content Include="Views\orders\Details.cshtml" />
-    <Content Include="Views\orders\Edit.cshtml" />
-    <Content Include="Views\orders\Index.cshtml" />
-    <Content Include="Views\order_status\Create.cshtml" />
-    <Content Include="Views\order_status\Delete.cshtml" />
-    <Content Include="Views\order_status\Details.cshtml" />
-    <Content Include="Views\order_status\Edit.cshtml" />
-    <Content Include="Views\order_status\Index.cshtml" />
-    <Content Include="Views\inventory\Create.cshtml" />
-    <Content Include="Views\inventory\Delete.cshtml" />
-    <Content Include="Views\inventory\Details.cshtml" />
-    <Content Include="Views\inventory\Edit.cshtml" />
-    <Content Include="Views\inventory\Index.cshtml" />
-    <Content Include="Views\Home\Inventory.cshtml" />
+    <Content Include="Views\issuedChecks\Print.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\landing\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\items_location\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\items_location\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\items_location\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\items_location\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\items_location\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expense_location\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expense_location\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expense_location\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expense_location\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\expense_location\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_creditsChart2.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\customer\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\customer\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\customer\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\customer\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\customer\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\orders\Create01.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\orders\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\orders\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\orders\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\orders\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\order_status\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\order_status\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\order_status\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\order_status\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\order_status\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\inventory\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\inventory\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\inventory\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\inventory\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\inventory\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Home\Inventory.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\Shared\_ordersIndex.cshtml" />
-    <Content Include="Views\Shared\_inventoryIndex.cshtml" />
-    <Content Include="Views\Shared\_customerCreate.cshtml" />
-    <Content Include="Views\orders\Create02.cshtml" />
-    <Content Include="Views\Home\Orders.cshtml" />
-    <Content Include="Views\orders\Create03.cshtml" />
-    <Content Include="Views\capture_payments\PrintLast.cshtml" />
+    <Content Include="Views\Shared\_inventoryIndex.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_customerCreate.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\orders\Create02.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Home\Orders.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\orders\Create03.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\capture_payments\PrintLast.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\Shared\_paymentAdmin.cshtml" />
-    <Content Include="Views\issuedChecks\IndexAdmin.cshtml" />
-    <Content Include="Views\capture_payments\Edit.cshtml" />
-    <Content Include="Views\forms\Create.cshtml" />
-    <Content Include="Views\forms\Delete.cshtml" />
-    <Content Include="Views\forms\Details.cshtml" />
-    <Content Include="Views\forms\Edit.cshtml" />
-    <Content Include="Views\forms\Index.cshtml" />
-    <Content Include="Views\formsData\Create.cshtml" />
-    <Content Include="Views\formsData\Delete.cshtml" />
-    <Content Include="Views\formsData\Details.cshtml" />
-    <Content Include="Views\formsData\Edit.cshtml" />
-    <Content Include="Views\formsData\Index.cshtml" />
-    <Content Include="Views\issuedChecks\Start.cshtml" />
-    <Content Include="Views\issuedChecks\CreateApproved.cshtml" />
+    <Content Include="Views\issuedChecks\IndexAdmin.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\capture_payments\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\forms\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\forms\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\forms\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\forms\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\forms\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\formsData\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\formsData\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\formsData\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\formsData\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\formsData\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\Start.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\issuedChecks\CreateApproved.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Scripts\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\README.md" />
     <Content Include="Views\Shared\_LayoutForms.cshtml" />
-    <Content Include="Views\forms\Complete.cshtml" />
-    <Content Include="Views\Shared\_formsDataTable.cshtml" />
-    <Content Include="Views\capture_payments\Create.cshtml" />
-    <Content Include="Views\reconcile\Create.cshtml" />
-    <Content Include="Views\reconcile\Delete.cshtml" />
-    <Content Include="Views\reconcile\Details.cshtml" />
-    <Content Include="Views\reconcile\Edit.cshtml" />
-    <Content Include="Views\reconcile\Index.cshtml" />
-    <Content Include="Views\reconcile\Do.cshtml" />
+    <Content Include="Views\forms\Complete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_formsDataTable.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\capture_payments\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reconcile\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reconcile\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reconcile\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reconcile\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reconcile\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reconcile\Do.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
     <Content Include="Views\Shared\_reconList.cshtml" />
-    <Content Include="Views\deposit\Create.cshtml" />
-    <Content Include="Views\Shared\_depositList.cshtml" />
-    <Content Include="Views\deposit\Index.cshtml" />
-    <Content Include="Views\deposit\Slip.cshtml" />
-    <Content Include="Views\Shared\_formsChart.cshtml" />
-    <Content Include="Views\communications\Index.cshtml" />
+    <Content Include="Views\deposit\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_depositList.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\deposit\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\deposit\Slip.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\Shared\_formsChart.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\communications\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Views\reports_params\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

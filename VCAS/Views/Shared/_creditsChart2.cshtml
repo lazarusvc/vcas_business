@@ -3,23 +3,17 @@
 }
 
 <h5>Income <span class="fg-grayBlue" style="border-bottom: 1px dashed; width: 20%; font-size: 12px;"> - Monthly total received for the year : @DateTime.Today.ToString("yyyy")</span></h5>
-<canvas id="barcanvas2"></canvas>
+<canvas id="barcanvas2" style="width:100%;"></canvas>
 
 <script>
     $(document).ready(function () {
 
-    // Account Converter module
-    // ========================
-    function float2dollar(value) {
-        return "EC$ " + (value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    }
 
     // Credit Transaction Chart Logic
     // ==============================
 		$.ajax({
 			type: 'POST',
 			url: '@Url.Action("CreditTransJson2", "creditTrans")?&d=' + @ViewBag.data,
-			// data: { get_param: 'value' },
 			dataType: 'json',
             success: function (chData) {
                 var aLabels = chData.map(function (e) {
@@ -30,7 +24,7 @@
                 });
                 const ctx3 = document.getElementById('barcanvas2').getContext('2d');
 				new Chart(ctx3, {
-					type: 'bar',
+                    type: 'bar',
 					data: {
                         labels: aLabels,
 						datasets: [{
@@ -71,10 +65,10 @@
                         tooltips: {
                             enabled: true
                         },
-                        responsive: true
+                        responsive: false
                     }
-				});							
-			}
+                });                
+            }
     });
 });
 </script>

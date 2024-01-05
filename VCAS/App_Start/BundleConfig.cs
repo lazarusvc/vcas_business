@@ -59,6 +59,14 @@ namespace VCAS
             bundles.Add(new ScriptBundle("~/bundles/phoneNumber").Include(
                     "~/Scripts/PhoneNumber.js"
                 ));
+
+            bundles.Add(new StyleBundle("~/Content/select2").Include(
+                    "~/Content/css/select2.min.css"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                    "~/Scripts/select2.min.js"
+                ));
         }
     }
 }
