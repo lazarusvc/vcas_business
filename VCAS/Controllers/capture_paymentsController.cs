@@ -18,10 +18,15 @@ namespace VCAS.Controllers
 
         // GET: capture_payments
         // ======================================================================
-        [CustomAuthorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "cashier, admin")]
         public ActionResult Index()
         {
-            return View(db.VCAS_capture_payments.Where(x => x.datetime.Month == System.DateTime.Now.Month).ToList());
+            return View();
+        }
+        public ActionResult IndexPartial(string recNum)
+        {
+            var result = db.VCAS_capture_payments.Where(x => x.receiptNo == recNum.Trim() && x.FK_location == GlobalSession.Location).ToList();
+            return View("_cancelReceipts", result);
         }
 
         // GET: capture_payments/Details/5
@@ -98,7 +103,7 @@ namespace VCAS.Controllers
         // GET: capture_payments/Create
         // ======================================================================
         [CustomAuthorize(Roles = "cashier, admin")]
-        public ActionResult Create(string cusName)
+        public ActionResult Create(string cusName, string cusName2)
         {
             // Algorithm for Unique Receipt number
             // ===================================
@@ -150,9 +155,9 @@ namespace VCAS.Controllers
             // Items
             ViewBag.FK_items = new SelectList((from s in db.VCAS_REF_items_location.Where(x => x.FK_councilId == GlobalSession.Location) select new { id = s.VCAS_REF_items.Id, name = s.VCAS_REF_items.name }), "id", "name");
             // Customer Information
-            var cusName_data = db.VCAS_customer.Where(x => x.firstName == cusName).Select(x => x.firstName).FirstOrDefault();
-            ViewBag.cusName = cusName_data + " " + db.VCAS_customer.Where(x => x.firstName == cusName).Select(x => x.lastName).FirstOrDefault();
-            var cusID_data = db.VCAS_customer.Where(x => x.firstName == cusName).Select(x => x.Id).FirstOrDefault();
+            var cusName_data = db.VCAS_customer.Where(x => x.firstName == cusName && x.lastName == cusName2).Select(x => x.firstName).FirstOrDefault();
+            ViewBag.cusName = cusName_data + " " + db.VCAS_customer.Where(x => x.firstName == cusName && x.lastName == cusName2).Select(x => x.lastName).FirstOrDefault();
+            var cusID_data = db.VCAS_customer.Where(x => x.firstName == cusName && x.lastName == cusName2).Select(x => x.Id).FirstOrDefault();
             ViewBag.cusID = cusID_data;
             ViewBag.cusList = new SelectList((from c in db.VCAS_customer.Where(x => x.FK_Location == GlobalSession.Location) select new { id = c.Id, name = c.firstName + " " + c.lastName }), "id", "name");
             // Customer Orders dropdown
@@ -166,7 +171,7 @@ namespace VCAS.Controllers
         // ======================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments, FormCollection form)
+        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments, FormCollection form) 
         {
             if (ModelState.IsValid)
             {
@@ -185,18 +190,15 @@ namespace VCAS.Controllers
                 // ***********************************************
                 if (vCAS_capture_payments.recieved_amount > 0 && 
                     vCAS_capture_payments.recieved_amount != null && 
-                    Convert.ToInt32(form["itemID"]) > 0 && 
                     Convert.ToInt32(form["inventoryID"]) > 0)
                 {
-                    int iID = Convert.ToInt32(form["itemID"]);
                     int invID = Convert.ToInt32(form["inventoryID"]);
 
                     SqlParameter[] Parameters1 = {
-                        new SqlParameter("@p_item", iID),
                         new SqlParameter("@p_id", invID),
                         new SqlParameter("@p_loc", GlobalSession.Location)
                     };
-                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_item, @p_loc, @p_id", Parameters1);
+                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_loc, @p_id", Parameters1);
                 }
 
                 return RedirectToAction("PrintLast");
@@ -226,6 +228,59 @@ namespace VCAS.Controllers
             // Customer Orders dropdown
             ViewBag.cusOrders = new SelectList((from o in db.VCAS_orders.Where(x => x.FK_customerId == vCAS_capture_payments.payerID && x.FK_order_statusId == 1) select new { id = o.Id, name = "Order #:" + o.Id + " " + o.VCAS_inventory.name }), "id", "name");
             ViewBag.cusOrdersCount = db.VCAS_orders.Where(x => x.FK_customerId == vCAS_capture_payments.payerID && x.FK_order_statusId == 1).Select(x => x.Id).Count();
+            return View(vCAS_capture_payments);
+        }
+
+        public ActionResult CreateForm()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateForm([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments, FormCollection form)
+        {
+            // Generate Receipt Number
+            // ========================================================================================
+            var recValue = "";
+            var rec_dates = db.VCAS_capture_payments.Select(x => x.datetime == DateTime.Today).ToList();
+            var cur_date = DateTime.Today.ToString();
+            var rec_num = db.VCAS_capture_payments.Select(x => x.receiptNo).ToList().LastOrDefault();
+            var recurringNo = Regex.Replace(rec_num ?? "", @"^.{0,11}", "");
+            int newRecurringNo;
+            if (rec_dates.LastOrDefault().ToString() != cur_date)
+            {
+                newRecurringNo = 0;
+                if (rec_dates.Any())
+                {
+                    newRecurringNo = Int32.Parse(recurringNo);
+                    newRecurringNo += 1;
+                    recValue = "VCR" + DateTime.Now.ToString("MMddyyyy") + newRecurringNo; // Generate Receipt Number
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
+                db.VCAS_capture_payments.Add(new VCAS_capture_payments { 
+                    Id = vCAS_capture_payments.Id,
+                    datetime = DateTime.Now,
+                    payer = form["txtInput_01"],
+                    payerID = vCAS_capture_payments.payerID,
+                    orderID = vCAS_capture_payments.orderID,
+                    amount = Convert.ToDouble(form["txtInput_06"]),
+                    recieved_amount = Convert.ToDouble(form["txtInput_07"]),
+                    checkNo = vCAS_capture_payments.checkNo,
+                    comment = form["txtAreaInput_02"],
+                    receiptNo = recValue,
+                    issuer = db.VCAS_users.Where(x => x.userName == User.Identity.Name).Select(x => x.userName).FirstOrDefault(),
+                    FK_paymentType = db.VCAS_REF_payment_type.Select(x => x.Id).FirstOrDefault(),
+                    FK_bankDetails = db.VCAS_REF_bank_details.Select(x => x.Id).FirstOrDefault(),
+                    FK_items = db.VCAS_REF_items_location.Where(x => x.FK_councilId == GlobalSession.Location).Select(x => x.Id).FirstOrDefault(),
+                    FK_location = GlobalSession.Location,
+                    invoice = false
+                });
+                db.SaveChanges();
+            }
+
             return View(vCAS_capture_payments);
         }
 
@@ -278,7 +333,7 @@ namespace VCAS.Controllers
         // ======================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult More([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments)
+        public ActionResult More([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice,recieved_amount")] VCAS_capture_payments vCAS_capture_payments)
         {
             if (ModelState.IsValid)
             {
@@ -297,7 +352,8 @@ namespace VCAS.Controllers
                     FK_bankDetails = vCAS_capture_payments.FK_bankDetails,
                     FK_items = vCAS_capture_payments.FK_items,
                     FK_location = vCAS_capture_payments.FK_location,
-                    invoice = vCAS_capture_payments.invoice
+                    invoice = vCAS_capture_payments.invoice,
+                    recieved_amount = vCAS_capture_payments.recieved_amount
                 });
                 db.SaveChanges();
 
@@ -331,7 +387,7 @@ namespace VCAS.Controllers
 
         // GET: capture_payments/Edit/5
         // ======================================================================
-        [CustomAuthorize(Roles = "admin,cashier")]
+        [CustomAuthorize(Roles = "admin, cashier")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -367,7 +423,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments, FormCollection form)
+        public ActionResult Edit([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice,recieved_amount")] VCAS_capture_payments vCAS_capture_payments, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -378,18 +434,15 @@ namespace VCAS.Controllers
                 // ***********************************************
                 if (vCAS_capture_payments.recieved_amount > 0 &&
                     vCAS_capture_payments.recieved_amount != null &&
-                    Convert.ToInt32(form["itemID"]) > 0 &&
                     Convert.ToInt32(form["inventoryID"]) > 0)
                 {
-                    int iID = Convert.ToInt32(form["itemID"]);
                     int invID = Convert.ToInt32(form["inventoryID"]);
 
                     SqlParameter[] Parameters1 = {
-                        new SqlParameter("@p_item", iID),
                         new SqlParameter("@p_id", invID),
                         new SqlParameter("@p_loc", GlobalSession.Location)
                     };
-                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_item, @p_loc, @p_id", Parameters1);
+                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_loc, @p_id", Parameters1);
                 }
 
                 return RedirectToAction("Create");
@@ -415,7 +468,7 @@ namespace VCAS.Controllers
 
         // VOID: capture_payments
         // ======================================================================
-        [CustomAuthorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "admin, cashier")]
         public ActionResult Void(int? id)
         {
             // Reducing Balance on debitAccounts

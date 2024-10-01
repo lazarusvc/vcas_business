@@ -20,7 +20,7 @@
     <div class="grid" id="app_styleBG2">
         <h3 class="fg-gray"><span id="rec_invName">Receipt</span> Capture</h3>
         <div class="row">
-            <div class="cell-lg-6" style="overflow-y: scroll; max-height: 500px; height: 500px;">
+            <div class="cell-lg-6" style="overflow-y: scroll; max-height:500px;">
                 <div class="remark">
                     @Html.HiddenFor(model => model.invoice, new { @Value = false })
                     @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
@@ -29,41 +29,62 @@
                     @Html.ValidationMessageFor(model => model.issuer, "", new { @class = "fg-magenta" })
                     @Html.EditorFor(model => model.receiptNo, new { htmlAttributes = new { data_role = "input", data_prepend = "Receipt No:", @Value = ViewBag.recNo, placeholder = ViewBag.recNo, @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.receiptNo, "", new { @class = "fg-magenta" })
+
+                    <label class="fg-darkBlue">Date:</label>
+                    @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
+                    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
                 </div>
                 <div class="row">
                     <div class="cell-lg-12">
                         <div class="remark">
+                            <!-- CUSTOMER SECTION ====== -->
                             <div class="row">
-                                <div class="cell-lg-8">
-                                    <!-- CUSTOMER SECTION ====== -->
-                                    <div id="cusListDiv">
-                                        <label class="fg-darkBlue">Customer:</label>
-                                        @Html.DropDownList("cusList", null, "-- Select --", htmlAttributes: new { data_role = "select" })
+                                <div class="cell-lg-12">
+                                    <label class="fg-darkBlue">Customer:</label>
+                                    @Html.DropDownList("cusList", null, "-- Select --", htmlAttributes: new { @Class = "select2" })
+                                    <input type="checkbox" data-role="checkbox" data-style="2" data-caption="+NEW" class="fg-green" id="payerCheckInput" />
+
+                                    <input type="checkbox" data-role="checkbox" data-style="2" data-caption="ORDERS" class="fg-darkBlue" id="orderCheckInput" />
+                                    <span class="badge inside bg-red fg-white" style="position: initial;">@ViewBag.cusOrdersCount</span>
+                                    <div id="orderSelect">
+                                        <label class="fg-darkBlue">Customer Order:</label>
+                                        @Html.DropDownList("cusOrders", null, "N/A", htmlAttributes: new { @Class = "select2" })
+                                        @Html.HiddenFor(model => model.orderID)
+                                        @Html.ValidationMessageFor(model => model.orderID, "", new { @class = "fg-magenta" })
                                     </div>
                                     @Html.HiddenFor(model => model.payer)
                                     @Html.ValidationMessageFor(model => model.payer, "", new { @class = "fg-magenta" })
                                     @Html.HiddenFor(model => model.payerID)
                                     @Html.ValidationMessageFor(model => model.payerID, "", new { @class = "fg-magenta" })
                                 </div>
-                                <div class="cell-lg-4">
-                                    <br />
-                                    <input type="checkbox" data-role="checkbox" data-style="2" data-caption="+NEW" class="fg-green" id="payerCheckInput" />
-                                </div>
+                                <hr class="bg-gray" width="100%" />
                             </div>
 
+                            <!-- SALES ITEM / INVENTORY SECTION ====== -->
                             <div class="row">
-                                <!-- SALES ITEM / CUSTOMER ORDERS / INVENTORY SECTION ====== -->
-                                <div class="cell-lg-8">
+
+                                <div class="cell-lg-5">
                                     <label class="fg-darkBlue">Sales Item:</label>
-                                    @Html.DropDownList("FK_items", null, "-- Select --", htmlAttributes: new { data_role = "select" })
+                                    @Html.DropDownList("FK_items", null, "-- Select --", htmlAttributes: new { @Class = "select2" })
                                     @Html.ValidationMessageFor(model => model.FK_items, "", new { @class = "fg-magenta" })
-                                    <br />
-                                    <div id="orderSelect">
-                                        <label class="fg-darkBlue">Customer Order:</label>
-                                        @Html.DropDownList("cusOrders", null, "N/A", htmlAttributes: new { data_role = "select" })
-                                        @Html.HiddenFor(model => model.orderID)
-                                        @Html.ValidationMessageFor(model => model.orderID, "", new { @class = "fg-magenta" })
-                                    </div>
+                                </div>
+                                <div class="cell-lg-2">
+                                    <p align="LEFT">-- or --</p>
+                                </div>
+                                <div class="cell-lg-5">
+                                    <label class="fg-darkBlue">Product Code/#:</label>
+                                    <select id="ProductNum" class="select2">
+                                        <option>-- Select --</option>
+                                    </select>
+                                    <br /> 
+                                    <button class="image-button light">
+                                        <span class="mif-barcode icon"></span>
+                                        <span class="caption">SCAN</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="cell-lg-12">
                                     <div class="sales_inventory">
                                         <div id="invTile" data-role="tile" data-size="medium" onclick="tileData(0)">
                                             <span class="mif-tags icon"></span>
@@ -71,26 +92,22 @@
                                             <span class="badge-top">0</span>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="itemID" id="itemID" value="0" />
                                     <input type="hidden" name="inventoryID" id="inventoryID" value="0" />
                                 </div>
-                                <div class="cell-lg-2">
-                                    <br />
-                                    <input type="checkbox" data-role="checkbox" data-style="2" data-caption="ORDERS" class="fg-darkBlue" id="orderCheckInput" />
-                                    <span class="badge inside bg-red fg-white" style="top: 20px !important;">@ViewBag.cusOrdersCount</span>
-                                </div>
+                                <hr class="bg-gray" width="100%" />
                             </div>
+
+                            <!-- PAYMENT SECTION ====== -->
                             <div class="row">
-                                <!-- PAYMENT SECTION ====== -->
-                                <div class="cell-lg-8">
-                                    <br />
+                                <div class="cell-lg-12">
                                     <label class="fg-darkBlue">Payment:</label>
-                                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Amount $", @type = "number", min = "1" } })
+                                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Amount $", @type = "number" } })
                                     @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
 
-                                    @Html.EditorFor(model => model.recieved_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Received $", @type = "number", min = "1" } })
+                                    @Html.EditorFor(model => model.recieved_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Received $", @type = "number", required = "required" } })
                                     @Html.ValidationMessageFor(model => model.recieved_amount, "", new { @class = "fg-magenta" })
 
+                                    <label class="fg-darkBlue">Type:</label>
                                     @Html.DropDownList("FK_paymentType", null, htmlAttributes: new { data_role = "select" })
                                     @Html.ValidationMessageFor(model => model.FK_paymentType, "", new { @class = "fg-magenta" })
 
@@ -104,19 +121,38 @@
                                         <br />
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="cell-lg-8">
-                                    <label class="fg-darkBlue">Date:</label><!-- DATE SECTION ====== -->
-                                    @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
-                                    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
+                                <div class="cell-lg-12">
+                                    <!-- BUTTONS SECTION ====== -->
+                                    <ul class="pagination no-gap size-large">
+                                        <li class="page-item">
+                                            <button type="submit" class="button large yellow" id="submitBtn">
+                                                <span class="mif-done_all icon"></span> Capture
+                                            </button>
+                                        </li>
+                                        <li class="page-item">
+                                            <button type="button" class="button large primary" id="moreBtn">
+                                                <span class="mif-add icon"></span> More
+                                            </button>
+                                        </li>
+                                        <li class="page-item">
+                                            <button type="button" class="button large default" id="printMore">
+                                                <span class="mif-printer icon"></span> Print
+                                            </button>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href='@Url.Action("RePrint")' class="button large default">
+                                                <span class="mif-printer icon"></span> Reprint
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- INVOICE SECTION ====== -->
                 <div class="remark">
-                    <!-- INVOICE SECTION ====== -->
+
                     <div class="row">
                         <div class="cell-lg-4">
                             <input type="checkbox" data-role="checkbox" data-caption="MAKE INVOICE" class="fg-darkBlue" id="rec_invNew">
@@ -131,18 +167,20 @@
                         @Html.DropDownList("invoiceFetches", null, "-- Select --", htmlAttributes: new { data_role = "select" })
                     </div>
                 </div>
+                <!-- COMMENTS SECTION ====== -->
                 <div class="remark">
-                    <!-- COMMENTS SECTION ====== -->
+
                     @Html.TextAreaFor(model => model.comment, new { data_role = "textarea", placeholder = "... Comment" })
                     @Html.ValidationMessageFor(model => model.comment, "", new { @class = "fg-magenta" })
                 </div>
             </div>
-            <div class="cell-lg-6"><!-- RECEIPT PREVIEW ===== -->
+            <!-- RECEIPT PREVIEW ===== -->
+            <div class="cell-lg-6 zig-zag-bottom">
                 <div data-role="panel"
-                     data-title-caption="Receipt"
+                     data-title-caption="Preview"
                      data-cls-panel="shadow-3"
                      data-title-icon="<span class='mif-apps'></span>">
-                    <img id="rec_logo" src="#" width="10" />
+                    <img id="rec_logo" src="#" width="100" />
                     <div class="row">
                         <div class="cell-lg-6">
                             <p><strong><span id="rec_invName2">Receipt</span> No.: </strong>@ViewBag.recNo</p>
@@ -168,7 +206,7 @@
                     </div>
                     <div class="row">
                         <div class="cell-lg-12">
-                            <table class="table subcompact" data-horizontal-scroll="true">
+                            <table class="table subcompact" data-horizontal-scroll="true" id="recPreview">
                                 <thead>
                                     <tr>
                                         <th>LINE #</th>
@@ -189,7 +227,7 @@
                     <div class="row">
                         <div class="cell-lg-6"></div>
                         <div class="cell-lg-6">
-                            <table class="table subcompact" data-horizontal-scroll="true">
+                            <table class="table subcompact" data-horizontal-scroll="true" id="recPreview">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -205,7 +243,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <table class="table subcompact" data-horizontal-scroll="true">
+                            <table class="table subcompact" data-horizontal-scroll="true" id="recPreview">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -221,7 +259,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <table class="table subcompact" data-horizontal-scroll="true">
+                            <table class="table subcompact" data-horizontal-scroll="true" id="recPreview">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -240,33 +278,6 @@
                         </div>
                     </div>
                 </div>
-                <br />
-                <div class="row"><!-- BUTTONS SECTION ====== -->
-                    <div class="cell-lg-12">
-                        <ul class="pagination no-gap size-large">
-                            <li class="page-item">
-                                <button type="submit" class="button large yellow" id="submitBtn">
-                                    <span class="mif-done_all icon"></span> Capture
-                                </button>
-                            </li>
-                            <li class="page-item">
-                                <button type="button" class="button large primary" id="moreBtn">
-                                    <span class="mif-add icon"></span> More
-                                </button>
-                            </li>
-                            <li class="page-item">
-                                <button type="button" class="button large default" id="printMore">
-                                    <span class="mif-printer icon"></span> Print
-                                </button>
-                            </li>
-                            <li class="page-item">
-                                <a href='@Url.Action("RePrint")' class="button large default">
-                                    <span class="mif-printer icon"></span> Reprint
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -281,20 +292,21 @@
 
     // Stock tile logic
     // ========================
-    function tileData(name, id, invID, itemID) {
+    function tileData(name, id, invID) {
         var amount = document.getElementById("amount");
         amount.value = id;
         amount.style.backgroundColor = "#f8f8f8"; // make field READONLY
-        amount.readOnly = true;
+        // amount.readOnly = true;
 
         document.getElementById("REC-amount").innerHTML = id; // update receipt preview price
         document.getElementById("REC-total").innerHTML = id;
 
         document.getElementById("inventoryID").value = invID; // stock fields update
-        document.getElementById("itemID").value = itemID;
 
         document.getElementById("comment").innerHTML = "inventory item: " + name + "\n"; // append inventory selected item to comments
         document.getElementById("REC-comments").innerHTML = "inventory item: " + name;
+
+        document.getElementById("recieved_amount").focus(); // focus on received amount
     }
 
     // Phone Number Auto-format
@@ -329,6 +341,8 @@
         var cusOrders = $("#cusOrders");
         var comment = $("#comment");
         var location = $("#FK_location");
+        var productcode = $("#ProductNum");
+
         // Payment logic
         // ==================================
         checkDetails.hide();
@@ -381,11 +395,8 @@
         var iName = "";
         var iPrice = "";
         var siDIV = $(".sales_inventory");
-        // siDIV.clone();
-        
-        item.on('keyup change', function () {
-            $("#REC-desc").text(item.children("option:selected").text());
 
+        item.on('keyup change', function () {
             $.ajax({
                 url: '@Url.Action("Json", "inventory")?&l=' + location.val() + "&it=" + item.val(),
                 type: "POST",
@@ -398,17 +409,53 @@
                         html += "<span class='mif-tags icon'></span>";
                         html += "<span class='branding-bar'>" + iName + "</span>";
                         html += "<span class='badge-top'>" + iPrice + "</span>";
-                        html += "</div>";                           
+                        html += "</div>";
                         siDIV.html(html);
-                    });                    
-                    
+
+                        $("#REC-desc").text(v.desc);
+                    });
                 }
             });
         });
-        //setTimeout(function () {
-        //    siDIV.replaceWith(siDIV.clone());
-        //}, 7000);
-        
+
+        $.ajax({
+            url: '@Url.Action("Json2", "inventory")?&l=' + location.val(),
+            type: "GET",
+            success: function (result) {
+                $.each(result, function (k, v) {
+                    productcode.append('<option value="' + v.partNumber + '">' + v.partNumber + '</option>');
+                });
+            }
+        });
+        productcode.on('keyup change', function () {
+            $.ajax({
+                url: '@Url.Action("Json2", "inventory")?&l=' + location.val(),
+                type: "POST",
+                success: function (result) {
+                    $.each(result, function (k, v) {
+
+                        if (v.partNumber == productcode.val()) {
+
+                            html += '<div data-role="tile"';
+                            html += "data-size='medium'>";
+                            html += "<span class='mif-tags icon'></span>";
+                            html += "<span class='branding-bar'>" + v.name + "</span>";
+                            html += "<span class='badge-top'>" + v.sellingPrice + "</span>";
+                            html += "</div>";
+                            siDIV.html(html);
+
+                            tileData(v.name, v.sellingPrice, v.Id, v.FK_REF_itemsId);
+
+                            $("#REC-desc").text(v.desc);
+                        }
+                    });
+                }
+            });
+        });
+        productcode.on('click', function () {
+            amount_received.focus();
+        });
+
         // amount
         amount.on('keyup change', function () {
             $("#REC-amount").html('$' + amount.val());
@@ -475,7 +522,7 @@
                                         type: "POST",
                                         data: formData,
                                         success: function () {
-                                          window.location = '@Url.Action("Create", "capture_payments")?cusName=' + formData.firstName;
+                                            window.location = '@Url.Action("Create", "capture_payments")?cusName=' + formData.firstName + '&cusName2=' + formData.lastName;
                                         }
                                 });
                             }
@@ -524,21 +571,6 @@
             } else {
                 $('#rec_invGetDiv').hide();
             }
-        });
-        // Update Stock Post
-        // ===============================
-        $("#submitBtn").submit(function () {
-            var formData =
-            {
-                itemID: $("#itemID").val(),
-                inventoryID: $("#inventoryID").val(),
-                recieved_amount: $("#recieved_amount").val()
-            };
-             $.ajax({
-                url: '@Url.Action("Stock", "capture_payments")',
-                type: "POST",
-                data: formData
-            });
         });
     });
 </script>

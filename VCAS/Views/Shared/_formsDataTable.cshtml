@@ -4,282 +4,180 @@
     ViewBag.Title = "_formsDataTable";
 }
 
-<table class="table striped table-border cell-border row-border subcompact bg-white" data-role="table" data-horizontal-scroll="true">
-    @*<thead>
+<table class="table striped table-border cell-border row-border subcompact bg-white" id="mytable" data-role="table" data-horizontal-scroll="true">
+    <thead>
         <tr>
-            @if (Model.Select(x => x.txtInput_01).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_01)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_02).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_02)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_03).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_03)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_04).Count() >= 1)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_04)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_05).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_05)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_06).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_06)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_07).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_07)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_08).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_08)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_09).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_09)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_10).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_10)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_11).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_11)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_12).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_12)
-                </th>
-            }
-            @if (Model.Select(x => x.txtInput_13).Count() > 0)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.txtInput_13)
-                </th>
-            }
             <th>
-                @Html.DisplayNameFor(model => model.checkInput_01)
+                <span>@Html.DisplayNameFor(model => model.txtInput_01)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.checkInput_02)
+                <span>@Html.DisplayNameFor(model => model.txtInput_02)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.checkInput_03)
+                <span>@Html.DisplayNameFor(model => model.txtInput_03)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.selectInput_01)
+                <span>@Html.DisplayNameFor(model => model.txtInput_04)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.selectInput_02)
+                <span>@Html.DisplayNameFor(model => model.txtInput_05)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.selectInput_03)
+                <span>@Html.DisplayNameFor(model => model.txtInput_06)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.txtAreaInput_01)
+                <span>@Html.DisplayNameFor(model => model.txtInput_07)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.txtAreaInput_02)
+                <span>@Html.DisplayNameFor(model => model.txtInput_08)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.txtAreaInput_03)
+                <span>@Html.DisplayNameFor(model => model.txtInput_09)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.fileInput_01)
+                <span>@Html.DisplayNameFor(model => model.txtInput_10)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.fileInput_02)
+                <span>@Html.DisplayNameFor(model => model.txtInput_11)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.formBtn)
+                <span>@Html.DisplayNameFor(model => model.txtInput_12)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.frmHeader)
+                <span>@Html.DisplayNameFor(model => model.txtInput_13)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.frmFooter)
+                <span>@Html.DisplayNameFor(model => model.checkInput_01)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.signatureBox)
+                <span>@Html.DisplayNameFor(model => model.checkInput_02)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VCAS_forms.name)
+                <span>@Html.DisplayNameFor(model => model.checkInput_03)</span>
+            </th>
+            <th>
+                <span>@Html.DisplayNameFor(model => model.selectInput_01)</span>
+            </th>
+            <th>
+                <span>@Html.DisplayNameFor(model => model.selectInput_02)</span>
+            </th>
+            <th>
+                <span>@Html.DisplayNameFor(model => model.selectInput_03)</span>
+            </th>
+            <th>
+                <span>@Html.DisplayNameFor(model => model.txtAreaInput_01)</span>
+            </th>
+            <th>
+                <span>@Html.DisplayNameFor(model => model.txtAreaInput_02)</span>
+            </th>
+            <th>
+                <span>@Html.DisplayNameFor(model => model.txtAreaInput_03)</span>
             </th>
             <th>
                 manage
             </th>
         </tr>
-    </thead>*@
+    </thead>
+    @foreach (var item in Model)
+    {
 
-@foreach (var item in Model) {
-    <tbody>
-        <tr>
-            @if (Model.Select(x => x.txtInput_01).Count() > 0)
-            {
+        <tbody>
+            <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_01)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_01)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_02).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_02)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_02)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_03).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_03)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_03)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_04).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_04)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_04)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_05).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_05)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_05)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_06).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_06)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_06)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_07).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_07)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_07)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_08).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_08)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_08)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_09).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_09)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_09)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_10).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_10)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_10)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_11).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_11)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_11)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_12).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_12)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_12)</span>
                 </td>
-            }
-            @if (Model.Select(x => x.txtInput_13).Count() > 0)
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.txtInput_13)
+                    <span>@Html.DisplayFor(modelItem => item.txtInput_13)</span>
                 </td>
-            }
-            <td>
-                @Html.DisplayFor(modelItem => item.checkInput_01)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.checkInput_02)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.checkInput_03)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.selectInput_01)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.selectInput_02)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.selectInput_03)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.txtAreaInput_01)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.txtAreaInput_02)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.txtAreaInput_03)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fileInput_01)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fileInput_02)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.formBtn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.frmHeader)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.frmFooter)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.signatureBox)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VCAS_forms.name)
-            </td>
-            <td>
-                <ul class="pagination no-gap size-large">
-                    <li class="page-item">
-                        <a href="@Url.Action("Edit", new { id = item.Id })" class="button info"><span class="mif-pencil icon"></span></a>
-                    </li>
-                    <li class="page-item">
-                        <a href="@Url.Action("Delete", new { id = item.Id })" class="button alert"><span class="mif-bin icon"></span></a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    </tbody>
-}
+                <td>
+                    <span>@Html.DisplayFor(modelItem => item.checkInput_01)</span>
+                </td>
+                <td>
+                    <span>@Html.DisplayFor(modelItem => item.checkInput_02)</span>
+                </td>
+                <td>
+                    <span>@Html.DisplayFor(modelItem => item.checkInput_03)</span>
+                </td>
+                <td>
+                    <span>@Html.DisplayFor(modelItem => item.selectInput_01)</span>
+                </td>
+                <td>
+                    <span>@Html.DisplayFor(modelItem => item.selectInput_02)</span>
+                </td>
+                <td>
+                    <span>@Html.DisplayFor(modelItem => item.selectInput_03)</span>
+                </td>
+                <td>
+                    <span>@Html.DisplayFor(modelItem => item.txtAreaInput_01)</span>
+                </td>
+                <td>
+                    <span>@Html.DisplayFor(modelItem => item.txtAreaInput_02)</span>
+                </td>
+                <td>
+                    <span>@Html.DisplayFor(modelItem => item.txtAreaInput_03)</span>
+                </td>
+                <td>
+                    <ul class="pagination no-gap size-large">
+                        <li class="page-item">
+                            <a href="@Url.Action("Edit", new { id = item.Id })" class="button info"><span class="mif-pencil icon"></span></a>
+                        </li>
+                        <li class="page-item">
+                            <a href="@Url.Action("Delete", new { id = item.Id })" class="button alert"><span class="mif-bin icon"></span></a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    }
 
 </table>
+
+
+<script>
+$(document).ready(function() {
+    hideEmptyCols($("#mytable"));
+});
+function hideEmptyCols(table) {
+    var rows = $("tr", table).length - 1;
+    var numCols = $("th", table).length;
+    for (var i = 1; i <= numCols; i++) {
+        if ($("span:empty", $("td:nth-child(" + i + ")", table)).length == rows) {
+            $("td:nth-child(" + i + ")", table).hide(); //hide <td>'s
+            $("th:nth-child(" + i + ")", table).hide(); //hide header <th>
+        }
+    }
+}
+</script>

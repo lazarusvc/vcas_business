@@ -166,6 +166,17 @@
           <Property Name="FK_REF_itemsId" Type="int" />
           <Property Name="FK_location" Type="int" />
         </EntityType>
+        <EntityType Name="VCAS_inventory_AUDIT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="startStock" Type="float" />
+          <Property Name="currentStock" Type="float" />
+          <Property Name="FK_REF_itemsId" Type="int" />
+          <Property Name="datetime" Type="datetime" />
+        </EntityType>
         <EntityType Name="VCAS_issuedChecks">
           <Key>
             <PropertyRef Name="Id" />
@@ -816,25 +827,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="usp_InsertDeposit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="location" Type="int" Mode="In" />
-        </Function>
-        <Function Name="usp_SelectDeposit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="loc" Type="int" Mode="In" />
-        </Function>
-        <Function Name="usp_UpdateAcctAmt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="amt" Type="float" Mode="In" />
-          <Parameter Name="id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="usp_UpdateStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="item" Type="int" Mode="In" />
-          <Parameter Name="loc" Type="int" Mode="In" />
-          <Parameter Name="id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="usp_UpdateUndepositedFundsStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="loc" Type="int" Mode="In" />
-          <Parameter Name="dID" Type="int" Mode="In" />
-        </Function>
+        
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="VCAS_capture_payments" EntityType="Self.VCAS_capture_payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_council" EntityType="Self.VCAS_council" Schema="dbo" store:Type="Tables" />
@@ -847,6 +840,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <EntitySet Name="VCAS_expenses" EntityType="Self.VCAS_expenses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_forms" EntityType="Self.VCAS_forms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_inventory" EntityType="Self.VCAS_inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VCAS_inventory_AUDIT" EntityType="Self.VCAS_inventory_AUDIT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_issuedChecks" EntityType="Self.VCAS_issuedChecks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_orders" EntityType="Self.VCAS_orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_reconcile" EntityType="Self.VCAS_reconcile" Schema="dbo" store:Type="Tables" />
@@ -1202,9 +1196,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <FunctionImport Name="usp_InsertDeposit" ReturnType="Collection(Model.usp_InsertDeposit_Result)">
           <Parameter Name="location" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_SelectDeposit" ReturnType="Collection(Model.usp_SelectDeposit_Result)">
-          <Parameter Name="loc" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="VCAS_deposit" EntityType="Model.VCAS_deposit" />
           <AssociationSet Name="FK_VCAS_councilVCAS_deposit" Association="Model.FK_VCAS_councilVCAS_deposit">
             <End EntitySet="VCAS_council" Role="VCAS_council" />
@@ -1237,6 +1228,12 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <End Role="VCAS_customer" EntitySet="VCAS_customer" />
             <End Role="VCAS_orders" EntitySet="VCAS_orders" />
           </AssociationSet>
+          <FunctionImport Name="usp_UpdateStock1">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="loc" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="VCAS_inventory_AUDIT" EntityType="Model.VCAS_inventory_AUDIT" />
           </EntityContainer>
         <EntityType Name="VCAS_debitTrans">
           <Key>
@@ -2061,13 +2058,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Type="Double" Name="visa_credit_amount" Nullable="true" />
           <Property Type="Int32" Name="location" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="usp_SelectDeposit_Result">
-          <Property Type="String" Name="receiptNo" Nullable="true" />
-          <Property Type="String" Name="payType" Nullable="false" />
-          <Property Type="Double" Name="amount" Nullable="true" />
-          <Property Type="Int32" Name="checkNo" Nullable="true" />
-          <Property Type="String" Name="bankType" Nullable="true" />
-        </ComplexType>
         <EntityType Name="VCAS_deposit">
           <Key>
             <PropertyRef Name="Id" />
@@ -2161,6 +2151,17 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VCAS_inventory_AUDIT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="startStock" Type="Double" />
+          <Property Name="currentStock" Type="Double" />
+          <Property Name="FK_REF_itemsId" Type="Int32" />
+          <Property Name="datetime" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2382,11 +2383,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
     <EntitySetMapping Name="VCAS_council">
       <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_council)">
         <MappingFragment StoreEntitySet="VCAS_council">
-                <ScalarProperty Name="twilio_XML" ColumnName="twilio_XML" />
-                <ScalarProperty Name="twilio_NUMBER" ColumnName="twilio_NUMBER" />
-                <ScalarProperty Name="twilio_TOKEN" ColumnName="twilio_TOKEN" />
-                <ScalarProperty Name="twilio_SID" ColumnName="twilio_SID" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="location" ColumnName="location" />
           <ScalarProperty Name="vendor_Id" ColumnName="vendor_Id" />
@@ -2395,6 +2392,10 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <ScalarProperty Name="receipt_footer" ColumnName="receipt_footer" />
           <ScalarProperty Name="receipt_header" ColumnName="receipt_header" />
           <ScalarProperty Name="app_cover" ColumnName="app_cover" />
+          <ScalarProperty Name="twilio_SID" ColumnName="twilio_SID" />
+          <ScalarProperty Name="twilio_TOKEN" ColumnName="twilio_TOKEN" />
+          <ScalarProperty Name="twilio_NUMBER" ColumnName="twilio_NUMBER" />
+          <ScalarProperty Name="twilio_XML" ColumnName="twilio_XML" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -2528,85 +2529,70 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_InsertDeposit" FunctionName="Model.Store.usp_InsertDeposit">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Model.usp_InsertDeposit_Result">
-                <ScalarProperty Name="date_ending" ColumnName="date_ending" />
-                <ScalarProperty Name="cash_amount" ColumnName="cash_amount" />
-                <ScalarProperty Name="check_amount" ColumnName="check_amount" />
-                <ScalarProperty Name="bt_amount" ColumnName="bt_amount" />
-                <ScalarProperty Name="visa_debit_amount" ColumnName="visa_debit_amount" />
-                <ScalarProperty Name="visa_credit_amount" ColumnName="visa_credit_amount" />
-                <ScalarProperty Name="location" ColumnName="location" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_SelectDeposit" FunctionName="Model.Store.usp_SelectDeposit">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Model.usp_SelectDeposit_Result">
-                <ScalarProperty Name="receiptNo" ColumnName="receiptNo" />
-                <ScalarProperty Name="payType" ColumnName="payType" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="checkNo" ColumnName="checkNo" />
-                <ScalarProperty Name="bankType" ColumnName="bankType" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="VCAS_deposit">
-            <EntityTypeMapping TypeName="Model.VCAS_deposit">
-              <MappingFragment StoreEntitySet="VCAS_deposit">
-                <ScalarProperty Name="FK_debitAccount" ColumnName="FK_debitAccount" />
-                <ScalarProperty Name="FK_councilId" ColumnName="FK_councilId" />
-                <ScalarProperty Name="bt_amount" ColumnName="bt_amount" />
-                <ScalarProperty Name="visa_credit_amount" ColumnName="visa_credit_amount" />
-                <ScalarProperty Name="visa_debit_amount" ColumnName="visa_debit_amount" />
-                <ScalarProperty Name="check_amount" ColumnName="check_amount" />
-                <ScalarProperty Name="cash_amount" ColumnName="cash_amount" />
-                <ScalarProperty Name="endind_date" ColumnName="endind_date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_UpdateAcctAmt" FunctionName="Model.Store.usp_UpdateAcctAmt" />
-          <EntitySetMapping Name="VCAS_undepositedFunds">
-            <EntityTypeMapping TypeName="Model.VCAS_undepositedFunds">
-              <MappingFragment StoreEntitySet="VCAS_undepositedFunds">
-                <ScalarProperty Name="depositedID" ColumnName="depositedID" />
-                <ScalarProperty Name="deposited" ColumnName="deposited" />
-                <ScalarProperty Name="FK_bankDetails" ColumnName="FK_bankDetails" />
-                <ScalarProperty Name="FK_paymentType" ColumnName="FK_paymentType" />
-                <ScalarProperty Name="receiptNo" ColumnName="receiptNo" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="checkNo" ColumnName="checkNo" />
-                <ScalarProperty Name="recieved_amount" ColumnName="recieved_amount" />
-                <ScalarProperty Name="FK_location" ColumnName="FK_location" />
-                <ScalarProperty Name="datetime" ColumnName="datetime" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_UpdateUndepositedFundsStatus1" FunctionName="Model.Store.usp_UpdateUndepositedFundsStatus" />
-          <FunctionImportMapping FunctionImportName="usp_UpdateStock" FunctionName="Model.Store.usp_UpdateStock" />
+    <EntitySetMapping Name="VCAS_deposit">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_deposit)">
+        <MappingFragment StoreEntitySet="VCAS_deposit">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="endind_date" ColumnName="endind_date" />
+          <ScalarProperty Name="cash_amount" ColumnName="cash_amount" />
+          <ScalarProperty Name="check_amount" ColumnName="check_amount" />
+          <ScalarProperty Name="visa_debit_amount" ColumnName="visa_debit_amount" />
+          <ScalarProperty Name="visa_credit_amount" ColumnName="visa_credit_amount" />
+          <ScalarProperty Name="bt_amount" ColumnName="bt_amount" />
+          <ScalarProperty Name="FK_councilId" ColumnName="FK_councilId" />
+          <ScalarProperty Name="FK_debitAccount" ColumnName="FK_debitAccount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VCAS_undepositedFunds">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_undepositedFunds)">
+        <MappingFragment StoreEntitySet="VCAS_undepositedFunds">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+          <ScalarProperty Name="FK_location" ColumnName="FK_location" />
+          <ScalarProperty Name="recieved_amount" ColumnName="recieved_amount" />
+          <ScalarProperty Name="checkNo" ColumnName="checkNo" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="receiptNo" ColumnName="receiptNo" />
+          <ScalarProperty Name="FK_paymentType" ColumnName="FK_paymentType" />
+          <ScalarProperty Name="FK_bankDetails" ColumnName="FK_bankDetails" />
+          <ScalarProperty Name="deposited" ColumnName="deposited" />
+          <ScalarProperty Name="depositedID" ColumnName="depositedID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VCAS_customer">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_customer)">
+        <MappingFragment StoreEntitySet="VCAS_customer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="FK_Location" ColumnName="FK_Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VCAS_inventory_AUDIT">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_inventory_AUDIT)">
+        <MappingFragment StoreEntitySet="VCAS_inventory_AUDIT">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="startStock" ColumnName="startStock" />
+          <ScalarProperty Name="currentStock" ColumnName="currentStock" />
+          <ScalarProperty Name="FK_REF_itemsId" ColumnName="FK_REF_itemsId" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
           <EntitySetMapping Name="vw_inventoryItems">
-            <EntityTypeMapping TypeName="Model.vw_inventoryItems">
+            <EntityTypeMapping TypeName="IsTypeOf(Model.vw_inventoryItems)">
               <MappingFragment StoreEntitySet="vw_inventoryItems">
                 <ScalarProperty Name="FK_councilId" ColumnName="FK_councilId" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VCAS_customer">
-            <EntityTypeMapping TypeName="Model.VCAS_customer">
-              <MappingFragment StoreEntitySet="VCAS_customer">
-                <ScalarProperty Name="FK_Location" ColumnName="FK_Location" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -2949,24 +2949,24 @@ interface TinyMCE extends EditorManager {
     geom: {
         Rect: Rect;
     };
-    //util: {
-    //    Promise: PromiseConstructor;
-    //    Delay: Delay;
-    //    Tools: Tools;
-    //    VK: VK;
-    //    URI: URIConstructor;
-    //    Class: Class;
-    //    EventDispatcher: EventDispatcherConstructor<any>;
-    //    Observable: Observable<any>;
-    //    I18n: I18n;
-    //    XHR: XHR;
-    //    JSON: JSONUtils;
-    //    JSONRequest: JSONRequestConstructor;
-    //    JSONP: JSONP;
-    //    LocalStorage: Storage;
-    //    Color: ColorConstructor;
-    //    ImageUploader: ImageUploader;
-    //};
+    util: {
+        Promise: PromiseConstructor;
+        Delay: Delay;
+        Tools: Tools;
+        VK: VK;
+        URI: URIConstructor;
+        Class: Class;
+        EventDispatcher: EventDispatcherConstructor<any>;
+        Observable: Observable<any>;
+        I18n: I18n;
+        XHR: XHR;
+        JSON: JSONUtils;
+        JSONRequest: JSONRequestConstructor;
+        JSONP: JSONP;
+        LocalStorage: Storage;
+        Color: ColorConstructor;
+        ImageUploader: ImageUploader;
+    };
     dom: {
         EventUtils: EventUtilsConstructor;
         Sizzle: any;

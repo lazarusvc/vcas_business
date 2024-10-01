@@ -95,6 +95,8 @@ public partial class ModelContainer : DbContext
 
     public virtual DbSet<VCAS_customer> VCAS_customer { get; set; }
 
+    public virtual DbSet<VCAS_inventory_AUDIT> VCAS_inventory_AUDIT { get; set; }
+
 
     public virtual int usp_DebitReducingbalance(Nullable<double> amt, Nullable<short> icID, Nullable<short> daID)
     {
@@ -222,18 +224,6 @@ public partial class ModelContainer : DbContext
     }
 
 
-    public virtual ObjectResult<usp_SelectDeposit_Result> usp_SelectDeposit(Nullable<int> loc)
-    {
-
-        var locParameter = loc.HasValue ?
-            new ObjectParameter("loc", loc) :
-            new ObjectParameter("loc", typeof(int));
-
-
-        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectDeposit_Result>("usp_SelectDeposit", locParameter);
-    }
-
-
     public virtual int usp_UpdateAcctAmt(Nullable<double> amt, Nullable<int> id)
     {
 
@@ -299,6 +289,28 @@ public partial class ModelContainer : DbContext
 
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateStock", itemParameter, locParameter, idParameter);
+    }
+
+
+    public virtual int usp_UpdateStock1(Nullable<int> item, Nullable<int> loc, Nullable<int> id)
+    {
+
+        var itemParameter = item.HasValue ?
+            new ObjectParameter("item", item) :
+            new ObjectParameter("item", typeof(int));
+
+
+        var locParameter = loc.HasValue ?
+            new ObjectParameter("loc", loc) :
+            new ObjectParameter("loc", typeof(int));
+
+
+        var idParameter = id.HasValue ?
+            new ObjectParameter("id", id) :
+            new ObjectParameter("id", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateStock1", itemParameter, locParameter, idParameter);
     }
 
 }

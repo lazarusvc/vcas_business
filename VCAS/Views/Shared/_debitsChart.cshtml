@@ -3,55 +3,63 @@
 }
 
 <h5>Accounts</h5>
-<canvas id="barcanvas"></canvas>
+<canvas id="canvas" style="width:75%;"></canvas>
 
 <script>
     $(document).ready(function () {
 
-        // Account Converter module
-        // ========================
-        function float2dollar(value) {
-            return "EC$ " + (value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-        }
-
         // Debit Transaction Chart Logic
-        // ==============================
-            var mainAcctAmt = document.getElementById('mainAcctAmt');
+        // ==============================            
             let url = '@Url.Action("DebitAccountJson", "debitTrans")?&d=' + @ViewBag.data;
             $.ajax({
                 type: "POST",
                 url: url,
                 dataType: "json",
                 success: function (chData) {
-                    var aLabels = chData.map(function (e) {
-                        if (e.name == 6)
-                        {
-                            return 'June'
-                        }
-                        if (e.name == 7)
-                        {
-                            return 'July'
-                        }
-                        else
-                        {
-                           return e.name
-                        }                        
+                    var aLabels = chData.map(function (e) { 
+                        return e.name
                     });
-                    var aDatasets1 = chData.map(function (e) {
-                        mainAcctAmt.innerHTML = float2dollar(e.amount);
+                    var aDatasets1 = chData.map(function (e) {                      
                         return e.amount
                     });
 
-                    const ctx1 = document.getElementById('barcanvas').getContext('2d');
+                    const ctx1 = document.getElementById('canvas').getContext('2d');
                     new Chart(ctx1, {
-                        type: 'bar',
+                        type: 'doughnut',
                         data: {
                             labels: aLabels,
                             datasets: [{
                                 label: "Total in account",
                                 data: aDatasets1,
-                                fill: true,
-                                backgroundColor: '#0077a3'
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(201, 203, 207, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(201, 203, 207)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(255, 159, 64)'
+                                ],
+                                borderWidth: 1
                             }]
                         },
                         options: {

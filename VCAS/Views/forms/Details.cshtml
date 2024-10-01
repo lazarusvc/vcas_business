@@ -5,6 +5,15 @@
 }
 
 <div class="row">
+    
+    <!-- Quick Links ============================================= -->
+    <div class="row">
+        <h6 style="font-weight: 700;" class="fg-grayBlue">:: Quick Links</h6>
+        <div class="cell-lg-12">
+            @Html.MvcSiteMap().Menu(false, true, true)
+        </div>
+    </div>
+
     <div class="cell-lg-6">
         <div data-role="panel"
              data-title-caption="Form Entry"
@@ -23,7 +32,7 @@
              data-title-icon="<span class='mif-apps'></span>"
              data-collapsible="true">
 
-            @Html.Action("IndexPartial", "formsData")
+            @Html.Action("IndexPartial", "formsData", new { id = ViewBag.id })
         </div>
     </div>
 </div>

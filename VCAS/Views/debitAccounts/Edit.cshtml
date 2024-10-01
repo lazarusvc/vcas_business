@@ -21,10 +21,10 @@
                     @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "input", data_prepend = "Account Name:" } })
                     @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
 
-                    @Html.EditorFor(model => model.acctNum, new { htmlAttributes = new { data_role = "input", data_prepend = "Account Num:", Type = "number" } })
+                    @Html.EditorFor(model => model.acctNum, new { htmlAttributes = new { data_role = "input", data_prepend = "Account Num:", @type = "number", step = "0.01" } })
                     @Html.ValidationMessageFor(model => model.acctNum, "", new { @class = "text-danger" })
 
-                    @Html.EditorFor(model => model.starting_balance, new { htmlAttributes = new { data_role = "input", data_prepend = "Starting Balance:", Type = "number" } })
+                    @Html.EditorFor(model => model.starting_balance, new { htmlAttributes = new { data_role = "input", data_prepend = "Starting Balance:", @type = "number", step = "0.01" } })
                     @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
 
                     @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "Amount:", Type = "number" } })

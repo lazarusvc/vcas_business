@@ -24,9 +24,61 @@ namespace VCAS.Controllers
         }
 
         // GET: Complete
-        public ActionResult Complete()
+        public ActionResult Complete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            VCAS_forms vCAS_forms = db.VCAS_forms.Find(id);
+            if (vCAS_forms == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.id = id;
+            // ************* FormData 
+            var vCAS_REF_forms = db.VCAS_REF_forms.Include(v => v.VCAS_forms).Where(x => x.FK_formsId == id).ToList().LastOrDefault();
+            var stringArray = new string[13] {
+                vCAS_REF_forms.txtInput_01,
+                vCAS_REF_forms.txtInput_02,
+                vCAS_REF_forms.txtInput_03,
+                vCAS_REF_forms.txtInput_04,
+                vCAS_REF_forms.txtInput_05,
+                vCAS_REF_forms.txtInput_06,
+                vCAS_REF_forms.txtInput_07,
+                vCAS_REF_forms.txtInput_08,
+                vCAS_REF_forms.txtInput_09,
+                vCAS_REF_forms.txtInput_10,
+                vCAS_REF_forms.txtInput_11,
+                vCAS_REF_forms.txtInput_12,
+                vCAS_REF_forms.txtInput_13
+            };
+            ViewBag.Collection = stringArray;
+
+            var stringArray2 = new string[3] { 
+                vCAS_REF_forms.checkInput_01,
+                vCAS_REF_forms.checkInput_02,
+                vCAS_REF_forms.checkInput_03
+            };
+            ViewBag.Collection2 = stringArray2;
+
+            var stringArray3 = new string[3]
+            {
+                vCAS_REF_forms.txtAreaInput_01,
+                vCAS_REF_forms.txtAreaInput_02,
+                vCAS_REF_forms.txtAreaInput_03
+            };
+            ViewBag.Collection3 = stringArray3;
+
+            var stringArray4 = new string[3]
+            {
+                vCAS_REF_forms.selectInput_01,
+                vCAS_REF_forms.selectInput_02,
+                vCAS_REF_forms.selectInput_03
+            };
+            ViewBag.Collection4 = stringArray4; 
+
+            return View(vCAS_forms);
         }
 
         // GET: forms/Details/5
@@ -41,6 +93,7 @@ namespace VCAS.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.id = id;
             return View(vCAS_forms);
         }
 

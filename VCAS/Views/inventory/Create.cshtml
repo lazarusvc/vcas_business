@@ -47,10 +47,10 @@
                     @Html.EditorFor(model => model.unit, new { htmlAttributes = new { data_role = "input", data_prepend = "Units: " } })
                     @Html.ValidationMessageFor(model => model.unit, "", new { @class = "fg-magenta" })
 
-                    @Html.EditorFor(model => model.unitPrice, new { htmlAttributes = new { data_role = "input", data_prepend = "Unit Price: ", @Type = "number", min = "0", step = "1" } })
+                    @Html.EditorFor(model => model.unitPrice, new { htmlAttributes = new { data_role = "input", data_prepend = "Unit Price: ", @Type = "number", min = "0", step = "0.01" } })
                     @Html.ValidationMessageFor(model => model.unitPrice, "", new { @class = "fg-magenta" })
 
-                    @Html.EditorFor(model => model.sellingPrice, new { htmlAttributes = new { data_role = "input", data_prepend = "Selling Price: ", @Type = "number", min = "0", step = "1" } })
+                    @Html.EditorFor(model => model.sellingPrice, new { htmlAttributes = new { data_role = "input", data_prepend = "Selling Price: ", @Type = "number", min = "0", step = "0.01" } })
                     @Html.ValidationMessageFor(model => model.sellingPrice, "", new { @class = "fg-magenta" })
 
                     @Html.HiddenFor(model => model.FK_location, new { @Value = ViewBag.FK_location })

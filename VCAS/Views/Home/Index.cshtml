@@ -1,30 +1,33 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
 
-<div class="row" id="app_styleBG">
+<div class="row" id="app_styleBG2">
     <div class="cell-lg-4">
         <div class="icon-box">
             <div class="icon bg-grayBlue fg-white"><span class="mif-location-city"></span></div>
-            <div class="content p-4">
+            <div class="content p-4 bg-gray">
                 <div class="text-upper">Organization</div>
                 <div class="text-upper text-bold text-lead"><p id="org"></p></div>
             </div>
         </div>
         @Html.DropDownList("council_select", null, htmlAttributes: new { data_role = "select", @class = "fg-grayBlue" })
     </div>
-    <div class="cell-lg-4">
-        <div class="icon-box">
-            <div class="icon bg-green fg-white"><span class="mif-chart-pie"></span></div>
-            <div class="content p-4">
-                <div class="text-upper">Main Account</div>
-                <div class="text-upper text-bold text-lead"><p id="mainAcctAmt"></p></div>
+    @if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
+    {
+        <div class="cell-lg-4">
+            <div class="icon-box">
+                <div class="icon bg-green fg-white"><span class="mif-chart-pie"></span></div>
+                <div class="content p-4 bg-gray">
+                    <div class="text-upper">Account's Total</div>
+                    <div class="text-upper text-bold text-lead"><p id="mainAcctAmt"></p></div>
+                </div>
             </div>
-        </div>
 
-    </div>
+        </div>
+    }
     <div class="cell-lg-4">
         <div class="icon-box">
             <div class="icon bg-red fg-white"><span class="mif-dollars"></span></div>
-            <div class="content p-4">
+            <div class="content p-4 bg-gray">
                 <div class="text-upper">Undeposited Funds </div>
                 <div class="text-upper text-bold text-lead">
                     <p id="undeposited_funds"></p>
@@ -37,80 +40,80 @@
         </a>
     </div>
 </div>
-<br/>
-<div class="row"  id="app_styleBG">
+<br />
+<div class="row" id="app_styleBG2">
     <div class="cell-lg-12">
         <h4>Actions ::</h4>
-    @if (ViewBag.URole == "cashier")
-    {
-        <a href="@Url.Action("Create", "capture_payments")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-tags icon"></span>
-        <span class="caption">Receipt Capture</span>
-        </a>
-        <a href="@Url.Action("Start", "issuedChecks")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-dollars icon"></span>
-        <span class="caption">Issue Payments</span>
-        </a>
-        <a href="@Url.Action("Orders", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-cart icon"></span>
-        <span class="caption">Orders</span>
-        </a>
-        <a href="@Url.Action("Inventory", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-barcode icon"></span>
-        <span class="caption">Inventory</span>
-        </a>
-    }
-    @if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
-    {
-        <a href="@Url.Action("Create", "capture_payments")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Receipt<br />Capture (POS)</span>
-        <span class="mif-tags icon"></span>
-        </a>
-        <a href="@Url.Action("Start", "issuedChecks")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Issue Payments</span>
-        <span class="mif-dollars icon"></span>
-        </a>
-        <a href='@Url.Action("Approvals", "issuedChecks")' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Approve<br />Payments</span>
-        <span class="mif-thumbs-up icon"></span>
-        </a>
-        <a href='#' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Approval List</span>
-        <span class="mif-user-check icon"></span>
-        </a>
-        <a href="@Url.Action("Orders", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Customer Orders</span>
-        <span class="mif-cart icon"></span>
-        </a>
-        <a href="@Url.Action("Inventory", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
-        <span class="caption" style="font-size:x-small;">Inventory</span>
-        <span class="mif-barcode icon"></span>
-        </a>
-    }
-    @if (ViewBag.URole == "approver")
-    {
-        <a href='@Url.Action("Approvals", "issuedChecks")' class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-thumbs-up icon"></span>
-        <span class="caption">Approve Payments</span>
-        </a>
-        <a href='#' class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-user-check icon"></span>
-        <span class="caption">Approval List</span>
-        </a>
-        <a href="@Url.Action("Orders", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-cart icon"></span>
-        <span class="caption">Customer Orders</span>
-        </a>
-        <a href="@Url.Action("Inventory", "Home")" class="image-button large rounded" style="text-decoration: none !important;">
-        <span class="mif-barcode icon"></span>
-        <span class="caption">Inventory</span>
-        </a>
-    }
+        @if (ViewBag.URole == "cashier")
+        {
+            <a href="@Url.Action("Create", "capture_payments")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Receipt<br />Capture (POS)</span>
+                <span class="mif-tags icon"></span>
+            </a>
+            <a href="@Url.Action("Start", "issuedChecks")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Issue Payments</span>
+                <span class="mif-dollars icon"></span>
+            </a>
+            <a href="@Url.Action("Orders", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Customer Orders</span>
+                <span class="mif-cart icon"></span>
+            </a>
+            <a href="@Url.Action("Inventory", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Inventory</span>
+                <span class="mif-barcode icon"></span>
+            </a>
+        }
+        @if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
+        {
+            <a href="@Url.Action("Create", "capture_payments")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Receipt<br />Capture (POS)</span>
+                <span class="mif-tags icon"></span>
+            </a>
+            <a href="@Url.Action("Start", "issuedChecks")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Issue Payments</span>
+                <span class="mif-dollars icon"></span>
+            </a>
+            <a href='@Url.Action("Approvals", "issuedChecks")' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Approve<br />Payments</span>
+                <span class="mif-thumbs-up icon"></span>
+            </a>
+            <a href='#' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Approval List</span>
+                <span class="mif-user-check icon"></span>
+            </a>
+            <a href="@Url.Action("Orders", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Customer Orders</span>
+                <span class="mif-cart icon"></span>
+            </a>
+            <a href="@Url.Action("Inventory", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Inventory</span>
+                <span class="mif-barcode icon"></span>
+            </a>
+        }
+        @if (ViewBag.URole == "approver")
+        {
+            <a href='@Url.Action("Approvals", "issuedChecks")' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Approve<br />Payments</span>
+                <span class="mif-thumbs-up icon"></span>
+            </a>
+            <a href='#' class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Approval List</span>
+                <span class="mif-user-check icon"></span>
+            </a>
+            <a href="@Url.Action("Orders", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Customer Orders</span>
+                <span class="mif-cart icon"></span>
+            </a>
+            <a href="@Url.Action("Inventory", "Home")" class="shortcut secondary outline rounded bg-white fg-grayBlue" style="text-decoration: none !important;">
+                <span class="caption" style="font-size:x-small;">Inventory</span>
+                <span class="mif-barcode icon"></span>
+            </a>
+        }
     </div>
 
 </div>
 <br />
-<div class="row"  id="app_styleBG">
+<div class="row" id="app_styleBG2">
     <div class="cell-lg-12">
         <h4>Forms ::</h4>
         @foreach (var v in (IEnumerable<VCAS.Models.VCAS_forms>)ViewBag.frms)
@@ -123,170 +126,193 @@
     </div>
 </div>
 <br />
-<div class="row"  id="app_styleBG2">
-    <div id="partialview1" class="cell-lg-6">
-        @Html.Action("DebitsChart", "debitTrans", new { d = 0 })
-    </div>
+<div class="row" id="app_styleBG2">
+    @if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
+    {
+        <div id="partialview1" class="cell-lg-6">
+            @Html.Action("DebitsChart", "debitTrans", new { d = 0 })
+        </div>
+    }
     <div id="partialview2" class="cell-lg-6">
         @Html.Action("CreditsChart", "creditTrans", new { d = 0 })
     </div>
 </div>
 <br />
-<div class="row"  id="app_styleBG2">
-    <div id="partialview2b" class="cell-lg-12">
-        @Html.Action("CreditsChart2", "creditTrans", new { d = 0 })
+@if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
+{
+    <div class="row" id="app_styleBG2">
+        <div id="partialview2b" class="cell-lg-12">
+            @Html.Action("CreditsChart2", "creditTrans", new { d = 0 })
+        </div>
     </div>
-</div>
-<br />
+    <br />
+}
 <div class="row" id="app_styleBG2">
-    <div id="partialview3" class="cell-lg-12" >
+    <div id="partialview3" class="cell-lg-12">
         @Html.Action("CreditsTable", "creditTrans")
     </div>
-    <hr style="        background-color: #bebebe !important; width: 50%;" />
-    <div id="partialview4" class="cell-lg-12">
-        @Html.Action("Index", "issuedChecks")
-    </div>
+    @if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
+    {
+        <hr style="background-color: #bebebe !important; width: 50%;" />
+        <div id="partialview4" class="cell-lg-12">
+            @Html.Action("Index", "issuedChecks")
+        </div>
+    }
 </div>
 
+
+@if (ViewBag.URole == "admin" || ViewBag.URole == "deputy_district_officer")
+{
+    <script type="text/javascript">
+        // Account Converter module
+        // ========================
+        function float2dollar(value)
+        {
+            return "EC$ " + (value).toFixed(2).replace(/\d(?= (\d{ 3})+\.)/g, '$&,');
+
+        }
+        document.getElementById('mainAcctAmt').innerHTML = float2dollar(@ViewBag.totAcct);
+    </script>
+}
 
 <script type="text/javascript">
     $(document).ready(function () {
 
-        // Default location
-        // =============================
-        var data_default = $('#council_select :selected').val();
+                    // Default location
+                    // =============================
+                    var data_default = $('#council_select :selected').val();
 
-        // Default Undeposit Funds
-        // ===============================
-        var uf_data = 0;
+                    // Default Undeposit Funds
+                    // ===============================
+                    var uf_data = 0;
         $.ajax({
-            url: '@Url.Action("IndexJSON", "undepositedFunds")?&loc=' + parseInt(data_default),
+                    url: '@Url.Action("IndexJSON", "undepositedFunds")?&loc=' + parseInt(data_default),
             type: "GET",
             success: function (result) {
                 $.each(result, function (k, v) {
 
                     for (var i in v.amount) {
-                        uf_data += v.amount;
-                        document.getElementById('undeposited_funds').innerHTML = "EC$ " + (uf_data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                    }
+                                    uf_data += v.amount;
+                                    document.getElementById('undeposited_funds').innerHTML = "EC$ " + (uf_data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                }
 
-                });
-            }
-        });
+                            });
+                        }
+                    });
 
-        // Deposit logic
-        // ================================
+                    // Deposit logic
+                    // ================================
 
 
 
-        // Organization innerHtml / Select logic
-        // ================================
-        var org = $("#org");
-        var council_select = $("#council_select");
-        org.text(council_select.children("option:selected").text() + " - ID# : " + council_select.val());
-        council_select.on('keyup change', function () {
-            org.text(council_select.children("option:selected").text() + " - ID# : " + council_select.val());
-        });
+                    // Organization innerHtml / Select logic
+                    // ================================
+                    var org = $("#org");
+                    var council_select = $("#council_select");
+                    org.text(council_select.children("option:selected").text() + " - ID# : " + council_select.val());
+                    council_select.on('keyup change', function () {
+                        org.text(council_select.children("option:selected").text() + " - ID# : " + council_select.val());
+                    });
 
         // Default Partial View Data Logic
         // ==============================
         $.ajax({
-            url: '@Url.Action("DebitsChart", "debitTrans")?&d=' + parseInt(data_default),
+                    url: '@Url.Action("DebitsChart", "debitTrans")?&d=' + parseInt(data_default),
             type: "GET",
             success: function (result) {
                 $("#partialview1").html(result);
-            }
-        });
+                        }
+                    });
         // ====
         $.ajax({
-            url: '@Url.Action("CreditsChart", "creditTrans")?&d=' + parseInt(data_default),
+                    url: '@Url.Action("CreditsChart", "creditTrans")?&d=' + parseInt(data_default),
             type: "GET",
             success: function (result) {
                 $("#partialview2").html(result);
-            }
-        });
+                        }
+                    });
         // ====
         $.ajax({
-            url: '@Url.Action("CreditsChart2", "creditTrans")?&d=' + parseInt(data_default),
+                    url: '@Url.Action("CreditsChart2", "creditTrans")?&d=' + parseInt(data_default),
             type: "GET",
             success: function (result) {
                 $("#partialview2b").html(result);
-            }
-        });
+                        }
+                    });
         // ====
         $.ajax({
-            url: '@Url.Action("CreditsTable", "creditTrans")?&d=' + parseInt(data_default),
+                    url: '@Url.Action("CreditsTable", "creditTrans")?&d=' + parseInt(data_default),
             type: "GET",
             success: function (result) {
                 $("#partialview3").html(result);
-            }
-        });
+                        }
+                    });
         // ====
         $.ajax({
-            url: '@Url.Action("Index", "issuedChecks")?&d=' + parseInt(data_default),
+                    url: '@Url.Action("Index", "issuedChecks")?&d=' + parseInt(data_default),
             type: "GET",
             success: function (result) {
                 $("#partialview4").html(result);
-            }
-        });
+                        }
+                    });
 
         // Partial View Data Logic
         // ==============================
         $("#council_select").change(function () {
-            var data = $(this).val();
+                        var data = $(this).val();
             // ====
             $.ajax({
-                url: '@Url.Action("DebitsChart", "debitTrans")?&d=' + parseInt(data),
+                        url: '@Url.Action("DebitsChart", "debitTrans")?&d=' + parseInt(data),
                 type: "GET",
                 success: function (result) {
                     $("#partialview1").html(result);
-                }
-            });
+                            }
+                        });
             // ====
             $.ajax({
-                url: '@Url.Action("CreditsChart", "creditTrans")?&d=' + parseInt(data),
+                        url: '@Url.Action("CreditsChart", "creditTrans")?&d=' + parseInt(data),
                 type: "GET",
                 success: function (result) {
                     $("#partialview2").html(result);
-                }
-            });
+                            }
+                        });
             // ====
             $.ajax({
-                url: '@Url.Action("CreditsChart2", "creditTrans")?&d=' + parseInt(data),
+                        url: '@Url.Action("CreditsChart2", "creditTrans")?&d=' + parseInt(data),
                 type: "GET",
                 success: function (result) {
                     $("#partialview2b").html(result);
-                }
-            });
+                            }
+                        });
             // ====
             $.ajax({
-                url: '@Url.Action("CreditsTable", "creditTrans")?&d=' + parseInt(data),
+                        url: '@Url.Action("CreditsTable", "creditTrans")?&d=' + parseInt(data),
                 type: "GET",
                 success: function (result) {
                     $("#partialview3").html(result);
-                }
-            });
+                            }
+                        });
             // ====
             $.ajax({
-                url: '@Url.Action("Index", "issuedChecks")?&d=' + parseInt(data),
+                        url: '@Url.Action("Index", "issuedChecks")?&d=' + parseInt(data),
                 type: "GET",
                 success: function (result) {
                     $("#partialview4").html(result);
-                }
-            });
+                            }
+                        });
 
-            // ====
-            var uf_data = 0; // Undeposit Funds
+                        // ====
+                        var uf_data = 0; // Undeposit Funds
             $.ajax({
-                url: '@Url.Action("IndexJSON", "undepositedFunds")?&loc=' + parseInt(data),
+                        url: '@Url.Action("IndexJSON", "undepositedFunds")?&loc=' + parseInt(data),
                 type: "GET",
                 success: function (result) {
                     $.each(result, function (k, v) {
-                        uf_data += v.amount;
+                                    uf_data += v.amount;
+                                });
+                                document.getElementById('undeposited_funds').innerHTML = "EC$ " + (uf_data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                            }
+                        });
                     });
-                    document.getElementById('undeposited_funds').innerHTML = "EC$ " + (uf_data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                }
-            });
-        });
-    });
+                });
 </script>

@@ -26,10 +26,10 @@ namespace VCAS.Controllers
             var vCAS_REF_forms = db.VCAS_REF_forms.Include(v => v.VCAS_forms);
             return View(vCAS_REF_forms.ToList());
         }
-        public ActionResult IndexPartial()
+        public ActionResult IndexPartial(int? id)
 
         {
-            var vCAS_REF_forms = db.VCAS_REF_forms.Include(v => v.VCAS_forms);
+            var vCAS_REF_forms = db.VCAS_REF_forms.Include(v => v.VCAS_forms).Where(x => x.FK_formsId == id);
             return PartialView("_formsDataTable", vCAS_REF_forms.ToList());
         }
 
@@ -75,10 +75,9 @@ namespace VCAS.Controllers
             {
 
                 db.VCAS_REF_forms.Add(vCAS_REF_forms);
-
                 db.SaveChanges();
 
-                return RedirectToAction("Complete", "forms", null);
+                return RedirectToAction("Complete", "forms", new { id = vCAS_REF_forms.FK_formsId});
             }
 
 

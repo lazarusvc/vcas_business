@@ -3,7 +3,7 @@
 }
 
 <h5>Income <span class="fg-grayBlue" style="border-bottom: 1px dashed; width: 20%; font-size: 12px;">- total received for : @DateTime.Today.ToString("MMMM yyyy")</span></h5>
-<canvas id="linecanvas"></canvas>
+<canvas id="linecanvas" style="width:100%;"></canvas>
 
 <script>
 $(document).ready(function () {
@@ -46,8 +46,8 @@ function float2dollar(value) {
                 options: {
                         tooltips: {
                             enabled: true
-                        },
-                        responsive: true
+                    },
+                    responsive: false
                 }
             });
         }

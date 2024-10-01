@@ -576,7 +576,7 @@ namespace VCAS.Controllers
         // GET: issuedChecks/CreateApproved
         // CREATE PAGE
         // ***********************************************************
-        [CustomAuthorize(Roles = "admin, approver")]
+        [CustomAuthorize(Roles = "cashier, admin, approver")]
         public ActionResult CreateApproved()
         {
             // Fixed location

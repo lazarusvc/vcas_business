@@ -63,6 +63,9 @@ namespace VCAS.Controllers
             // Location ID
             ViewBag.loc = GlobalSession.Location;
 
+            // Account total
+            ViewBag.totAcct = db.VCAS_debitAccounts.Where(x => x.FK_location == GlobalSession.Location).Select(x => x.amount).Sum();
+
             return View();
         }
 

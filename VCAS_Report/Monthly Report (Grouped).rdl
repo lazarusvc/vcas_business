@@ -27,12 +27,13 @@
             <Value>=Parameters!date2.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>SELECT VCAS_capture_payments.datetime, 
+        <CommandText>SELECT DISTINCT 
+VCAS_capture_payments.receiptNo,
+VCAS_capture_payments.datetime, 
 VCAS_capture_payments.payer, 
-VCAS_capture_payments.amount, 
+VCAS_inventory.unitPrice as amount, 
 VCAS_capture_payments.checkNo, 
-VCAS_capture_payments.comment, 
-VCAS_capture_payments.receiptNo, 
+VCAS_capture_payments.comment,  
 VCAS_capture_payments.issuer, 
 VCAS_capture_payments.voidCheck, 
 VCAS_council.name, 
@@ -41,16 +42,16 @@ VCAS_REF_items.name AS [Sales Items],
 VCAS_REF_bank_details.name AS [Bank Details], 
 VCAS_capture_payments.FK_location,
 VCAS_council.receipt_logo
-FROM VCAS_capture_payments INNER JOIN
-VCAS_REF_payment_type ON 
-VCAS_capture_payments.FK_paymentType = VCAS_REF_payment_type.Id INNER JOIN
-VCAS_REF_items ON VCAS_capture_payments.FK_items = VCAS_REF_items.Id INNER JOIN
-VCAS_REF_bank_details ON 
-VCAS_capture_payments.FK_bankDetails = VCAS_REF_bank_details.Id INNER JOIN
-VCAS_council ON VCAS_capture_payments.FK_location = VCAS_council.Id
+FROM VCAS_capture_payments 
+INNER JOIN VCAS_REF_payment_type ON VCAS_capture_payments.FK_paymentType = VCAS_REF_payment_type.Id 
+INNER JOIN VCAS_REF_items ON VCAS_capture_payments.FK_items = VCAS_REF_items.Id 
+INNER JOIN VCAS_REF_bank_details ON VCAS_capture_payments.FK_bankDetails = VCAS_REF_bank_details.Id 
+INNER JOIN VCAS_council ON VCAS_capture_payments.FK_location = VCAS_council.Id 
+INNER JOIN VCAS_inventory ON VCAS_inventory.FK_REF_itemsId = VCAS_capture_payments.FK_items
 WHERE (VCAS_capture_payments.FK_location = @loc) AND 
+VCAS_capture_payments.comment like '%' + VCAS_inventory.name + '%' AND
 (VCAS_capture_payments.datetime between @date AND @date2)
-ORDER BY VCAS_capture_payments.datetime</CommandText>
+ORDER BY VCAS_capture_payments.receiptNo</CommandText>
       </Query>
       <Fields>
         <Field Name="datetime">

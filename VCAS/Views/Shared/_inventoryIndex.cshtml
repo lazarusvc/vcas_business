@@ -87,15 +87,15 @@
                     <img src="@item.image" width="100" />
                 </td>
                 <td>
-                    @{ var stockPercentage = item.currentStock / item.startStock * 100; }
+                    @{ var stockPercentage = Convert.ToDouble(item.currentStock / item.startStock * 100); }
 
                     @if (item.currentStock / item.startStock < 0.5)
                     {
-                        <div class="fg-red"><span class="mif-arrow-drop-down"></span><strong>@stockPercentage%</strong></div> 
+                        <div class="fg-red"><span class="mif-arrow-drop-down"></span><strong>@Math.Round(stockPercentage, 0)%</strong></div> 
                     }
                     else
                     {
-                        <div class="fg-green"><span class="mif-arrow-drop-up"></span><strong>@stockPercentage%</strong></div>
+                        <div class="fg-green"><span class="mif-arrow-drop-up"></span><strong>@Math.Round(stockPercentage, 0)%</strong></div>
                     }
                 </td>
                 <td>

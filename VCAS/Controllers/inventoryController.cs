@@ -33,6 +33,13 @@ namespace VCAS.Controllers
                 (@"SELECT * FROM VCAS_inventory 
                  WHERE FK_REF_itemsId = '" + it + "' AND FK_location = '" + l + "' "), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Json2(int? l)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.Database.SqlQuery<VCAS_inventory>
+                (@"SELECT * FROM VCAS_inventory 
+                 WHERE FK_location = '" + l + "' AND partNumber IS NOT NULL"), JsonRequestBehavior.AllowGet);
+        }
 
         // GET Partial: inventory
         public ActionResult IndexPartial()

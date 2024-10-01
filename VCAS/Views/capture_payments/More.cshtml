@@ -20,7 +20,7 @@
     <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
         <h3 class="fg-gray">Receipt Capture</h3>
         <div class="row">
-            <div class="cell-lg-6"  style="overflow-y: scroll; max-height: 500px; height: 500px;">
+            <div class="cell-lg-6">
                 <div class="remark">
                     @Html.HiddenFor(model => model.invoice, new { @Value = false })
                     @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
@@ -29,6 +29,8 @@
                     @Html.ValidationMessageFor(model => model.issuer, "", new { @class = "fg-magenta" })
                     @Html.EditorFor(model => model.receiptNo, new { htmlAttributes = new { data_role = "input", data_prepend = "Receipt No:", @Value = ViewBag.recNo, placeholder = ViewBag.recNo, @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.receiptNo, "", new { @class = "fg-magenta" })
+
+                    <label class="fg-darkBlue">Date:</label>
                     @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
                     @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
                 </div>
@@ -47,7 +49,7 @@
                             @Html.ValidationMessageFor(model => model.FK_items, "", new { @class = "fg-magenta" })
                             <br />
                             <div class="sales_inventory">
-                                <div id="invTile" data-role="tile" data-size="small" onclick="tileData(0)">
+                                <div id="invTile" data-role="tile" data-size="medium" onclick="tileData(0)">
                                     <span class="mif-tags icon"></span>
                                     <span class="branding-bar">...</span>
                                     <span class="badge-top">0</span>
@@ -180,6 +182,7 @@
         var payer = $("#payer");
         var checkNo = $("#checkNo");
         var amount = $("#amount");
+        var amount_received = $("#recieved_amount");
         var item = $("#FK_items");
         var bank = $("#FK_bankDetails");
         var payment = $("#FK_paymentType");
@@ -239,6 +242,14 @@
             $("#REC-amount").html('$' + amount.val());
             $("#REC-total").html('$' + amount.val());
         });
+        // amount_received
+        var bal = 0;
+        amount_received.on('keyup change', function () {
+            $("#REC-payment").html('$' + amount_received.val());
+
+            bal = amount.val() - amount_received.val();
+            $("#REC-balance").html('$' + bal);
+        });
         // comment
         comment.on('keyup change', function () {
             $("#REC-comments").html('<hr class="bg-gray" width="50" /><br/>' + comment.val());
@@ -278,7 +289,7 @@
                         iName = v.name;
                         iPrice = v.sellingPrice;
                         html += '<div data-role="tile"  onclick="tileData(\'' + iPrice + '\', \'' + v.Id + '\', \'' + v.FK_REF_itemsId + '\')" ';
-                        html += "data-size='small'>";
+                        html += "data-size='medium'>";
                         html += "<span class='mif-tags icon'></span>";
                         html += "<span class='branding-bar'>" + iName + "</span>";
                         html += "<span class='badge-top'>" + iPrice + "</span>";
