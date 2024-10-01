@@ -171,7 +171,7 @@ namespace VCAS.Controllers
         // ======================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice")] VCAS_capture_payments vCAS_capture_payments, FormCollection form) 
+        public ActionResult Create([Bind(Include = "Id,datetime,payer,payerID,orderID,amount,recieved_amount,checkNo,comment,receiptNo,issuer,FK_paymentType,FK_bankDetails,FK_items,FK_location,invoice,recieved_amount")] VCAS_capture_payments vCAS_capture_payments, FormCollection form) 
         {
             if (ModelState.IsValid)
             {
