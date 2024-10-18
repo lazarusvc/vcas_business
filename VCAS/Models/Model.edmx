@@ -144,6 +144,10 @@
           <Property Name="dateModified" Type="datetime" Nullable="false" />
           <Property Name="FK_location" Type="int" Nullable="false" />
           <Property Name="FK_REF_userRolesId" Type="int" Nullable="false" />
+          <Property Name="calendarTitle" Type="nvarchar(max)" />
+          <Property Name="calendarStartDate" Type="nvarchar(max)" />
+          <Property Name="calendarEndDate" Type="nvarchar(max)" />
+          <Property Name="calendarEventColor" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="VCAS_inventory">
           <Key>
@@ -394,18 +398,6 @@
           <Property Name="email" Type="nvarchar(max)" />
           <Property Name="password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FK_userRolesId" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_inventoryItems">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="FK_councilId" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="FK_councilId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_VCAS_capture_paymentsVCAS_creditTrans">
           <End Role="VCAS_capture_payments" Type="Self.VCAS_capture_payments" Multiplicity="1" />
@@ -859,13 +851,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <EntitySet Name="VCAS_supportDocs" EntityType="Self.VCAS_supportDocs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_undepositedFunds" EntityType="Self.VCAS_undepositedFunds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_users" EntityType="Self.VCAS_users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="vw_inventoryItems" EntityType="Self.vw_inventoryItems" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_inventoryItems].[Id] AS [Id], 
-    [vw_inventoryItems].[name] AS [name], 
-    [vw_inventoryItems].[FK_councilId] AS [FK_councilId]
-    FROM [dbo].[vw_inventoryItems] AS [vw_inventoryItems]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_VCAS_capture_paymentsVCAS_creditTrans" Association="Self.FK_VCAS_capture_paymentsVCAS_creditTrans">
             <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
             <End Role="VCAS_creditTrans1" EntitySet="VCAS_creditTrans1" />
@@ -1090,19 +1075,10 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <Parameter Name="startDate" Mode="In" Type="String" />
             <Parameter Name="endDate" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="VCAS_forms" EntityType="Model.VCAS_forms" />
-          <AssociationSet Name="VCAS_REF_userRolesVCAS_forms" Association="Model.VCAS_REF_userRolesVCAS_forms">
-            <End Role="VCAS_REF_userRoles" EntitySet="VCAS_REF_userRoles" />
-            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
-          </AssociationSet>
           <EntitySet Name="VCAS_council" EntityType="Model.VCAS_council" />
           <AssociationSet Name="FK_VCAS_councilVCAS_district" Association="Model.FK_VCAS_councilVCAS_district">
             <End EntitySet="VCAS_council" Role="VCAS_council" />
             <End EntitySet="VCAS_district" Role="VCAS_district" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VCAS_councilVCAS_forms" Association="Model.FK_VCAS_councilVCAS_forms">
-            <End EntitySet="VCAS_council" Role="VCAS_council" />
-            <End EntitySet="VCAS_forms" Role="VCAS_forms" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_councilVCAS_issuedChecks" Association="Model.FK_VCAS_councilVCAS_issuedChecks">
             <End EntitySet="VCAS_council" Role="VCAS_council" />
@@ -1121,10 +1097,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <End EntitySet="VCAS_REF_reports_params" Role="VCAS_REF_reports_params" />
           </AssociationSet>
           <EntitySet Name="VCAS_REF_forms" EntityType="Model.VCAS_REF_forms" />
-          <AssociationSet Name="FK_VCAS_formsVCAS_REF_forms" Association="Model.FK_VCAS_formsVCAS_REF_forms">
-            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
-            <End Role="VCAS_REF_forms" EntitySet="VCAS_REF_forms" />
-          </AssociationSet>
           <EntitySet Name="VCAS_inventory" EntityType="Model.VCAS_inventory" />
           <EntitySet Name="VCAS_orders" EntityType="Model.VCAS_orders" />
           <AssociationSet Name="FK_VCAS_councilVCAS_inventory" Association="Model.FK_VCAS_councilVCAS_inventory">
@@ -1213,27 +1185,30 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <End EntitySet="VCAS_council" Role="VCAS_council" />
             <End EntitySet="VCAS_undepositedFunds" Role="VCAS_undepositedFunds" />
           </AssociationSet>
-          <FunctionImport Name="usp_UpdateUndepositedFundsStatus1">
-            <Parameter Name="loc" Mode="In" Type="Int32" />
-            <Parameter Name="dID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_UpdateStock">
             <Parameter Name="item" Mode="In" Type="Int32" />
             <Parameter Name="loc" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="vw_inventoryItems" EntityType="Model.vw_inventoryItems" />
           <EntitySet Name="VCAS_customer" EntityType="Model.VCAS_customer" />
           <AssociationSet Name="FK_VCAS_customerVCAS_orders" Association="Model.FK_VCAS_customerVCAS_orders">
             <End Role="VCAS_customer" EntitySet="VCAS_customer" />
             <End Role="VCAS_orders" EntitySet="VCAS_orders" />
           </AssociationSet>
-          <FunctionImport Name="usp_UpdateStock1">
-            <Parameter Name="item" Mode="In" Type="Int32" />
-            <Parameter Name="loc" Mode="In" Type="Int32" />
-            <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="VCAS_inventory_AUDIT" EntityType="Model.VCAS_inventory_AUDIT" />
+          <EntitySet Name="VCAS_forms" EntityType="Model.VCAS_forms" />
+          <AssociationSet Name="FK_VCAS_councilVCAS_forms" Association="Model.FK_VCAS_councilVCAS_forms">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_formsVCAS_REF_forms" Association="Model.FK_VCAS_formsVCAS_REF_forms">
+            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
+            <End Role="VCAS_REF_forms" EntitySet="VCAS_REF_forms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_REF_userRolesVCAS_forms" Association="Model.FK_VCAS_REF_userRolesVCAS_forms">
+            <End Role="VCAS_REF_userRoles" EntitySet="VCAS_REF_userRoles" />
+            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="VCAS_debitTrans">
           <Key>
@@ -1310,7 +1285,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <NavigationProperty Name="VCAS_users" Relationship="Model.VCAS_REF_userRolesVCAS_users" FromRole="VCAS_REF_userRoles" ToRole="VCAS_users" />
           <NavigationProperty Name="VCAS_REF_reports" Relationship="Model.VCAS_REF_userRolesVCAS_REF_reports" FromRole="VCAS_REF_userRoles" ToRole="VCAS_REF_reports" />
           <NavigationProperty Name="VCAS_supportDocs" Relationship="Model.VCAS_REF_userRolesVCAS_supportDocs" FromRole="VCAS_REF_userRoles" ToRole="VCAS_supportDocs" />
-          <NavigationProperty Name="VCAS_forms" Relationship="Model.VCAS_REF_userRolesVCAS_forms" FromRole="VCAS_REF_userRoles" ToRole="VCAS_forms" />
+          <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_REF_userRolesVCAS_forms" FromRole="VCAS_REF_userRoles" ToRole="VCAS_forms" />
         </EntityType>
         <Association Name="VCAS_REF_userRolesVCAS_users">
           <End Type="Model.VCAS_REF_userRoles" Role="VCAS_REF_userRoles" Multiplicity="1" />
@@ -1579,33 +1554,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Type="String" Name="signature" Nullable="true" />
           <Property Type="String" Name="attach_ID" Nullable="true" />
         </ComplexType>
-        <EntityType Name="VCAS_forms">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="desc" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
-          <Property Name="form" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="dateModified" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FK_location" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="VCAS_REF_userRoles" Relationship="Model.VCAS_REF_userRolesVCAS_forms" FromRole="VCAS_forms" ToRole="VCAS_REF_userRoles" />
-          <Property Name="FK_REF_userRolesId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_forms" ToRole="VCAS_council" />
-          <NavigationProperty Name="VCAS_REF_forms" Relationship="Model.FK_VCAS_formsVCAS_REF_forms" FromRole="VCAS_forms" ToRole="VCAS_REF_forms" />
-        </EntityType>
-        <Association Name="VCAS_REF_userRolesVCAS_forms">
-          <End Type="Model.VCAS_REF_userRoles" Role="VCAS_REF_userRoles" Multiplicity="1" />
-          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_REF_userRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_forms">
-              <PropertyRef Name="FK_REF_userRolesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="VCAS_council">
           <Key>
             <PropertyRef Name="Id" />
@@ -1620,7 +1568,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Name="receipt_header" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="app_cover" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="VCAS_district" Relationship="Model.FK_VCAS_councilVCAS_district" FromRole="VCAS_council" ToRole="VCAS_district" />
-          <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_council" ToRole="VCAS_forms" />
           <NavigationProperty Name="VCAS_issuedChecks" Relationship="Model.FK_VCAS_councilVCAS_issuedChecks" FromRole="VCAS_council" ToRole="VCAS_issuedChecks" />
           <NavigationProperty Name="VCAS_REF_expense_location" Relationship="Model.FK_VCAS_councilVCAS_REF_expense_location" FromRole="VCAS_council" ToRole="VCAS_REF_expense_location" />
           <NavigationProperty Name="VCAS_REF_items_location" Relationship="Model.FK_VCAS_councilVCAS_REF_items_location" FromRole="VCAS_council" ToRole="VCAS_REF_items_location" />
@@ -1635,6 +1582,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Name="twilio_TOKEN" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="twilio_NUMBER" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="twilio_XML" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_council" ToRole="VCAS_forms" />
           </EntityType>
         <Association Name="FK_VCAS_councilVCAS_district">
           <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
@@ -1644,18 +1592,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="VCAS_district">
-              <PropertyRef Name="FK_location" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_councilVCAS_forms">
-          <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
-          <End Type="Model.VCAS_forms" Multiplicity="*" Role="VCAS_forms" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_council">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_forms">
               <PropertyRef Name="FK_location" />
             </Dependent>
           </ReferentialConstraint>
@@ -1744,18 +1680,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Name="signatureBox" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_formsVCAS_REF_forms" FromRole="VCAS_REF_forms" ToRole="VCAS_forms" />
         </EntityType>
-        <Association Name="FK_VCAS_formsVCAS_REF_forms">
-          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="1" />
-          <End Type="Model.VCAS_REF_forms" Role="VCAS_REF_forms" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_forms">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_REF_forms">
-              <PropertyRef Name="FK_formsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="VCAS_inventory">
           <Key>
             <PropertyRef Name="Id" />
@@ -2115,16 +2039,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="vw_inventoryItems">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="FK_councilId" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FK_councilId" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="VCAS_customer">
           <Key>
             <PropertyRef Name="Id" />
@@ -2162,6 +2076,61 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Name="FK_REF_itemsId" Type="Int32" />
           <Property Name="datetime" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="VCAS_forms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="form" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FK_location" Type="Int32" Nullable="false" />
+          <Property Name="FK_REF_userRolesId" Type="Int32" Nullable="false" />
+          <Property Name="calendarTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="calendarStartDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="calendarEndDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="calendarEventColor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_forms" ToRole="VCAS_council" />
+          <NavigationProperty Name="VCAS_REF_forms" Relationship="Model.FK_VCAS_formsVCAS_REF_forms" FromRole="VCAS_forms" ToRole="VCAS_REF_forms" />
+          <NavigationProperty Name="VCAS_REF_userRoles" Relationship="Model.FK_VCAS_REF_userRolesVCAS_forms" FromRole="VCAS_forms" ToRole="VCAS_REF_userRoles" />
+        </EntityType>
+        <Association Name="FK_VCAS_councilVCAS_forms">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_forms">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_formsVCAS_REF_forms">
+          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="1" />
+          <End Type="Model.VCAS_REF_forms" Role="VCAS_REF_forms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_forms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_REF_forms">
+              <PropertyRef Name="FK_formsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_REF_userRolesVCAS_forms">
+          <End Type="Model.VCAS_REF_userRoles" Role="VCAS_REF_userRoles" Multiplicity="1" />
+          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_REF_userRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_forms">
+              <PropertyRef Name="FK_REF_userRolesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2364,19 +2333,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="desc" ColumnName="desc" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="VCAS_forms">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_forms)">
-        <MappingFragment StoreEntitySet="VCAS_forms">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="desc" ColumnName="desc" />
-          <ScalarProperty Name="form" ColumnName="form" />
-          <ScalarProperty Name="dateModified" ColumnName="dateModified" />
-          <ScalarProperty Name="FK_location" ColumnName="FK_location" />
-          <ScalarProperty Name="FK_REF_userRolesId" ColumnName="FK_REF_userRolesId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -2588,10 +2544,18 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-          <EntitySetMapping Name="vw_inventoryItems">
-            <EntityTypeMapping TypeName="IsTypeOf(Model.vw_inventoryItems)">
-              <MappingFragment StoreEntitySet="vw_inventoryItems">
-                <ScalarProperty Name="FK_councilId" ColumnName="FK_councilId" />
+          <EntitySetMapping Name="VCAS_forms">
+            <EntityTypeMapping TypeName="Model.VCAS_forms">
+              <MappingFragment StoreEntitySet="VCAS_forms">
+                <ScalarProperty Name="calendarEventColor" ColumnName="calendarEventColor" />
+                <ScalarProperty Name="calendarEndDate" ColumnName="calendarEndDate" />
+                <ScalarProperty Name="calendarStartDate" ColumnName="calendarStartDate" />
+                <ScalarProperty Name="calendarTitle" ColumnName="calendarTitle" />
+                <ScalarProperty Name="FK_REF_userRolesId" ColumnName="FK_REF_userRolesId" />
+                <ScalarProperty Name="FK_location" ColumnName="FK_location" />
+                <ScalarProperty Name="dateModified" ColumnName="dateModified" />
+                <ScalarProperty Name="form" ColumnName="form" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

@@ -41,15 +41,23 @@ public partial class VCAS_forms
 
     public int FK_REF_userRolesId { get; set; }
 
+    public string calendarTitle { get; set; }
+
+    public string calendarStartDate { get; set; }
+
+    public string calendarEndDate { get; set; }
+
+    public string calendarEventColor { get; set; }
 
 
-    public virtual VCAS_REF_userRoles VCAS_REF_userRoles { get; set; }
 
     public virtual VCAS_council VCAS_council { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<VCAS_REF_forms> VCAS_REF_forms { get; set; }
+
+    public virtual VCAS_REF_userRoles VCAS_REF_userRoles { get; set; }
 
 }
 

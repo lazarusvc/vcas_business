@@ -14,10 +14,6 @@ border-radius: 8px;
 font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.vc-form fieldset {
-border: none;
-}
-
 .vc-form legend {
 font-size: 1.4em;
 margin-bottom: 10px;
@@ -110,4 +106,11 @@ margin-bottom: 10px;
 .vc-form input[type="submit"]:hover,
 .vc-form input[type="button"]:hover {
     background: #109177;
+}
+
+.vc-form fieldset {
+    border-width: 1px !important;
+    border-color: black;
+    border-style: dashed;
+    padding: 10px;
 }

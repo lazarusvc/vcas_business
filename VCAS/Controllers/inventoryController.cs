@@ -71,7 +71,7 @@ namespace VCAS.Controllers
         // GET: inventory/Create
         public ActionResult Create()
         {
-            ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
+           // ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
             ViewBag.FK_location = GlobalSession.Location;
             return View();
         }
@@ -105,7 +105,7 @@ namespace VCAS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
+            //ViewBag.FK_REF_itemsId = new SelectList(db.vw_inventoryItems.Where(x => x.FK_councilId == GlobalSession.Location), "Id", "name");
             ViewBag.FK_location = GlobalSession.Location;
             return View(vCAS_inventory);
         }

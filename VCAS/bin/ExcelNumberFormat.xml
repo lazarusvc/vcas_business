@@ -11,6 +11,32 @@
             To always format numbers the same way, no matter what version of runtime is used, we specify the precision explicitly.
             </summary>
         </member>
+        <member name="T:ExcelNumberFormat.ExcelDateTime">
+            <summary>
+            Similar to regular .NET DateTime, but also supports 0/1 1900 and 29/2 1900.
+            </summary>
+        </member>
+        <member name="P:ExcelNumberFormat.ExcelDateTime.AdjustedDateTime">
+            <summary>
+            The closest .NET DateTime to the specified excel date. 
+            </summary>
+        </member>
+        <member name="P:ExcelNumberFormat.ExcelDateTime.AdjustDaysPost">
+            <summary>
+            Number of days to adjust by in post.
+            </summary>
+        </member>
+        <member name="M:ExcelNumberFormat.ExcelDateTime.#ctor(System.Double,System.Boolean)">
+            <summary>
+            Constructs a new ExcelDateTime from a numeric value.
+            </summary>
+        </member>
+        <member name="M:ExcelNumberFormat.ExcelDateTime.#ctor(System.DateTime)">
+            <summary>
+            Wraps a regular .NET datetime.
+            </summary>
+            <param name="value"></param>
+        </member>
         <member name="M:ExcelNumberFormat.Formatter.FormatThousands(System.String,System.Boolean,System.Boolean,System.Collections.Generic.List{System.String},System.Globalization.CultureInfo,System.Text.StringBuilder)">
             <summary>
             Prints right-aligned, left-padded integer before the decimal separator. With optional most-significant zero.
@@ -65,12 +91,13 @@
             Gets a value indicating whether the format represents a TimeSpan
             </summary>
         </member>
-        <member name="M:ExcelNumberFormat.NumberFormat.Format(System.Object,System.Globalization.CultureInfo)">
+        <member name="M:ExcelNumberFormat.NumberFormat.Format(System.Object,System.Globalization.CultureInfo,System.Boolean)">
             <summary>
             Formats a value with this number format in a specified culture.
             </summary>
             <param name="value">The value to format.</param>
             <param name="culture">The culture to use for formatting.</param>
+            <param name="isDate1904">If false, numeric dates start on January 0 1900 and include February 29 1900 - like Excel on PC. If true, numeric dates start on January 1 1904 - like Excel on Mac.</param>
             <returns>The formatted string.</returns>
         </member>
         <member name="M:ExcelNumberFormat.Parser.ParseNumberTokens(System.Collections.Generic.List{System.String},System.Int32,System.Collections.Generic.List{System.String}@,System.Boolean@,System.Collections.Generic.List{System.String}@)">

@@ -34,6 +34,7 @@
     @Styles.Render("~/Content/metro")
     @Styles.Render("~/Content/form")
     @Styles.Render("~/Content/select2")
+    @Styles.Render("~/Content/fullcalendar")
     <!-- Global JS ======================================================== -->
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -42,16 +43,12 @@
     @Scripts.Render("~/bundles/phoneNumber")
     @Scripts.Render("~/bundles/main-index")
     @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/fullcalendar")
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.0/dist/chart.min.js"></script>
     @RenderSection("scripts", required: false)
 </head>
-<body class="bg-gray">
+<body class="bg-gray h-vh-100">
 
-    <!-- LOADER ========================================================= -->
-    <div id="loader">
-        <img src="~/Content/loader.gif" />
-        <p align="center" class="fg-grayBlue"><strong>Please wait!<br />Loading ... </strong></p>
-    </div>
 
     <!-- NAV HEADER ===================================================== -->
     <header class="app-bar bg-grayBlue fg-white" data-role="appbar" data-expand="true">
@@ -67,9 +64,17 @@
             <a href='@Url.Action("Help", "Home")' class="app-bar-item text-upper"><span class="icon mif-help"></span>&nbsp;Help & Support</a>
             <a href="#" class="app-bar-item text-upper fg-yellow text-bold"><span class="icon mif-notification"></span>&nbsp;Notifications</a>
             <!-- TODO Implement DB Trigger Notifications ======================================================================
-                <a href="#" class="app-bar-item text-upper fg-yellow text-bold"><span class="icon mif-notification"></span> Notifications <span class="badge">1</span></a>
-            -->
+            <a href="#" class="app-bar-item text-upper fg-yellow text-bold"><span class="icon mif-notification"></span> Notifications <span class="badge">1</span></a>
+        -->
             <a href="#" class="app-bar-item text-upper"><span class="mif-whatsapp"></span>&nbsp;Chat</a>
+        </div>
+        <!-- LOADER ========================================================= -->
+        <div id="loader">
+            @*
+            <img src="~/Content/loader.gif" />
+            <p align="center" class="fg-grayBlue"><strong>Please wait!<br />Loading ... </strong></p>
+            *@
+            <div data-role="progress" data-type="line" data-small="true"></div>
         </div>
     </header>
 

@@ -67,6 +67,13 @@ namespace VCAS
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
                     "~/Scripts/select2.min.js"
                 ));
+
+            bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
+                "~/Scripts/moment.js",
+                "~/Scripts/fullcalendar*"));
+
+            bundles.Add(new StyleBundle("~/Content/fullcalendar").Include(
+                "~/Content/fullcalendar.css"));
         }
     }
 }

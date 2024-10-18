@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a9d0a18fde104a4eb3a53d7ec3bc8fbb" Name="Diagram1" ZoomLevel="25" >
+      <Diagram DiagramId="a9d0a18fde104a4eb3a53d7ec3bc8fbb" Name="Diagram1" ZoomLevel="62" >
         <EntityTypeShape EntityType="Model.VCAS_debitTrans" Width="2.25" PointX="2.875" PointY="7.75" />
         <EntityTypeShape EntityType="Model.VCAS_creditTrans" Width="2.25" PointX="5.5" PointY="7.75" />
         <EntityTypeShape EntityType="Model.VCAS_REF_payment_type" Width="2.125" PointX="8.875" PointY="6.5" FillColor="Green" />
@@ -32,17 +32,13 @@
         <EntityTypeShape EntityType="Model.VCAS_REF_order_status" Width="2.375" PointX="19.75" PointY="5.375" FillColor="Green" />
         <EntityTypeShape EntityType="Model.VCAS_REF_items" Width="2.125" PointX="8.75" PointY="10.375" FillColor="Green" />
         <AssociationConnector Association="Model.FK_VCAS_REF_itemsVCAS_REF_items_location" />
-        <EntityTypeShape EntityType="Model.VCAS_forms" Width="2.5" PointX="13" PointY="16.25" FillColor="Yellow" />
-        <AssociationConnector Association="Model.VCAS_REF_userRolesVCAS_forms" />
         <EntityTypeShape EntityType="Model.VCAS_council" PointX="8.875" PointY="0.5" Width="3" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_district" />
-        <AssociationConnector Association="Model.FK_VCAS_councilVCAS_forms" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_issuedChecks" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_REF_expense_location" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_REF_items_location" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_REF_reports_params" />
         <EntityTypeShape EntityType="Model.VCAS_REF_forms" Width="2.625" PointX="16.25" PointY="15.375" FillColor="Yellow" />
-        <AssociationConnector Association="Model.FK_VCAS_formsVCAS_REF_forms" />
         <EntityTypeShape EntityType="Model.VCAS_inventory" Width="1.875" PointX="28.25" PointY="5.75" />
         <EntityTypeShape EntityType="Model.VCAS_orders" Width="2" PointX="25.875" PointY="5.75" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_inventory" />
@@ -63,14 +59,17 @@
         <AssociationConnector Association="Model.FK_VCAS_debitAccountsVCAS_issuedChecks" />
         <AssociationConnector Association="Model.FK_VCAS_debitAccountsVCAS_reconcile" />
         <AssociationConnector Association="Model.FK_VCAS_REF_payment_typeVCAS_debitAccounts" />
-        <EntityTypeShape EntityType="Model.VCAS_deposit" Width="2.25" PointX="12.875" PointY="23.875" />
+        <EntityTypeShape EntityType="Model.VCAS_deposit" Width="2.25" PointX="12.625" PointY="21" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_deposit" />
-        <EntityTypeShape EntityType="Model.VCAS_undepositedFunds" Width="2.375" PointX="12.875" PointY="28.25" />
+        <EntityTypeShape EntityType="Model.VCAS_undepositedFunds" Width="2.375" PointX="12.625" PointY="16.625" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_undepositedFunds" />
-        <EntityTypeShape EntityType="Model.vw_inventoryItems" Width="3.625" PointX="20.625" PointY="11.875" FillColor="255, 128, 0" />
         <EntityTypeShape EntityType="Model.VCAS_customer" Width="2" PointX="23.5" PointY="5.75" />
         <AssociationConnector Association="Model.FK_VCAS_customerVCAS_orders" />
         <EntityTypeShape EntityType="Model.VCAS_inventory_AUDIT" Width="2.25" PointX="30.625" PointY="5.75" />
+        <EntityTypeShape EntityType="Model.VCAS_forms" Width="2.375" PointX="19.875" PointY="15.375" FillColor="Yellow" />
+        <AssociationConnector Association="Model.FK_VCAS_councilVCAS_forms" />
+        <AssociationConnector Association="Model.FK_VCAS_formsVCAS_REF_forms" />
+        <AssociationConnector Association="Model.FK_VCAS_REF_userRolesVCAS_forms" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,4 +1,5 @@
 ﻿@model VCAS.Models.VCAS_forms
+@using FullCalendar
 
 @{
     ViewBag.Title = "Form Details";
@@ -19,14 +20,44 @@
              data-title-caption="Form Entry"
              data-title-icon="<span class='mif-apps'></span>"
              data-collapsible="true">
-
-            @Html.Raw(Model.form)
+            <div style="overflow-y: scroll; height: 1000px;">
+                @Html.Raw(Model.form)
+            </div>            
             <hr class="fg-gray" />
             <p class="fg-darkGray" align="RIGHT">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer })</p>
             <p align="RIGHT" class="fg-darkGray">@Model.name<br />@Model.desc<br />version: @Model.dateModified.ToString("dd-MM-yyyy")</p>
         </div>
     </div>
     <div class="cell-lg-6">
+        <div data-role="panel"
+             data-title-caption="Form Calendar"
+             data-title-icon="<span class='mif-apps'></span>"
+             data-collapsible="true">
+
+            <a href="@Url.Action("Calendar", new { id = ViewBag.id })" class="button outline" style="margin:10px;"><span class="mif-external icon">Expand</span></a>
+
+            @Html.FullCalendar(settings =>
+               {
+                   settings.Name = "calendar";
+                   settings.CssClass = "css-test";
+                   settings.Header = new Header
+                   {
+                       Left = new ControlsBuilder().AddButton(HeaderButton.Prev).AddSeparator(HeaderSeparator.Adjacent)
+                                   .AddButton(HeaderButton.Next).AddSeparator(HeaderSeparator.Gap).AddButton(HeaderButton.Today),
+                       Center = new ControlsBuilder().AddTitle(),
+                       Right = new ControlsBuilder("month,agendaWeek ").AddView(AvailableView.AgendaDay)
+                   };
+                   settings.DefaultView = AvailableView.Month.ToString();
+                   settings.Editable = true;
+                   settings.AllDaySlot = false;
+                   settings.Selectable = true;
+                   settings.SlotDuration = TimeSpan.FromMinutes(15);
+                   settings.EventLimit = 3;
+                   settings.Events = Events.AsJsonFeed(Url.Action("GetForm", "forms", new {id = ViewBag.id}));
+               })
+
+        </div>
+        <br/>
         <div data-role="panel"
              data-title-caption="Form Data"
              data-title-icon="<span class='mif-apps'></span>"

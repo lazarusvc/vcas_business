@@ -1,0 +1,308 @@
+﻿@model VCAS.Models.VCAS_forms
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Print Form</title>
+    <!-- Metro 4 -->
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <style>
+        .rec_body {
+            padding: 50px;
+        }
+
+            .rec_body img {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                margin-bottom: -20px;
+            }
+
+            .rec_body h1 {
+                font-weight: 700;
+            }
+
+        hr {
+            border: 0 !important;
+            height: 2px !important;
+            max-width: 50% !important;
+            background-color: #1d1d1d !important;
+        }
+
+        @@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+        @@-webkit-keyframes come-in {
+            0% {
+                -webkit-transform: translatey(100px);
+                transform: translatey(100px);
+                opacity: 0;
+            }
+
+            30% {
+                -webkit-transform: translateX(-50px) scale(0.4);
+                transform: translateX(-50px) scale(0.4);
+            }
+
+            70% {
+                -webkit-transform: translateX(0px) scale(1.2);
+                transform: translateX(0px) scale(1.2);
+            }
+
+            100% {
+                -webkit-transform: translatey(0px) scale(1);
+                transform: translatey(0px) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @@keyframes come-in {
+            0% {
+                -webkit-transform: translatey(100px);
+                transform: translatey(100px);
+                opacity: 0;
+            }
+
+            30% {
+                -webkit-transform: translateX(-50px) scale(0.4);
+                transform: translateX(-50px) scale(0.4);
+            }
+
+            70% {
+                -webkit-transform: translateX(0px) scale(1.2);
+                transform: translateX(0px) scale(1.2);
+            }
+
+            100% {
+                -webkit-transform: translatey(0px) scale(1);
+                transform: translatey(0px) scale(1);
+                opacity: 1;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            min-height: 100%;
+            min-width: 100%;
+        }
+        
+        body {
+            width: 1054px;
+            height: 1054px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .floating-container {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            bottom: 0;
+            right: 0;
+            margin: 35px 25px;
+        }
+
+            .floating-container:hover {
+                height: 300px;
+            }
+
+                .floating-container:hover .floating-button {
+                    box-shadow: 0 10px 25px rgba(44, 179, 240, 0.6);
+                    -webkit-transform: translatey(5px);
+                    transform: translatey(5px);
+                    -webkit-transition: all 0.3s;
+                    transition: all 0.3s;
+                }
+
+                .floating-container:hover .element-container .float-element:nth-child(1) {
+                    -webkit-animation: come-in 0.4s forwards 0.2s;
+                    animation: come-in 0.4s forwards 0.2s;
+                }
+
+                .floating-container:hover .element-container .float-element:nth-child(2) {
+                    -webkit-animation: come-in 0.4s forwards 0.4s;
+                    animation: come-in 0.4s forwards 0.4s;
+                }
+
+                .floating-container:hover .element-container .float-element:nth-child(3) {
+                    -webkit-animation: come-in 0.4s forwards 0.6s;
+                    animation: come-in 0.4s forwards 0.6s;
+                }
+
+            .floating-container .floating-button {
+                position: absolute;
+                width: 65px;
+                height: 65px;
+                background: #202d3f;
+                bottom: 0;
+                border-radius: 50%;
+                left: 0;
+                right: 0;
+                margin: auto;
+                color: white;
+                line-height: 65px;
+                text-align: center;
+                font-size: 23px;
+                z-index: 100;
+                box-shadow: 0 10px 25px -5px rgba(44, 179, 240, 0.6);
+                cursor: pointer;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+            }
+
+            .floating-container .float-element {
+                position: relative;
+                display: block;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                margin: 25px auto;
+                color: white;
+                font-weight: 500;
+                text-align: center;
+                line-height: 50px;
+                z-index: 0;
+                opacity: 0;
+                -webkit-transform: translateY(100px);
+                transform: translateY(100px);
+            }
+
+                .floating-container .float-element .material-icons {
+                    vertical-align: middle;
+                    font-size: 16px;
+                }
+
+                .floating-container .float-element:nth-child(1) {
+                    background: #202d3f;
+                    box-shadow: 0 20px 20px -10px rgba(66, 165, 245, 0.5);
+                }
+
+                .floating-container .float-element:nth-child(2) {
+                    background: #202d3f;
+                    box-shadow: 0 20px 20px -10px rgba(76, 175, 80, 0.5);
+                }
+
+                .floating-container .float-element:nth-child(3) {
+                    background: #202d3f;
+                    box-shadow: 0 20px 20px -10px rgba(255, 152, 0, 0.5);
+                }
+                label {
+                    color: gray;
+                    font-size: 10px;
+                }
+    </style>
+</head>
+<body>
+
+    <div class="rec_body body">
+        @Html.Raw(Model.form)
+        <!-- ********************************************************************************
+         FLOATING BUTTON
+        ********************************************************************************** -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <div class="floating-container" id="printBtnArea">
+            <div class="floating-button">+</div>
+            <div class="element-container">
+
+                <span class="float-element tooltip-left" id="printBtn">
+                    <i class="material-icons">
+                        print
+                    </i>
+                </span>
+                <a href="@Url.Action("Details", "forms", new { id = ViewBag.id })">
+                    <span class="float-element">
+                        <i class="material-icons">
+                            home
+                        </i>
+                    </span>
+                </a>
+                <span id="calCheck" class="float-element mif-done_all">
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        // GET FORM DATA ID
+        // From url param
+        // ==============================================
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id');
+        const dID = urlParams.get('dataID');
+
+        $(document).ready(function () {
+            var printBtn = $("#printBtn");
+            printBtn.click(function () {
+                $("#printBtnArea").hide();
+                window.print();
+                return false;
+            });
+            $("#numSeq").text("@Html.Raw(ViewBag.Collection[0])");
+            $('.vc-form input, .vc-form textarea, .vc-form select, .vc-form checkbox').attr('readonly', 'readonly');
+            $('.vc-form input, .vc-form textarea, .vc-form select, .vc-form checkbox').css(
+                {
+                    "background-color": "#f8f8f8",
+                    "border": "none"
+                }
+            );
+            $('input[type="submit"]').css("display", "none");
+
+            $("#calCheck").click(function () {
+                window.location = '@Url.Action("CalendarCheck")?&id=' + id + '&dataID=' + dID;
+            });
+
+        });
+    </script>
+    @for (int i = 1; i < 14; i++)
+    {
+        int j = i - 1;
+        <script>
+            $("input[name='txtInput_@i.ToString("D2")']").val("@Html.Raw(ViewBag.Collection[j])");
+        </script>
+
+    }
+    @for (int i = 1; i < 4; i++)
+    {
+        int j = i - 1;
+        <script>
+            $("checkbox[name='checkInput_@i.ToString("D2")']").val("@Html.Raw(ViewBag.Collection2[j])");
+        </script>
+
+    }
+    @for (int i = 1; i < 4; i++)
+    {
+        int j = i - 1;
+        <script>
+            $("textarea[name='txtAreaInput_@i.ToString("D2")']").val("@Html.Raw(ViewBag.Collection3[j])");
+        </script>
+
+    }
+    @for (int i = 1; i < 4; i++)
+    {
+        int j = i - 1;
+        <script>
+            $("select[name='selectInput_@i.ToString("D2")']").val("@Html.Raw(ViewBag.Collection4[j])");
+        </script>
+
+    }
+    <!-- Remove unnessessary placeholder text -->
+    <script>
+        $('input[type="text"]').removeAttr('placeholder');
+        $('input[type="email"]').removeAttr('placeholder');
+        $('input[type="number"]').removeAttr('placeholder');
+    </script>
+</body>
+</html>

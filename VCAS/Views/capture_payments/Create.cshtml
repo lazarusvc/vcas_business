@@ -500,7 +500,7 @@
                     closeButton: true,
                     clsTitle: "bg-green fg-white",
                     title: "<span class='mif-user-plus'></span> New Customer",
-                    content: "<div class='form-horizontal'> <div class='grid' style='background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;'> <div class='row'> <div class='cell-12'> <form method='POST'> <input type='text' name='firstName' id='firstName' data-role='materialinput' data-label='First Name:' placeholder='Enter First Name' required/> <input type='text' name='lastName' id='lastName' data-role='materialinput' data-label='Last Name:' placeholder='Enter Last Name' required/> <input type='text' name='address' id='address' data-role='materialinput' data-label='Address:' placeholder='Address'/> <input type='text' name='state' id='state' data-role='materialinput' data-label='State:' placeholder='State'/> <input type='text' name='phone' id='phone' data-role='materialinput' data-label='Phone Number:' placeholder='Enter Phone Number' required/> <input type='email' name='email' id='email' data-role='materialinput' data-label='Email:' placeholder='Enter Email'/></form> </div></div></div></div>",
+                    content: "<div class=form-horizontal><div class=grid style=background:#fff;border-radius:10px;width:100%;padding:20px><div class=row><div class=cell-12><form method=POST><input name=firstName data-label='First Name:'data-role=materialinput id=firstName placeholder='Enter First Name'required> <input name=lastName data-label='Last Name:'data-role=materialinput id=lastName placeholder='Enter Last Name'required> <input name=address data-label=Address: data-role=materialinput id=address placeholder=Address> <input name=state data-label=State: data-role=materialinput id=state placeholder=State> <input name=phone data-label='Phone Number:'data-role=materialinput id=phone placeholder='Enter Phone Number'required> <input name=email data-label=Email: data-role=materialinput id=email placeholder='Enter Email'type=email> <input name=FK_Location type=hidden></form></div></div></div></div>",
                     actions: [
                         {
                             caption: "Finish & Save",
@@ -514,7 +514,7 @@
                                         state: $("#state").val(),
                                         phone: $("#phone").val(),
                                         email: $("#email").val(),
-                                        FK_Location: @ViewBag.cusLoc
+                                        FK_Location: $("#FK_Locaion").val()
                                     };
 
                                     $.ajax({

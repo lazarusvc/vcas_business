@@ -71,8 +71,6 @@ public partial class ModelContainer : DbContext
 
     public virtual DbSet<VCAS_REF_items> VCAS_REF_items { get; set; }
 
-    public virtual DbSet<VCAS_forms> VCAS_forms { get; set; }
-
     public virtual DbSet<VCAS_council> VCAS_council { get; set; }
 
     public virtual DbSet<VCAS_REF_forms> VCAS_REF_forms { get; set; }
@@ -91,11 +89,11 @@ public partial class ModelContainer : DbContext
 
     public virtual DbSet<VCAS_undepositedFunds> VCAS_undepositedFunds { get; set; }
 
-    public virtual DbSet<vw_inventoryItems> vw_inventoryItems { get; set; }
-
     public virtual DbSet<VCAS_customer> VCAS_customer { get; set; }
 
     public virtual DbSet<VCAS_inventory_AUDIT> VCAS_inventory_AUDIT { get; set; }
+
+    public virtual DbSet<VCAS_forms> VCAS_forms { get; set; }
 
 
     public virtual int usp_DebitReducingbalance(Nullable<double> amt, Nullable<short> icID, Nullable<short> daID)
@@ -253,23 +251,6 @@ public partial class ModelContainer : DbContext
     }
 
 
-    public virtual int usp_UpdateUndepositedFundsStatus1(Nullable<int> loc, Nullable<int> dID)
-    {
-
-        var locParameter = loc.HasValue ?
-            new ObjectParameter("loc", loc) :
-            new ObjectParameter("loc", typeof(int));
-
-
-        var dIDParameter = dID.HasValue ?
-            new ObjectParameter("dID", dID) :
-            new ObjectParameter("dID", typeof(int));
-
-
-        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateUndepositedFundsStatus1", locParameter, dIDParameter);
-    }
-
-
     public virtual int usp_UpdateStock(Nullable<int> item, Nullable<int> loc, Nullable<int> id)
     {
 
@@ -289,28 +270,6 @@ public partial class ModelContainer : DbContext
 
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateStock", itemParameter, locParameter, idParameter);
-    }
-
-
-    public virtual int usp_UpdateStock1(Nullable<int> item, Nullable<int> loc, Nullable<int> id)
-    {
-
-        var itemParameter = item.HasValue ?
-            new ObjectParameter("item", item) :
-            new ObjectParameter("item", typeof(int));
-
-
-        var locParameter = loc.HasValue ?
-            new ObjectParameter("loc", loc) :
-            new ObjectParameter("loc", typeof(int));
-
-
-        var idParameter = id.HasValue ?
-            new ObjectParameter("id", id) :
-            new ObjectParameter("id", typeof(int));
-
-
-        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateStock1", itemParameter, locParameter, idParameter);
     }
 
 }

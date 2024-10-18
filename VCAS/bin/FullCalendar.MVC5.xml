@@ -1,0 +1,1196 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FullCalendar.MVC5</name>
+    </assembly>
+    <members>
+        <member name="P:FullCalendar.CustomButton.Text">
+            <summary>
+            The text to be display on the button itself
+            </summary>
+        </member>
+        <member name="P:FullCalendar.CustomButton.Click">
+            <summary>
+            A callback function that is called when the button is clicked. Accepts a single argument, a jqueryEvent.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.CustomButton.Icon">
+            <summary>
+            See buttonIcons. Optional
+            </summary>
+        </member>
+        <member name="P:FullCalendar.CustomButton.ThemeIcon">
+            <summary>
+            See themeButtonIcons. Optional
+            </summary>
+        </member>
+        <member name="P:FullCalendar.CustomButton.BootstrapGlyphicon">
+            <summary>
+            See bootstrapGlyphicons. Optional
+            </summary>
+        </member>
+        <member name="M:FullCalendar.EventConstraint.#ctor(System.String)">
+            <summary>
+            If an event ID is given, events that are being dragged or resized must be fully contained by at least one of the events linked to by the given event ID.
+            If "businessHours" is given, events being dragged or resized must be fully contained within the week's business hours (Monday-Friday 9am-5pm by default). A custom businessHours value will be respected.
+            </summary>
+            <param name="eventId">An event ID or "businessHours" string</param>
+        </member>
+        <member name="M:FullCalendar.EventConstraint.#ctor(FullCalendar.BusinessHour)">
+            <summary>
+            A custom time-window, an object identical to what businessHours accepts, can also be given.
+            A specific period of time with concrete start/end dates can also be given, similar to what an Event Object accepts.
+            </summary>
+            <param name="businessHours">A custom time-window, an object identical to what businessHours accepts</param>
+        </member>
+        <member name="M:FullCalendar.SelectConstraint.#ctor(System.String)">
+            <summary>
+            If an event ID is given, events that are selected must be fully contained by at least one of the events linked to by the given event ID.
+            If "businessHours" is given, events being selected must be fully contained within the week's business hours (Monday-Friday 9am-5pm by default). A custom businessHours value will be respected.
+            </summary>
+            <param name="eventId">An event ID or "businessHours" string</param>
+        </member>
+        <member name="M:FullCalendar.SelectConstraint.#ctor(FullCalendar.BusinessHour)">
+            <summary>
+            A custom time-window, an object identical to what businessHours accepts, can also be given.
+            A specific period of time with concrete start/end dates can also be given, similar to what an Event Object accepts.
+            </summary>
+            <param name="businessHours">A custom time-window, an object identical to what businessHours accepts</param>
+        </member>
+        <member name="M:FullCalendar.ValidRange.#ctor(System.DateTime,System.Nullable{System.DateTime})">
+            <summary>
+            The validRange property can have start and end properties. You may specify one without specifying the other to create an open-ended range.
+            </summary>
+            <param name="start">Start date</param>
+            <param name="end">End date</param>
+        </member>
+        <member name="M:FullCalendar.ValidRange.#ctor(System.DateTime)">
+            <summary>
+            The validRange property can have start and end properties. You may specify one without specifying the other to create an open-ended range.
+            </summary>
+            <param name="end">End date</param>
+        </member>
+        <member name="M:FullCalendar.ValidRange.#ctor(System.String)">
+            <summary>
+            You can also dynamically generate the range via a function. It must return an object in the same format.
+            </summary>
+            <param name="function">Function</param>
+        </member>
+        <member name="P:FullCalendar.View.ButtonText">
+            <summary>
+            Text that will be displayed on buttons of the header.
+            buttonIcons and themeButtonIcons affects the appearance of certain other buttons.
+            HTML injection is not supported. All special characters will be escaped.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.View.TitleFormat">
+            <summary>
+            Determines the text that will be displayed in the header's title.
+            As noted above, each view has a specific default. Get fine-tuned control with View-Specific Options. A single string alone will set the value for all views.
+            The default values will change based on the current locale.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.View.VisibleRange">
+            <summary>
+            Sets the exact date range that is visible in a view.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.View.ValidRange">
+            <summary>
+            Limits which dates the user can navigate to and where events can go.
+            Dates outside of the valid range will be grayed-out. The user will not be able to drag or resize events into these areas.
+            The prev/next buttons in the header will be grayed out to prevent the user from navigating to an invalid range.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.View.DateIncrement">
+            <summary>
+            How far into the future/past the calendar navigates when prev/next is executed.
+            Determines how far the calendar will jump when the user presses the prev/next buttons in the header or when the prev or next methods are executed.
+            When using a Custom View with a specified duration, the duration value will be the default for dateIncrement.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.View.DateAlignment">
+            <summary>
+            Determines the first visible day for a Custom or Generic view.
+            When a Custom View is being used, and you'd like to guarantee that the view begins at a certain interval, like the start-of-week or start-of-month, specify a value like "week" or "month".
+            If not specified, a reasonable default will be generated based on the view's duration.
+            If a view's range is explicity defined with visibleRange, dateAlignment will be ignored.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.View.Duration">
+            <summary>
+            Sets the exact duration of the Custom view.
+            If the duration is specified like {weeks:1}, then the dateAlignment will automatically default to start-of-week. However, if it is specified as {days:7}, then no such alignment will happen.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.View.DayCount">
+            <summary>
+            Sets the exact number of days displayed in a Custom or Generic view, regardless of weekends or hiddenDays.
+            When a view's range is specified with a duration, hidden days will simply be omitted, and the view will stretch to fill the missing space. However, if you specify dayCount, you are guaranteed to see a certain number of days.
+            </summary>
+        </member>
+        <member name="M:FullCalendar.VisibleRange.#ctor(System.DateTime,System.DateTime)">
+            <summary>
+            The visibleRange object must have start/end properties that resolve to Moment values. The end moment is exclusive, just like all other places in the API.
+            </summary>
+            <param name="start">Start date</param>
+            <param name="end">End date</param>
+        </member>
+        <member name="M:FullCalendar.VisibleRange.#ctor(System.String)">
+            <summary>
+            You can also specify a function that dynamically generates a range from the current date marker.
+            </summary>
+            <param name="function">Function</param>
+        </member>
+        <member name="T:FullCalendar.Extensions.ColorExtensions">
+            <summary>
+            General Color extensions
+            </summary>
+        </member>
+        <member name="M:FullCalendar.Extensions.ColorExtensions.ToHexString(System.Drawing.Color)">
+            <summary>
+            Gets the hex representation of the current color for CSS properties
+            </summary>
+            <param name="color">Color object</param>
+            <returns>The hex representation of the current color for CSS properties</returns>
+        </member>
+        <member name="T:FullCalendar.StringExtensions">
+            <summary>
+            General string extensions
+            </summary>
+        </member>
+        <member name="M:FullCalendar.StringExtensions.ToSingleQuotes(System.String)">
+            <summary>
+            Changes double quotes to single quotes in a text. This is mainly used to format serialized strings in data- attributes
+            </summary>
+            <param name="text">Text to be formatted</param>
+            <returns>Text with double quotes replaced with single quotes</returns>
+        </member>
+        <member name="M:FullCalendar.StringExtensions.FirstCharToLower(System.String)">
+            <summary>
+            Changes first character of a text to lower-case
+            </summary>
+            <param name="text">Text to be formatted</param>
+            <returns>The initial text with first character changed to lower-case</returns>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.GoogleCalendarApiKey">
+            <summary>
+            FullCalendar can display events from a public Google Calendar. Google Calendar can serve as a backend that manages and persistently stores event data (a feature that FullCalendar currently lacks).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Header">
+            <summary>
+            Defines the buttons and title at the top of the calendar.
+            Setting the header options to null will display no header.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Footer">
+            <summary>
+            Renders a set of controls at the bottom of the calendar.
+            This settings accepts the same exact values as the header option.
+            It is null by default, meaning no controls will be rendered at the foot of the calendar.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.CustomButtons">
+            <summary>
+            Defines custom buttons that can be used in the header.
+            Specify a hash of custom buttons. Then reference them from the header setting.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ButtonIcons">
+            <summary>
+            Determines which icons are displayed in buttons of the header.
+            This setting only takes affect when theme is false. If you want to change icons when theme is true, use themeButtonIcons instead.
+            A hash must be supplied that maps button names (from the header) to icon strings. These icon string are transformed into classNames which are styled by FullCalendar's CSS.
+            If a button does not have an entry, it falls back to using buttonText.
+            If you would prefer not to display any icons and would rather use buttonText instead, you can set the buttonIcons option to false.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:FullCalendar.FullCalendarParameters.ThemeSystem" -->
+        <member name="P:FullCalendar.FullCalendarParameters.ThemeButtonIcons">
+            <summary>
+            Determines which icons are displayed in buttons of the header when jQuery UI theming is on.
+            This option only applies to calendars that have themeSystem set to 'jquery-ui'.
+            A hash must be supplied that maps button names (from the header) to icon strings. The icon strings determine the CSS class that will be used on the button. For example, the string 'circle-triangle-w' will result in the class 'ui-icon-circle-triangle-w'.
+            If a button does not have an entry, it falls back to using buttonText.
+            If you are using a jQuery UI theme and would prefer not to display any icons and would rather use buttonText instead, you can set the themeButtonIcons option to false.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.BootstrapGlyphicons">
+            <summary>
+            Determines which icons are displayed in buttons of the header when Bootstrap theming is on.
+            This option only applies to calendars that have themeSystem set to 'bootstrap3'.
+            A hash must be supplied that maps button names (from the header) to icon strings. See a full list of Bootstrap glyphicons.
+            If a button does not have an entry, it falls back to using buttonText.
+            If you are using a Bootstrap theme and would prefer not to display any icons and would rather use buttonText instead, you can set the bootstrapGlyphicons option to false.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.FirstDay">
+            <summary>
+            The day that each week begins.
+            The default value depends on the current locale.
+            If weekNumberCalculation is set to 'ISO', this option defaults to 1 (Monday).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.IsRTL">
+            <summary>
+            Displays the calendar in right-to-left mode.
+            This option is useful for right-to-left languages such as Arabic and Hebrew.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Weekends">
+            <summary>
+            Whether to include Saturday/Sunday columns in any of the calendar views.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.HiddenDays">
+            <summary>
+            Exclude certain days-of-the-week from being displayed.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.FixedWeekCount">
+            <summary>
+            Determines the number of weeks displayed in a month view.
+            If true, the calendar will always be 6 weeks tall. If false, the calendar will have either 4, 5, or 6 weeks, depending on the month.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.WeekNumbers">
+            <summary>
+            Determines if week numbers should be displayed on the calendar.
+            If set to true, week numbers will be displayed in a separate left column in the month/basic views as well as at the top-left corner of the agenda views. See Available Views.
+            By default, FullCalendar will use the current locale's week number calculation method. To display other types of week numbers, see weekNumberCalculation.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.WeekNumbersWithinDays">
+            <summary>
+            Determines the styling for week numbers in month view and the basic views.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.WeekNumberCalculation">
+            <summary>
+            The method for calculating week numbers that are displayed with the weekNumbers setting.
+            Specifying "local" causes the locale-specific calculation to be used, as determined by the calendar's locale setting. This is the default.
+            Specifiying "ISO" results in ISO8601 week numbers. Since v3.0, specifying "ISO" changes the default value of firstDay to 1 (Monday).
+            You may also specify a function, which must accept a single Moment and return an integer week number.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.BusinessHours">
+            <summary>
+            Emphasizes certain time slots on the calendar. By default, Monday-Friday, 9am-5pm.
+            If empty list, the default business hours will be emphasized. This only applies to the time slots in the agenda views. 
+            If null (the default), there will be no emphasis.
+            An object may be given to render business hours with fine-grain control over the days/hours.
+            You may also break your business hour declaration into parts for additional control (added in v2.9.1).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ShowNonCurrentDates">
+            <summary>
+            In month view, whether dates in the previous or next month should be rendered at all.
+            Days that are disabled will not render events.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Height">
+            <summary>
+            Will make the entire calendar (including header) a pixel height.
+            By default, this option is unset and the calendar's height is calculated by aspectRatio.
+            If an integer is specified, the height of the calendar will be guaranteed to be that exact pixel height. If the contents will not fit within the height, scrollbars will appear (new in version 2.1.0).
+            If a function is specified, this function will be called every time a height update is requested. This function should return a pixel value.
+            If "parent" is specified, the height of the calendar will match the height of its parent container element.
+            If "auto" is specified, the view's contents will assume a natural height and no scrollbars will be used. (new in version 2.1.0).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ContentHeight">
+            <summary>
+            Will make the calendar's content area a pixel height.
+            By default, this option is unset and the calendar's height is calculated by aspectRatio.
+            If an integer is specified, the height of the view will be guaranteed to be that exact pixel height. If the contents will not fit within the height, scrollbars will appear (new in version 2.1.0).
+            If a function is specified, this function will be called every time a height update is requested. This function should return a pixel value.
+            If "auto" is specified, the view's contents will assume a natural height and no scrollbars will be used. (new in version 2.1.0).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.AspectRatio">
+            <summary>
+            Determines the width-to-height aspect ratio of the calendar.
+            A calendar is a block-level element that fills its entire avaiable width. The calendar’s height, however, is determined by this ratio of width-to-height. (Hint: larger numbers make smaller heights).
+            More precisely, this is the aspect ratio of the calendar's "content" area (the area with a className of "fc-view-container").
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.HandleWindowResize">
+            <summary>
+            Whether to automatically resize the calendar when the browser window resizes.
+            If true, the calendar will automatically resize when the window resizes, and the windowResize callback will be called. If false, none of this will happen.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.WindowResizeDelay">
+            <summary>
+            Time, in milliseconds, the calendar will wait to adjust its size after a window resize event occurs.
+            This delay exists in order to prevent overly frequent size adjustments while the user drags and resizes their browser window.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventLimit">
+            <summary>
+            Limits the number of events displayed on a day.
+            When there are too many events, a link that looks like "+2 more" is displayed. The exact action that happens when the user clicks the link is determined by eventLimitClick.
+            A value of false (the default) will display all events as-is.
+            A value of true will limit the number of events to the height of the day cell.
+            An integer value will limit the events to a specific number of rows.
+            For the all-day section in the agenda views, a value of true will limit the number of events to 5.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventLimitClick">
+            <summary>
+            Determines the action taken when the user clicks on a "more" link created by the eventLimit option.
+            "popover" (the default) - Displays a rectangular panel over the cell with a full list of events for that day.
+            "week" - Goes to a week view, as determined by the views in the header.
+            "day" - Goes to a day view, as determined by the views in the header.
+            view name - A literal string name of any of the Available Views.
+            function - A callback function, for executing arbitrary code.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Timezone">
+            <summary>
+            Determines the timezone in which dates throughout the API are parsed and rendered.
+            Each of these possible values has an effect on (1) the way event data requests are made, (2) the timezones that event dates are represented in, and (3) the timezones that other dates in the API are represented in.
+            null (no timezone, the default) - use this mode if you don't store timezone information for your events and you want all events to render consistently across all client computers, regardless of timezone.
+            "local" (the client's timezone) - use this mode if you store timezone information for your events and you want events displayed differently depending on the local timezone of each end-user's computer.
+            "UTC" - use this mode if you store timezone information for your events and you want all your events to be displayed in UTC (Coordinated Universal Time).
+            Timezone string (like "America/Chicago") - use this mode if you store timezone information for your events and you want them displayed in a timezone that can be customized.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Now">
+            <summary>
+            Explicitly sets the "today" date of the calendar. This is the day that is normally highlighted in yellow.
+            Normally, the local browser's current date is used.
+            Overriding the current date is particularly useful when your calendar is using a custom timezone parameter. 
+            The current year/month/date in the custom timezone might be different than the local computer's current date.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Views">
+            <summary>
+            It is possible to customize the existing Available Views in addition to programming your own from scratch.
+            We use the views option similar to how View-Specific Options work but with the very important addition of the type property. Also, a date-range parameter is required, whether is be duration, visibleRange, or dayCount.
+            It is advised to choose view names with the numbers spelled out like "four" instead of "4" because JavaScript disallows identifiers beginning with numbers, like "4day".
+            If your calendar hosts only one custom view, a Generic View is a simpler way to define it.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DefaultView">
+            <summary>
+            The initial view when the calendar loads. Any of the Available Views.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.AllDaySlot">
+            <summary>
+            Determines if the "all-day" slot is displayed at the top of the calendar.
+            When hidden with false, all-day events will not be displayed in agenda views.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.AllDayText">
+            <summary>
+            The text titling the "all-day" slot at the top of the calendar.
+            The default value depends on the current locale.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SlotDuration">
+            <summary>
+            The frequency for displaying time slots.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SlotLabelFormat">
+            <summary>
+            Determines the time-text that will be displayed on the vertical axis of the agenda views.
+            The default value depends on the current locale.
+            The default English value - h(:mm)a - will produce times that look like "5pm" and "5:30pm".
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SlotLabelInterval">
+            <summary>
+            Determines how often the time-axis is labeled with text displaying the date/time of slots.
+            If not specified, this value is automatically computed from slotDuration. With slotDuration's default value of 30 minutes, this value will be 1 hour.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SnapDuration">
+            <summary>
+            The time interval at which a dragged event will snap to the agenda view time grid. Also affects the granularity at which selections can be made.
+            The default value will be whatever slotDuration is, which defaults to half an hour.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ScrollTime">
+            <summary>
+            Determines how far down the scroll pane is initially scrolled down.
+            The user will be able to scroll upwards to see events before this time. If you want to prevent users from doing this, use the minTime option instead.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.MinTime">
+            <summary>
+            Determines the starting time that will be displayed, even when the scrollbars have been scrolled all the way up.
+            The default "00:00:00" means the start time will be at the very beginning of the day (midnight).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.MaxTime">
+            <summary>
+            Determines the end time (exclusively) that will be displayed, even when the scrollbars have been scrolled all the way down.
+            The default "24:00:00" means the end time will be at the very end of the day (midnight).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SlotEventOverlap">
+            <summary>
+            Determines if timed events in agenda view should visually overlap.
+            When set to true (the default), events will overlap each other. At most half of each event will be obscured.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ListDayFormat">
+            <summary>
+            A date formatting string that affects the text on the left side of the day headings in list view.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ListDayAltFormat">
+            <summary>
+            A date formatting string that affects the text on the right side of the day headings in list view.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.NoEventsMessage">
+            <summary>
+            The text that is displayed in the middle of list view, alerting the user that there are no events within the given range.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DefaultDate">
+            <summary>
+            The initial date displayed when the calendar first loads.
+            When not specified, this value defaults to the current date.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.NowIndicator">
+            <summary>
+            Whether or not to display a marker indicating the current time.
+            The indicator will automatically reposition itself while the user is viewing the calendar.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.VisibleRange">
+            <summary>
+            Sets the exact date range that is visible in a view.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ValidRange">
+            <summary>
+            Limits which dates the user can navigate to and where events can go.
+            Dates outside of the valid range will be grayed-out. The user will not be able to drag or resize events into these areas.
+            The prev/next buttons in the header will be grayed out to prevent the user from navigating to an invalid range.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DateIncrement">
+            <summary>
+            How far into the future/past the calendar navigates when prev/next is executed.
+            Determines how far the calendar will jump when the user presses the prev/next buttons in the header or when the prev or next methods are executed.
+            When using a Standard View, it is unnecessary to specify dateIncrement.
+            When using a Custom View or Generic View with a specified duration, the duration value will be the default for dateIncrement.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DateAlignment">
+            <summary>
+            Determines the first visible day for a Custom or Generic view.
+            When a Custom View or Generic View is being used, and you'd like to guarantee that the view begins at a certain interval, like the start-of-week or start-of-month, specify a value like "week" or "month".
+            If not specified, a reasonable default will be generated based on the view's duration.
+            If a view's range is explicity defined with visibleRange, dateAlignment will be ignored.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Duration">
+            <summary>
+            Sets the exact duration of a Custom or Generic view.
+            If the duration is specified like {weeks:1}, then the dateAlignment will automatically default to start-of-week. However, if it is specified as {days:7}, then no such alignment will happen.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DayCount">
+            <summary>
+            Sets the exact number of days displayed in a Custom or Generic view, regardless of weekends or hiddenDays.
+            When a view's range is specified with a duration, hidden days will simply be omitted, and the view will stretch to fill the missing space. However, if you specify dayCount, you are guaranteed to see a certain number of days.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Locale">
+            <summary>
+            Customize the language and localization options for the calendar.
+            This option affects many things such as: (1) the text in buttons, as defined by header, (2) text that contains month or day-of-week strings,
+            (3) date formatting strings, such as timeFormat, (4) weekNumberCalculation, (5) firstDay
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.TimeFormat">
+            <summary>
+            Determines the time-text that will be displayed on each event.
+            Each view has a specific default. Get fine-tuned control with View-Specific Options. A single string alone will set the value for all views.
+            The default values will change based on the current locale.
+            Time-text will only be displayed for Event Objects that have allDay equal to false.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ColumnHeaderFormat">
+            <summary>
+            Determines the text that will be displayed on the calendar's column headings.
+            Each view has a specific default. Get fine-tuned control with View-Specific Options. A single string alone will set the value for all views.
+            The default values will change based on the current locale.
+            If you need programmatic control, use columnHeaderText or columnHeaderHtml instead.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ColumnHeaderText">
+            <summary>
+            Programmatically generates text that will be displayed on the calendar's column headings.
+            This function will will receive a moment object that represents a single column's date and must return a string to be displayed.
+            The text will be escaped before being inserted into the DOM. You do not need to worry about escaping HTML entities.
+            If you are simply stringifying a date with a formatting string, using ColumnHeaderFormat is more elegant.
+            If you need to generate HTML, use ColumnHeaderHtml instead.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ColumnHeaderHtml">
+            <summary>
+            Programmatically generates HTML that will be injected on the calendar's column headings.
+            This function will will receive a moment object that represents a single column's date and must return an HTML string to be injected.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.TitleFormat">
+            <summary>
+            Determines the text that will be displayed in the header's title.
+            As noted above, each view has a specific default. Get fine-tuned control with View-Specific Options. A single string alone will set the value for all views.
+            The default values will change based on the current locale.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ButtonText">
+            <summary>
+            Text that will be displayed on buttons of the header.
+            buttonIcons and themeButtonIcons affects the appearance of certain other buttons.
+            HTML injection is not supported. All special characters will be escaped.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.MonthNames">
+            <summary>
+            Full names of months.
+            The default value will change based on the current locale.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.MonthNamesShort">
+            <summary>
+            Abbreviated names of months.
+            The default value will change based on the current locale.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DayNames">
+            <summary>
+            Full names of days-of-week.
+            The default value will change based on the current locale.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DayNamesShort">
+            <summary>
+            Abbreviated names of days-of-week.
+            The default value will change based on the current locale.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.WeekNumberTitle">
+            <summary>
+            The heading text for week numbers.
+            This text will go above the week number column in the month/basic views. It will go alongside the week number text in the top-left cell for agenda views.
+            The default value will change based on the current locale.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DisplayEventTime">
+            <summary>
+            Whether or not to display the text for an event's time.
+            This setting only applies to events that have times (allDay equal to false). If set to true, time text will always be displayed on the event. If set to false, time text will never be displayed on the event.
+            Events that are all-day will never display time text anyhow.
+            When this setting is not specified, the default that is computed is based off of the current view. For example, time text will be displayed in all month, basic, and agenda views by default, for timeline views, it depends on the duration.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DisplayEventEnd">
+            <summary>
+            Whether or not to display an event's end time text when it is rendered on the calendar.
+            Each view has a specific default. Get fine-tuned control with View-Specific Options. A single boolean alone will set the value for all views.
+            If an event does not have an end date/time, or displayEventTime is false, it won't be displayed anyway, regardless of this setting.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventLimitText">
+            <summary>
+            Determines the text of the link created by eventLimit setting.
+            If a string is specified, the resulting text will be prepended with the number of events being obscured, like "+2", resulting in something like "+2 more".
+            If a function is specified, the function will be given a single argument, the number of events being obscured, and must return the final text string to be used.
+            The default value of this option is affected by the current locale.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DayPopoverFormat">
+            <summary>
+            Determines the date format of title of the popover created by the eventLimitClick option.
+            Must be a date formatting string. The default value is "dddd, MMMM D" for English and "LL" for other languages.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.NavLinks">
+            <summary>
+            Determines if day names and week names are clickable.
+            When true, day headings and weekNumbers will become clickable. When clicked, these links will bring the user to a view that represents the day/week.
+            The destination views are automatically determined by the views that are in the header. However, they can be explicity defined using navLinkDayClick and navLinkWeekClick.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Selectable">
+            <summary>
+            Allows a user to highlight multiple days or timeslots by clicking and dragging.
+            To let the user make selections by clicking and dragging, this option must be set to true.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SelectHelper">
+            <summary>
+            Whether to draw a "placeholder" event while the user is dragging.
+            This option only applies to the agenda views. A value of true will draw a "placeholder" event while the user is dragging 
+            (similar to what Google Calendar does for its week and day views). A value of false (the default) will draw the standard 
+            highlighting over each cell.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.UnselectAuto">
+            <summary>
+            Whether clicking elsewhere on the page will cause the current selection to be cleared.
+            This option can only take effect when selectable is set to true.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.UnselectCancel">
+            <summary>
+            A way to specify elements that will ignore the unselectAuto option.
+            Clicking on elements that match this jQuery selector will prevent the current selection from being cleared (due to the unselectAuto option).
+            This option is useful if you have a "Create an event" form that shows up in response to the user making a selection. When the user clicks on this form, you probably don't want to the current selection to go away. Thus, you should add a class to your form such as "my-form", and set the unselectCancel option to ".my-form".
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SelectOverlap">
+            <summary>
+            Determines whether the user is allowed to select periods of time that are occupied by events.
+            When the selectable option is activated, and false is given, the user will not be allowed to select periods of time that intersect with events on the calendar. If true is given (the default), the user will be able to freely select any period of time.
+            If a function is given, the function will be called once for every time the user's selection intersects with an event. If the function returns true, the selection will be allowed. If false, the selection will not be allowed.
+            The selectOverlap setting does not differentiate between background events or normal events. It treats both types of events the same unless you write custom logic in your callback function.
+            If selecting time slots in one of the agenda views, and there is an all-day event for that specific day, this will be considered an intersection, even though the events don't appear to visually overlap because the all-day slot is separate from the time slots.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SelectConstraint">
+            <summary>
+            Limits user selection to certain windows of time.
+            This value behaves identically to the way eventConstraint limits where events can go. It accepts the same values.
+            Only applicable when the selectable option is activated.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SelectMinDistance">
+            <summary>
+            The minimum distance the user's mouse must travel after a mousedown, before a selection is allowed.
+            The default value of 0 puts no restriction on the distance the mouse must travel.
+            A non-zero value is useful for differentiating a selection from a dayClick.
+            This setting is only applicable to mouse-related interaction. For touch interation, see selectLongPressDelay.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.SelectLongPressDelay">
+            <summary>
+            For touch devices, the amount of time the user most hold down before a date becomes selectable.
+            This value is specified in milliseconds.
+            Only applicable when the calendar is being used on a touch device. Otherwise, there is no delay.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventSources">
+            <summary>
+            A way to specify multiple event sources.
+            This option is used instead of the events option.
+            You can put any number of event arrays, functions, JSON feed URLs, or full-out Event Source Objects into the eventSources array.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.AllDayDefault">
+            <summary>
+            Determines the default value for each Event Object's allDay property when it is unspecified.
+            By default, allDayDefault is not set. As a result, any Event Objects that do not specify an allDay property will be subject the guessing behavior mentioned in the Event Object article.
+            Set this option to true or false to make it affect Event Objects without an allDay property.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.StartParam">
+            <summary>
+            A parameter of this name will be sent to each JSON event feed. It describes the start of the interval being fetched.
+            The actual value of this parameter will be an ISO8601 date string.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EndParam">
+            <summary>
+            A parameter of this name will be sent to each JSON event feed. It describes the exclusive end of the interval being fetched.
+            The actual value of this parameter will be an ISO8601 date string.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.TimezoneParam">
+            <summary>
+            A parameter of this name will be sent to each JSON event feed. It describes the timezone of the startParam and endParam values, as well as the desired timezone of the returned events.
+            The value of this parameter will be a timezone string like "America/Chicago" or "UTC". It may also be unspecified. The precise behavior is determined by the timezone option.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.LazyFetching">
+            <summary>
+            Determines when event fetching should occur.
+            When set to true (the default), the calendar will only fetch events when it absolutely needs to, minimizing AJAX calls. 
+            For example, say your calendar starts out in month view, in February. FullCalendar will fetch events for the entire month of February and store them in its internal cache. 
+            Then, say the user switches to week view and begins browsing the weeks in February. The calendar will avoid fetching events because it already has this information stored.
+            When set to false, the calendar will fetch events any time the view is switched, or any time the current date changes(for example, as a result of the user clicking prev/next).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DefaultTimedEventDuration">
+            <summary>
+            A fallback duration for timed Event Objects without a specified end value.
+            If an event does not have an end specified, it will appear to be this duration when rendered.
+            The actual end of the event will remain unset unless forceEventDuration has been set to true.
+            This setting only affects events with allDay equal to false. For all-day events, use defaultAllDayEventDuration.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DefaultAllDayEventDuration">
+            <summary>
+            A fallback duration for all-day Event Objects without a specified end value.
+            If an event does not have an end specified, it will appear to be this duration when rendered.
+            The actual end of the event will remain unset unless forceEventDuration has been set to true.
+            This setting only affects events with allDay equal to true. For timed events, use defaultTimedEventDuration.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ForceEventDuration">
+            <summary>
+            A flag to force calculation of an event's end if it is unspecified.
+            If an event's end is not specified, it will be calculated and assigned to the Event Object using defaultTimedEventDuration or defaultAllDayEventDuration.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventColor">
+            <summary>
+            Sets the background and border colors for all events on the calendar.
+            This option can be overridden on a per-source basis with the color Event Source Object option or on a per-event basis with the color Event Object option.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventBackgroundColor">
+            <summary>
+            Sets the background color for all events on the calendar.
+            This option can be overridden on a per-source basis with the backgroundColor Event Source Object option or on a per-event basis with the backgroundColor Event Object option.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventBorderColor">
+            <summary>
+            Sets the border color for all events on the calendar.
+            This option can be overridden on a per-source basis with the borderColor Event Source Object option or on a per-event basis with the borderColor Event Object option.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventTextColor">
+            <summary>
+            Sets the text color for all events on the calendar.
+            This option can be overridden on a per-source basis with the textColor Event Source Object option or on a per-event basis with the textColor Event Object option.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.NextDayThreshold">
+            <summary>
+            When an event's end time spans into another day, the minimum time it must be in order for it to render as if it were on that day.
+            Only affects timed events that appear on whole-days. Whole-day cells occur in month view, basicDay, basicWeek and the all-day slots in the agenda views.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventOrder">
+            <summary>
+            Determines the vertical ordering events that have the same dates / times.
+            By default, FullCalendar decides that events with longer durations and earlier start times are sorted above other events. However, events often have the same exact start time and duration, which is especially true for all-day events. By default, when this happens, events are sorted alphabetically by title. eventOrder provides the ability to override this behavior.
+            This setting accepts a few different arguments:
+            (1) a name of an Event Object property, like "title". This can be the name of a non-standard field. Sorting will happen in ascending order. If prefixed with a minus sign like "-title", sorting will happen in descending order.
+            (2) a comma-separated string of property names, like "title,propA,-propB".
+            (3) a function that accepts two arguments and returns -1 or 1, similar to sort's compare function.
+            (4) an array of property names and functions like [ "title", "-propA", myFunc ].
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventRenderWait">
+            <summary>
+            The amount of milliseconds to wait after an operation, before rendering events.
+            When this value is specified as a millisecond number value, the calendar will begin to wait after any operation that might result in an event rerendering, such as renderEvent and updateEvent. After this time has passed, the calendar will render all events together. This reduces the number of rerenders, for performance reasons.
+            This setting is experimental. It is turned off by default.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Editable">
+            <summary>
+            Determines whether the events on the calendar can be modified.
+            This determines if the events can be dragged and resized. Enables/disables both at the same time. 
+            If you don't want both, use the more specific eventStartEditable and eventDurationEditable instead.
+            This option can be overridden on a per-event basis with the Event Object editable property.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventStartEditable">
+            <summary>
+            Allow events' start times to be editable through dragging.
+            This option can be overridden on a per-source basis with the startEditable Event Source Object option or on a per-event basis with the startEditable Event Object option.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventDurationEditable">
+            <summary>
+            Allow events' durations to be editable through resizing.
+            This option can be overridden on a per-source basis with the durationEditable Event Source Object option or on a per-event basis with the durationEditable Event Object option.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DragRevertDuration">
+            <summary>
+            Time it takes for an event to revert to its original position after an unsuccessful drag.
+            Time is in milliseconds (1 second = 1000 milliseconds).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DragOpacity">
+            <summary>
+            The opacity of an event while it is being dragged.
+            Float values range from 0.0 to 1.0.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DragScroll">
+            <summary>
+            Whether to automatically move scroll containers during event drag-and-drop or while selecting.
+            If enabled, the scroll container will automatically scroll once the mouse gets close to the edge.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventOverlap">
+            <summary>
+            Determines if events on the calendar, when dragged and resized, are allowed to overlap each other.
+            If false, no events are allowed to overlap. If true, all events are allowed to overlap (the default).
+            If given a function, the function will be called every time there is a pair of intersecting events, whether upon a user drag or resize. The function must return true if the overlap should be allowed and false otherwise. 
+            The eventOverlap setting does not differentiate between background events or normal events. It treats both types of events the same way.
+            If you need more granular control for which events are allowed to overlap, you can do this with each Event Source's overlap property or with each Event Object's overlap property.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventConstraint">
+            <summary>
+            Limits event dragging and resizing to certain windows of time.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.LongPressDelay">
+            <summary>
+            For touch devices, the amount of time the user most hold down before an event becomes draggable or a date becomes selectable.
+            This value is specified in milliseconds.
+            Only applicable when the calendar is being used on a touch device. Otherwise, there is no delay.
+            This setting controls event dragging and date selecting. For further granularity, please see the following settings: eventLongPressDelay, selectLongPressDelay
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.EventLongPressDelay">
+            <summary>
+            For touch devices, the amount of time the user most hold down before an event becomes draggable.
+            This value is specified in milliseconds.
+            Only applicable when the calendar is being used on a touch device. Otherwise, there is no delay.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Droppable">
+            <summary>
+            Determines if jQuery UI draggables can be dropped onto the calendar.
+            This option operates with jQuery UI draggables. You must download the appropriate jQuery UI files and initialize a draggable element. Additionally, you must set the calendar's droppable option to true.
+            When there is no event data associated with the drag, the areas where the drop is allowed are determined by selectOverlap and selectConstraint.
+            When there is event data associated with the drag(see eventReceive), normal event overlap/constraint rules apply, such as eventOverlap and eventConstraint.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.DropAccept">
+            <summary>
+            Provides a way to filter which elements can be dropped onto the calendar.
+            By default, after setting a calendar' droppable option to true, the calendar will accept any draggables that are dropped onto the calendar. The dropAccept option allows the calendar be more selective about which elements can/can't be dropped.
+            The value of dropAccept can be a string jQuery selector. It can also be a function that accepts the draggable item as a single argument, and returns true if the element can be dropped onto the calendar.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.Name">
+            <summary>
+            The id and name of the calendar
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.CssClass">
+            <summary>
+            The CSS classes of the calendar
+            </summary>
+        </member>
+        <member name="P:FullCalendar.FullCalendarParameters.ClientSideEvents">
+            <summary>
+            Client-side events for the callback functions in the API
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.ViewRender">
+            <summary>
+            Triggered when a new date-range is rendered, or when the view type switches.
+            This callback will get triggered when the user changes the view, or when any of the date navigation methods are called.
+            This callback will trigger after the view has been fully rendered, but before events have been rendered (see also: eventAfterAllRender).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.ViewDestroy">
+            <summary>
+            Triggered when a rendered date-range needs to be torn down.
+            This callback will be triggered immediately before the view is about to be removed from the DOM. This could happen because of a view type switch, a date range change, or a destroy method call.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.DayRender">
+            <summary>
+            A hook for modifying a day cell.
+            This callback lets you modify day cells that are part of the month, basicWeek, and basicDay views. See Available Views.
+            This callback is called each time a cell needs to be freshly rendered.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.WindowResize">
+            <summary>
+            Triggered after the calendar's dimensions have been changed due to the browser window being resized.
+            The calendar has automatically adapted to the new size when windowResize is triggered.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.NavLinkDayClick">
+            <summary>
+            Determines what happens upon a day heading nav-link click.
+            By default, the user is taken to the a the first day-view that appears in the header.
+            A function argument can be provided that executes arbitrary code:
+            When a custom function is specified, the user will not automatically navigate to any view.
+            When navLinkDayClick fires, the dayClick callback will NOT be fired.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.NavLinkWeekClick">
+            <summary>
+            Determines what happens upon a week-number nav-link click.
+            By default, the user is taken to the a the first week-view that appears in the header.
+            A function argument can be provided that executes arbitrary code.
+            When a custom function is specified, the user will not automatically navigate to any view.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.DayClick">
+            <summary>
+            Triggered when the user clicks on a day.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventClick">
+            <summary>
+            Triggered when the user clicks an event.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventMouseover">
+            <summary>
+            Triggered when the user mouses over an event.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventMouseout">
+            <summary>
+            Triggered when the user mouses out of an event.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.SelectAllow">
+            <summary>
+            Exact programmatic control over where the user can select.
+            This callback will be called for every new potential selection as the user is dragging.
+            The callback function will receive information about where the user is attempting to select (selectInfo) and must return either true or false.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.Select">
+            <summary>
+            A callback that will fire after a selection is made.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.Unselect">
+            <summary>
+            A callback that will fire when the current selection is cleared.
+            A selection might be cleared for a number of reasons:
+            1. The user clicks away from the current selection(doesn't happen when unselectAuto is false).
+            2. The user makes a new selection.The unselect callback will be fired before the new selection occurs.
+            3. The user moves forward or backward in the current view, or switches to a new view.
+            4. The unselect method is called through the API.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventDataTransform">
+            <summary>
+            Transforms custom data into a standard Event Object.
+            This hook allows you to receive arbitrary event data from a JSON feed or any other Event Source and transform it into the type of data FullCalendar accepts. This let's you easily accept alternative data formats without having to write a completely custom events function.
+            This function is called once per received event. eventData is the event data that has been receieved.The function must return a new object in the Event Object format.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.Loading">
+            <summary>
+            Triggered when event fetching starts/stops.
+            Triggered with a true argument when the calendar begins fetching events via AJAX. Triggered with false when done.
+            This function is often used to show/hide a loading indicator.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:FullCalendar.ClientSideEvents.EventRender" -->
+        <member name="P:FullCalendar.ClientSideEvents.EventAfterRender">
+            <summary>
+            Triggered after an event has been placed on the calendar in its final position.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventAfterAllRender">
+            <summary>
+            Triggered after all events have finished rendering.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventDestroy">
+            <summary>
+            Called before an event's element is removed from the DOM.
+            This callback gets called once for every event element. It is a great way to tear down any plugins you might have applied in eventRender.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventAllow">
+            <summary>
+            Exact programmatic control over where an event can be dropped.
+            After it has been determined that the eventOverlap and eventConstraint settings will allow the user to drop an event at a given position on the calendar, the eventAllow callback will be called. It will be called for every new potential droppable position as the user is dragging.
+            If specified, it must return either true or false as to whether the calendar will allow the given event (draggedEvent) to be dropped at the given location (dropInfo).
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventDragStart">
+            <summary>
+            Triggered when event dragging begins.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventDragStop">
+            <summary>
+            Triggered when event dragging stops.
+            This callback is guaranteed to be triggered after the user drags an event, even if the event doesn't change date/time. It is triggered before the event's information has been modified (if moved to a new date/time) and before the eventDrop callback is triggered.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventDrop">
+            <summary>
+            Triggered when dragging stops and the event has moved to a different day/time.
+            eventDrop does not get called when an external event lands on the calendar. eventReceive is called instead.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventResizeStart">
+            <summary>
+            Triggered when event resizing begins.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventResizeStop">
+            <summary>
+            Triggered when event resizing stops.
+            This callback is guaranteed to be triggered after the user resizes an event, even if the event doesn't change in duration. It is triggered before the event's information has been modified (if changed in duration) and before the eventResize callback is triggered.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventResize">
+            <summary>
+            Triggered when resizing stops and the event has changed in duration.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.Drop">
+            <summary>
+            Called when a valid jQuery UI draggable has been dropped onto the calendar.
+            </summary>
+        </member>
+        <member name="P:FullCalendar.ClientSideEvents.EventReceive">
+            <summary>
+            Called when an external element, containing event data, is dropped on the calendar.
+            This function is triggered after the drop callback has been called and after the new event has already been rendered on the calendar. event is the Event Object associated with the dropped element.
+            The droppable setting must be activated and the necessary jQuery UI requirements must be fulfilled.
+            The eventDrop callback does not get called when an external event is dragged onto the calendar.
+            When there is event data associated with the drag, normal event overlap/constraint rules apply, such as eventOverlap and eventConstraint.
+            </summary>
+        </member>
+        <member name="M:FullCalendar.ControlsBuilder.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:FullCalendar.ControlsBuilder.#ctor(System.String)">
+            <summary>
+            ctor
+            </summary>
+            <param name="buildedString">Initial string value for the builded string according to the API</param>
+        </member>
+        <member name="M:FullCalendar.ControlsBuilder.AddSeparator(FullCalendar.HeaderSeparator)">
+            <summary>
+            Adds a separator to the string. Values separated by a comma will be displayed adjacently. 
+            Values separated by a space will be displayed with a small gap in between.
+            </summary>
+            <param name="separator">Header separator</param>
+            <returns>Instance of the <see cref="T:FullCalendar.ControlsBuilder"/></returns>
+        </member>
+        <member name="M:FullCalendar.ControlsBuilder.AddTitle">
+            <summary>
+            Adds title (text containing the current month/week/day) to the string. 
+            </summary>
+            <returns>Instance of the <see cref="T:FullCalendar.ControlsBuilder"/></returns>
+        </member>
+        <member name="M:FullCalendar.ControlsBuilder.AddButton(FullCalendar.HeaderButton)">
+            <summary>
+            Adds a button (prev, next, prevYear, nextYear, today) to the string.
+            </summary>
+            <param name="headerButton">Header button</param>
+            <returns>Instance of the <see cref="T:FullCalendar.ControlsBuilder"/></returns>
+        </member>
+        <member name="M:FullCalendar.ControlsBuilder.AddView(FullCalendar.AvailableView)">
+            <summary>
+            Adds a button that will switch the calendar to any of the Available Views to the stirng.
+            </summary>
+            <param name="availableView">Calendar view</param>
+            <returns>Instance of the <see cref="T:FullCalendar.ControlsBuilder"/></returns>
+        </member>
+        <member name="M:FullCalendar.ControlsBuilder.ToString">
+            <summary>
+            Returns the string representation of the builded header
+            </summary>
+            <returns>The string representation of the builded header</returns>
+        </member>
+        <member name="M:FullCalendar.Events.AsJsonFeed(System.String)">
+            <summary>
+            A URL of a JSON feed that the calendar will fetch Event Objects from. 
+            FullCalendar will visit the URL whenever it needs new event data. This happens when the user clicks prev/next or changes views.
+            FullCalendar will determine the date-range it needs events for and will pass that information along in GET parameters.
+            The GET parameter names will be determined by the startParam and endParam options. ("start" and "end" by default).
+            The values of these parameters will be ISO8601 date strings(like 2013-12-01). For precise behavior, see the timezone docs. 
+            </summary>
+            <param name="url">A URL of a JSON feed that the calendar will fetch Event Objects from</param>
+            <returns>An <see cref="T:FullCalendar.EventCollection"/> object</returns>
+        </member>
+        <member name="M:FullCalendar.Events.AsArray(System.Collections.Generic.IEnumerable{FullCalendar.Event})">
+            <summary>
+            An array of Event Objects that will be displayed on the calendar.
+            </summary>
+            <param name="events">A <see cref="T:System.Collections.Generic.List`1"/> that will be displayed on the calendar.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FullCalendar.Events.AsFunction(System.String)">
+            <summary>
+            A custom function for programmatically generating Event Objects.
+            FullCalendar will call this function whenever it needs new event data. This is triggered when the user clicks prev/next or switches views.
+            This function will be given start and end parameters, which are Moments denoting the range the calendar needs events for.
+            timezone is a string/boolean describing the calendar's current timezone. It is the exact value of the timezone option.
+            It will also be given callback, a function that must be called when the custom event function has generated its events. It is the event function's responsibility to make sure callback is being called with an array of Event Objects.
+            </summary>
+            <param name="function"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FullCalendar.Interfaces.IPropertyParser">
+            <summary>
+            Defines methods to be implemented in property parsers
+            </summary>
+        </member>
+        <member name="T:FullCalendar.Interfaces.ISerializableObject">
+            <summary>
+            Represents a class which can be serialized as an object
+            </summary>
+        </member>
+        <member name="M:FullCalendar.Interfaces.ISerializableObject.AsSerializableObject">
+            <summary>
+            Gets the object representation before serialization
+            </summary>
+            <returns>The object representation before serialization</returns>
+        </member>
+        <member name="T:FullCalendar.Serialization.SerializableObjects.SerializableBusinessHour">
+            <summary>
+            Class used to serialize BusinessHour objects. This is needed because NullPropertiesConverter is not working on object types.
+            </summary>
+        </member>
+        <member name="T:FullCalendar.Serialization.SerializableObjects.SerializableDuration">
+            <summary>
+            Class used to serialize Duration objects. This is needed because NullPropertiesConverter is not working on object types.
+            </summary>
+        </member>
+        <member name="T:FullCalendar.Serialization.SerializableObjects.SerializableEvent">
+            <summary>
+            Class used to serialize Event objects. This is needed because NullPropertiesConverter is not working on object types.
+            </summary>
+        </member>
+        <member name="T:FullCalendar.Serialization.SerializableObjects.SerializableEventSource">
+            <summary>
+            Class used to serialize EventSource objects. This is needed because NullPropertiesConverter is not working on object types.
+            </summary>
+        </member>
+        <member name="T:FullCalendar.Serialization.SerializableObjects.SerializableValidRange">
+            <summary>
+            Class used to serialize ValidRange objects. This is needed because NullPropertiesConverter is not working on object types.
+            </summary>
+        </member>
+        <member name="T:FullCalendar.Serialization.SerializableObjects.SerializableView">
+            <summary>
+            Class used to serialize BusinessHour objects. This is needed because NullPropertiesConverter is not working on object types.
+            </summary>
+        </member>
+        <member name="T:FullCalendar.Serialization.SerializationHelpers">
+            <summary>
+            Container for serialization helpers
+            </summary>
+        </member>
+        <member name="M:FullCalendar.Serialization.SerializationHelpers.GetSerializer(System.Boolean)">
+            <summary>
+            Instantiates a <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer"/> object and registers <see cref="T:FullCalendar.Serialization.NullPropertiesConverter"/> as converter, if requested
+            </summary>
+            <param name="useNullConverter">True if <see cref="T:FullCalendar.Serialization.NullPropertiesConverter"/> has to registered as converter, otherwise false</param>
+            <returns>A <see cref="T:System.Web.Script.Serialization.JavaScriptSerializer"/> object with <see cref="T:FullCalendar.Serialization.NullPropertiesConverter"/> registered as converter, if requested</returns>
+        </member>
+    </members>
+</doc>

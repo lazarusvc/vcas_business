@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using VCAS.Models;
 
 namespace VCAS.Controllers
@@ -13,6 +14,13 @@ namespace VCAS.Controllers
     public class customerController : Controller
     {
         private ModelContainer db = new ModelContainer();
+
+        public JsonResult Json()
+        {
+            var result = db.VCAS_customer.Where(x => x.FK_Location == GlobalSession.Location).ToList();
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         // GET: customer
         public ActionResult Index()
@@ -60,7 +68,7 @@ namespace VCAS.Controllers
 
         // POST: customer/CreateModal
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Id,firstName,lastName,address,state,phone,email, FK_Location")] VCAS_customer vCAS_customer, FormCollection form)
+        public ActionResult Create([Bind(Include = "Id,firstName,lastName,address,state,phone,email,FK_Location")] VCAS_customer vCAS_customer, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +81,7 @@ namespace VCAS.Controllers
                     state = form["state"],
                     phone = form["phone"],
                     email = form["email"],
-                    FK_Location = Convert.ToInt16(form["FK_Location"])
+                    FK_Location = GlobalSession.Location
                 });
                 db.SaveChanges();
             }
