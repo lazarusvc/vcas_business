@@ -819,7 +819,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        
+        <Function Name="usp_SelectDeposit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="loc" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="VCAS_capture_payments" EntityType="Self.VCAS_capture_payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_council" EntityType="Self.VCAS_council" Schema="dbo" store:Type="Tables" />
@@ -1209,6 +1211,9 @@
             <End Role="VCAS_REF_userRoles" EntitySet="VCAS_REF_userRoles" />
             <End Role="VCAS_forms" EntitySet="VCAS_forms" />
           </AssociationSet>
+          <FunctionImport Name="usp_SelectDeposit" ReturnType="Collection(Model.usp_SelectDeposit_Result)">
+            <Parameter Name="loc" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="VCAS_debitTrans">
           <Key>
@@ -2131,6 +2136,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="usp_SelectDeposit_Result">
+          <Property Type="DateTime" Name="datetime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="receiptNo" Nullable="true" />
+          <Property Type="String" Name="payer" Nullable="false" />
+          <Property Type="String" Name="payType" Nullable="false" />
+          <Property Type="Double" Name="amount" Nullable="true" />
+          <Property Type="Int32" Name="checkNo" Nullable="true" />
+          <Property Type="String" Name="bankType" Nullable="true" />
+          <Property Type="String" Name="comment" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2561,6 +2576,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SelectDeposit" FunctionName="Model.Store.usp_SelectDeposit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.usp_SelectDeposit_Result">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="receiptNo" ColumnName="receiptNo" />
+                <ScalarProperty Name="payer" ColumnName="payer" />
+                <ScalarProperty Name="payType" ColumnName="payType" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="checkNo" ColumnName="checkNo" />
+                <ScalarProperty Name="bankType" ColumnName="bankType" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

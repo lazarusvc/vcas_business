@@ -14,6 +14,11 @@
             Calls <see cref="M:Microsoft.IdentityModel.Tokens.AsymmetricAdapter.Dispose(System.Boolean)"/> and <see cref="M:System.GC.SuppressFinalize(System.Object)"/>
             </summary>
         </member>
+        <member name="M:Microsoft.IdentityModel.Tokens.AsymmetricAdapter.GetSystemCoreType(System.String)">
+            <summary>
+            The following code determines if RSACng is available on the .Net framework that is installed.
+            </summary>
+        </member>
         <member name="T:Microsoft.IdentityModel.Tokens.AsymmetricSecurityKey">
             <summary>
             Base class for a Security Key that contains Asymmetric key material.
@@ -111,16 +116,15 @@
             Gets the mapping from algorithm to the minimum <see cref="T:Microsoft.IdentityModel.Tokens.AsymmetricSecurityKey"/>.KeySize for verifying signatures.
             </summary>
         </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.AsymmetricSignatureProvider.GetHashAlgorithmName(System.String)">
+        <member name="M:Microsoft.IdentityModel.Tokens.AsymmetricSignatureProvider.GetHashAlgorithmString(System.String)">
             <summary>
             Creating a Signature requires the use of a <see cref="T:System.Security.Cryptography.HashAlgorithm"/>.
-            This method returns the <see cref="T:System.Security.Cryptography.HashAlgorithmName"/>
+            This method returns the type of the HashAlgorithm (as a string)
             that describes the <see cref="T:System.Security.Cryptography.HashAlgorithm"/>to use when generating a Signature.
             </summary>
             <param name="algorithm">The SignatureAlgorithm in use.</param>
-            <returns>The <see cref="T:System.Security.Cryptography.HashAlgorithmName"/> to use.</returns>
-            <exception cref="T:System.ArgumentNullException">if <paramref name="algorithm"/> is null or whitespace.</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">if <paramref name="algorithm"/> is not supported.</exception>
+            <exception cref="T:System.ArgumentNullException">if <paramref name="algorithm"/>is null or whitespace.</exception>
+            <exception cref="T:System.ArgumentException">if <paramref name="algorithm"/> is not supported.</exception>
         </member>
         <member name="P:Microsoft.IdentityModel.Tokens.AsymmetricSignatureProvider.ObjectPoolSize">
             <summary>
@@ -230,124 +234,6 @@
             </summary>
             <param name="arg">string to decode.</param>
             <returns>UTF8 string.</returns>
-        </member>
-        <member name="T:Microsoft.IdentityModel.Tokens.Base64UrlEncoding">
-            <summary>
-            Base64 encode/decode implementation for as per https://tools.ietf.org/html/rfc4648#section-5.
-            Uses ArrayPool[T] to minimize memory usage.
-            </summary>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.Decode(System.String)">
-            <summary>
-            Decodes a Base64UrlEncoded string into a byte array.
-            </summary>
-            <param name="inputString">The string to decode.</param>
-            <returns>Decoded bytes.</returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.Decode(System.String,System.Int32,System.Int32)">
-            <summary>
-            Decodes a Base64UrlEncoded string into a byte array.
-            </summary>
-            <param name="input">String to decode.</param>
-            <param name="offset">Index of char in <paramref name="input"/> to start decode operation.</param>
-            <param name="length">Number of chars in <paramref name="input"/> to decode.</param>
-            <returns>Decoded bytes.</returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.Decode``2(System.String,System.Int32,System.Int32,``1,System.Func{System.Byte[],System.Int32,``1,``0})">
-            <summary>
-            Decodes a Base64UrlEncoded string and then performs an action.
-            </summary>
-            <param name="input">String to decode.</param>
-            <param name="offset">Index of char in <paramref name="input"/> to start decode operation.</param>
-            <param name="length">Number of chars in <paramref name="input"/> to decode from <paramref name="offset"/>.</param>
-            <param name="argx">Input parameter to action.</param>
-            <param name="action">Action to perform on decoded bytes.</param>
-            <typeparam name="T">Output type of decoding action.</typeparam>
-            <typeparam name="TX">Type of Input parameter to action.</typeparam>
-            <returns>Instance of {T}.</returns>
-            <remarks>
-            The buffer for the decode operation uses shared memory pool to avoid allocations.
-            The length of the rented array of bytes may be larger than the decoded bytes, therefore the action needs to know the actual length to use.
-            The result of <see cref="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.ValidateAndGetOutputSize(System.String,System.Int32,System.Int32)"/> is passed to the action.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.Decode``1(System.String,System.Int32,System.Int32,System.Func{System.Byte[],System.Int32,``0})">
-            <summary>
-            Decodes a Base64UrlEncoded string and then performs an action.
-            </summary>
-            <param name="input">The string to decode.</param>
-            <param name="offset">Index of char in <paramref name="input"/> to start decode operation from.</param>
-            <param name="length">Count of char in <paramref name="input"/> to decode.</param>
-            <param name="action">Action to perform on decoded bytes.</param>
-            <typeparam name="T">Return type of operation.</typeparam>
-            <returns>Instance of {T}.</returns>
-            <remarks>
-            The buffer for the decode operation uses shared memory pool to avoid allocations.
-            The length of the rented array of bytes may be larger than the decoded bytes, therefore the action needs to know the actual length to use.
-            The result of <see cref="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.ValidateAndGetOutputSize(System.String,System.Int32,System.Int32)"/> is passed to the action.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.Decode``4(System.String,System.Int32,System.Int32,``1,``2,``3,System.Func{System.Byte[],System.Int32,``1,``2,``3,``0})">
-            <summary>
-            Decodes a Base64UrlEncoded string and then performs an action.
-            </summary>
-            <param name="input">The string to decode.</param>
-            <param name="offset">Index of char in <paramref name="input"/> to start decode operation from.</param>
-            <param name="length">Count of char in <paramref name="input"/> to decode.</param>
-            <param name="argx">Input parameter 1 to action.</param>
-            <param name="argy">Input parameter 2 to action.</param>
-            <param name="argz">Input parameter 3 to action.</param>
-            <param name="action">Action to perform on decoded bytes.</param>
-            <typeparam name="T">Output type of decoding action.</typeparam>
-            <typeparam name="TX">Type of Input parameter 1 to action.</typeparam>
-            <typeparam name="TY">Type of Input parameter 2 to action.</typeparam>
-            <typeparam name="TZ">Type of Input parameter 3 to action.</typeparam>
-            <returns>Instance of {T}.</returns>
-            <remarks>
-            The buffer for the decode operation uses shared memory pool to avoid allocations.
-            The length of the rented array of bytes may be larger than the decoded bytes, therefore the action needs to know the actual length to use.
-            The result of <see cref="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.ValidateAndGetOutputSize(System.String,System.Int32,System.Int32)"/> is passed to the action.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.Decode(System.String,System.Int32,System.Int32,System.Byte[])">
-            <summary>
-            Decodes a Base64UrlEncoded string into a byte array.
-            </summary>
-            <param name="input">String to decode.</param>
-            <param name="offset">Index of char in <paramref name="input"/> to start decode operation.</param>
-            <param name="length">Number of chars in <paramref name="input"/> to decode.</param>
-            <param name="output">byte array to place results.</param>
-            <remarks>
-            Changes from Base64UrlEncoder implementation
-            1. Padding is optional.
-            2. '+' and '-' are treated the same.
-            3. '/' and '_' are treated the same.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.Encode(System.Byte[])">
-            <summary>
-            Encode byte array to Base64UrlEncoded string.
-            </summary>
-            <param name="bytes">Bytes to encode.</param>
-            <returns>Base64Url encoded string.</returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.Encode(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            Encode byte array to Base64UrlEncoded string.
-            </summary>
-            <param name="input">Bytes to encode.</param>
-            <param name="offset">Index into <paramref name="input"/> to start encode operation.</param>
-            <param name="length">Number of bytes in <paramref name="input"/> to encode, starting from offset.</param>
-            <returns>Base64Url encoded string.</returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.Base64UrlEncoding.ValidateAndGetOutputSize(System.String,System.Int32,System.Int32)">
-            <summary>
-            Validates the input string for decode operation.
-            </summary>
-            <param name="inputString">String to validate.</param>
-            <param name="offset">Index of char in <paramref name="inputString"/> to start decode operation.</param>
-            <param name="length">Number of chars in <paramref name="inputString"/> to decode, starting from offset.</param>
-            <returns>Size of the decoded bytes arrays.</returns>
         </member>
         <member name="T:Microsoft.IdentityModel.Tokens.BaseConfiguration">
             <summary>
@@ -869,21 +755,6 @@
             </remarks>
             <returns>A <see cref="T:Microsoft.IdentityModel.Tokens.SignatureProvider"/> that can be used to validate a signature using the <see cref="T:Microsoft.IdentityModel.Tokens.SecurityKey"/> and algorithm.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.CryptoProviderFactory.CreateHashAlgorithm(System.Security.Cryptography.HashAlgorithmName)">
-            <summary>
-            Creates a <see cref="T:System.Security.Cryptography.HashAlgorithm"/> for a specific algorithm.
-            </summary>
-            <param name="algorithm">the name of the hash algorithm to create.</param>
-            <exception cref="T:System.ArgumentNullException">thrown if <paramref name="algorithm"/> is null or empty.</exception>
-            <exception cref="T:System.InvalidOperationException">thrown if <see cref="M:Microsoft.IdentityModel.Tokens.ICryptoProvider.Create(System.String,System.Object[])"/> returns a type that is not assignable from <see cref="T:System.Security.Cryptography.HashAlgorithm"/>.</exception>
-            <exception cref="T:System.NotSupportedException">thrown if <paramref name="algorithm"/> is not supported.</exception>
-            <remarks>When finished with the <see cref="T:System.Security.Cryptography.HashAlgorithm"/> call <see cref="M:Microsoft.IdentityModel.Tokens.CryptoProviderFactory.ReleaseHashAlgorithm(System.Security.Cryptography.HashAlgorithm)"/>.
-            <para>If <see cref="P:Microsoft.IdentityModel.Tokens.CryptoProviderFactory.CustomCryptoProvider"/> is set and <see cref="M:Microsoft.IdentityModel.Tokens.ICryptoProvider.IsSupportedAlgorithm(System.String,System.Object[])"/> returns true.
-            <see cref="M:Microsoft.IdentityModel.Tokens.ICryptoProvider.Create(System.String,System.Object[])"/> is called to obtain the <see cref="T:System.Security.Cryptography.HashAlgorithm"/>.
-            </para>
-            </remarks>
-            <returns>A <see cref="T:System.Security.Cryptography.HashAlgorithm"/>.</returns>
-        </member>
         <member name="M:Microsoft.IdentityModel.Tokens.CryptoProviderFactory.CreateHashAlgorithm(System.String)">
             <summary>
             Creates a <see cref="T:System.Security.Cryptography.HashAlgorithm"/> for a specific algorithm.
@@ -1101,6 +972,13 @@
             Creates an ECDsa object using the <paramref name="jsonWebKey"/> and <paramref name="usePrivateKey"/>.
             </summary>
         </member>
+        <member name="M:Microsoft.IdentityModel.Tokens.ECDsaAdapter.CreateECDsaUsingCNGKey(Microsoft.IdentityModel.Tokens.JsonWebKey,System.Boolean)">
+            <summary>
+            Creates an ECDsa object using the <paramref name="jsonWebKey"/> and <paramref name="usePrivateKey"/>.
+            'ECParameters' structure is available in .NET Framework 4.7+, .NET Standard 1.6+, and .NET Core 1.0+.
+            This method is supported only on Windows as other platforms don't support operations with <see cref="T:System.Security.Cryptography.CngKey"/>.
+            </summary>
+        </member>
         <member name="M:Microsoft.IdentityModel.Tokens.ECDsaAdapter.GetKeyByteCount(System.String)">
             <summary>
             Returns the size of key in bytes
@@ -1126,29 +1004,6 @@
             Tests if user's runtime platform supports operations using <see cref="T:System.Security.Cryptography.CngKey"/>.
             </summary>
             <returns>True if operations using <see cref="T:System.Security.Cryptography.CngKey"/> are supported on user's runtime platform, false otherwise.</returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.ECDsaAdapter.CreateECDsaUsingECParams(Microsoft.IdentityModel.Tokens.JsonWebKey,System.Boolean)">
-            <summary>
-            Creates an ECDsa object using the <paramref name="jsonWebKey"/> and <paramref name="usePrivateKey"/>.
-            'ECParameters' structure is available in .NET Framework 4.7+, .NET Standard 1.6+, and .NET Core 1.0+.
-            </summary>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.ECDsaAdapter.GetNamedECCurve(System.String)">
-            <summary>
-            Returns the elliptic curve corresponding to the curve id.
-            </summary>
-            <param name="curveId">Represents ecdsa curve -P256, P384, P512</param>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.ECDsaAdapter.SupportsECParameters">
-            <summary>
-            Tests if user application's runtime supports <see cref="T:System.Security.Cryptography.ECParameters"/> structure.
-            </summary>
-            <returns>True if <see cref="T:System.Security.Cryptography.ECParameters"/> structure is supported, false otherwise.</returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.ECDsaAdapter.LoadECParametersType">
-            <summary>
-            Throws <see cref="T:System.TypeLoadException"/> during runtime if user application's runtime doesn't support <see cref="T:System.Security.Cryptography.ECParameters"/> structure.
-            </summary>
         </member>
         <member name="T:Microsoft.IdentityModel.Tokens.ECDsaSecurityKey">
             <summary>
@@ -1196,102 +1051,6 @@
             </summary>
             <returns>A JWK thumbprint.</returns>
             <remarks>https://datatracker.ietf.org/doc/html/rfc7638</remarks>
-        </member>
-        <member name="T:Microsoft.IdentityModel.Tokens.EncodingUtils">
-            <summary>
-            Collection of text encoding related helper methods.
-            </summary>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.EncodingUtils.PerformEncodingDependentOperation``1(System.String,System.Text.Encoding,System.Func{System.Byte[],System.Int32,``0})">
-            <summary>
-            Obtains bytes from a string using the Encoding and then performs an action.
-            </summary>
-            <param name="input">String to process.</param>
-            <param name="encoding">Encoding used to obtain bytes.</param>
-            <param name="action">Operation to invoke with result which is byte array and length of useful data in array with offset as 0.</param>
-            <typeparam name="T">Return type of operation.</typeparam>
-            <returns>Instance of {T}.</returns>
-            <remarks>
-            The encoding operation uses shared memory pool to avoid allocations.
-            The length of the rented array of bytes may be larger than the decoded bytes, therefore the action needs to know the actual length to use.
-            <see cref="M:System.Text.Encoding.GetBytes(System.String,System.Int32,System.Int32,System.Byte[],System.Int32)"/> is passed to the action.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.EncodingUtils.PerformEncodingDependentOperation``1(System.String,System.Int32,System.Int32,System.Text.Encoding,System.Func{System.Byte[],System.Int32,``0})">
-            <summary>
-            Obtains bytes from a string using the Encoding and then performs an action.
-            </summary>
-            <param name="input">String to process.</param>
-            <param name="offset">Index to start from in <paramref name="input"/>.</param>
-            <param name="length">Length of characters to operate in <paramref name="input"/> from <paramref name="offset"/>.</param>
-            <param name="encoding">Encoding used to obtain bytes.</param>
-            <param name="action">Operation to invoke with result which is byte array and length of useful data in array with offset as 0.</param>
-            <typeparam name="T">Return type of operation.</typeparam>
-            <returns>Instance of {T}.</returns>
-            <remarks>
-            The encoding operation uses shared memory pool to avoid allocations.
-            The length of the rented array of bytes may be larger than the decoded bytes, therefore the action needs to know the actual length to use.
-            <see cref="M:System.Text.Encoding.GetBytes(System.String,System.Int32,System.Int32,System.Byte[],System.Int32)"/> is passed to the action.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.EncodingUtils.PerformEncodingDependentOperation``4(System.String,System.Int32,System.Int32,System.Text.Encoding,``1,``2,``3,System.Func{System.Byte[],System.Int32,``1,``2,``3,``0})">
-            <summary>
-            Obtains bytes from a string using the Encoding and then performs an action.
-            </summary>
-            <param name="input">String to process.</param>
-            <param name="offset">Index to start from in <paramref name="input"/>.</param>
-            <param name="length">Length of characters to operate in <paramref name="input"/> from <paramref name="offset"/>.</param>
-            <param name="encoding">Encoding used to obtain bytes.</param>
-            <param name="argx">Input parameter 1 to action.</param>
-            <param name="argy">Input parameter 2 to action.</param>
-            <param name="argz">Input parameter 3 to action.</param>
-            <param name="action">Action to perform with bytes.</param>
-            <typeparam name="T">Return type of operation.</typeparam>
-            <typeparam name="TX">Type of Input parameter 1 to action.</typeparam>
-            <typeparam name="TY">Type of Input parameter 2 to action.</typeparam>
-            <typeparam name="TZ">Type of Input parameter 3 to action.</typeparam>
-            <returns>Instance of {T}.</returns>
-            <remarks>
-            The encoding operation uses shared memory pool to avoid allocations.
-            The length of the rented array of bytes may be larger than the decoded bytes, therefore the action needs to know the actual length to use.
-            <see cref="M:System.Text.Encoding.GetBytes(System.String,System.Int32,System.Int32,System.Byte[],System.Int32)"/> is passed to the action.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.EncodingUtils.PerformEncodingDependentOperation``2(System.String,System.Text.Encoding,``1,System.Func{System.Byte[],System.Int32,``1,``0})">
-            <summary>
-            Encodes the string using given Encoding, and invokes the operation with the result.
-            </summary>
-            <typeparam name="T">Return type of operation.</typeparam>
-            <typeparam name="TX">Input parameter to operation.</typeparam>
-            <param name="input">String to process.</param>
-            <param name="encoding">Encoding used to obtain bytes.</param>
-            <param name="parameter">Additional operation parameter.</param>
-            <param name="action">Operation to invoke with result which is byte array and length of useful data in array with offset as 0.</param>
-            <returns>Result of operation.</returns>
-            <remarks>
-            The encoding operation uses shared memory pool to avoid allocations.
-            The length of the rented array of bytes may be larger than the decoded bytes, therefore the action needs to know the actual length to use.
-            <see cref="M:System.Text.Encoding.GetBytes(System.String,System.Int32,System.Int32,System.Byte[],System.Int32)"/> is passed to the action.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.EncodingUtils.PerformEncodingDependentOperation``2(System.String,System.Int32,System.Int32,System.Text.Encoding,``1,System.Func{System.Byte[],System.Int32,``1,``0})">
-            <summary>
-            Obtains bytes from a string using the Encoding and then performs an action.
-            </summary>
-            <param name="input">String to process.</param>
-            <param name="offset">Index to start from in <paramref name="input"/>.</param>
-            <param name="length">Length of characters to operate in <paramref name="input"/> from <paramref name="offset"/>.</param>
-            <param name="encoding">Encoding used to obtain bytes.</param>
-            <param name="parameter">Additional operation parameter.</param>
-            <param name="action">Operation to invoke with result which is byte array and length of useful data in array with offset as 0.</param>
-            <typeparam name="T">Return type of operation.</typeparam>
-            <typeparam name="TX">Input parameter to operation.</typeparam>
-            <returns>Instance of {T}.</returns>
-            <remarks>
-            The encoding operation uses shared memory pool to avoid allocations.
-            The length of the rented array of bytes may be larger than the decoded bytes, therefore the action needs to know the actual length to use.
-            <see cref="M:System.Text.Encoding.GetBytes(System.String,System.Int32,System.Int32,System.Byte[],System.Int32)"/> is passed to the action.
-            </remarks>
         </member>
         <member name="T:Microsoft.IdentityModel.Tokens.EncryptingCredentials">
             <summary>
@@ -1523,35 +1282,6 @@
             <summary>
             Gets the authentication tag
             </summary>
-        </member>
-        <member name="T:Microsoft.IdentityModel.Tokens.EcdhKeyExchangeProvider">
-            <summary>
-            Provides a Security Key that can be used as Content Encryption Key (CEK) for use with a JWE
-            </summary>
-        </member>
-        <member name="P:Microsoft.IdentityModel.Tokens.EcdhKeyExchangeProvider.KeyDataLen">
-            <summary>
-            Number of bits in the desired output key
-            </summary>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.EcdhKeyExchangeProvider.#ctor(Microsoft.IdentityModel.Tokens.SecurityKey,Microsoft.IdentityModel.Tokens.SecurityKey,System.String,System.String)">
-            <summary>
-            Initializes a new instance of <see cref="T:Microsoft.IdentityModel.Tokens.EcdhKeyExchangeProvider"/> used for CEKs
-            <param name="privateKey">The <see cref="T:Microsoft.IdentityModel.Tokens.SecurityKey"/> that will be used for cryptographic operations and represents the private key.</param>
-            <param name="publicKey">The <see cref="T:Microsoft.IdentityModel.Tokens.SecurityKey"/> that will be used for cryptographic operations and represents the public key.</param>
-            <param name="alg">alg header parameter value.</param>
-            <param name="enc">enc header parameter value.</param>
-            </summary>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.EcdhKeyExchangeProvider.GenerateKdf(System.String,System.String)">
-            <summary>
-            Generates the KDF
-            </summary>
-            <param name="apu">Agreement PartyUInfo (optional). When used, the PartyVInfo value contains information about the producer,
-            represented as a base64url-encoded string.</param>
-            <param name="apv">Agreement PartyVInfo (optional). When used, the PartyUInfo value contains information about the recipient,
-            represented as a base64url-encoded string.</param>
-            <returns>Returns <see cref="T:Microsoft.IdentityModel.Tokens.SecurityKey"/> that represents the key generated</returns>
         </member>
         <member name="T:Microsoft.IdentityModel.Tokens.KeyWrapProvider">
             <summary>
@@ -2133,15 +1863,6 @@
             </summary>
             <param name="info">the <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data.</param>
             <param name="context">The contextual information about the source or destination.</param>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.SecurityTokenException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            When overridden in a derived class, sets the System.Runtime.Serialization.SerializationInfo
-            with information about the exception.
-            </summary>
-            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
-            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
-            <exception cref="T:System.ArgumentNullException">thrown if <paramref name="info"/> is null.</exception>
         </member>
         <member name="T:Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException">
             <summary>
@@ -3268,14 +2989,6 @@
             <returns>a <see cref="T:Microsoft.IdentityModel.Tokens.JsonWebKey"/></returns>
             <exception cref="T:System.ArgumentNullException">if <paramref name="key"/>is null.</exception>
         </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.JsonWebKeyConverter.ConvertFromECDsaSecurityKey(Microsoft.IdentityModel.Tokens.ECDsaSecurityKey)">
-            <summary>
-            Converts a <see cref="T:Microsoft.IdentityModel.Tokens.ECDsaSecurityKey"/> into a <see cref="T:Microsoft.IdentityModel.Tokens.JsonWebKey"/>
-            </summary>
-            <param name="key">an <see cref="T:Microsoft.IdentityModel.Tokens.ECDsaSecurityKey"/> to convert.</param>
-            <returns>a <see cref="T:Microsoft.IdentityModel.Tokens.JsonWebKey"/></returns>
-            <exception cref="T:System.ArgumentNullException">if <paramref name="key"/>is null.</exception>
-        </member>
         <member name="T:Microsoft.IdentityModel.Tokens.JsonWebKeyECTypes">
             <summary>
             Constants for JsonWebKey Elliptical Curve Types
@@ -3481,21 +3194,6 @@
             </summary>
             <param name="input">The input byte array.</param>
             <param name="hash">The hash algorithm to use to create the hash value.</param>
-            <param name="signature">The signature byte array to be verified.</param>
-            <returns>true if the signature is valid; otherwise, false.</returns>
-            <exception cref="T:System.ArgumentNullException">if <paramref name="input"/> is null or Length == 0.</exception>
-            <exception cref="T:System.ArgumentNullException">if <paramref name="hash"/> is null.</exception>
-            <exception cref="T:System.ArgumentNullException">if <paramref name="signature"/> is null or Length == 0.</exception>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.RSACryptoServiceProviderProxy.VerifyDataWithLength(System.Byte[],System.Int32,System.Int32,System.Object,System.Security.Cryptography.HashAlgorithmName,System.Byte[])">
-            <summary>
-            Verifies that a digital signature is valid by determining the hash value in the signature using the provided public key and comparing it to the hash value of the provided data.
-            </summary>
-            <param name="input">The input byte array.</param>
-            <param name="offset"></param>
-            <param name="length"></param>
-            <param name="hash">The hash algorithm to use to create the hash value.</param>
-            <param name="hashAlgorithmName"></param>
             <param name="signature">The signature byte array to be verified.</param>
             <returns>true if the signature is valid; otherwise, false.</returns>
             <exception cref="T:System.ArgumentNullException">if <paramref name="input"/> is null or Length == 0.</exception>
@@ -4050,17 +3748,6 @@
             <summary>
             Defines the default set of algorithms this library supports
             </summary>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Tokens.SupportedAlgorithms.GetHashAlgorithmName(System.String)">
-            <summary>
-            Creating a Signature requires the use of a <see cref="T:System.Security.Cryptography.HashAlgorithm"/>.
-            This method returns the <see cref="T:System.Security.Cryptography.HashAlgorithmName"/>
-            that describes the <see cref="T:System.Security.Cryptography.HashAlgorithm"/>to use when generating a Signature.
-            </summary>
-            <param name="algorithm">The SignatureAlgorithm in use.</param>
-            <returns>The <see cref="T:System.Security.Cryptography.HashAlgorithmName"/> to use.</returns>
-            <exception cref="T:System.ArgumentNullException">if <paramref name="algorithm"/> is null or whitespace.</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">if <paramref name="algorithm"/> is not supported.</exception>
         </member>
         <member name="M:Microsoft.IdentityModel.Tokens.SupportedAlgorithms.GetDigestFromSignatureAlgorithm(System.String)">
             <summary>

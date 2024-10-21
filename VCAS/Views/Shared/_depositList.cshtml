@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<VCAS.Models.usp_SelectDeposit_Result>
+﻿@model IEnumerable<VCAS.Models.usp_SelectDeposit_Result>
 
 @{
     Layout = null;
@@ -15,6 +15,9 @@
     <thead>
         <tr>
             <th>
+                Date
+            </th>
+            <th>
                 Receipt No
             </th>
             <th>
@@ -29,6 +32,9 @@
             <th>
                 Bank Type
             </th>
+            <th>
+                Remittance
+            </th>
         </tr>
     </thead>
 
@@ -36,6 +42,9 @@
     {
         <tbody>
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datetime)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.receiptNo)
                 </td>
@@ -51,8 +60,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.bankType)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.comment)
+                </td>
             </tr>
         </tbody>
     }
 
-</table>*@
+</table>

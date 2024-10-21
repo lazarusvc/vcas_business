@@ -20,11 +20,10 @@ namespace VCAS.Controllers
         {
             // EXEC Stored Procedure - usp_SelectDeposit
             // ********************************************
-            //SqlParameter[] Parameters = { new SqlParameter("@p_loc", loc) };
-            //var results = db.Database.SqlQuery<usp_SelectDeposit_Result>("EXEC usp_SelectDeposit @p_loc", Parameters);
+            SqlParameter[] Parameters = { new SqlParameter("@p_loc", loc) };
+            var results = db.Database.SqlQuery<usp_SelectDeposit_Result>("EXEC usp_SelectDeposit @p_loc", Parameters);
 
-            //return PartialView("_depositList", results.ToList());
-            return View();
+            return PartialView("_depositList", results.ToList());
         }
         public ActionResult Index()
         {

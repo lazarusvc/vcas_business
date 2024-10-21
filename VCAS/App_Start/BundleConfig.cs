@@ -51,10 +51,10 @@ namespace VCAS
                     "~/Scripts/main-index.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
-                    "~/Scripts/tinymce/jquery.tinymce.min.js",
-                    "~/Scripts/tinymce/tinymce.min.js"
-                ));
+            //bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
+            //        "~/Scripts/tinymce/jquery.tinymce.min.js",
+            //        "~/Scripts/tinymce/tinymce.min.js"
+            //    ));
 
             bundles.Add(new ScriptBundle("~/bundles/phoneNumber").Include(
                     "~/Scripts/PhoneNumber.js"
