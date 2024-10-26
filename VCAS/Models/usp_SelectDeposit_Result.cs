@@ -10,13 +10,10 @@
 namespace VCAS.Models
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class usp_SelectDeposit_Result
     {
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public Nullable<System.DateTime> datetime { get; set; }
-
         public string receiptNo { get; set; }
         public string payer { get; set; }
         public string payType { get; set; }

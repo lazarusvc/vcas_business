@@ -122,6 +122,7 @@ BREADCRUMBS CSS
 */
 #menu {
     white-space: nowrap;
+    overflow-x: scroll;
 }
 
 #menu li {
