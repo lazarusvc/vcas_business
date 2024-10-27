@@ -31,7 +31,7 @@
 
     // TINYMCE - WYSWYGET EDITOR
     // **********************************
-    $('#tinymce1').tinymce({
+    $('textarea#tinymce1').tinymce({
         height: 500,
         menubar: false,
         plugins: [
@@ -43,7 +43,7 @@
             'alignleft aligncenter alignright alignjustify | ' +
             'bullist numlist outdent indent | removeformat | help'
     });
-    $('#tinymce2').tinymce({
+    $('textarea#tinymce2').tinymce({
         height: 500,
         menubar: false,
         plugins: [
