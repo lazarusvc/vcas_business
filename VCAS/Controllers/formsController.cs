@@ -30,8 +30,6 @@ namespace VCAS.Controllers
             string cldEnd = Convert.ToString(db.VCAS_forms.Where(x => x.Id == id).Select(x => x.calendarEndDate).FirstOrDefault());
             string cldEColor = Convert.ToString(db.VCAS_forms.Where(x => x.Id == id).Select(x => x.calendarEventColor).FirstOrDefault());
 
-            // Reducing Balance on debitAccounts
-            // 
             // EXEC Stored Procedure - usp_SelectCalendarData
             // =================================================
             string cnnString = System.Configuration.ConfigurationManager.ConnectionStrings["ModelContainerUpload"].ConnectionString;
@@ -42,7 +40,8 @@ namespace VCAS.Controllers
 
             cmd.CommandText = "usp_SelectCalendarData";
             cmd.Parameters.Add("@loc", SqlDbType.Int).Value = GlobalSession.Location;
-            cmd.Parameters.Add("formID", SqlDbType.Int).Value = id;
+            cmd.Parameters.Add("@formID", SqlDbType.Int).Value = id;
+
             cnn.Open();
 
             List<CalendarData> calendarData = new List<CalendarData>();
@@ -100,7 +99,7 @@ namespace VCAS.Controllers
             ViewBag.id = id;
             // ************* FormData 
             var vCAS_REF_forms = db.VCAS_REF_forms.Where(x => x.Id == dataID).ToList().FirstOrDefault();
-            var stringArray = new string[13] {
+            var stringArray = new string[18] {
                 vCAS_REF_forms.txtInput_01,
                 vCAS_REF_forms.txtInput_02,
                 vCAS_REF_forms.txtInput_03,
@@ -113,7 +112,12 @@ namespace VCAS.Controllers
                 vCAS_REF_forms.txtInput_10,
                 vCAS_REF_forms.txtInput_11,
                 vCAS_REF_forms.txtInput_12,
-                vCAS_REF_forms.txtInput_13
+                vCAS_REF_forms.txtInput_13,
+                vCAS_REF_forms.txtInput_14,
+                vCAS_REF_forms.txtInput_15,
+                vCAS_REF_forms.txtInput_16,
+                vCAS_REF_forms.txtInput_17,
+                vCAS_REF_forms.txtInput_18
             };
             ViewBag.Collection = stringArray;
 
@@ -139,6 +143,13 @@ namespace VCAS.Controllers
                 vCAS_REF_forms.selectInput_03
             };
             ViewBag.Collection4 = stringArray4;
+
+            var stringArray5 = new string[2]
+            {
+                vCAS_REF_forms.fileInput_01,
+                vCAS_REF_forms.fileInput_02
+            };
+            ViewBag.Collection5 = stringArray5;
 
             return View(vCAS_forms);
         }
@@ -178,7 +189,7 @@ namespace VCAS.Controllers
             ViewBag.id = id;
             // ************* FormData 
             var vCAS_REF_forms = db.VCAS_REF_forms.Include(v => v.VCAS_forms).Where(x => x.FK_formsId == id).ToList().LastOrDefault();
-            var stringArray = new string[13] {
+            var stringArray = new string[18] {
                 vCAS_REF_forms.txtInput_01,
                 vCAS_REF_forms.txtInput_02,
                 vCAS_REF_forms.txtInput_03,
@@ -191,7 +202,12 @@ namespace VCAS.Controllers
                 vCAS_REF_forms.txtInput_10,
                 vCAS_REF_forms.txtInput_11,
                 vCAS_REF_forms.txtInput_12,
-                vCAS_REF_forms.txtInput_13
+                vCAS_REF_forms.txtInput_13,
+                vCAS_REF_forms.txtInput_14,
+                vCAS_REF_forms.txtInput_15,
+                vCAS_REF_forms.txtInput_16,
+                vCAS_REF_forms.txtInput_17,
+                vCAS_REF_forms.txtInput_18
             };
             ViewBag.Collection = stringArray;
 
@@ -216,7 +232,14 @@ namespace VCAS.Controllers
                 vCAS_REF_forms.selectInput_02,
                 vCAS_REF_forms.selectInput_03
             };
-            ViewBag.Collection4 = stringArray4; 
+            ViewBag.Collection4 = stringArray4;
+
+            var stringArray5 = new string[2]
+{
+                vCAS_REF_forms.fileInput_01,
+                vCAS_REF_forms.fileInput_02
+};
+            ViewBag.Collection5 = stringArray5;
 
             return View(vCAS_forms);
         }

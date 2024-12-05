@@ -46,7 +46,6 @@ namespace VCAS.Models
         public virtual DbSet<VCAS_REF_order_status> VCAS_REF_order_status { get; set; }
         public virtual DbSet<VCAS_REF_items> VCAS_REF_items { get; set; }
         public virtual DbSet<VCAS_council> VCAS_council { get; set; }
-        public virtual DbSet<VCAS_REF_forms> VCAS_REF_forms { get; set; }
         public virtual DbSet<VCAS_inventory> VCAS_inventory { get; set; }
         public virtual DbSet<VCAS_orders> VCAS_orders { get; set; }
         public virtual DbSet<VCAS_capture_payments> VCAS_capture_payments { get; set; }
@@ -57,6 +56,9 @@ namespace VCAS.Models
         public virtual DbSet<VCAS_customer> VCAS_customer { get; set; }
         public virtual DbSet<VCAS_inventory_AUDIT> VCAS_inventory_AUDIT { get; set; }
         public virtual DbSet<VCAS_forms> VCAS_forms { get; set; }
+        public virtual DbSet<VCAS_capture_payments__REF_items> VCAS_capture_payments__REF_items { get; set; }
+        public virtual DbSet<vw_inventoryItems> vw_inventoryItems { get; set; }
+        public virtual DbSet<VCAS_REF_forms> VCAS_REF_forms { get; set; }
     
         public virtual int usp_DebitReducingbalance(Nullable<double> amt, Nullable<short> icID, Nullable<short> daID)
         {
@@ -200,6 +202,15 @@ namespace VCAS.Models
                 new ObjectParameter("loc", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectDeposit_Result>("usp_SelectDeposit", locParameter);
+        }
+    
+        public virtual ObjectResult<usp_SelectReceiptItems_Result> usp_SelectReceiptItems(string recNo)
+        {
+            var recNoParameter = recNo != null ?
+                new ObjectParameter("recNo", recNo) :
+                new ObjectParameter("recNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectReceiptItems_Result>("usp_SelectReceiptItems", recNoParameter);
         }
     }
 }

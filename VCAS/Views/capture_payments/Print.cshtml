@@ -257,6 +257,26 @@
         <div class="partialview">
             @Html.Action("PrintMoreItems", "capture_payments", new { r = ViewBag.receiptNo })
         </div>
+        <table class="table sub-compact">
+            <thead>
+                <tr>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.comment)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p align="RIGHT">Total: <strong>$@Model.amount</strong></p>
+        <p align="RIGHT">Payment: <strong>$@Model.recieved_amount</strong></p>
+
+        @{ var bal = Model.recieved_amount - Model.amount; }
+        <p align="RIGHT">Balance: <strong>$@bal</strong></p>
         <br />
         <br />
         <br />
@@ -267,8 +287,8 @@
         </div>
         <hr />
         <!-- ********************************************************************************
-         FLOATING BUTTON
-        ********************************************************************************** -->
+     FLOATING BUTTON
+    ********************************************************************************** -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <div class="floating-container" id="printBtnArea">
             <div class="floating-button">+</div>

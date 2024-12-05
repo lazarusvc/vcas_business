@@ -95,10 +95,9 @@
             min-height: 100%;
             min-width: 100%;
         }
-        
+
         body {
-            width: 1054px;
-            height: 1054px;
+            height: 100vh;
             font-family: 'Roboto', sans-serif;
         }
 
@@ -195,10 +194,11 @@
                     background: #202d3f;
                     box-shadow: 0 20px 20px -10px rgba(255, 152, 0, 0.5);
                 }
-                label {
-                    color: gray;
-                    font-size: 10px;
-                }
+
+        label {
+            color: gray;
+            font-size: 10px;
+        }
     </style>
 </head>
 <body>
@@ -235,6 +235,14 @@
 
     <script type="text/javascript">
 
+        // RESET BODY HEIGHT FOR MOBILE
+        // ==============================================
+		function resetHeight(){ // reset the body height to that of the inner browser
+			document.body.style.height = window.innerHeight + "px";
+		}
+		window.addEventListener("resize", resetHeight); // reset the height whenever the window's resized
+		resetHeight();	// called to initially set the height.
+
         // GET FORM DATA ID
         // From url param
         // ==============================================
@@ -243,7 +251,7 @@
         const id = urlParams.get('id');
         const dID = urlParams.get('dataID');
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             var printBtn = $("#printBtn");
             printBtn.click(function () {
                 $("#printBtnArea").hide();
@@ -278,9 +286,11 @@
     {
         int j = i - 1;
         <script>
-            $("checkbox[name='checkInput_@i.ToString("D2")']").val("@Html.Raw(ViewBag.Collection2[j])");
+            var checkBoxVal = "@ViewBag.Collection2[j]";
+            if (checkBoxVal != "") {
+                $("#checkInput_@i.ToString("D2")").attr("checked", true);
+            }            
         </script>
-
     }
     @for (int i = 1; i < 4; i++)
     {
@@ -297,6 +307,14 @@
             $("select[name='selectInput_@i.ToString("D2")']").val("@Html.Raw(ViewBag.Collection4[j])");
         </script>
 
+    }
+    @for (int i = 1; i < 2; i++)
+    {
+        int j = i - 1;
+        <script>
+            $(".files").html('<img src="@Html.Raw(ViewBag.Collection5[j])" width:50%; margin-left:0% !important;"/><br/>');
+            $("input[name='fileInput_@i.ToString("D2")']").attr("value", "@Html.Raw(ViewBag.Collection5[j]).");
+        </script>
     }
     <!-- Remove unnessessary placeholder text -->
     <script>

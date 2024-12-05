@@ -75,26 +75,26 @@ namespace VCAS.Controllers
         public ActionResult PrintMoreItems(string r)
         {
             if (r != null)
-            {
-                model = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList();
-                var tot = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.amount).Sum();
-                var pay = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.recieved_amount).Sum();
-                ViewBag.total = tot;
-                ViewBag.payment = pay;
-                ViewBag.balance = tot - pay;
+            { 
+                // EXEC Stored Procedure - usp_SelectReceiptItems
+                // ********************************************
+                SqlParameter[] Parameters = { new SqlParameter("@p_recNo", r) };
+                model = db.Database.SqlQuery<usp_SelectReceiptItems_Result>("EXEC usp_SelectReceiptItems @p_recNo", Parameters).ToList();
             }
             else
             {
                 string lastRec = Session["printRec"].ToString();
-                model = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList();
-                var tot = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.amount).Sum();
-                var pay = db.VCAS_capture_payments.Where(x => x.receiptNo == r && x.FK_location == GlobalSession.Location).ToList().Select(x => x.recieved_amount).Sum();
-                ViewBag.total = tot;
-                ViewBag.payment = pay;
-                ViewBag.balance = tot - pay;
+
+                // EXEC Stored Procedure - usp_SelectReceiptItems
+                // ********************************************
+                SqlParameter[] Parameters = { new SqlParameter("@p_recNo", r) };
+                model = db.Database.SqlQuery<usp_SelectReceiptItems_Result>("EXEC usp_SelectReceiptItems @p_recNo", Parameters).ToList();
+
+
             }
             return PartialView("_capture_paymentsIndex", model);
         }
+
         public ActionResult RePrint()
         {
             return View();
@@ -186,19 +186,22 @@ namespace VCAS.Controllers
                     db.Database.ExecuteSqlCommand("EXEC usp_UpdateCusOrderStat @p_cusID", Parameters);
                 }
 
-                // EXEC Stored Procedure - usp_UpdateStock
+                // EXEC Raw SQL - Insert multiple Receipt items {VCAS_capture_payments__REF_items}
                 // ***********************************************
-                if (vCAS_capture_payments.recieved_amount > 0 && 
-                    vCAS_capture_payments.recieved_amount != null && 
-                    Convert.ToInt32(form["inventoryID"]) > 0)
+                int total = Convert.ToInt32(form["REC-tr-total"]); // ---------------------- Total Receipt item rows
+                int value = 0;
+                string insValOutput = ""; // ----------------------------------------------- Insert VALUES variable
+                if (total > 0)
                 {
-                    int invID = Convert.ToInt32(form["inventoryID"]);
+                    for (int i = 1; i <= total; i++)
+                    {
+                        value = Convert.ToInt32(form["inventoryID["+i+"]"]); // ------------- Fetch the inventory ID for index i   
+                        insValOutput += String.Format(@"({0},{1}),", vCAS_capture_payments.Id, value);  // (1, value1),(2, value2) ...
+                    }
 
-                    SqlParameter[] Parameters1 = {
-                        new SqlParameter("@p_id", invID),
-                        new SqlParameter("@p_loc", GlobalSession.Location)
-                    };
-                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateStock @p_loc, @p_id", Parameters1);
+                    db.Database.ExecuteSqlCommand(String.Format(@"
+                    INSERT INTO dbo.VCAS_capture_payments__REF_items (FK_capture_paymentsId, FK_inventoryId)
+                    VALUES {0};", insValOutput.TrimEnd(',', ' ')));
                 }
 
                 return RedirectToAction("PrintLast");
@@ -262,21 +265,21 @@ namespace VCAS.Controllers
             {
                 db.VCAS_capture_payments.Add(new VCAS_capture_payments { 
                     Id = vCAS_capture_payments.Id,
-                    datetime = DateTime.Now,
-                    payer = form["txtInput_01"],
+                    datetime = DateTime.Now,                    
                     payerID = vCAS_capture_payments.payerID,
                     orderID = vCAS_capture_payments.orderID,
-                    amount = Convert.ToDouble(form["txtInput_06"]),
-                    recieved_amount = Convert.ToDouble(form["txtInput_07"]),
-                    checkNo = vCAS_capture_payments.checkNo,
-                    comment = form["txtAreaInput_02"],
+                    checkNo = vCAS_capture_payments.checkNo,                    
                     receiptNo = recValue,
-                    issuer = db.VCAS_users.Where(x => x.userName == User.Identity.Name).Select(x => x.userName).FirstOrDefault(),
+                    issuer = User.Identity.Name,
                     FK_paymentType = db.VCAS_REF_payment_type.Select(x => x.Id).FirstOrDefault(),
-                    FK_bankDetails = db.VCAS_REF_bank_details.Select(x => x.Id).FirstOrDefault(),
-                    FK_items = db.VCAS_REF_items_location.Where(x => x.FK_councilId == GlobalSession.Location).Select(x => x.Id).FirstOrDefault(),
+                    FK_bankDetails = db.VCAS_REF_bank_details.Select(x => x.Id).FirstOrDefault(),                    
                     FK_location = GlobalSession.Location,
-                    invoice = false
+                    invoice = true,
+                    payer = form["txtInput_14"],
+                    comment = form["txtInput_15"],
+                    FK_items = Convert.ToInt32(form["txtInput_16"]),
+                    amount = Convert.ToDouble(form["txtInput_17"]),
+                    recieved_amount = Convert.ToDouble(form["txtInput_18"])
                 });
                 db.SaveChanges();
             }

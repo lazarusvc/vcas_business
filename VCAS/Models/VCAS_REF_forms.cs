@@ -20,14 +20,6 @@ namespace VCAS.Models
         public string txtInput_03 { get; set; }
         public string txtInput_04 { get; set; }
         public string txtInput_05 { get; set; }
-        public string txtInput_06 { get; set; }
-        public string txtInput_07 { get; set; }
-        public string txtInput_08 { get; set; }
-        public string txtInput_09 { get; set; }
-        public string txtInput_10 { get; set; }
-        public string txtInput_11 { get; set; }
-        public string txtInput_12 { get; set; }
-        public string txtInput_13 { get; set; }
         public string checkInput_01 { get; set; }
         public string checkInput_02 { get; set; }
         public string checkInput_03 { get; set; }
@@ -44,6 +36,19 @@ namespace VCAS.Models
         public string frmHeader { get; set; }
         public string frmFooter { get; set; }
         public string signatureBox { get; set; }
+        public string txtInput_06 { get; set; }
+        public string txtInput_07 { get; set; }
+        public string txtInput_08 { get; set; }
+        public string txtInput_09 { get; set; }
+        public string txtInput_10 { get; set; }
+        public string txtInput_11 { get; set; }
+        public string txtInput_12 { get; set; }
+        public string txtInput_13 { get; set; }
+        public string txtInput_14 { get; set; }
+        public string txtInput_15 { get; set; }
+        public string txtInput_16 { get; set; }
+        public string txtInput_17 { get; set; }
+        public string txtInput_18 { get; set; }
     
         public virtual VCAS_forms VCAS_forms { get; set; }
     }

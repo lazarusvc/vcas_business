@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Contact</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <style>
+      .vc-form {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .vc-form h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .vc-form h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .vc-form hr {
+        margin-bottom: 20px;
+      }
+      .vc-form fieldset {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      .vc-form fieldset legend {
+        padding: 0 5px;
+        font-size: 14px;
+        color: #666;
+      }
+      .vc-form .inner-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .vc-form .form-group {
+        margin-bottom: 20px;
+        flex: 1;
+      }
+      .vc-form .form-group label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      .vc-form .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #e6ebeb;
+      }
+      .vc-form .comments-container {
+        position: relative;
+        margin-top: 20px;
+      }
+      .vc-form .comments-container .comments-label {
+        position: absolute;
+        background: #f5f5f5;
+        left: 25px;
+        top: -10px;
+        padding: 2px 10px;
+      }
+      .vc-form input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="date"] {
+        width: calc(100% - 22px) !important;
+      }
+      .vc-form .comments-container textarea {
+        width: calc(100% - 22px);
+        background-color: #f5f5f5;
+      }
+      .vc-form .additional-check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .vc-form .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: 0;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .vc-form .btn-success {
+        margin-top: 20px;
+        background: #3788d8;
+        color: #fff;
+      }
+      .vc-form .btn-success:hover {
+        background: #2e6aa8;
+      }
+      .vc-form .btn-danger {
+        background: #f00;
+        color: #fff;
+      }
+      .vc-form .btn-danger:hover {
+        background: #d00;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/formsData/Create" method="POST" id="contactForm">
+		
+      <input type="hidden" name="FK_formsId" value="1020" />
+      <input type="hidden" name="txtInput_05" value="#6666ff" />
+	  <input type="hidden" name="txtInput_06" value="" />
+	  
+	  <!-- {REQUIRED} Customer name logic - Input Fields --------------------------------- -->
+      <textarea type="hidden" class="form-control" id="txtAreaInput_03" name="txtAreaInput_03" style="display:none;"></textarea>
+	  
+      <div class="vc-form">
+        <div class="">
+          <h1>Contact Form</h1>
+        </div>
+        <div>
+          <div class="formbuilder-text form-group">
+            <label class="formbuilder-text-label">Name:</label>
+            <input
+              type="text"
+              placeholder="e.g. Jane Doe"
+              class="form-control"
+              name="txtInput_01"
+              access="false"
+              id="txtInput_01"
+            />
+          </div>
+        </div>
+        <div>
+          <h3>Personal Info::</h3>
+          <div class="inner-container">
+            <div class="formbuilder-text form-group">
+              <label class="formbuilder-text-label">First Name:</label>
+              <input
+                type="text"
+                placeholder="e.g. Jane"
+                class="form-control"
+                name="firstName"
+                id="firstName"
+                required
+              />
+            </div>
+            <div class="formbuilder-text form-group">
+              <label class="formbuilder-text-label">Last Name:</label>
+              <input
+                type="text"
+                placeholder="e.g. Doe"
+                class="form-control"
+                name="lastName"
+                id="lastName"
+                required
+              />
+            </div>
+          </div>
+          <div class="inner-container">
+            <div class="formbuilder-text form-group">
+              <label class="formbuilder-text-label">Email:</label>
+              <input
+                type="email"
+                placeholder="e.g. jane.doe@example.com"
+                class="form-control"
+                name="email"
+                id="email"
+                required
+              />
+            </div>
+            <div class="formbuilder-text form-group">
+              <label class="formbuilder-text-label">Phone Number:</label>
+              <input
+                type="tel"
+                placeholder="e.g. 123-456-7890"
+                class="form-control"
+                name="phone"
+                id="phone"
+              />
+            </div>
+          </div>
+          <div class="inner-container">
+            <div class="formbuilder-text form-group">
+              <label class="formbuilder-text-label">Address:</label>
+              <input
+                type="text"
+                placeholder="e.g. 123 Main St"
+                class="form-control"
+                name="address"
+                id="address"
+              />
+            </div>
+            <div class="formbuilder-text form-group">
+              <label class="formbuilder-text-label">City:</label>
+              <input
+                type="text"
+                placeholder="e.g. New York"
+                class="form-control"
+                name="txtInput_02"
+                id="city"
+              />
+            </div>
+          </div>
+          <div class="inner-container">
+            <div class="formbuilder-text form-group">
+              <label class="formbuilder-text-label">State:</label>
+              <input
+                type="text"
+                placeholder="e.g. NY"
+                class="form-control"
+                name="state"
+                id="state"
+              />
+            </div>
+            <div class="formbuilder-text form-group">
+              <label class="formbuilder-text-label">Zip Code:</label>
+              <input
+                type="text"
+                placeholder="e.g. 10001"
+                class="form-control"
+                name="txtInput_03"
+                id="zip"
+              />
+            </div>
+          </div>
+          <div class="inner-container">
+            <div class="formbuilder-select form-group">
+              <label class="formbuilder-select-label">Gender:</label>
+              <select class="form-control" name="gender" id="gender">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+              </select>
+            </div>
+            <div class="formbuilder-text form-group">
+              <label class="formbuilder-text-label">Birthday:</label>
+              <input
+                type="date"
+                class="form-control"
+                name="txtInput_04"
+                id="birthday"
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Education & Employment::</h3>
+          <div class="inner-container">
+            <div class="formbuilder-select form-group">
+              <label class="formbuilder-select-label">Education Level:</label>
+              <select
+                class="form-control"
+                name="selectInput_01"
+                id="educationLevel"
+              >
+                <option value="High School Completed">
+                  High School Completed
+                </option>
+                <option value="High School Not Completed">
+                  High School Not Completed
+                </option>
+                <option value="College Completed">College Completed</option>
+                <option value="University Completed">
+                  University Completed
+                </option>
+              </select>
+            </div>
+            <div class="formbuilder-select form-group">
+              <label class="formbuilder-select-label"
+                >Current Employment Status:</label
+              >
+              <select
+                class="form-control"
+                name="selectInput_02"
+                id="employmentStatus"
+              >
+                <option value="Self Employed">Self Employed</option>
+                <option value="Employed Full Time">Employed Full Time</option>
+                <option value="Unemployed">Unemployed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Additional Info::</h3>
+          <div class="additional-check">
+            <input type="checkbox" id="checkInput_01" />
+            <label for="admin">Do Not Call</label>
+          </div>
+          <div class="additional-check">
+            <input type="checkbox" id="checkInput_02" />
+            <label for="bank">Do Not Contact</label>
+          </div>
+          <div class="additional-check">
+            <input type="checkbox" id="checkInput_03" />
+            <label for="business">Newslette</label>
+          </div>
+          <div class="additional-check">
+            <input type="checkbox" id="checkInput_04" />
+            <label for="business">No Email</label>
+          </div>
+        </div>
+        <div class="formbuilder-button form-group">
+          <input
+            type="submit"
+            value="Submit"
+            class="btn-success btn"
+            name="button-1676508942222"
+            access="false"
+            id="button-1676508942222"
+          />
+        </div>
+      </div>
+    </form>
+    <script>
+      // Description logic
+      // =========================================
+      $("#txtInput_03").on("change", function () {
+        $("#txtAreaInput_03").html(
+          $("#txtInput_01").val() + " " + $("#txtInput_03").val()
+        );
+      });
+	  
+	  // Calendar Datetime value
+	  // ================================================
+		var currentdate = new Date(); 
+		var datetime = currentdate.getFullYear() +"-"+ (currentdate.getMonth()+1) +"-"+ currentdate.getDate() + "T" + currentdate.getHours() + ":" +currentdate.getMinutes();  
+		// 2024-10-12T20:03
+		$("#txtInput_11").val(datetime);	  
+	  
+		// create invoice
+		// =======================================
+		$("#contactForm").submit(function() {
+			$.ajax({
+				url: '/customer/Create/',
+				type: "POST",
+				data: $(this).serialize(),
+				success: function () {
+				}
+			});	  
+		});	  
+    </script>
+  </body>
+</html>

@@ -229,7 +229,7 @@
     </div>
 
 
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
             var printBtn = $("#printBtn");
@@ -261,9 +261,11 @@
     {
         int j = i - 1;
         <script>
-            $("checkbox[name='checkInput_@i.ToString("D2")']").val("@Html.Raw(ViewBag.Collection2[j])");
+            var checkBoxVal = "@ViewBag.Collection2[j]";
+            if (checkBoxVal != "") {
+                $("#checkInput_@i.ToString("D2")").attr("checked", true);
+            }
         </script>
-
     }
     @for (int i = 1; i < 4; i++)
     {
@@ -280,6 +282,14 @@
             $("select[name='selectInput_@i.ToString("D2")']").val("@Html.Raw(ViewBag.Collection4[j])");
         </script>
 
+    }
+    @for (int i = 1; i < 2; i++)
+    {
+        int j = i - 1;
+        <script>
+            $(".files").html('<img src="@Html.Raw(ViewBag.Collection5[j])" width:50%; margin-left:0% !important;"/><br/>');
+            $("input[name='fileInput_@i.ToString("D2")']").attr("value", "@Html.Raw(ViewBag.Collection5[j]).");
+        </script>
     }
 </body>
 </html>

@@ -27,6 +27,14 @@
           <Property Name="invoice" Type="bit" />
           <Property Name="recieved_amount" Type="float" />
         </EntityType>
+        <EntityType Name="VCAS_capture_payments__REF_items">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_capture_paymentsId" Type="int" Nullable="false" />
+          <Property Name="FK_inventoryId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="VCAS_council">
           <Key>
             <PropertyRef Name="Id" />
@@ -284,6 +292,11 @@
           <Property Name="txtInput_11" Type="nvarchar(max)" />
           <Property Name="txtInput_12" Type="nvarchar(max)" />
           <Property Name="txtInput_13" Type="nvarchar(max)" />
+          <Property Name="txtInput_14" Type="nvarchar(max)" />
+          <Property Name="txtInput_15" Type="nvarchar(max)" />
+          <Property Name="txtInput_16" Type="nvarchar(max)" />
+          <Property Name="txtInput_17" Type="nvarchar(max)" />
+          <Property Name="txtInput_18" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="VCAS_REF_items">
           <Key>
@@ -399,6 +412,30 @@
           <Property Name="password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FK_userRolesId" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_inventoryItems">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="FK_councilId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FK_councilId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_VCAS_capture_paymentsVCAS_capture_payments__REF_items">
+          <End Role="VCAS_capture_payments" Type="Self.VCAS_capture_payments" Multiplicity="1" />
+          <End Role="VCAS_capture_payments__REF_items" Type="Self.VCAS_capture_payments__REF_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_capture_payments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_capture_payments__REF_items">
+              <PropertyRef Name="FK_capture_paymentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VCAS_capture_paymentsVCAS_creditTrans">
           <End Role="VCAS_capture_payments" Type="Self.VCAS_capture_payments" Multiplicity="1" />
           <End Role="VCAS_creditTrans1" Type="Self.VCAS_creditTrans1" Multiplicity="*" />
@@ -639,6 +676,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VCAS_inventoryVCAS_capture_payments__REF_items">
+          <End Role="VCAS_inventory" Type="Self.VCAS_inventory" Multiplicity="1" />
+          <End Role="VCAS_capture_payments__REF_items" Type="Self.VCAS_capture_payments__REF_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_inventory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_capture_payments__REF_items">
+              <PropertyRef Name="FK_inventoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VCAS_inventoryVCAS_orders">
           <End Role="VCAS_inventory" Type="Self.VCAS_inventory" Multiplicity="1" />
           <End Role="VCAS_orders" Type="Self.VCAS_orders" Multiplicity="*" />
@@ -819,11 +868,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="usp_SelectDeposit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="loc" Type="int" Mode="In" />
+        <Function Name="usp_SelectReceiptItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="recNo" Type="nvarchar(max)" Mode="In" />
         </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="VCAS_capture_payments" EntityType="Self.VCAS_capture_payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VCAS_capture_payments__REF_items" EntityType="Self.VCAS_capture_payments__REF_items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_council" EntityType="Self.VCAS_council" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_creditTrans1" EntityType="Self.VCAS_creditTrans1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_customer" EntityType="Self.VCAS_customer" Schema="dbo" store:Type="Tables" />
@@ -853,6 +903,17 @@
           <EntitySet Name="VCAS_supportDocs" EntityType="Self.VCAS_supportDocs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_undepositedFunds" EntityType="Self.VCAS_undepositedFunds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VCAS_users" EntityType="Self.VCAS_users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_inventoryItems" EntityType="Self.vw_inventoryItems" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_inventoryItems].[Id] AS [Id], 
+    [vw_inventoryItems].[name] AS [name], 
+    [vw_inventoryItems].[FK_councilId] AS [FK_councilId]
+    FROM [dbo].[vw_inventoryItems] AS [vw_inventoryItems]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_VCAS_capture_paymentsVCAS_capture_payments__REF_items" Association="Self.FK_VCAS_capture_paymentsVCAS_capture_payments__REF_items">
+            <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
+            <End Role="VCAS_capture_payments__REF_items" EntitySet="VCAS_capture_payments__REF_items" />
+          </AssociationSet>
           <AssociationSet Name="FK_VCAS_capture_paymentsVCAS_creditTrans" Association="Self.FK_VCAS_capture_paymentsVCAS_creditTrans">
             <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
             <End Role="VCAS_creditTrans1" EntitySet="VCAS_creditTrans1" />
@@ -932,6 +993,10 @@
           <AssociationSet Name="FK_VCAS_formsVCAS_REF_forms" Association="Self.FK_VCAS_formsVCAS_REF_forms">
             <End Role="VCAS_forms" EntitySet="VCAS_forms" />
             <End Role="VCAS_REF_forms" EntitySet="VCAS_REF_forms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VCAS_inventoryVCAS_capture_payments__REF_items" Association="Self.FK_VCAS_inventoryVCAS_capture_payments__REF_items">
+            <End Role="VCAS_inventory" EntitySet="VCAS_inventory" />
+            <End Role="VCAS_capture_payments__REF_items" EntitySet="VCAS_capture_payments__REF_items" />
           </AssociationSet>
           <AssociationSet Name="FK_VCAS_inventoryVCAS_orders" Association="Self.FK_VCAS_inventoryVCAS_orders">
             <End Role="VCAS_inventory" EntitySet="VCAS_inventory" />
@@ -1098,7 +1163,6 @@
             <End EntitySet="VCAS_council" Role="VCAS_council" />
             <End EntitySet="VCAS_REF_reports_params" Role="VCAS_REF_reports_params" />
           </AssociationSet>
-          <EntitySet Name="VCAS_REF_forms" EntityType="Model.VCAS_REF_forms" />
           <EntitySet Name="VCAS_inventory" EntityType="Model.VCAS_inventory" />
           <EntitySet Name="VCAS_orders" EntityType="Model.VCAS_orders" />
           <AssociationSet Name="FK_VCAS_councilVCAS_inventory" Association="Model.FK_VCAS_councilVCAS_inventory">
@@ -1203,10 +1267,6 @@
             <End Role="VCAS_council" EntitySet="VCAS_council" />
             <End Role="VCAS_forms" EntitySet="VCAS_forms" />
           </AssociationSet>
-          <AssociationSet Name="FK_VCAS_formsVCAS_REF_forms" Association="Model.FK_VCAS_formsVCAS_REF_forms">
-            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
-            <End Role="VCAS_REF_forms" EntitySet="VCAS_REF_forms" />
-          </AssociationSet>
           <AssociationSet Name="FK_VCAS_REF_userRolesVCAS_forms" Association="Model.FK_VCAS_REF_userRolesVCAS_forms">
             <End Role="VCAS_REF_userRoles" EntitySet="VCAS_REF_userRoles" />
             <End Role="VCAS_forms" EntitySet="VCAS_forms" />
@@ -1214,6 +1274,24 @@
           <FunctionImport Name="usp_SelectDeposit" ReturnType="Collection(Model.usp_SelectDeposit_Result)">
             <Parameter Name="loc" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="VCAS_capture_payments__REF_items" EntityType="Model.VCAS_capture_payments__REF_items" />
+          <AssociationSet Name="VCAS_capture_paymentsVCAS_capture_payments__REF_items" Association="Model.VCAS_capture_paymentsVCAS_capture_payments__REF_items">
+            <End Role="VCAS_capture_payments" EntitySet="VCAS_capture_payments" />
+            <End Role="VCAS_capture_payments__REF_items" EntitySet="VCAS_capture_payments__REF_items" />
+          </AssociationSet>
+          <AssociationSet Name="VCAS_inventoryVCAS_capture_payments__REF_items" Association="Model.VCAS_inventoryVCAS_capture_payments__REF_items">
+            <End Role="VCAS_inventory" EntitySet="VCAS_inventory" />
+            <End Role="VCAS_capture_payments__REF_items" EntitySet="VCAS_capture_payments__REF_items" />
+          </AssociationSet>
+          <FunctionImport Name="usp_SelectReceiptItems" ReturnType="Collection(Model.usp_SelectReceiptItems_Result)">
+          <Parameter Name="recNo" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="vw_inventoryItems" EntityType="Model.vw_inventoryItems" />
+          <EntitySet Name="VCAS_REF_forms" EntityType="Model.VCAS_REF_forms" />
+          <AssociationSet Name="FK_VCAS_formsVCAS_REF_forms" Association="Model.FK_VCAS_formsVCAS_REF_forms">
+            <End Role="VCAS_forms" EntitySet="VCAS_forms" />
+            <End Role="VCAS_REF_forms" EntitySet="VCAS_REF_forms" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="VCAS_debitTrans">
           <Key>
@@ -1649,42 +1727,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="VCAS_REF_forms">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="txtInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_04" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_05" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_06" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_07" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_08" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_09" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_10" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_11" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_12" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtInput_13" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="checkInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="checkInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="checkInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="selectInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="selectInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="selectInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtAreaInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtAreaInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="txtAreaInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fileInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fileInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="formBtn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FK_formsId" Type="Int32" Nullable="false" />
-          <Property Name="frmHeader" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="frmFooter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="signatureBox" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_formsVCAS_REF_forms" FromRole="VCAS_REF_forms" ToRole="VCAS_forms" />
-        </EntityType>
         <EntityType Name="VCAS_inventory">
           <Key>
             <PropertyRef Name="Id" />
@@ -1708,6 +1750,7 @@
           <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_inventory" FromRole="VCAS_inventory" ToRole="VCAS_council" />
           <NavigationProperty Name="VCAS_orders" Relationship="Model.FK_VCAS_inventoryVCAS_orders" FromRole="VCAS_inventory" ToRole="VCAS_orders" />
           <NavigationProperty Name="VCAS_REF_items" Relationship="Model.FK_VCAS_REF_itemsVCAS_inventory" FromRole="VCAS_inventory" ToRole="VCAS_REF_items" />
+          <NavigationProperty Name="VCAS_capture_payments__REF_items" Relationship="Model.VCAS_inventoryVCAS_capture_payments__REF_items" FromRole="VCAS_inventory" ToRole="VCAS_capture_payments__REF_items" />
         </EntityType>
         <EntityType Name="VCAS_orders">
           <Key>
@@ -1812,6 +1855,7 @@
           <NavigationProperty Name="VCAS_REF_bank_details" Relationship="Model.FK_VCAS_REF_bank_detailsVCAS_Captured_Payment" FromRole="VCAS_capture_payments" ToRole="VCAS_REF_bank_details" />
           <NavigationProperty Name="VCAS_REF_items" Relationship="Model.FK_VCAS_REF_itemsVCAS_Captured_Payment" FromRole="VCAS_capture_payments" ToRole="VCAS_REF_items" />
           <NavigationProperty Name="VCAS_REF_payment_type" Relationship="Model.FK_VCAS_REF_payment_typeVCAS_Captured_Payment" FromRole="VCAS_capture_payments" ToRole="VCAS_REF_payment_type" />
+          <NavigationProperty Name="VCAS_capture_payments__REF_items" Relationship="Model.VCAS_capture_paymentsVCAS_capture_payments__REF_items" FromRole="VCAS_capture_payments" ToRole="VCAS_capture_payments__REF_items" />
         </EntityType>
         <Association Name="FK_VCAS_capture_paymentsVCAS_creditTrans">
           <End Type="Model.VCAS_capture_payments" Role="VCAS_capture_payments" Multiplicity="1" />
@@ -2097,8 +2141,8 @@
           <Property Name="calendarEndDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="calendarEventColor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="VCAS_council" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_forms" ToRole="VCAS_council" />
-          <NavigationProperty Name="VCAS_REF_forms" Relationship="Model.FK_VCAS_formsVCAS_REF_forms" FromRole="VCAS_forms" ToRole="VCAS_REF_forms" />
           <NavigationProperty Name="VCAS_REF_userRoles" Relationship="Model.FK_VCAS_REF_userRolesVCAS_forms" FromRole="VCAS_forms" ToRole="VCAS_REF_userRoles" />
+          <NavigationProperty Name="VCAS_REF_forms" Relationship="Model.FK_VCAS_formsVCAS_REF_forms" FromRole="VCAS_forms" ToRole="VCAS_REF_forms" />
         </EntityType>
         <Association Name="FK_VCAS_councilVCAS_forms">
           <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
@@ -2109,18 +2153,6 @@
             </Principal>
             <Dependent Role="VCAS_forms">
               <PropertyRef Name="FK_location" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VCAS_formsVCAS_REF_forms">
-          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="1" />
-          <End Type="Model.VCAS_REF_forms" Role="VCAS_REF_forms" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VCAS_forms">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VCAS_REF_forms">
-              <PropertyRef Name="FK_formsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2146,6 +2178,113 @@
           <Property Type="String" Name="bankType" Nullable="true" />
           <Property Type="String" Name="comment" Nullable="true" />
         </ComplexType>
+        <EntityType Name="VCAS_capture_payments__REF_items">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="VCAS_capture_payments" Relationship="Model.VCAS_capture_paymentsVCAS_capture_payments__REF_items" FromRole="VCAS_capture_payments__REF_items" ToRole="VCAS_capture_payments" />
+          <Property Name="FK_capture_paymentsId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VCAS_inventory" Relationship="Model.VCAS_inventoryVCAS_capture_payments__REF_items" FromRole="VCAS_capture_payments__REF_items" ToRole="VCAS_inventory" />
+          <Property Name="FK_inventoryId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="VCAS_capture_paymentsVCAS_capture_payments__REF_items">
+          <End Type="Model.VCAS_capture_payments" Role="VCAS_capture_payments" Multiplicity="1" />
+          <End Type="Model.VCAS_capture_payments__REF_items" Role="VCAS_capture_payments__REF_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_capture_payments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_capture_payments__REF_items">
+              <PropertyRef Name="FK_capture_paymentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VCAS_inventoryVCAS_capture_payments__REF_items">
+          <End Type="Model.VCAS_inventory" Role="VCAS_inventory" Multiplicity="1" />
+          <End Type="Model.VCAS_capture_payments__REF_items" Role="VCAS_capture_payments__REF_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_inventory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_capture_payments__REF_items">
+              <PropertyRef Name="FK_inventoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_SelectReceiptItems_Result">
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="String" Name="receiptNo" Nullable="false" />
+          <Property Type="Double" Name="amount" Nullable="false" />
+          <Property Type="Double" Name="recieved_amount" Nullable="true" />
+          <Property Type="Double" Name="balance" Nullable="true" />
+          <Property Type="String" Name="item_name" Nullable="false" />
+          <Property Type="Double" Name="sellingPrice" Nullable="true" />
+          <Property Type="String" Name="rowNo" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="vw_inventoryItems">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="FK_councilId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FK_councilId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VCAS_REF_forms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="txtInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_04" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_05" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="checkInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="checkInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="checkInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="selectInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="selectInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="selectInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtAreaInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtAreaInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtAreaInput_03" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fileInput_01" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fileInput_02" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="formBtn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FK_formsId" Type="Int32" Nullable="false" />
+          <Property Name="frmHeader" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="frmFooter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="signatureBox" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_06" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_07" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_08" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_09" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_10" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_11" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_12" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_13" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_14" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_15" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_16" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_17" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="txtInput_18" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_formsVCAS_REF_forms" FromRole="VCAS_REF_forms" ToRole="VCAS_forms" />
+        </EntityType>
+        <Association Name="FK_VCAS_formsVCAS_REF_forms">
+          <End Type="Model.VCAS_forms" Role="VCAS_forms" Multiplicity="1" />
+          <End Type="Model.VCAS_REF_forms" Role="VCAS_REF_forms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_forms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_REF_forms">
+              <PropertyRef Name="FK_formsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2370,42 +2509,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="VCAS_REF_forms">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_REF_forms)">
-        <MappingFragment StoreEntitySet="VCAS_REF_forms">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="txtInput_01" ColumnName="txtInput_01" />
-          <ScalarProperty Name="txtInput_02" ColumnName="txtInput_02" />
-          <ScalarProperty Name="txtInput_03" ColumnName="txtInput_03" />
-          <ScalarProperty Name="txtInput_04" ColumnName="txtInput_04" />
-          <ScalarProperty Name="txtInput_05" ColumnName="txtInput_05" />
-          <ScalarProperty Name="txtInput_06" ColumnName="txtInput_06" />
-          <ScalarProperty Name="txtInput_07" ColumnName="txtInput_07" />
-          <ScalarProperty Name="txtInput_08" ColumnName="txtInput_08" />
-          <ScalarProperty Name="txtInput_09" ColumnName="txtInput_09" />
-          <ScalarProperty Name="txtInput_10" ColumnName="txtInput_10" />
-          <ScalarProperty Name="txtInput_11" ColumnName="txtInput_11" />
-          <ScalarProperty Name="txtInput_12" ColumnName="txtInput_12" />
-          <ScalarProperty Name="txtInput_13" ColumnName="txtInput_13" />
-          <ScalarProperty Name="checkInput_01" ColumnName="checkInput_01" />
-          <ScalarProperty Name="checkInput_02" ColumnName="checkInput_02" />
-          <ScalarProperty Name="checkInput_03" ColumnName="checkInput_03" />
-          <ScalarProperty Name="selectInput_01" ColumnName="selectInput_01" />
-          <ScalarProperty Name="selectInput_02" ColumnName="selectInput_02" />
-          <ScalarProperty Name="selectInput_03" ColumnName="selectInput_03" />
-          <ScalarProperty Name="txtAreaInput_01" ColumnName="txtAreaInput_01" />
-          <ScalarProperty Name="txtAreaInput_02" ColumnName="txtAreaInput_02" />
-          <ScalarProperty Name="txtAreaInput_03" ColumnName="txtAreaInput_03" />
-          <ScalarProperty Name="fileInput_01" ColumnName="fileInput_01" />
-          <ScalarProperty Name="fileInput_02" ColumnName="fileInput_02" />
-          <ScalarProperty Name="formBtn" ColumnName="formBtn" />
-          <ScalarProperty Name="FK_formsId" ColumnName="FK_formsId" />
-          <ScalarProperty Name="frmHeader" ColumnName="frmHeader" />
-          <ScalarProperty Name="frmFooter" ColumnName="frmFooter" />
-          <ScalarProperty Name="signatureBox" ColumnName="signatureBox" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="VCAS_inventory">
       <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_inventory)">
         <MappingFragment StoreEntitySet="VCAS_inventory">
@@ -2559,38 +2662,97 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-          <EntitySetMapping Name="VCAS_forms">
-            <EntityTypeMapping TypeName="Model.VCAS_forms">
-              <MappingFragment StoreEntitySet="VCAS_forms">
-                <ScalarProperty Name="calendarEventColor" ColumnName="calendarEventColor" />
-                <ScalarProperty Name="calendarEndDate" ColumnName="calendarEndDate" />
-                <ScalarProperty Name="calendarStartDate" ColumnName="calendarStartDate" />
-                <ScalarProperty Name="calendarTitle" ColumnName="calendarTitle" />
-                <ScalarProperty Name="FK_REF_userRolesId" ColumnName="FK_REF_userRolesId" />
-                <ScalarProperty Name="FK_location" ColumnName="FK_location" />
-                <ScalarProperty Name="dateModified" ColumnName="dateModified" />
-                <ScalarProperty Name="form" ColumnName="form" />
-                <ScalarProperty Name="desc" ColumnName="desc" />
+    <EntitySetMapping Name="VCAS_forms">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_forms)">
+        <MappingFragment StoreEntitySet="VCAS_forms">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="desc" ColumnName="desc" />
+          <ScalarProperty Name="form" ColumnName="form" />
+          <ScalarProperty Name="dateModified" ColumnName="dateModified" />
+          <ScalarProperty Name="FK_location" ColumnName="FK_location" />
+          <ScalarProperty Name="FK_REF_userRolesId" ColumnName="FK_REF_userRolesId" />
+          <ScalarProperty Name="calendarTitle" ColumnName="calendarTitle" />
+          <ScalarProperty Name="calendarStartDate" ColumnName="calendarStartDate" />
+          <ScalarProperty Name="calendarEndDate" ColumnName="calendarEndDate" />
+          <ScalarProperty Name="calendarEventColor" ColumnName="calendarEventColor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VCAS_capture_payments__REF_items">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_capture_payments__REF_items)">
+        <MappingFragment StoreEntitySet="VCAS_capture_payments__REF_items">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FK_capture_paymentsId" ColumnName="FK_capture_paymentsId" />
+          <ScalarProperty Name="FK_inventoryId" ColumnName="FK_inventoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SelectReceiptItems" FunctionName="Model.Store.usp_SelectReceiptItems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.usp_SelectReceiptItems_Result">
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="receiptNo" ColumnName="receiptNo" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="recieved_amount" ColumnName="recieved_amount" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="item_name" ColumnName="item_name" />
+                <ScalarProperty Name="sellingPrice" ColumnName="sellingPrice" />
+                <ScalarProperty Name="rowNo" ColumnName="rowNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="vw_inventoryItems">
+            <EntityTypeMapping TypeName="Model.vw_inventoryItems">
+              <MappingFragment StoreEntitySet="vw_inventoryItems">
+                <ScalarProperty Name="FK_councilId" ColumnName="FK_councilId" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_SelectDeposit" FunctionName="Model.Store.usp_SelectDeposit">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Model.usp_SelectDeposit_Result">
-                <ScalarProperty Name="datetime" ColumnName="datetime" />
-                <ScalarProperty Name="receiptNo" ColumnName="receiptNo" />
-                <ScalarProperty Name="payer" ColumnName="payer" />
-                <ScalarProperty Name="payType" ColumnName="payType" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="checkNo" ColumnName="checkNo" />
-                <ScalarProperty Name="bankType" ColumnName="bankType" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-  </EntityContainerMapping>
+          <EntitySetMapping Name="VCAS_REF_forms">
+            <EntityTypeMapping TypeName="Model.VCAS_REF_forms">
+              <MappingFragment StoreEntitySet="VCAS_REF_forms">
+                <ScalarProperty Name="txtInput_18" ColumnName="txtInput_18" />
+                <ScalarProperty Name="txtInput_17" ColumnName="txtInput_17" />
+                <ScalarProperty Name="txtInput_16" ColumnName="txtInput_16" />
+                <ScalarProperty Name="txtInput_15" ColumnName="txtInput_15" />
+                <ScalarProperty Name="txtInput_14" ColumnName="txtInput_14" />
+                <ScalarProperty Name="txtInput_13" ColumnName="txtInput_13" />
+                <ScalarProperty Name="txtInput_12" ColumnName="txtInput_12" />
+                <ScalarProperty Name="txtInput_11" ColumnName="txtInput_11" />
+                <ScalarProperty Name="txtInput_10" ColumnName="txtInput_10" />
+                <ScalarProperty Name="txtInput_09" ColumnName="txtInput_09" />
+                <ScalarProperty Name="txtInput_08" ColumnName="txtInput_08" />
+                <ScalarProperty Name="txtInput_07" ColumnName="txtInput_07" />
+                <ScalarProperty Name="txtInput_06" ColumnName="txtInput_06" />
+                <ScalarProperty Name="signatureBox" ColumnName="signatureBox" />
+                <ScalarProperty Name="frmFooter" ColumnName="frmFooter" />
+                <ScalarProperty Name="frmHeader" ColumnName="frmHeader" />
+                <ScalarProperty Name="FK_formsId" ColumnName="FK_formsId" />
+                <ScalarProperty Name="formBtn" ColumnName="formBtn" />
+                <ScalarProperty Name="fileInput_02" ColumnName="fileInput_02" />
+                <ScalarProperty Name="fileInput_01" ColumnName="fileInput_01" />
+                <ScalarProperty Name="txtAreaInput_03" ColumnName="txtAreaInput_03" />
+                <ScalarProperty Name="txtAreaInput_02" ColumnName="txtAreaInput_02" />
+                <ScalarProperty Name="txtAreaInput_01" ColumnName="txtAreaInput_01" />
+                <ScalarProperty Name="selectInput_03" ColumnName="selectInput_03" />
+                <ScalarProperty Name="selectInput_02" ColumnName="selectInput_02" />
+                <ScalarProperty Name="selectInput_01" ColumnName="selectInput_01" />
+                <ScalarProperty Name="checkInput_03" ColumnName="checkInput_03" />
+                <ScalarProperty Name="checkInput_02" ColumnName="checkInput_02" />
+                <ScalarProperty Name="checkInput_01" ColumnName="checkInput_01" />
+                <ScalarProperty Name="txtInput_05" ColumnName="txtInput_05" />
+                <ScalarProperty Name="txtInput_04" ColumnName="txtInput_04" />
+                <ScalarProperty Name="txtInput_03" ColumnName="txtInput_03" />
+                <ScalarProperty Name="txtInput_02" ColumnName="txtInput_02" />
+                <ScalarProperty Name="txtInput_01" ColumnName="txtInput_01" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

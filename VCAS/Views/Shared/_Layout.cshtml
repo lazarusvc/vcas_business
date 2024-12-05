@@ -85,75 +85,79 @@
            data-toggle="#sidebar-toggle-4"
            id="sb4"
            data-shift=".shifted-content">
+        <a href="/" class="fg-white sub-action"
+           onclick="Metro.sidebar.close('#sb4'); return false;">
+            <span class="mif-arrow-left mif-2x"></span>
+        </a>
         <div class="sidebar-header" data-image="@Url.Content("~/Content/cover.jpg")">
             <span style="text-shadow: 2px 2px 4px #000000;" class="title fg-white"><strong>@VCAS.Controllers.HomeController.gloabl_appName()</strong></span><br /><br />
         </div><br />
-              <ul class="sidenav-m3 bg-grayBlue">
-                  <li class="stick-right bg-darkBlue"><a href='@Url.Action("Index", "Home")'><span class="mif-arrow-left icon"></span> Dashboard</a></li>
-                  <li class="stick-right bg-darkBlue"><a href='#' data-role="popover" data-popover-text="Coming Soon!" data-popover-position="right"><span class="mif-indent-increase icon"></span> Reconciliation</a></li>
-                  <li class="stick-right bg-green">
-                      <!-- REPORTS SUBNAV =================================================== -->
-                      <a class="dropdown-toggle" href="#"><span class='mif-news icon'></span>Reports</a>
-                      <ul class="d-menu" data-role="dropdown" style="display: none;">
-                          <li class="fg-grayBlue"><a href='@Url.Action("Reports", "Home")'><span class="mif-arrow-up-right icon"></span> Home</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "reportsPage")'><span class="mif-arrow-up-right icon"></span> Report Settings</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "reports_params")'><span class="mif-arrow-up-right icon"></span> Report Parameters</a></li>
-                      </ul>
-                  </li>
-                  <li class="stick-right bg-green">
-                      <!-- SETTINGS SUBNAV =================================================== -->
-                      <a class="dropdown-toggle" href="#"><span class="mif-tools icon"></span>Settings</a>
-                      <ul class="d-menu" data-role="dropdown" style="display: none;">
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "council")'><span class="mif-arrow-up-right icon"></span> Organization</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "payment_type")'><span class="mif-arrow-up-right icon"></span> Payment Types</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "bank_details")'><span class="mif-arrow-up-right icon"></span> Bank Details</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "items")'><span class="mif-arrow-up-right icon"></span> Sale items</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "items_location")'><span class="mif-arrow-up-right icon"></span> Sale items Location</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "expenses")'><span class="mif-arrow-up-right icon"></span> Expenses</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "expense_location")'><span class="mif-arrow-up-right icon"></span> Expenses Location</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "receiverID_Types")'><span class="mif-arrow-up-right icon"></span> Receiver ID Types</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "orders")'><span class="mif-arrow-up-right icon"></span> Orders</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "order_status")'><span class="mif-arrow-up-right icon"></span> Order Status</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "inventory")'><span class="mif-arrow-up-right icon"></span> Inventory Mgmt</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "customer")'><span class="mif-arrow-up-right icon"></span> Customer Mgmt</a></li>
-                      </ul>
-                  </li>
-                  <!-- COMMUNICATIONS SUBNAV =================================================== -->
-                  <li class="stick-right bg-green">
-                      <a class="dropdown-toggle" href="#"><span class="mif-bubbles icon"></span>Communications</a>
-                      <ul class="d-menu" data-role="dropdown" style="display: none;">
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "communications")'><span class="mif-arrow-up-right icon"></span> Home</a></li>
-                      </ul>
-                  </li>
-                  <!-- ADMINISTRATION SUBNAV =================================================== -->
-                  <li class="stick-right bg-green">
-                      <a class="dropdown-toggle" href="#"><span class="mif-cog icon"></span>Administration</a>
-                      <ul class="d-menu" data-role="dropdown" style="display: none;">
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "debitAccounts")'><span class="mif-arrow-up-right icon"></span> Accounts</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "capture_payments")'><span class="mif-arrow-up-right icon"></span> Cancel Receipts</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("IndexAdmin", "issuedChecks")'><span class="mif-arrow-up-right icon"></span> Manage Payments</a></li>
-                      </ul>
-                  </li>
-                  <!-- SECURITY SUBNAV ========================================================= -->
-                  <li class="stick-right bg-green">
-                      <a class="dropdown-toggle" href="#"><span class="mif-user-secret icon"></span>Security</a>
-                      <ul class="d-menu" data-role="dropdown" style="display: none;">
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "users")'><span class="mif-arrow-up-right icon"></span> Users</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "userRoles")'><span class="mif-arrow-up-right icon"></span> User Roles</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "district")'><span class="mif-arrow-up-right icon"></span> User Area</a></li>
-                          <li class="fg-grayBlue"><a href='@Url.Action("Index", "session")'><span class="mif-arrow-up-right icon"></span> User Session</a></li>
-                      </ul>
-                  </li>
-                  <!-- USER SECURITY SUBNAV ======================================================= -->
-                  <li class="stick-right bg-magenta">
-                      <a href="#">
-                          logged in as<br />@User.Identity.Name.ToUpper()
-                          <hr style="background-color: #666; height:0.4px;" />
-                      </a>
-                      <a href='@Url.Action("Logout", "Account")'><span class="mif-lock icon"></span>Logout</a>
-                      <a href='@Url.Action("ResetPassword", "users", new { id = ViewBag.userID })'><span class="mif-loop2 icon"></span>Change Password</a>
-                  </li>
-              </ul>
+        <ul class="sidenav-m3 bg-grayBlue">
+            <li class="stick-right bg-darkBlue"><a href='@Url.Action("Index", "Home")'><span class="mif-home icon"></span> Dashboard</a></li>
+            <li class="stick-right bg-darkBlue"><a href='#' data-role="popover" data-popover-text="Coming Soon!" data-popover-position="right"><span class="mif-indent-increase icon"></span> Reconciliation</a></li>
+            <li class="stick-right bg-green">
+                <!-- REPORTS SUBNAV =================================================== -->
+                <a class="dropdown-toggle" href="#"><span class='mif-news icon'></span>Reports</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Reports", "Home")'><span class="mif-arrow-up-right icon"></span> Home</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "reportsPage")'><span class="mif-arrow-up-right icon"></span> Report Settings</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "reports_params")'><span class="mif-arrow-up-right icon"></span> Report Parameters</a></li>
+                </ul>
+            </li>
+            <li class="stick-right bg-green">
+                <!-- SETTINGS SUBNAV =================================================== -->
+                <a class="dropdown-toggle" href="#"><span class="mif-tools icon"></span>Settings</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "council")'><span class="mif-arrow-up-right icon"></span> Organization</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "payment_type")'><span class="mif-arrow-up-right icon"></span> Payment Types</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "bank_details")'><span class="mif-arrow-up-right icon"></span> Bank Details</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "items")'><span class="mif-arrow-up-right icon"></span> Sale items</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "items_location")'><span class="mif-arrow-up-right icon"></span> Sale items Location</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "expenses")'><span class="mif-arrow-up-right icon"></span> Expenses</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "expense_location")'><span class="mif-arrow-up-right icon"></span> Expenses Location</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "receiverID_Types")'><span class="mif-arrow-up-right icon"></span> Receiver ID Types</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "orders")'><span class="mif-arrow-up-right icon"></span> Orders</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "order_status")'><span class="mif-arrow-up-right icon"></span> Order Status</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "inventory")'><span class="mif-arrow-up-right icon"></span> Inventory Mgmt</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "customer")'><span class="mif-arrow-up-right icon"></span> Customer Mgmt</a></li>
+                </ul>
+            </li>
+            <!-- COMMUNICATIONS SUBNAV =================================================== -->
+            <li class="stick-right bg-green">
+                <a class="dropdown-toggle" href="#"><span class="mif-bubbles icon"></span>Communications</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "communications")'><span class="mif-arrow-up-right icon"></span> Home</a></li>
+                </ul>
+            </li>
+            <!-- ADMINISTRATION SUBNAV =================================================== -->
+            <li class="stick-right bg-green">
+                <a class="dropdown-toggle" href="#"><span class="mif-cog icon"></span>Administration</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "debitAccounts")'><span class="mif-arrow-up-right icon"></span> Accounts</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "capture_payments")'><span class="mif-arrow-up-right icon"></span> Cancel Receipts</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("IndexAdmin", "issuedChecks")'><span class="mif-arrow-up-right icon"></span> Manage Payments</a></li>
+                </ul>
+            </li>
+            <!-- SECURITY SUBNAV ========================================================= -->
+            <li class="stick-right bg-green">
+                <a class="dropdown-toggle" href="#"><span class="mif-user-secret icon"></span>Security</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "users")'><span class="mif-arrow-up-right icon"></span> Users</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "userRoles")'><span class="mif-arrow-up-right icon"></span> User Roles</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "district")'><span class="mif-arrow-up-right icon"></span> User Area</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "session")'><span class="mif-arrow-up-right icon"></span> User Session</a></li>
+                </ul>
+            </li>
+            <!-- USER SECURITY SUBNAV ======================================================= -->
+            <li class="stick-right bg-magenta">
+                <a href="#">
+                    logged in as<br />@User.Identity.Name.ToUpper()
+                    <hr style="background-color: #666; height:0.4px;" />
+                </a>
+                <a href='@Url.Action("Logout", "Account")'><span class="mif-lock icon"></span>Logout</a>
+                <a href='@Url.Action("ResetPassword", "users", new { id = ViewBag.userID })'><span class="mif-loop2 icon"></span>Change Password</a>
+            </li>
+        </ul>
 
     </aside>
 

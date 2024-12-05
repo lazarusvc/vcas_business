@@ -1,18 +1,13 @@
-﻿@model IEnumerable<VCAS.Models.VCAS_capture_payments>
+﻿@model IEnumerable<VCAS.Models.usp_SelectReceiptItems_Result>
 
 
-<table class="table compact">
+<table class="table sub-compact">
     <thead>
         <tr>
-            <th>
-                #
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Sales Price
-            </th>
+            <th>LINE #</th>
+            <th>ITEM</th>
+            <th>QTY</th>
+            <th>SALES PRICE</th>
         </tr>
     </thead>
 
@@ -21,40 +16,18 @@
         <tbody>
             <tr>
                 <td>
-                    -
+                    @Html.DisplayFor(modelItem => item.rowNo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VCAS_REF_items.name) - @Html.DisplayFor(modelItem => item.VCAS_REF_items.desc)
+                    @Html.DisplayFor(modelItem => item.item_name)
                 </td>
                 <td>
-                    $@Html.DisplayFor(modelItem => item.amount)
+                    1
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.sellingPrice)
                 </td>
             </tr>
         </tbody>
     }
 </table>
-<br/>
-<table class="table compact">
-    <thead>
-        <tr>
-            <th>
-                Comment
-            </th>
-        </tr>
-    </thead>
-
-    @foreach (var item in Model)
-    {
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.comment)
-                </td>
-            </tr>
-        </tbody>
-    }
-</table>
-
-<p align="RIGHT">Total: <strong>$@ViewBag.total</strong></p>
-<p align="RIGHT">Payment: <strong>$@ViewBag.payment</strong></p>
-<p align="RIGHT">Balance: <strong>$@ViewBag.balance</strong></p>

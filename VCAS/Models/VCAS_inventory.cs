@@ -18,6 +18,7 @@ namespace VCAS.Models
         public VCAS_inventory()
         {
             this.VCAS_orders = new HashSet<VCAS_orders>();
+            this.VCAS_capture_payments__REF_items = new HashSet<VCAS_capture_payments__REF_items>();
         }
     
         public int Id { get; set; }
@@ -41,5 +42,7 @@ namespace VCAS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VCAS_orders> VCAS_orders { get; set; }
         public virtual VCAS_REF_items VCAS_REF_items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VCAS_capture_payments__REF_items> VCAS_capture_payments__REF_items { get; set; }
     }
 }

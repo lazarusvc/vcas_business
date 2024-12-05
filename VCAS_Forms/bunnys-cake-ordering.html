@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -8,10 +8,24 @@
   
 </head>
 <body>
-<form action="/formsData/Create" method="POST" id="bunnyForm">
+<form action="/formsData/Create" method="POST" enctype="multipart/form-data" id="bunnyForm">
+
+<!-- {REQUIRED} Form data relational ID ------------------------------------------- -->
 <input type="hidden" name="FK_formsId" value="8"/>
+
+<!-- {REQUIRED} Calendar default event color -------------------------------------- --> 
 <input type="hidden" name="txtInput_13" value="#3788d8"/>
+
+<!-- POS Invoice logic - Input Fields --------------------------------------------- -->
+<input type="hidden" name="txtInput_14" id="txtInput_14" /><!-- dbo.capture_payments - payer -->
+<input type="hidden" name="txtInput_15" id="txtInput_15" value="notes: Cake order -- form entry" /><!-- dbo.capture_payments - comment -->
+<input type="hidden" name="txtInput_16" id="txtInput_16" value="6023" /><!-- dbo.capture_payments - FK_items 8 for DB vouchcast01 -->
+<input type="hidden" name="txtInput_17" id="txtInput_17" /><!-- dbo.capture_payments - amount -->
+<input type="hidden" name="txtInput_18" id="txtInput_18" /><!-- dbo.capture_payments - received_amount -->
+
+<!-- {REQUIRED} Customer name logic - Input Fields --------------------------------- -->
 <textarea type="hidden" class="form-control" id="txtAreaInput_03" name="txtAreaInput_03" style="display:none;"></textarea>
+
 <div class="vc-form">
     <div class="">
         <h1>Bunny's<br/>Cake Order Form</h1></div>
@@ -47,6 +61,16 @@
         <label for="text-1676508460512" class="formbuilder-text-label">Email Address:</label>
         <input type="email" placeholder="jane.doe@bunnyscakes.com" class="form-control" name="txtInput_04" access="false" id="text-1676508460512">
     </div>
+    <div class="formbuilder-text form-group field-text-1676509822703">
+		<input type="checkbox" id="checkInput_01" name="checkInput_01" value="Male">
+		<label for="checkInput_01"> Male:</label><br>
+		<input type="checkbox" id="checkInput_02" name="checkInput_02" value="Female">
+		<label for="checkInput_02"> Female:</label><br>
+    </div>		
+    <div class="formbuilder-text form-group field-text-1676509822703">
+        <label for="text-1676509822703" class="formbuilder-text-label">Age Range:</label>
+        <input type="number" placeholder="e.g. 12" class="form-control" name="txtInput_12" access="false" id="text-1676509822703">
+    </div>		
 	<h3>Cake Details::</h3>
 	<hr/>
     <div class="formbuilder-date form-group field-date-1676508211598">
@@ -89,21 +113,25 @@
         <input type="text" class="form-control" name="txtInput_09" access="false" id="txtInput_09 text-1676509617623">
     </div>
     <div class="formbuilder-text form-group field-text-1676509649177">
-        <label for="text-1676509649177" class="formbuilder-text-label">Theme:</label>
+        <label for="text-1676509649177" class="formbuilder-text-label">Cake Theme:</label>
         <input type="text" class="form-control" name="txtInput_10" access="false" id="txtInput_10 text-1676509649177">
     </div>
     <div class="formbuilder-text form-group field-text-1676509652223">
-        <label for="text-1676509652223" class="formbuilder-text-label">Shape:</label>
+        <label for="text-1676509652223" class="formbuilder-text-label">Cake Shape:</label>
         <input type="text" class="form-control" name="txtInput_11" access="false" id="txtInput_11 text-1676509652223">
     </div>
     <div class="formbuilder-textarea form-group field-textarea-1676509658342">
-        <label for="textarea-1676509658342" class="formbuilder-textarea-label">Writing:</label>
+        <label for="textarea-1676509658342" class="formbuilder-textarea-label">Writing on cake:</label>
         <textarea type="textarea" class="form-control" name="txtAreaInput_01" access="false" id="txtAreaInput_01 textarea-1676509658342"></textarea>
     </div>
     <div class="formbuilder-textarea form-group field-textarea-1676509731996">
-        <label for="textarea-1676509731996" class="formbuilder-textarea-label">Description:</label>
+        <label for="textarea-1676509731996" class="formbuilder-textarea-label">Brief description of cake (if necessary):</label>
         <textarea type="textarea" class="form-control" name="txtAreaInput_02" access="false" id="txtAreaInput_02"></textarea>
     </div>
+	<div class="form-group files">
+		<label>Attach (Image) Reference for cake:</label><br />
+		<input type="file" class="form-control" name="fileInput_01" id="fileInput_01">
+	</div>	
 	<h3>After Sale Service::</h3>
 	<hr/>
     <div class="formbuilder-date form-group field-date-1676509958304">
@@ -135,46 +163,47 @@
     </div>
 </div>
 </form>
-<script>	
+<script>
 	// Description logic
     // =========================================	
     $("#txtInput_03").on('change', function () {
       $("#txtAreaInput_03").html($("#txtInput_01").val() + " " + $("#txtInput_03").val());
+	  $("#txtInput_14").val($("#txtInput_01").val());
     });
-
+	// checkbox check or not check logic
+    // =========================================		
+	if($("#inputCheck_01").is(':checked')) {
+	  $("#inputCheck_02").attr("checked", false); 
+	}
+	if($("#inputCheck_02").is(':checked')) {
+	  $("#inputCheck_01").attr("checked", false); 
+	}	
 	// amount_received
 	// ========================================
 	var bal = 0;
 	$("#txtInput_07").on('change', function () {
 		bal = $("#txtInput_07").val() - $("#txtInput_06").val();
 		$("#txtInput_08").val(bal);
+		
+		$("#txtInput_17").val($("#txtInput_06").val());
+		$("#txtInput_18").val($("#txtInput_07").val());
 	});
+	
 	
 	// create invoice
 	// =======================================
-	/*
-	$("#bunnyForm").on( "submit", function(e) {
-	  e.preventDefault();
-		var formData =
-		{		
-			payer : $("#txtInput_01").val(),
-			amount : $("#txtInput_06").val(),
-			recieved_amount : $("#txtInput_07").val(),
-			comment : $("#txtAreaInput_02").val(),		
-		};
-
+	$("#bunnyForm").submit(function() {
 		$.ajax({
-			url: 'capture_payments/CreateForm',
+			url: '/capture_payments/CreateForm',
 			type: "POST",
-			data: formData,
+			data: $(this).serialize(),
 			success: function () {
-				// some stuff
+                // some stuff
 			}
 		});	  
 	});
-    */	
 	
-	// Get Saved Customers
+	// FETCH Customers
 	// =============================================================
 	$.ajax({
 		url: "/customer/Json",
@@ -192,9 +221,9 @@
 		$("#txtInput_04").val(array[3]);
 		$("#txtAreaInput_03").html($("#txtInput_01").val() + " " + $("#txtInput_03").val());
 	});		
-	// Add New Customer Modal
+	// CREATE Customers
 	// ==================================
-	$('#newCus').	change(function () {
+	$('#newCus').change(function () {
 		if ($(this).is(":checked")) {
 			Metro.dialog.create({
 				closeButton: true,
@@ -230,7 +259,7 @@
 				]
 			});
 		}
-	});	
+    }); 
 </script>
 
 

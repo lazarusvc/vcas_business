@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a9d0a18fde104a4eb3a53d7ec3bc8fbb" Name="Diagram1" ZoomLevel="21" >
+      <Diagram DiagramId="a9d0a18fde104a4eb3a53d7ec3bc8fbb" Name="Diagram1" ZoomLevel="88" >
         <EntityTypeShape EntityType="Model.VCAS_debitTrans" Width="2.25" PointX="2.875" PointY="7.75" />
         <EntityTypeShape EntityType="Model.VCAS_creditTrans" Width="2.25" PointX="5.5" PointY="7.75" />
         <EntityTypeShape EntityType="Model.VCAS_REF_payment_type" Width="2.125" PointX="8.875" PointY="6.5" FillColor="Green" />
@@ -38,7 +38,6 @@
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_REF_expense_location" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_REF_items_location" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_REF_reports_params" />
-        <EntityTypeShape EntityType="Model.VCAS_REF_forms" Width="2.625" PointX="16.25" PointY="15.375" FillColor="Yellow" />
         <EntityTypeShape EntityType="Model.VCAS_inventory" Width="1.875" PointX="28.25" PointY="5.75" />
         <EntityTypeShape EntityType="Model.VCAS_orders" Width="2" PointX="25.875" PointY="5.75" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_inventory" />
@@ -68,8 +67,13 @@
         <EntityTypeShape EntityType="Model.VCAS_inventory_AUDIT" Width="2.25" PointX="30.625" PointY="5.75" />
         <EntityTypeShape EntityType="Model.VCAS_forms" Width="2.375" PointX="19.875" PointY="15.375" FillColor="Yellow" />
         <AssociationConnector Association="Model.FK_VCAS_councilVCAS_forms" />
-        <AssociationConnector Association="Model.FK_VCAS_formsVCAS_REF_forms" />
         <AssociationConnector Association="Model.FK_VCAS_REF_userRolesVCAS_forms" />
+        <EntityTypeShape EntityType="Model.VCAS_capture_payments__REF_items" Width="2.25" PointX="0.5" PointY="4.375" />
+        <AssociationConnector Association="Model.VCAS_capture_paymentsVCAS_capture_payments__REF_items" />
+        <AssociationConnector Association="Model.VCAS_inventoryVCAS_capture_payments__REF_items" />
+        <EntityTypeShape EntityType="Model.vw_inventoryItems" Width="1.5" PointX="6.375" PointY="17.75" />
+        <EntityTypeShape EntityType="Model.VCAS_REF_forms" Width="2.125" PointX="17.375" PointY="15.375" FillColor="Yellow" />
+        <AssociationConnector Association="Model.FK_VCAS_formsVCAS_REF_forms" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

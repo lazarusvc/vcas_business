@@ -313,7 +313,6 @@ canvas {
     text-align: center;
     margin: 0 auto;
     background-image: url('files-img.png');
-    background-color: #fff;
     color: #607D8B;
     content: "drop or choose files to upload"  !important;
     background-repeat: no-repeat;

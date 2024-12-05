@@ -91,11 +91,14 @@
             padding: 0;
         }
 
-        html, body {
-            font-family: 'Roboto', sans-serif;
+        html {
+            min-height: 100%;
+            min-width: 100%;
         }
+
         body {
-            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            height: 100vh;
         }
 
         .floating-container {
@@ -258,7 +261,26 @@
         <div class="partialview">
             @Html.Action("PrintMoreItems", "capture_payments", new { r = ViewBag.receiptNo })
         </div>
-        <br />
+        <table class="table sub-compact">
+            <thead>
+                <tr>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.comment)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p align="RIGHT">Total: <strong>$@Model.amount</strong></p>
+        <p align="RIGHT">Payment: <strong>$@Model.recieved_amount</strong></p>
+
+        @{ var bal = Model.recieved_amount - Model.amount; }
+        <p align="RIGHT">Balance: <strong>$@bal</strong></p>
         <br />
         <br />
         <br />
@@ -268,8 +290,8 @@
         </div>
         <hr />
         <!-- ********************************************************************************
-         FLOATING BUTTON
-        ********************************************************************************** -->
+     FLOATING BUTTON
+    ********************************************************************************** -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <div class="floating-container" id="printBtnArea">
             <div class="floating-button">+</div>
@@ -292,6 +314,15 @@
     </div>
 
     <script type="text/javascript">
+
+        // RESET BODY HEIGHT FOR MOBILE
+        // ==============================================
+        function resetHeight() { // reset the body height to that of the inner browser
+            document.body.style.height = window.innerHeight + "px";
+        }
+        window.addEventListener("resize", resetHeight); // reset the height whenever the window's resized
+        resetHeight();	// called to initially set the height.
+
         $(document).ready(function () {
             var printBtn = $("#printBtn");
             printBtn.click(function () {

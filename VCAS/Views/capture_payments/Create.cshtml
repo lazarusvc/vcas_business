@@ -6,8 +6,8 @@
 
 <!-- Quick Links ============================================= -->
 <div class="row">
-    <h6 style="font-weight: 700;" class="fg-grayBlue">:: Quick Links</h6>
     <div class="cell-lg-12">
+        <h6 style="font-weight: 500;" class="fg-grayBlue">Quick Links ::</h6>
         @Html.MvcSiteMap().Menu(false, true, true)
     </div>
 </div>
@@ -19,20 +19,26 @@
 
     <div class="grid" id="app_styleBG2">
         <h3 class="fg-gray"><span id="rec_invName">Receipt</span> Capture</h3>
-        <div class="row">
-            <div class="cell-lg-6" style="overflow-y: scroll; max-height:500px;">
-                <div class="remark">
-                    @Html.HiddenFor(model => model.invoice, new { @Value = false })
-                    @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
-                    @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
-                    @Html.EditorFor(model => model.issuer, new { htmlAttributes = new { data_role = "input", data_prepend = "Issuer:", @Value = ViewBag.issuer, @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.issuer, "", new { @class = "fg-magenta" })
-                    @Html.EditorFor(model => model.receiptNo, new { htmlAttributes = new { data_role = "input", data_prepend = "Receipt No:", @Value = ViewBag.recNo, placeholder = ViewBag.recNo, @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.receiptNo, "", new { @class = "fg-magenta" })
+        <div class="row>">
+            <div class="cell-12">
+                @Html.EditorFor(model => model.receiptNo, new { htmlAttributes = new { @class = "input-small", data_role = "input", data_prepend = "Receipt No:", @Value = ViewBag.recNo, placeholder = ViewBag.recNo, @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.receiptNo, "", new { @class = "fg-magenta" })
+            </div>
+        </div>
 
-                    <label class="fg-darkBlue">Date:</label>
-                    @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
-                    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
+        <div class="row">
+            <div class="cell-lg-9">
+                @Html.HiddenFor(model => model.invoice, new { @Value = false })
+
+                <div class="row">
+                    <div class="cell-6">
+                        @Html.DropDownList("FK_location", null, htmlAttributes: new { @class = "input-small", data_role = "select" })
+                        @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
+                    </div>
+                    <div class="cell-6">
+                        @Html.EditorFor(model => model.issuer, new { htmlAttributes = new { @class = "input-small", data_role = "input", data_prepend = "Issuer:", @Value = ViewBag.issuer, @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.issuer, "", new { @class = "fg-magenta" })
+                    </div>
                 </div>
                 <div class="row">
                     <div class="cell-lg-12">
@@ -40,6 +46,10 @@
                             <!-- CUSTOMER SECTION ====== -->
                             <div class="row">
                                 <div class="cell-lg-12">
+                                    <label class="fg-darkBlue">Date:</label>
+                                    @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
+                                    @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
+                                    <br />
                                     <label class="fg-darkBlue">Customer:</label>
                                     @Html.DropDownList("cusList", null, "-- Select --", htmlAttributes: new { @Class = "select2" })
                                     <input type="checkbox" data-role="checkbox" data-style="2" data-caption="+NEW" class="fg-green" id="payerCheckInput" />
@@ -63,36 +73,43 @@
                             <!-- SALES ITEM / INVENTORY SECTION ====== -->
                             <div class="row">
 
-                                <div class="cell-lg-5">
+                                <div class="cell-6">
                                     <label class="fg-darkBlue">Sales Item:</label>
                                     @Html.DropDownList("FK_items", null, "-- Select --", htmlAttributes: new { @Class = "select2" })
                                     @Html.ValidationMessageFor(model => model.FK_items, "", new { @class = "fg-magenta" })
                                 </div>
-                                <div class="cell-lg-2">
-                                    <p align="LEFT">-- or --</p>
-                                </div>
-                                <div class="cell-lg-5">
+                                <div class="cell-6">
                                     <label class="fg-darkBlue">Product Code/#:</label>
-                                    <select id="ProductNum" class="select2">
-                                        <option>-- Select --</option>
-                                    </select>
-                                    <br /> 
-                                    <button class="image-button light">
-                                        <span class="mif-barcode icon"></span>
-                                        <span class="caption">SCAN</span>
-                                    </button>
+                                    <div class="row">
+                                        <div class="cell-8">
+                                            <select id="ProductNum" class="select2">
+                                                <option>-- Select --</option>
+                                            </select>
+                                        </div>
+                                        <div class="cell-4">
+                                            <button class="image-button light">
+                                                <span class="mif-barcode icon"></span>
+                                                <span class="caption">SCAN</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="cell-lg-12">
+                                <div class="cell-6">
                                     <div class="sales_inventory">
-                                        <div id="invTile" data-role="tile" data-size="medium" onclick="tileData(0)">
+                                        <div id="invTile" data-role="tile" data-size="small" onclick="tileData(0)">
                                             <span class="mif-tags icon"></span>
                                             <span class="branding-bar">...</span>
                                             <span class="badge-top">0</span>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="inventoryID" id="inventoryID" value="0" />
+                                    <input type="hidden" name="REC-tr-total" id="REC-tr-total" value="0" />
+                                </div>
+                                <div class="cell-6">
+                                    <button type="button" class="button medium success outline" id="clrBtn">
+                                        <span class="mif-add icon"></span> CLEAR
+                                    </button>
                                 </div>
                                 <hr class="bg-gray" width="100%" />
                             </div>
@@ -101,9 +118,15 @@
                             <div class="row">
                                 <div class="cell-lg-12">
                                     <label class="fg-darkBlue">Payment:</label>
-                                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Amount $", @type = "number" } })
-                                    @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
+                                    <div class="row">
+                                        <div class="cell-lg-12">
+                                            @Html.EditorFor(model => model.amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Amount $", @type = "number" } })
+                                            @Html.ValidationMessageFor(model => model.amount, "", new { @class = "fg-magenta" })
+                                        </div>
+                                    </div>
 
+
+                                    <br />
                                     @Html.EditorFor(model => model.recieved_amount, new { htmlAttributes = new { data_role = "input", data_prepend = "<span class='mif-dollar icon'></span>", @Placeholder = "Received $", @type = "number", required = "required" } })
                                     @Html.ValidationMessageFor(model => model.recieved_amount, "", new { @class = "fg-magenta" })
 
@@ -127,11 +150,6 @@
                                         <li class="page-item">
                                             <button type="submit" class="button large yellow" id="submitBtn">
                                                 <span class="mif-done_all icon"></span> Capture
-                                            </button>
-                                        </li>
-                                        <li class="page-item">
-                                            <button type="button" class="button large primary" id="moreBtn">
-                                                <span class="mif-add icon"></span> More
                                             </button>
                                         </li>
                                         <li class="page-item">
@@ -175,7 +193,7 @@
                 </div>
             </div>
             <!-- RECEIPT PREVIEW ===== -->
-            <div class="cell-lg-6 zig-zag-bottom">
+            <div class="cell-lg-3 zig-zag-bottom">
                 <div data-role="panel"
                      data-title-caption="Preview"
                      data-cls-panel="shadow-3"
@@ -209,17 +227,14 @@
                             <table class="table subcompact" data-horizontal-scroll="true" id="recPreview">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>LINE #</th>
-                                        <th>DESCRIPTION</th>
+                                        <th>ITEM</th>
+                                        <th>QTY</th>
                                         <th>SALES PRICE</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><span id="REC-desc"></span><br /><span id="REC-orderDesc"></span><br /><br /><span id="REC-comments"></span></td>
-                                        <td id="REC-amount"></td>
-                                    </tr>
+                                <tbody id="REC-body">    
                                 </tbody>
                             </table>
                         </div>
@@ -233,13 +248,15 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th></th>
-                                        <td align="right">TOTAL:</td>
-                                        <td align="left" id="REC-total"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td align="right">TOTAL:<br/><span id="REC-total"></span></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -249,13 +266,15 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th></th>
-                                        <td align="right">PAYMENT:</td>
-                                        <td align="left" id="REC-payment"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td align="right">PAYMENT:<br/><span id="REC-payment"></span></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -265,13 +284,15 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th></th>
-                                        <td align="right">BALANCE:</td>
-                                        <td align="left" id="REC-balance"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td align="right">BALANCE:<br/><span id="REC-balance"></span></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -284,29 +305,42 @@
 }
 
 <script>
+    var key = "REC", default_value = {};
+
     // Fetch & Show logo from DB
     // =========================
     var getUrl = window.location;
     var baseUrl = getUrl.protocol + "//" + getUrl.host;
     document.getElementById("rec_logo").src = baseUrl + "@ViewBag.recLogo";
 
-    // Stock tile logic
+    // Stock tile {on Click} logic
     // ========================
-    function tileData(name, id, invID) {
-        var amount = document.getElementById("amount");
-        amount.value = id;
-        amount.style.backgroundColor = "#f8f8f8"; // make field READONLY
-        // amount.readOnly = true;
+    function tileData(inx, name, id, invID) {
 
-        document.getElementById("REC-amount").innerHTML = id; // update receipt preview price
-        document.getElementById("REC-total").innerHTML = id;
+        var qty = 1;
+        var amt = 0;
+        var fd = "";
+        
+        // ------------------------- Set rows for Receipt body // Add body to storage
+        var rBody = $("#REC-body").append('<tr><td></td><td>' + inx + '</td><td>' + name + '</td><td>' + qty + '</td><td>' + id + '</td></tr>');
+        // Metro.storage.setItem(key, rBody);
 
-        document.getElementById("inventoryID").value = invID; // stock fields update
+        // ------------------------ Sum total amount in each row 
+        // ------------------------ Add to amount InputField and focus recieve_amount InputField
+        rBody.find("tr").each(function () {
+            fd = $(this).children("td").eq(4).text();
+            amt += parseInt(fd);
 
-        document.getElementById("comment").innerHTML = "inventory item: " + name + "\n"; // append inventory selected item to comments
-        document.getElementById("REC-comments").innerHTML = "inventory item: " + name;
+            console.log($(this).length);
+        });        
+        $("#REC-total").text("$" + amt);
+        $("#amount").val(amt);
 
-        document.getElementById("recieved_amount").focus(); // focus on received amount
+        $("#REC-tr-total").val(rBody.find("tr").length);
+        // rBody.find("tr").children("td").eq(1).text();
+
+        // ------------------------ Append hidden InputField for inventory item & Stock update
+        rBody.find("tr").children("td").eq(0).append('<input type="hidden" name="inventoryID[' + rBody.find("tr").length + ']" id="inventoryID[' + rBody.find("tr").length + ']" value="' + invID + '" />');
     }
 
     // Phone Number Auto-format
@@ -342,6 +376,8 @@
         var comment = $("#comment");
         var location = $("#FK_location");
         var productcode = $("#ProductNum");
+        var invVal = $("#invVal");
+
 
         // Payment logic
         // ==================================
@@ -391,6 +427,7 @@
             $("#REC-bank").html(bank.children("option:selected").text());
         });
         // items
+        var inx = 0;
         var html = "";
         var iName = "";
         var iPrice = "";
@@ -404,15 +441,15 @@
                     $.each(result, function (k, v) {
                         iName = v.name;
                         iPrice = v.sellingPrice;
-                        html += '<div data-role="tile"  onclick="tileData(\'' + iName + '\', \'' + iPrice + '\', \'' + v.Id + '\', \'' + v.FK_REF_itemsId + '\')" ';
-                        html += "data-size='medium'>";
+                        html += '<div data-role="tile"  onclick="tileData(\'' + inx + '\', \'' + iName + '\', \'' + iPrice + '\', \'' + v.Id + '\', \'' + v.FK_REF_itemsId + '\')" ';
+                        html += "data-size='small'>";
                         html += "<span class='mif-tags icon'></span>";
                         html += "<span class='branding-bar'>" + iName + "</span>";
                         html += "<span class='badge-top'>" + iPrice + "</span>";
                         html += "</div>";
+                        html += "</br>"
                         siDIV.html(html);
-
-                        $("#REC-desc").text(v.desc);
+                        inx++;
                     });
                 }
             });
@@ -437,7 +474,7 @@
                         if (v.partNumber == productcode.val()) {
 
                             html += '<div data-role="tile"';
-                            html += "data-size='medium'>";
+                            html += "data-size='small'>";
                             html += "<span class='mif-tags icon'></span>";
                             html += "<span class='branding-bar'>" + v.name + "</span>";
                             html += "<span class='badge-top'>" + v.sellingPrice + "</span>";
@@ -456,9 +493,20 @@
             amount_received.focus();
         });
 
+        // inventory value logic
+        var invVal_value = "";
+        invVal.on('keyup change', function () {
+            invVal_value = $(this).val();
+            var totinvVal = invVal_value * amount.val();
+            amount.val(totinvVal);
+            $("#REC-amount").html('$' + totinvVal);
+            $("#REC-total").html('$' + totinvVal);
+
+            $("#REC-desc").append(" x" + invVal_value);
+        });
+
         // amount
         amount.on('keyup change', function () {
-            $("#REC-amount").html('$' + amount.val());
             $("#REC-total").html('$' + amount.val());
         });
         // amount_received
@@ -473,10 +521,14 @@
         comment.on('keyup change', function () {
             $("#REC-comments").html('<hr class="bg-gray" width="50" /><br/>' + comment.val());
         });
-        // More onClick logic
+        // clear Button
         // ==================================
-        $("#moreBtn").on('click', function () {
-            window.location = '@Url.Action("More", "capture_payments")';
+        $("#clrBtn").on('click', function () {
+            $(".sales_inventory").html('<div data-role=tile data-size=small id=invTile onclick=tileData(0)><span class="icon mif-tags"></span> <span class=branding-bar>...</span> <span class=badge-top>0</span></div>');
+            $("#REC-body").html("");
+            amount.val(0);
+            amount_received.val(0);
+            // Metro.storage.getItem(key, default_value);
         });
         // Print onClick logic
         // ==================================
