@@ -74,6 +74,8 @@ namespace VCAS.Controllers
         private object model;
         public ActionResult PrintMoreItems(string r)
         {
+            string lastRec = Session["printRec"].ToString();
+
             if (r != null)
             { 
                 // EXEC Stored Procedure - usp_SelectReceiptItems
@@ -82,15 +84,11 @@ namespace VCAS.Controllers
                 model = db.Database.SqlQuery<usp_SelectReceiptItems_Result>("EXEC usp_SelectReceiptItems @p_recNo", Parameters).ToList();
             }
             else
-            {
-                string lastRec = Session["printRec"].ToString();
-
+            {               
                 // EXEC Stored Procedure - usp_SelectReceiptItems
                 // ********************************************
                 SqlParameter[] Parameters = { new SqlParameter("@p_recNo", r) };
                 model = db.Database.SqlQuery<usp_SelectReceiptItems_Result>("EXEC usp_SelectReceiptItems @p_recNo", Parameters).ToList();
-
-
             }
             return PartialView("_capture_paymentsIndex", model);
         }

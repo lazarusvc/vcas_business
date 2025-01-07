@@ -271,7 +271,7 @@ namespace VCAS.Controllers
         // POST: forms/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Create(VCAS_forms vCAS_forms)
         {
 
@@ -316,7 +316,7 @@ namespace VCAS.Controllers
         // POST: forms/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,name,desc,form,dateModified,FK_location,FK_REF_userRolesId")] VCAS_forms vCAS_forms)
         {

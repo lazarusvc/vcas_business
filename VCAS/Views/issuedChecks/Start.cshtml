@@ -8,45 +8,53 @@
     @Html.MvcSiteMap().Menu(false, true, true)
 </div>
 
-<div style="-webkit-box-shadow: inset 0px -1px 67px -9px rgb(82 82 82);-moz-box-shadow: inset 0px -1px 67px -9px rgba(82,82,82,1); box-shadow: inset 0px -1px 67px -9px rgb(82 82 82); border-radius: 10px; width: 100%; padding: 5px;">
-    <h1 align="CENTER" style="color: #525252;">PAYMENTS</h1>
-</div>
-<br />
-<br />
-<div id="app_styleBG">
-    <a href="@Url.Action("Create", "issuedChecks")" class="image-button yellow m-1" style="text-decoration: none !important;">
-        <span class="mif-add icon"></span>
-        <span class="caption">New (Pre-Approved)</span>
-    </a>
-    <a href="@Url.Action("CreateApproved", "issuedChecks")" class="image-button yellow m-1" style="text-decoration: none !important;">
-        <span class="mif-add icon"></span>
-        <span class="caption">New (Approved)</span>
-    </a>
-    <span> | </span>
-    <a href="@Url.Action("Entry", "issuedChecks")" class="image-button primary m-1" style="text-decoration: none !important;">
-        <span class="mif-pencil icon"></span>
-        <span class="caption">Pending Entries</span>
-        <span class="badge bg-red fg-white">@ViewBag.entries</span>
-    </a>
-    <a href="@Url.Action("Approvals", "issuedChecks")" class="image-button success m-1" style="text-decoration: none !important;">
-        <span class="mif-chevron-thin-right icon"></span>
-        <span class="caption">Pending Approvals</span>
-        <span class="badge bg-red fg-white">@ViewBag.pending_approvals</span>
-    </a>
-    <a href="@Url.Action("Delivery", "issuedChecks")" class="image-button bg-white m-1" style="text-decoration: none !important;">
-        <span class="mif-chevron-thin-right icon"></span>
-        <span class="caption">Pending Delivery</span>
-        <span class="badge bg-red fg-white">@ViewBag.pending_delivery</span>
-    </a>
-    <span> | </span>
-    <a href="@Url.Action("DownloadFile_Payments", "issuedChecks")" class="image-button bg-white m-1" style="text-decoration: none !important;">
-        <span class="mif-download icon"></span>
-        <span class="caption">Select & Download File</span>
-    </a>
-    <a href="@Url.Action("BulkCreate", "issuedChecks")" class="image-button bg-white m-1" style="text-decoration: none !important;">
-        <span class="mif-upload icon"></span>
-        <span class="caption">Bulk Upload</span>
-    </a>
+
+<div id="app_styleBG2">
+    <h2 class="fg-darkGray"><span class='mif-news icon'></span> Select a Payment type::</h2>
+    <ul data-app-bar="true" data-role="materialtabs" data-fixed-tabs="true">
+        <li class="active"><a href="#one">NEW</a></li>
+        <li><a href="#two">APPROVAL</a></li>
+        <li><a href="#three">BULK LOAD</a></li>
+    </ul>
+    <div style="margin-top:80px">
+        <div id="one">
+            <a href="@Url.Action("Create", "issuedChecks")" class="image-button yellow m-1" style="text-decoration: none !important;">
+                <span class="mif-add icon"></span>
+                <span class="caption">Start</span>
+            </a>
+        </div>
+        <div id="two">
+            <a href="@Url.Action("CreateApproved", "issuedChecks")" class="image-button yellow m-1" style="text-decoration: none !important;">
+                <span class="mif-add icon"></span>
+                <span class="caption">Start</span>
+            </a>
+            <a href="@Url.Action("Entry", "issuedChecks")" class="image-button primary m-1" style="text-decoration: none !important;">
+                <span class="mif-pencil icon"></span>
+                <span class="caption">Pending Entries</span>
+                <span class="badge bg-red fg-white">@ViewBag.entries</span>
+            </a>
+            <a href="@Url.Action("Approvals", "issuedChecks")" class="image-button success m-1" style="text-decoration: none !important;">
+                <span class="mif-chevron-thin-right icon"></span>
+                <span class="caption">Pending Approvals</span>
+                <span class="badge bg-red fg-white">@ViewBag.pending_approvals</span>
+            </a>
+            <a href="@Url.Action("Delivery", "issuedChecks")" class="image-button bg-white m-1" style="text-decoration: none !important;">
+                <span class="mif-chevron-thin-right icon"></span>
+                <span class="caption">Pending Delivery</span>
+                <span class="badge bg-red fg-white">@ViewBag.pending_delivery</span>
+            </a>
+        </div>
+        <div id="three">
+            <a href="@Url.Action("DownloadFile_Payments", "issuedChecks")" class="image-button bg-white m-1" style="text-decoration: none !important;">
+                <span class="mif-download icon"></span>
+                <span class="caption">Select & Download File</span>
+            </a>
+            <a href="@Url.Action("BulkCreate", "issuedChecks")" class="image-button bg-white m-1" style="text-decoration: none !important;">
+                <span class="mif-upload icon"></span>
+                <span class="caption">Bulk Upload</span>
+            </a>
+        </div>
+    </div>
 </div>
 
 

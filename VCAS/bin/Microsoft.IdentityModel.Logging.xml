@@ -272,6 +272,13 @@
             The log message that is shown when PII is on.
             </summary>
         </member>
+        <member name="M:Microsoft.IdentityModel.Logging.LogHelper.IsEnabled(Microsoft.IdentityModel.Abstractions.EventLogLevel)">
+            <summary>
+            Gets whether logging is enabled at the specified <see cref="T:Microsoft.IdentityModel.Abstractions.EventLogLevel"/>."/>
+            </summary>
+            <param name="level">The log level</param>
+            <returns><see langword="true"/> if logging is enabled at the specified level; otherwise, <see langword="false"/>.</returns>
+        </member>
         <member name="M:Microsoft.IdentityModel.Logging.LogHelper.LogArgumentNullException(System.String)">
             <summary>
             Logs an exception using the event source logger and returns new <see cref="T:System.ArgumentNullException"/> exception.

@@ -4,24 +4,26 @@
     ViewBag.Title = "Form Calendar";
 }
 
-<p class="fg-darkGray" align="LEFT">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer })</p>
+<div id="app_styleBG2">
+    <p class="fg-darkGray" align="LEFT">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer })</p>
 
-@Html.FullCalendar(settings =>
-   {
-       settings.Name = "calendar";
-       settings.CssClass = "css-test";
-       settings.Header = new Header
+    @Html.FullCalendar(settings =>
        {
-           Left = new ControlsBuilder().AddButton(HeaderButton.Prev).AddSeparator(HeaderSeparator.Adjacent)
-                       .AddButton(HeaderButton.Next).AddSeparator(HeaderSeparator.Gap).AddButton(HeaderButton.Today),
-           Center = new ControlsBuilder().AddTitle(),
-           Right = new ControlsBuilder("month,agendaWeek ").AddView(AvailableView.AgendaDay)
-       };
-       settings.DefaultView = AvailableView.Month.ToString();
-       settings.Editable = true;
-       settings.AllDaySlot = false;
-       settings.Selectable = true;
-       settings.EventLimit = 3;
-       settings.SlotDuration = TimeSpan.FromMinutes(15);
-       settings.Events = Events.AsJsonFeed(Url.Action("GetForm", "forms", new { id = ViewBag.id }));
-   })
+           settings.Name = "calendar";
+           settings.CssClass = "css-test";
+           settings.Header = new Header
+           {
+               Left = new ControlsBuilder().AddButton(HeaderButton.Prev).AddSeparator(HeaderSeparator.Adjacent)
+                           .AddButton(HeaderButton.Next).AddSeparator(HeaderSeparator.Gap).AddButton(HeaderButton.Today),
+               Center = new ControlsBuilder().AddTitle(),
+               Right = new ControlsBuilder("month,agendaWeek ").AddView(AvailableView.AgendaDay)
+           };
+           settings.DefaultView = AvailableView.Month.ToString();
+           settings.Editable = true;
+           settings.AllDaySlot = false;
+           settings.Selectable = true;
+           settings.EventLimit = 3;
+           settings.SlotDuration = TimeSpan.FromMinutes(15);
+           settings.Events = Events.AsJsonFeed(Url.Action("GetForm", "forms", new { id = ViewBag.id }));
+       })
+</div>

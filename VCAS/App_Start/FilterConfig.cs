@@ -27,4 +27,28 @@ namespace VCAS
             }
         }
     }
+
+    public class SessionTimeoutAttribute : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            HttpContext ctx = HttpContext.Current;
+            if (HttpContext.Current.Session["u"] == null)
+            {
+                /// this handles session when data is requested through Ajax json
+                if (filterContext.HttpContext.Request.IsAjaxRequest())
+                {
+                    JsonResult result = new JsonResult { Data = "Session Timeout!" };
+                    filterContext.Result = result;
+                }
+                else
+                {
+                    /// If session is expired then redirected to logout page which further redirect to login page.                     
+                    filterContext.Result = new RedirectResult("~/Account/Logout");
+                    return;
+                }
+            }
+        }
+    }
+
 }

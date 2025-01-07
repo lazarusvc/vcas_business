@@ -23,7 +23,7 @@ namespace VCAS.Controllers
             var roleID = db.VCAS_users.Where(x => x.userName == GlobalSession.User).Select(x => x.FK_userRolesId).FirstOrDefault();
             ViewBag.roleID = db.VCAS_REF_userRoles.Where(x => x.Id == roleID).Select(x => x.name).FirstOrDefault();
 
-            var vCAS_supportDocs = db.VCAS_supportDocs.Include(v => v.VCAS_REF_userRoles).Where(v => v.FK_REF_userRolesId == roleID);     
+            var vCAS_supportDocs = db.VCAS_supportDocs.Include(v => v.VCAS_REF_userRoles).Where(v => v.FK_REF_userRolesId == roleID && v.FK_location == GlobalSession.Location);     
             return PartialView("_supportDocsIndex", vCAS_supportDocs.ToList());
         }
 
@@ -55,7 +55,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,name,desc,media,media_type,FK_REF_userRolesId")] VCAS_supportDocs vCAS_supportDocs, HttpPostedFileBase media)
+        public ActionResult Create([Bind(Include = "Id,name,desc,media,media_type,FK_REF_userRolesId,FK_location")] VCAS_supportDocs vCAS_supportDocs, HttpPostedFileBase media)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,8 @@ namespace VCAS.Controllers
                     name = vCAS_supportDocs.name,
                     media = fileName,
                     media_type = vCAS_supportDocs.media_type,
-                    FK_REF_userRolesId = vCAS_supportDocs.FK_REF_userRolesId
+                    FK_REF_userRolesId = vCAS_supportDocs.FK_REF_userRolesId,
+                    FK_location = GlobalSession.Location
                 });
                 db.SaveChanges();
                 return RedirectToAction("Help", "Home", null);
@@ -104,7 +105,7 @@ namespace VCAS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,desc,media,media_type,FK_REF_userRolesId")] VCAS_supportDocs vCAS_supportDocs)
+        public ActionResult Edit([Bind(Include = "Id,name,desc,media,media_type,FK_REF_userRolesId,,FK_location")] VCAS_supportDocs vCAS_supportDocs)
         {
             if (ModelState.IsValid)
             {

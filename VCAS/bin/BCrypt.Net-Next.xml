@@ -288,12 +288,12 @@
             <param name="character">The base64-encoded value.</param>
             <returns>The decoded value of x.</returns>
         </member>
-        <member name="M:BCrypt.Net.BCrypt.Encipher(System.UInt32[],System.Int32)">
+        <member name="M:BCrypt.Net.BCrypt.Encipher(System.Span{System.UInt32},System.Int32)">
             <summary>Blowfish encipher a single 64-bit block encoded as two 32-bit halves.</summary>
             <param name="blockArray">An array containing the two 32-bit half blocks.</param>
             <param name="offset">    The position in the array of the blocks.</param>
         </member>
-        <member name="M:BCrypt.Net.BCrypt.StreamToWord(System.Byte[],System.Int32@)">
+        <member name="M:BCrypt.Net.BCrypt.StreamToWord(System.ReadOnlySpan{System.Byte},System.Int32@)">
             <summary>Cyclically extract a word of key material.</summary>
             <param name="data">The string to extract the data from.</param>
             <param name="offset"> [in,out] The current offset.</param>
@@ -302,11 +302,11 @@
         <member name="M:BCrypt.Net.BCrypt.InitializeKey">
             <summary>Initializes the Blowfish key schedule.</summary>
         </member>
-        <member name="M:BCrypt.Net.BCrypt.Key(System.Byte[])">
+        <member name="M:BCrypt.Net.BCrypt.Key(System.ReadOnlySpan{System.Byte})">
             <summary>Key the Blowfish cipher.</summary>
             <param name="keyBytes">The key byte array.</param>
         </member>
-        <member name="M:BCrypt.Net.BCrypt.EKSKey(System.Byte[],System.Byte[])">
+        <member name="M:BCrypt.Net.BCrypt.EKSKey(System.ReadOnlySpan{System.Byte},System.ReadOnlySpan{System.Byte})">
             <summary>
              Perform the "enhanced key schedule" step described by Provos and Mazieres in
              "A Future Adaptable Password Scheme" http://www.openbsd.org/papers/bcrypt-paper.ps.
@@ -314,7 +314,7 @@
             <param name="saltBytes"> Salt byte array.</param>
             <param name="inputBytes">Input byte array.</param>
         </member>
-        <member name="M:BCrypt.Net.BCrypt.CryptRaw(System.Byte[],System.Byte[],System.Int32)">
+        <member name="M:BCrypt.Net.BCrypt.CryptRaw(System.ReadOnlySpan{System.Byte},System.ReadOnlySpan{System.Byte},System.Int32)">
             <summary>Perform the central hashing step in the BCrypt scheme.</summary>
             <exception cref="T:System.ArgumentException">Thrown when one or more arguments have unsupported or
                                                 illegal values.</exception>

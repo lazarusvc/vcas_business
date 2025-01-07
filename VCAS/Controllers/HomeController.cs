@@ -12,6 +12,7 @@ using VCAS.Models;
 
 namespace VCAS.Controllers
 {
+    [SessionTimeout]
     [Authorize]
     public class HomeController : Controller
     {
@@ -22,18 +23,24 @@ namespace VCAS.Controllers
 
         // App Name
         // ==================
-        public static String gloabl_appName()
+        public static String global_appName()
         {
             ModelContainer db = new ModelContainer();
             if (String.IsNullOrWhiteSpace(db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.app_name).FirstOrDefault()))
-            {
-                return "";
-            }
+            { return ""; }
             else
-            {
-                return db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.app_name).FirstOrDefault().ToString();
-            }
-            
+            { return db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.app_name).FirstOrDefault().ToString(); }
+        }
+
+        // App Logo
+        // ==================
+        public static String global_appLogo()
+        {
+            ModelContainer db = new ModelContainer();
+            if (String.IsNullOrWhiteSpace(db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_logo).FirstOrDefault()))
+            { return ""; }
+            else
+            { return db.VCAS_council.Where(x => x.Id == GlobalSession.Location).Select(x => x.receipt_logo).FirstOrDefault().ToString(); }
         }
 
         public ActionResult Index()
@@ -90,13 +97,13 @@ namespace VCAS.Controllers
             ViewBag.ReportViewer = reportViewer;
 
             // Report Name dropdown default item
-            if (Session["reportName"] != null)
-            {
-                ViewBag.rp_default = Session["reportName"];
-            } else
-            {
-                ViewBag.rp_default = "  ";
-            }            
+            //if (Session["reportName"] != null)
+            //{
+            //    ViewBag.rp_default = Session["reportName"];
+            //} else
+            //{
+            //    ViewBag.rp_default = "  ";
+            //}            
             return View();
         }
 
@@ -119,7 +126,6 @@ namespace VCAS.Controllers
                 Height = Unit.Pixel(750),
                 AsyncRendering = true
             };
-            //reportViewer.ServerReport.ReportServerUrl = new Uri("http://127.0.0.1/ReportServer/");
             reportViewer.ServerReport.ReportServerUrl = new Uri("http://vouchcast/ReportServer/");
             reportViewer.ServerReport.ReportPath = @"/App_Reports/" + rn.Replace(".rdl", "");
             ViewBag.ReportViewer = reportViewer;
@@ -134,7 +140,7 @@ namespace VCAS.Controllers
             }
 
             // Report Name dropdown default item
-            Session["reportName"] = reportName;
+            // Session["reportName"] = reportName;
             return View();
         }
 

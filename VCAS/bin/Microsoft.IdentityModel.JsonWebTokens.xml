@@ -218,11 +218,6 @@
         <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.UnsafeToString">
             <inheritdoc/>
         </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.SignatureBytes">
-             <summary>
-            
-             </summary>
-        </member>
         <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Actor">
             <summary>
             Gets the 'value' of the 'actort' claim the payload.
@@ -943,11 +938,36 @@
             <param name="validationParameters">Priority will be given to <see cref="P:Microsoft.IdentityModel.Tokens.TokenValidationParameters.CryptoProviderFactory"/> over <see cref="P:Microsoft.IdentityModel.Tokens.SecurityKey.CryptoProviderFactory"/>.</param>
             <returns>'true' if signature is valid.</returns>
         </member>
-        <member name="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimSet45">
+        <member name="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimSet">
             <summary>
-            This class provides an abstraction over the json parser for net45, net452 using an internal version of Newtonsoft.
+            This class provides an abstraction over the json parser for net461+ using System.Text.Json.
             <see cref="T:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken"/> will delegate to this class to get values.
             </summary>
+        </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonClaimSet.GetValue``1(System.String,System.Boolean,System.Boolean@)">
+            <summary>
+            The goal here is return types that are expected in a JWT token.
+            The 5 basic types: number, string, true / false, nil, array (of basic types).
+            This is not a general purpose translation layer for complex types.
+            For that we would need to provide a way to hook a JsonConverter to for complex types.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="throwEx"></param>
+            <param name="found"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonClaimSet.TryGetValue``1(System.String,``0@)">
+            <summary>
+            The return types that are expected in a JWT token.
+            The 5 basic types: number, string, true / false, nil, array (of basic types).
+            This is not a general purpose translation layer for complex types.
+            For that we would need to provide a way to hook a JsonConverter to for complex types.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.IdentityModel.JsonWebTokens.JwtConstants">
             <summary>
@@ -1391,6 +1411,15 @@
             <param name="signingKeys">A collection of <see cref="T:Microsoft.IdentityModel.Tokens.SecurityKey"/> a signing key to be resolved from.</param>
             <returns>Returns a <see cref="T:Microsoft.IdentityModel.Tokens.SecurityKey"/> to use for signature validation.</returns>
             <remarks>If key fails to resolve, then null is returned</remarks>
+        </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JwtTokenUtilities.GetJsonDocumentFromBase64UrlEncodedString(System.String,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="rawString"></param>
+            <param name="startIndex"></param>
+            <param name="length"></param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.IdentityModel.JsonWebTokens.LogMessages">
             <summary>

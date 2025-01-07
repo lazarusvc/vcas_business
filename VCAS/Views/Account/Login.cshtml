@@ -17,6 +17,18 @@
 </head>
 <body class="h-vh-100">
 
+    <!-- Session expiry ALERT Mobule ------------------------------- -->
+    @if (HttpContext.Current.Session["u"] != null)
+    {
+        <div class="info-box alert">
+            <span class="button square closer"></span>
+            <div class="info-box-content">
+                <p>Your Session has expired, please log back in to continue</p>
+            </div>
+        </div>
+    }
+    <!-- ----------------------------------------------------------- -->
+    
     <div class="img-bg"></div>
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form bg-white p-6 mx-auto border bd-default win-shadow", role = "form" }))
     {

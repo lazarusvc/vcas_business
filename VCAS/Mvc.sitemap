@@ -3,14 +3,14 @@
             xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
 
-		<mvcSiteMapNode title="Dashboard" controller="Home" action="Index">
-      <mvcSiteMapNode title="Inventory" controller="Home" action="Inventory" />
-			<mvcSiteMapNode title="Receipts" controller="capture_payments" action="Create" />
-			<mvcSiteMapNode title="Payments" controller="issuedChecks" action="Start"/>
-			<mvcSiteMapNode title="Disbursal" controller="issuedChecks" action="Delivery"/>
-			<mvcSiteMapNode title="Reports" controller="Home" action="Reports" />
-			<mvcSiteMapNode title="Support" controller="Home" action="Help" />
-		</mvcSiteMapNode>
-		
+	<mvcSiteMapNode title="Dashboard" controller="Home" action="Index">
+		<mvcSiteMapNode title="Inventory" controller="Home" action="Inventory" />
+		<mvcSiteMapNode title="Receipts" controller="capture_payments" action="Create" />
+		<mvcSiteMapNode title="Payments" controller="issuedChecks" action="Start"/>
+		<mvcSiteMapNode title="Disbursal" controller="issuedChecks" action="Delivery"/>
+		<mvcSiteMapNode title="Reports" controller="Home" action="Reports" />
+		<mvcSiteMapNode title="Support" controller="Home" action="Help" />
+	</mvcSiteMapNode>
 
 </mvcSiteMap>
+

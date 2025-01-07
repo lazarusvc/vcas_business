@@ -1,50 +1,73 @@
 ﻿@model VCAS.Models.VCAS_forms
 
-@{
-    Layout = null;
-}
+@{ ViewBag.Title = "Edit"; }
 
-<!DOCTYPE html>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">       
-            <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
-                <div class="row">
-                    <div class="cell-12">
-    
-                        <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Edit:: VCAS_forms</h2>
-                        <hr class="bg-gray" />
-                        @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
-                        @Html.HiddenFor(model => model.Id)
-    
-                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
-                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "fg-magenta" })
-                        @Html.EditorFor(model => model.desc, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
-                        @Html.ValidationMessageFor(model => model.desc, "", new { @class = "fg-magenta" })
-                        @Html.EditorFor(model => model.form, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
-                        @Html.ValidationMessageFor(model => model.form, "", new { @class = "fg-magenta" })
-                        @Html.EditorFor(model => model.dateModified, new { htmlAttributes = new { data_role = "input", data_prepend = "Data: " } })
-                        @Html.ValidationMessageFor(model => model.dateModified, "", new { @class = "fg-magenta" })
-                        @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
-                        @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
-                        @Html.DropDownList("FK_REF_userRolesId", null, htmlAttributes: new { data_role = "select" })
-                        @Html.ValidationMessageFor(model => model.FK_REF_userRolesId, "", new { @class = "fg-magenta" })
-                        <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+    <div class="form-horizontal">
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 10px;">
+            <div class="row">
+                <div class="cell-lg-8">
+                    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Form Builder::</h2>
+                    <hr class="bg-gray" />
+                    @Html.HiddenFor(model => model.dateModified, new { @Value = System.DateTime.Now })
+                    <p><span class="mif-folder-open"></span> Form code editor</p>
+                    <!-- FORM ******************** -->
+                    <div style="height:1000px;border:1px dashed grey; padding: 10px;" id="editor"></div>
+                    <input type="hidden" name="form" id="form" value="" />
+                    <!-- ************************** -->
+
+                </div>
+                <div class="cell-lg-4">
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="cell-sm-1" style="color:red;">*</div>
+                        <div class="cell-sm-11">
+                            @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "materialinput", data_label = "Form Name:", placeholder = "* Enter Form Name" } })
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="cell-sm-1" style="color:red;">*</div>
+                        <div class="cell-sm-11">
+                            @Html.EditorFor(model => model.desc, new { htmlAttributes = new { data_role = "materialinput", data_label = "Form Description:", placeholder = "* Enter Form Description" } })
+                        </div>
+                    </div>
+                    <h6>Assign to:</h6>
+                    <div class="cell-sm-6">
+                        <label>Location:</label>
+                        @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
+                    </div>
+                    <div class="cell-sm-6">
+                        <label>User Role:</label>
+                        @Html.DropDownList("FK_REF_userRolesId", null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
+                    </div>
+
+                    <input type="submit" value="Save" class="button blue" style="width: 100%;" />
                 </div>
             </div>
         </div>
+    </div>
+}
+<script src="~/Scripts/ace.js"></script>
+<script type="text/javascript">
+
+    function htmlspecialchars(str) {
+        var div = document.createElement('div');
+        var text = document.createTextNode(str);
+        div.appendChild(text);
+        return div.innerHTML.replace(/\n|\t/g, ' ');
     }
-    
-    
-</body>
-</html>
+    var hsc = htmlspecialchars("@Html.Raw(Model.form)");
+
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/javascript");
+    editor.setValue(hsc);
+    editor.setHighlightActiveLine(true);
+    editor.session.setUseWrapMode(true);
+</script>

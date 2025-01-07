@@ -3,253 +3,61 @@
 @{ ViewBag.Title = "Create"; }
 
 
-<form action="" method="post">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-horizontal">
         <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 10px;">
             <div class="row">
-
-                <!-- ***************************************************************
-                        DRAG AREA
-                ***************************************************************** -->
                 <div class="cell-lg-8">
                     <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Form Builder::</h2>
                     <hr class="bg-gray" />
                     @Html.HiddenFor(model => model.dateModified, new { @Value = System.DateTime.Now })
-                    <p><span class="mif-folder-open"></span> Drop Elements here:</p>
-                    <div class="window">
-                        <div class="window-caption">
-                            <span class="title">New Form</span>
-                            <div class="buttons">
-                                <span class="btn-min"></span>
-                                <span class="btn-max"></span>
-                                <span class="btn-close"></span>
-                            </div>
-                        </div>
-                        <div class="window-content p-2">
+                    <p><span class="mif-folder-open"></span> Form code editor</p>
+                    <!-- FORM ******************** -->
+                    <div style="height:1000px;border:1px dashed grey; padding: 10px;" id="editor"></div>
+                    <input type="hidden" name="form" id="form" value="" />
+                    <!-- ************************** -->
 
-                            <!-- FORM ******************** -->
-                            <div style="height:1000px;border:1px dashed grey; padding: 10px;" id="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-                            <input type="hidden" name="form" id="form" value="" />
-                            <!-- ************************** -->
-                            <hr />
-                            <div class="row">
-                                <div class="cell-sm-4">Form Name:</div>
-                                <div class="cell-sm-8">
-                                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "materialinput", data_label = "Form Name:", placeholder = "* Enter Form Name" } })
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="cell-sm-4">Form Description:</div>
-                                <div class="cell-sm-8">
-                                    @Html.EditorFor(model => model.desc, new { htmlAttributes = new { data_role = "materialinput", data_label = "Form Description:", placeholder = "* Enter Form Description" } })
-                                </div>
-                            </div>
-                            <h6>Assign to:</h6><br />
-                            <div class="cell-sm-6">
-                                <label>Location:</label>
-                                @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
-                            </div>
-                            <div class="cell-sm-6">
-                                <label>User Role:</label>
-                                @Html.DropDownList("FK_REF_userRolesId", null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
-                            </div>
+                </div>
+                <div class="cell-lg-4">
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="cell-sm-1" style="color:red;">*</div>
+                        <div class="cell-sm-11">
+                            @Html.EditorFor(model => model.name, new { htmlAttributes = new { data_role = "materialinput", data_label = "Form Name:", placeholder = "* Enter Form Name" } })
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="cell-sm-1" style="color:red;">*</div>
+                        <div class="cell-sm-11">
+                            @Html.EditorFor(model => model.desc, new { htmlAttributes = new { data_role = "materialinput", data_label = "Form Description:", placeholder = "* Enter Form Description" } })
+                        </div>
+                    </div>
+                    <h6>Assign to:</h6>
+                    <div class="cell-sm-6">
+                        <label>Location:</label>
+                        @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
+                    </div>
+                    <div class="cell-sm-6">
+                        <label>User Role:</label>
+                        @Html.DropDownList("FK_REF_userRolesId", null, htmlAttributes: new { data_role = "select", @Class = "input-small" })
                     </div>
 
                     <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
                 </div>
-
-                <!-- ***************************************************************
-                        DRAGGABLE ELEMENTS
-                ***************************************************************** -->
-                <div class="cell-lg-4">
-                    <br />
-                    <br />
-                    <p><span class="mif-pan-tool"></span> Drag Elements:</p>
-                    <ul data-app-bar="true" data-role="materialtabs">
-                        <li><a href="#input" class="active">Inputs</a></li>
-                        <li><a href="#calendar">Calendar</a></li>
-                        <li><a href="#separations">Separators</a></li>
-                    </ul>
-                    <div style="margin-top: 112px; overflow-y: scroll;height: 500px;">
-
-                        <div id="input">
-                            <div id="dragtxtInput1" draggable="true" ondragstart="drag(event)">
-                                <div id="inputTxt">
-                                    <!-- INPUT FIELD -->
-                                    <br />
-                                    <label>Input Field:</label>
-                                    <input type="text" data-role="input" readonly />
-                                </div>
-                            </div>
-                            <div id="dragtxtInput2" draggable="true" ondragstart="drag(event)">
-                                <div id="inputSelect">
-                                    <!-- SELECT FIELD -->
-                                    <br />
-                                    <label>Select Field:</label>
-                                    <select data-role="select" readonly>
-                                        <option>--Select--</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div id="dragtxtInput3" draggable="true" ondragstart="drag(event)">
-                                <!-- TEXTAREA FIELD -->
-                                <br />
-                                <label>TextArea Field:</label>
-                                <textarea data-role="textarea" readonly></textarea>
-                            </div>
-                            <div id="dragtxtInput6" draggable="true" ondragstart="drag(event)">
-                                <!-- FILE FIELD -->
-                                <br />
-                                <div class="form-group files">
-                                    <label>File Upload</label><br />
-                                    <input type="file" readonly>
-                                </div>
-                            </div>
-                            <div id="dragtxtInput7" draggable="true" ondragstart="drag(event)">
-                                <!-- CHECKBOX FIELD -->
-                                <br />
-                                <input type="checkbox" data-role="checkbox" data-caption="Checkbox" readonly>
-                            </div>
-                        </div>
-                        <div id="calendar">
-                            <div id="dragtxtInput4" draggable="true" ondragstart="drag(event)">
-                                <!-- CALENDAR -->
-                                <br />
-                                <label>Calendar:</label>
-                                <div data-role="calendar"></div>
-                            </div>
-                            <div id="dragtxtInput5" draggable="true" ondragstart="drag(event)">
-                                <!-- CALENDAR PICKER -->
-                                <br />
-                                <label>Calendar picker:</label>
-                                <input type="text" data-role="calendarpicker" readonly>
-                            </div>
-                        </div>
-                        <div id="separations">
-                            <div id="dragtxtInput11" draggable="true" ondragstart="drag(event)">
-                                <!-- LINE (BASIC) -->
-                                <br />
-                                <hr />
-                            </div>
-                            <div id="dragtxtInput12" draggable="true" ondragstart="drag(event)">
-                                <!-- LINE (THICK) -->
-                                <br />
-                                <hr class="bg-gray" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
         </div>
     </div>
-</form>
+}
 
-
+<script src="~/Scripts/ace.js"></script>
 <script type="text/javascript">
-    // DRAG AND DROP LOGIC
-    // ************************
-    const stringArray = new Array();
-    var newElements = "";
-    var hashID = "";
-
-    function allowDrop(ev) {
-        ev.preventDefault();
-    }
-
-    function drag(ev) {
-        ev.dataTransfer.setData("text", ev.target.id);
-    }
-
-    function drop(ev) {
-        ev.preventDefault();
-
-
-        var data = ev.dataTransfer.getData("text");
-        // ev.target.appendChild(document.getElementById(data));
-
-        /* If you use DOM manipulation functions, their default behaviour it not to
-          copy but to alter and move elements. By appending a ".cloneNode(true)",
-          you will not move the original element, but create a copy. */
-        var nodeCopy = document.getElementById(data).cloneNode(true);
-        nodeCopy.id = "ID-" + Math.floor(Math.random() * 1000); /* We cannot use the same ID */
-        hashID = nodeCopy.id;
-        sendIDMethod(hashID);
-        ev.target.appendChild(nodeCopy, nodeCopy);
-
-        // console.log(nodeCopy);
-        var x1 = "#" + hashID;
-        newElements = $(x1).html();
-        stringArray.push(newElements);
-        // alert(stringArray);
-        console.log(stringArray);
-        document.getElementById("form").value = stringArray;
-
-
-    }
-
-    function sendIDMethod(id, h) {
-        $(document).ready(function () {
-
-            var html = "";
-            html += h;
-
-            // Remove `readonly`
-            // ****************************
-            $("#inputTxt").find("input").removeAttr("readonly");
-
-            // OnClick Draggable elements
-            // ****************************
-            $('#' + id).on('click', function () {
-                if ($(this).find("#inputTxt")) {
-                    Metro.dialog.create({
-                        title: "Input Field",
-
-                        content: "<div><input type='text' id='inputTxtLabel' data-role='materialinput' placeholder='Input field Label:' data-label='Input field Label:'><input type='text' id='inputTxtPlaceholder' data-role='materialinput' placeholder='Input field Placeholder:' data-label='Input field Placeholder:'><input type='checkbox' id='inputTxtPrependCheck' data-role='checkbox' data-caption='Prepend:'><input type='text' id='inputTxtPrepend' data-role='materialinput' placeholder='Input field Prepend text:' data-label='Input field Prepend:'></div>",
-                        closeButton: true,
-                        actions: [
-                            {
-                                caption: "Finish",
-                                onclick: function () {
-
-                                    $("#inputTxtLabel").val("Input Field:");
-                                    $("#inputTxt > label").html($("#inputTxtLabel").val());
-                                    $("#inputTxt").find("input > placeholder").html($("#inputTxtPlaceholder").val());
-                                    $('#inputTxtPrependCheck').change(function () {
-                                        if ($(this).is(":checked")) {
-                                            $("#inputTxt").find("input").attr('data-prepend', "...");
-                                        }
-                                    });
-
-
-                                }
-                            }
-                        ]
-                    });
-                    html += h;
-                }
-                // commint out, this is dublication
-                //if ($(this).find("#inputSelect")) {
-                //    Metro.dialog.create({
-                //        title: "Select Field",
-                //        content: "<div>Bassus abactors ducunt ad triticum...</div>",
-                //        closeButton: true
-                //    });
-                //    html += h;
-                //}
-
-
-                $("#form").val(html);
-            });
-
-            // OnChange Dialog elements
-            // ****************************
-            $("#inputTxtLabel").on('keyup change', function () {
-                // $("#inputTxt").children('label')[0].html(this);
-                console.log(this);
-            });
-        });
-    }
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/javascript");
+    editor.setValue("the new text here");
+    editor.setHighlightActiveLine(true);
 </script>

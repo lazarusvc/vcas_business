@@ -383,6 +383,7 @@
           <Property Name="media" Type="nvarchar(max)" />
           <Property Name="media_type" Type="nvarchar(max)" />
           <Property Name="FK_REF_userRolesId" Type="int" Nullable="false" />
+          <Property Name="FK_location" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="VCAS_undepositedFunds">
           <Key>
@@ -576,6 +577,18 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="VCAS_REF_reports_params">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VCAS_councilVCAS_supportDocs">
+          <End Role="VCAS_council" Type="Self.VCAS_council" Multiplicity="1" />
+          <End Role="VCAS_supportDocs" Type="Self.VCAS_supportDocs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_supportDocs">
               <PropertyRef Name="FK_location" />
             </Dependent>
           </ReferentialConstraint>
@@ -962,6 +975,10 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <End Role="VCAS_council" EntitySet="VCAS_council" />
             <End Role="VCAS_REF_reports_params" EntitySet="VCAS_REF_reports_params" />
           </AssociationSet>
+          <AssociationSet Name="FK_VCAS_councilVCAS_supportDocs" Association="Self.FK_VCAS_councilVCAS_supportDocs">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_supportDocs" EntitySet="VCAS_supportDocs" />
+          </AssociationSet>
           <AssociationSet Name="FK_VCAS_councilVCAS_undepositedFunds" Association="Self.FK_VCAS_councilVCAS_undepositedFunds">
             <End Role="VCAS_council" EntitySet="VCAS_council" />
             <End Role="VCAS_undepositedFunds" EntitySet="VCAS_undepositedFunds" />
@@ -1283,15 +1300,19 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             <End Role="VCAS_inventory" EntitySet="VCAS_inventory" />
             <End Role="VCAS_capture_payments__REF_items" EntitySet="VCAS_capture_payments__REF_items" />
           </AssociationSet>
-          <FunctionImport Name="usp_SelectReceiptItems" ReturnType="Collection(Model.usp_SelectReceiptItems_Result)">
-          <Parameter Name="recNo" Mode="In" Type="String" />
-          </FunctionImport>
-          <EntitySet Name="vw_inventoryItems" EntityType="Model.vw_inventoryItems" />
           <EntitySet Name="VCAS_REF_forms" EntityType="Model.VCAS_REF_forms" />
           <AssociationSet Name="FK_VCAS_formsVCAS_REF_forms" Association="Model.FK_VCAS_formsVCAS_REF_forms">
             <End Role="VCAS_forms" EntitySet="VCAS_forms" />
             <End Role="VCAS_REF_forms" EntitySet="VCAS_REF_forms" />
           </AssociationSet>
+          <AssociationSet Name="VCAS_councilVCAS_supportDocs" Association="Model.VCAS_councilVCAS_supportDocs">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_supportDocs" EntitySet="VCAS_supportDocs" />
+          </AssociationSet>
+          <EntitySet Name="vw_inventoryItems" EntityType="Model.vw_inventoryItems" />
+          <FunctionImport Name="usp_SelectReceiptItems" ReturnType="Collection(Model.usp_SelectReceiptItems_Result)">
+            <Parameter Name="recNo" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="VCAS_debitTrans">
           <Key>
@@ -1449,6 +1470,8 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Name="media_type" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="VCAS_REF_userRoles" Relationship="Model.VCAS_REF_userRolesVCAS_supportDocs" FromRole="VCAS_supportDocs" ToRole="VCAS_REF_userRoles" />
           <Property Name="FK_REF_userRolesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VCAS_council" Relationship="Model.VCAS_councilVCAS_supportDocs" FromRole="VCAS_supportDocs" ToRole="VCAS_council" />
+          <Property Name="FK_location" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="VCAS_REF_userRolesVCAS_supportDocs">
           <End Type="Model.VCAS_REF_userRoles" Role="VCAS_REF_userRoles" Multiplicity="1" />
@@ -1666,6 +1689,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <Property Name="twilio_NUMBER" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="twilio_XML" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_council" ToRole="VCAS_forms" />
+          <NavigationProperty Name="VCAS_supportDocs" Relationship="Model.VCAS_councilVCAS_supportDocs" FromRole="VCAS_council" ToRole="VCAS_supportDocs" />
           </EntityType>
         <Association Name="FK_VCAS_councilVCAS_district">
           <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
@@ -2212,26 +2236,6 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="usp_SelectReceiptItems_Result">
-          <Property Type="String" Name="comment" Nullable="true" />
-          <Property Type="String" Name="receiptNo" Nullable="false" />
-          <Property Type="Double" Name="amount" Nullable="false" />
-          <Property Type="Double" Name="recieved_amount" Nullable="true" />
-          <Property Type="Double" Name="balance" Nullable="true" />
-          <Property Type="String" Name="item_name" Nullable="false" />
-          <Property Type="Double" Name="sellingPrice" Nullable="true" />
-          <Property Type="String" Name="rowNo" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <EntityType Name="vw_inventoryItems">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="FK_councilId" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FK_councilId" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="VCAS_REF_forms">
           <Key>
             <PropertyRef Name="Id" />
@@ -2285,6 +2289,38 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="VCAS_councilVCAS_supportDocs">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_supportDocs" Role="VCAS_supportDocs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_supportDocs">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vw_inventoryItems">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="FK_councilId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FK_councilId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="usp_SelectReceiptItems_Result">
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="String" Name="receiptNo" Nullable="false" />
+          <Property Type="Double" Name="amount" Nullable="false" />
+          <Property Type="Double" Name="recieved_amount" Nullable="true" />
+          <Property Type="Double" Name="balance" Nullable="true" />
+          <Property Type="String" Name="item_name" Nullable="false" />
+          <Property Type="Double" Name="sellingPrice" Nullable="true" />
+          <Property Type="String" Name="rowNo" Nullable="true" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2393,6 +2429,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
           <ScalarProperty Name="media" ColumnName="media" />
           <ScalarProperty Name="media_type" ColumnName="media_type" />
           <ScalarProperty Name="FK_REF_userRolesId" ColumnName="FK_REF_userRolesId" />
+          <ScalarProperty Name="FK_location" ColumnName="FK_location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -2688,6 +2725,56 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="VCAS_REF_forms">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_REF_forms)">
+        <MappingFragment StoreEntitySet="VCAS_REF_forms">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="txtInput_01" ColumnName="txtInput_01" />
+          <ScalarProperty Name="txtInput_02" ColumnName="txtInput_02" />
+          <ScalarProperty Name="txtInput_03" ColumnName="txtInput_03" />
+          <ScalarProperty Name="txtInput_04" ColumnName="txtInput_04" />
+          <ScalarProperty Name="txtInput_05" ColumnName="txtInput_05" />
+          <ScalarProperty Name="checkInput_01" ColumnName="checkInput_01" />
+          <ScalarProperty Name="checkInput_02" ColumnName="checkInput_02" />
+          <ScalarProperty Name="checkInput_03" ColumnName="checkInput_03" />
+          <ScalarProperty Name="selectInput_01" ColumnName="selectInput_01" />
+          <ScalarProperty Name="selectInput_02" ColumnName="selectInput_02" />
+          <ScalarProperty Name="selectInput_03" ColumnName="selectInput_03" />
+          <ScalarProperty Name="txtAreaInput_01" ColumnName="txtAreaInput_01" />
+          <ScalarProperty Name="txtAreaInput_02" ColumnName="txtAreaInput_02" />
+          <ScalarProperty Name="txtAreaInput_03" ColumnName="txtAreaInput_03" />
+          <ScalarProperty Name="fileInput_01" ColumnName="fileInput_01" />
+          <ScalarProperty Name="fileInput_02" ColumnName="fileInput_02" />
+          <ScalarProperty Name="formBtn" ColumnName="formBtn" />
+          <ScalarProperty Name="FK_formsId" ColumnName="FK_formsId" />
+          <ScalarProperty Name="frmHeader" ColumnName="frmHeader" />
+          <ScalarProperty Name="frmFooter" ColumnName="frmFooter" />
+          <ScalarProperty Name="signatureBox" ColumnName="signatureBox" />
+          <ScalarProperty Name="txtInput_06" ColumnName="txtInput_06" />
+          <ScalarProperty Name="txtInput_07" ColumnName="txtInput_07" />
+          <ScalarProperty Name="txtInput_08" ColumnName="txtInput_08" />
+          <ScalarProperty Name="txtInput_09" ColumnName="txtInput_09" />
+          <ScalarProperty Name="txtInput_10" ColumnName="txtInput_10" />
+          <ScalarProperty Name="txtInput_11" ColumnName="txtInput_11" />
+          <ScalarProperty Name="txtInput_12" ColumnName="txtInput_12" />
+          <ScalarProperty Name="txtInput_13" ColumnName="txtInput_13" />
+          <ScalarProperty Name="txtInput_14" ColumnName="txtInput_14" />
+          <ScalarProperty Name="txtInput_15" ColumnName="txtInput_15" />
+          <ScalarProperty Name="txtInput_16" ColumnName="txtInput_16" />
+          <ScalarProperty Name="txtInput_17" ColumnName="txtInput_17" />
+          <ScalarProperty Name="txtInput_18" ColumnName="txtInput_18" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="vw_inventoryItems">
+            <EntityTypeMapping TypeName="Model.vw_inventoryItems">
+              <MappingFragment StoreEntitySet="vw_inventoryItems">
+                <ScalarProperty Name="FK_councilId" ColumnName="FK_councilId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_SelectReceiptItems" FunctionName="Model.Store.usp_SelectReceiptItems">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Model.usp_SelectReceiptItems_Result">
@@ -2702,57 +2789,7 @@ warning 6002: The table/view 'VCAS_DB.dbo.vw_inventoryItems' does not have a pri
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="vw_inventoryItems">
-            <EntityTypeMapping TypeName="Model.vw_inventoryItems">
-              <MappingFragment StoreEntitySet="vw_inventoryItems">
-                <ScalarProperty Name="FK_councilId" ColumnName="FK_councilId" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VCAS_REF_forms">
-            <EntityTypeMapping TypeName="Model.VCAS_REF_forms">
-              <MappingFragment StoreEntitySet="VCAS_REF_forms">
-                <ScalarProperty Name="txtInput_18" ColumnName="txtInput_18" />
-                <ScalarProperty Name="txtInput_17" ColumnName="txtInput_17" />
-                <ScalarProperty Name="txtInput_16" ColumnName="txtInput_16" />
-                <ScalarProperty Name="txtInput_15" ColumnName="txtInput_15" />
-                <ScalarProperty Name="txtInput_14" ColumnName="txtInput_14" />
-                <ScalarProperty Name="txtInput_13" ColumnName="txtInput_13" />
-                <ScalarProperty Name="txtInput_12" ColumnName="txtInput_12" />
-                <ScalarProperty Name="txtInput_11" ColumnName="txtInput_11" />
-                <ScalarProperty Name="txtInput_10" ColumnName="txtInput_10" />
-                <ScalarProperty Name="txtInput_09" ColumnName="txtInput_09" />
-                <ScalarProperty Name="txtInput_08" ColumnName="txtInput_08" />
-                <ScalarProperty Name="txtInput_07" ColumnName="txtInput_07" />
-                <ScalarProperty Name="txtInput_06" ColumnName="txtInput_06" />
-                <ScalarProperty Name="signatureBox" ColumnName="signatureBox" />
-                <ScalarProperty Name="frmFooter" ColumnName="frmFooter" />
-                <ScalarProperty Name="frmHeader" ColumnName="frmHeader" />
-                <ScalarProperty Name="FK_formsId" ColumnName="FK_formsId" />
-                <ScalarProperty Name="formBtn" ColumnName="formBtn" />
-                <ScalarProperty Name="fileInput_02" ColumnName="fileInput_02" />
-                <ScalarProperty Name="fileInput_01" ColumnName="fileInput_01" />
-                <ScalarProperty Name="txtAreaInput_03" ColumnName="txtAreaInput_03" />
-                <ScalarProperty Name="txtAreaInput_02" ColumnName="txtAreaInput_02" />
-                <ScalarProperty Name="txtAreaInput_01" ColumnName="txtAreaInput_01" />
-                <ScalarProperty Name="selectInput_03" ColumnName="selectInput_03" />
-                <ScalarProperty Name="selectInput_02" ColumnName="selectInput_02" />
-                <ScalarProperty Name="selectInput_01" ColumnName="selectInput_01" />
-                <ScalarProperty Name="checkInput_03" ColumnName="checkInput_03" />
-                <ScalarProperty Name="checkInput_02" ColumnName="checkInput_02" />
-                <ScalarProperty Name="checkInput_01" ColumnName="checkInput_01" />
-                <ScalarProperty Name="txtInput_05" ColumnName="txtInput_05" />
-                <ScalarProperty Name="txtInput_04" ColumnName="txtInput_04" />
-                <ScalarProperty Name="txtInput_03" ColumnName="txtInput_03" />
-                <ScalarProperty Name="txtInput_02" ColumnName="txtInput_02" />
-                <ScalarProperty Name="txtInput_01" ColumnName="txtInput_01" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          </EntityContainerMapping>
+  </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

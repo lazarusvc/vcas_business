@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "NotFound";
+}
+
+<div class="jumbotron" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 style="color: #d80073; background:#FFFFFF; padding:5px; font-weight:700;" align="center">Error 404!</h2>
+    <h2 style="color: #ffffff; background: #d80073; border-radius: 10px;" align="center">This page does not exits</h2>
+    <p>
+        @ViewBag.response
+    </p>
+    <p class="text-left">
+        This is usually the result of a broken link, a web page that has been moved or deleted, or a mistyped URL.
+        <ol class="text-left">
+            <li>Check the URL you entered in the address bar for typos,</li>
+            <li>If the address you entered is correct, the problem is on our end.</li>
+            <li>Please check back later as the resource you requested could be getting worked on,</li>
+            <li>However, if this continues for the resource you requested, please submit a <a href="mailto:EmailAddress?subject=Website%20Error">trouble ticket</a>.</li>
+        </ol>
+    </p>
+    <p align="center">@Html.ActionLink("<<< Please return from whence you came!", null, null, null, new { href = Request.UrlReferrer })</p>
+</div>

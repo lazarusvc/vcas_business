@@ -12,7 +12,7 @@
     </div>
 </div>
 
-@using (Html.BeginForm("Create", "capture_payments", FormMethod.Post))
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -20,7 +20,10 @@
     <div class="grid" id="app_styleBG2">
         <h3 class="fg-gray"><span id="rec_invName">Receipt</span> Capture</h3>
         <div class="row>">
-            <div class="cell-12">
+            <div class="cell-lg-4">
+                <input type="checkbox" data-role="switch" data-caption="MAKE INVOICE" class="fg-darkBlue" id="rec_invNew">
+            </div>
+            <div class="cell-lg-12">
                 @Html.EditorFor(model => model.receiptNo, new { htmlAttributes = new { @class = "input-small", data_role = "input", data_prepend = "Receipt No:", @Value = ViewBag.recNo, placeholder = ViewBag.recNo, @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.receiptNo, "", new { @class = "fg-magenta" })
             </div>
@@ -46,6 +49,10 @@
                             <!-- CUSTOMER SECTION ====== -->
                             <div class="row">
                                 <div class="cell-lg-12">
+                                    <div>
+                                        <label class="fg-darkBlue">Saved Invoices:</label>
+                                        @Html.DropDownList("invoiceFetches", null, "-- Select --", htmlAttributes: new { data_role = "select" })<br/>
+                                    </div>
                                     <label class="fg-darkBlue">Date:</label>
                                     @Html.EditorFor(model => model.datetime, new { htmlAttributes = new { data_role = "calendarpicker", @Placeholder = "Select Date:", @Value = System.DateTime.Now } })
                                     @Html.ValidationMessageFor(model => model.datetime, "", new { @class = "fg-magenta" })
@@ -166,23 +173,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- INVOICE SECTION ====== -->
-                <div class="remark">
-
-                    <div class="row">
-                        <div class="cell-lg-4">
-                            <input type="checkbox" data-role="checkbox" data-caption="MAKE INVOICE" class="fg-darkBlue" id="rec_invNew">
-                        </div>
-                        <div class="cell-lg-4">
-                            <input type="checkbox" data-role="checkbox" data-caption="FETCH INVOICE" class="fg-darkBlue" id="rec_invGet">
-                        </div>
-                        <div class="cell-lg-4"></div>
-                    </div>
-                    <div id="rec_invGetDiv">
-                        <label class="fg-darkBlue">Saved Invoices:</label>
-                        @Html.DropDownList("invoiceFetches", null, "-- Select --", htmlAttributes: new { data_role = "select" })
                     </div>
                 </div>
                 <!-- COMMENTS SECTION ====== -->
@@ -320,19 +310,19 @@
         var qty = 1;
         var amt = 0;
         var fd = "";
-        
+
         // ------------------------- Set rows for Receipt body // Add body to storage
         var rBody = $("#REC-body").append('<tr><td></td><td>' + inx + '</td><td>' + name + '</td><td>' + qty + '</td><td>' + id + '</td></tr>');
         // Metro.storage.setItem(key, rBody);
 
-        // ------------------------ Sum total amount in each row 
+        // ------------------------ Sum total amount in each row
         // ------------------------ Add to amount InputField and focus recieve_amount InputField
         rBody.find("tr").each(function () {
             fd = $(this).children("td").eq(4).text();
             amt += parseInt(fd);
 
             console.log($(this).length);
-        });        
+        });
         $("#REC-total").text("$" + amt);
         $("#amount").val(amt);
 
@@ -611,18 +601,9 @@
                 $("#invoice").val(false);
             }
         });
-        $('#rec_invGetDiv').hide();
-        $('#rec_invGet').change(function () { // Old Invoice
-            if ($(this).is(":checked")) {
-                $('#rec_invGetDiv').show();
-
-                var inv_option = $("#invoiceFetches");
-                inv_option.on('keyup change', function () {
-                    window.location = '@Url.Action("Edit", "capture_payments")/' + inv_option.val();
-                });
-            } else {
-                $('#rec_invGetDiv').hide();
-            }
+        var inv_option = $("#invoiceFetches");
+        inv_option.on('keyup change', function () {
+            window.location = '@Url.Action("Edit", "capture_payments")/' + inv_option.val();
         });
     });
 </script>

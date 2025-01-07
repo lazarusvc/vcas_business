@@ -20,7 +20,9 @@ namespace VCAS.Models
         public string media { get; set; }
         public string media_type { get; set; }
         public int FK_REF_userRolesId { get; set; }
+        public int FK_location { get; set; }
     
         public virtual VCAS_REF_userRoles VCAS_REF_userRoles { get; set; }
+        public virtual VCAS_council VCAS_council { get; set; }
     }
 }

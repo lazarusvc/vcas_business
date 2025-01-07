@@ -116,11 +116,11 @@
 	<input type="hidden" name="txtInput_13" value="#3788d8"/>
 
 	<!-- POS Invoice logic - Input Fields --------------------------------------------- -->
-	<input type="hidden" name="txtInput_14" id="txtInput_14" /><!-- dbo.capture_payments - payer -->
+	<input type="hidden" name="txtInput_14" id="txtInput_14" value="" /><!-- dbo.capture_payments - payer -->
 	<input type="hidden" name="txtInput_15" id="txtInput_15" value="notes: Loan -- form entry" /><!-- dbo.capture_payments - comment -->
 	<input type="hidden" name="txtInput_16" id="txtInput_16" value="6024" /><!-- dbo.capture_payments - FK_items -->
-	<input type="hidden" name="txtInput_17" id="txtInput_17" /><!-- dbo.capture_payments - amount -->
-	<input type="hidden" name="txtInput_18" id="txtInput_18" /><!-- dbo.capture_payments - received_amount -->
+	<input type="hidden" name="txtInput_17" id="txtInput_17" value="" /><!-- dbo.capture_payments - amount -->
+	<input type="hidden" name="txtInput_18" id="txtInput_18" value="" /><!-- dbo.capture_payments - received_amount -->
 	
 	<!-- {REQUIRED} Customer name logic - Input Fields --------------------------------- -->
 	<textarea type="hidden" class="form-control" id="txtAreaInput_03" name="txtAreaInput_03" style="display:none;"></textarea>
@@ -167,25 +167,25 @@
 	  <h3>Guarantees::</h3>
 	  <div class="inner-container">
 		<div class="formbuilder-text form-group">
-		  <label class="formbuilder-text-label">Amount:</label>
+		  <label class="formbuilder-text-label"><span style="color:red;">*</span>Amount:</label>
 		  <input
 			type="number"
-			placeholder=""
+			placeholder="e.g. 15,000"
 			class="form-control"
 			name="txtInput_02"
-			access="false"
 			id="txtInput_02"
+			required="required"
 		  />
 		</div>
 		<div class="formbuilder-text form-group">
-		  <label class="formbuilder-text-label">%Percentage:</label>
+		  <label class="formbuilder-text-label"><span style="color:red;">*</span>Rate (%) Percentage:</label>
 		  <input
 			type="number"
-			placeholder=""
+			placeholder="e.g. 10"
 			class="form-control"
 			name="txtInput_03"
-			access="false"
 			id="txtInput_03"
+			required="required"
 		  />
 		</div>
 	  </div>
@@ -194,14 +194,24 @@
 	  <h3>Interest::</h3>
 	  <div class="inner-container">
 		<div class="formbuilder-text form-group">
-		  <label class="formbuilder-text-label">Amount:</label>
+		  <label class="formbuilder-text-label"><span style="color:red;">*</span>Terms (in years):</label>
 		  <input
 			type="number"
-			placeholder=""
+			placeholder="e.g. 10"
 			class="form-control"
 			name="txtInput_04"
-			access="false"
 			id="txtInput_04"
+			required="required"
+		  />
+		</div>	  
+		<div class="formbuilder-text form-group">
+		  <label class="formbuilder-text-label">Amount (in interest):</label>
+		  <input
+			type="number"
+			placeholder="e.g. 6,000"
+			class="form-control"
+			name="txtInput_05"
+			id="txtInput_05"
 		  />
 		</div>
 		<div class="formbuilder-text form-group">
@@ -210,9 +220,9 @@
 			type="text"
 			placeholder=""
 			class="form-control"
-			name="txtInput_05"
+			name="txtInput_06"
 			access="false"
-			id="txtInput_05"
+			id="txtInput_06"
 		  />
 		</div>
 	  </div>
@@ -226,20 +236,20 @@
 			type="number"
 			placeholder=""
 			class="form-control"
-			name="txtInput_06"
-			access="false"
-			id="txtInput_06"
+			name="txtInput_07"
+			id="txtInput_07"
 		  />
 		</div>
 		<div class="formbuilder-text form-group">
 		  <label class="formbuilder-text-label">Approval Date:</label>
 		  <input
-			type="datetime-local"
+			type="text"
 			placeholder=""
 			class="form-control"
-			name="txtInput_07"
+			name="txtInput_08"
 			access="false"
-			id="txtInput_07"
+			id="txtInput_08"
+			readonly
 		  />
 		</div>
 	  </div>
@@ -250,9 +260,9 @@
 			type="text"
 			placeholder=""
 			class="form-control"
-			name="txtInput_08"
+			name="txtInput_09"
 			access="false"
-			id="txtInput_08"
+			id="txtInput_09"
 		  />
 		</div>
 		<div class="formbuilder-text form-group">
@@ -261,9 +271,9 @@
 			type="text"
 			placeholder=""
 			class="form-control"
-			name="txtInput_09"
+			name="txtInput_10"
 			access="false"
-			id="txtInput_09"
+			id="txtInput_10"
 		  />
 		</div>
 	  </div>
@@ -274,9 +284,9 @@
 			type="text"
 			placeholder=""
 			class="form-control"
-			name="txtInput_10"
+			name="txtInput_11"
 			access="false"
-			id="txtInput_10"
+			id="txtInput_11"
 		  />
 		</div>
 		<div class="formbuilder-text form-group">
@@ -285,9 +295,9 @@
 			type="number"
 			placeholder=""
 			class="form-control"
-			name="txtInput_11"
+			name="txtInput_12"
 			access="false"
-			id="txtInput_11"
+			id="txtInput_12"
 		  />
 		</div>
 	  </div>
@@ -297,9 +307,9 @@
 		  type="text"
 		  placeholder=""
 		  class="form-control"
-		  name="txtInput_12"
+		  name="txtInput_13"
 		  access="false"
-		  id="txtInput_12"
+		  id="txtInput_13"
 		/>
 	  </div>
 	</div>
@@ -341,23 +351,52 @@
   </div>
 </form>
 <script>
+  // Calendar Datetime value + Approval Date
+  // ================================================
+	var currentdate = new Date(); 
+	var datetime = currentdate.getFullYear() +"-"+ (currentdate.getMonth()+1) +"-"+ currentdate.getDate() + "T" + currentdate.getHours() + ":" +currentdate.getMinutes();  
+	// 2024-10-12T20:03
+	$("#txtInput_08").val(datetime);
+	
+	// Calculate loan interest amount & Invoice entry amount 
+	// =======================================
+	var principleAmt = $("#txtInput_02");
+	var paData = "";
+	var rate = $("#txtInput_03");
+	var rData = "";
+	var terms = $("#txtInput_04");
+	var interestAmt = $("#txtInput_05");
+	var iData = "";
+	var balance = $("#txtInput_07");
+	var bData = "";
+	
+	principleAmt.on("change", function () {
+		paData = $(this).val();
+	});
+	rate.on("change", function () {
+		rData = $(this).val();
+	});
+	terms.on("change", function () {
+		iData = parseFloat(paData*rData*$(this).val());
+		bData = parseFloat(paData) + parseFloat(iData);
+		
+		interestAmt.val(iData).prop('readonly', true);
+		balance.val(bData).prop('readonly', true);
+		
+		$("#txtInput_17").val(bData);
+		$("#txtInput_18").val(bData);		
+	});		
 
-// create invoice
-// =======================================
-$("#loanForm").submit(function() {
-	$.ajax({
-		url: '/capture_payments/CreateForm',
-		type: "POST",
-		data: $(this).serialize(),
-		success: function () {
-			// Invoice value entry logic
-			// -------------------------
-			$("#txtInput_17").val($("#txtInput_02").val());
-			$("#txtInput_18").val($("#txtInput_02").val());	
-			// -------------------------
-		}
-	});	  
-});
+	// create invoice
+	// =======================================
+	$("#loanForm").submit(function() {
+		$.ajax({
+			url: '/capture_payments/CreateForm',
+			type: "POST",
+			data: $(this).serialize(),
+			success: function () {}
+		});	  
+	});
 
   // Get Saved Customers
   // =============================================================
@@ -389,12 +428,8 @@ $("#loanForm").submit(function() {
 	$("#txtInput_01").val(array[0] + " " + array[1]);
 	// $("#txtInput_03").val(array[2]);
 	// $("#txtInput_04").val(array[3]);
-	$("#txtInput_14").val(
-	  $("#txtInput_01").val()
-	);
-	$("#txtAreaInput_03").html(
-		$("#txtInput_01").val()
-	);
+	$("#txtInput_14").val($("#txtInput_01").val()); // UPDATE Customer name field for Invoice
+	$("#txtAreaInput_03").html($("#txtInput_01").val()); //UPDATE Customer name field for CalendarView 
   });
   // Add New Customer Modal
   // ==================================
@@ -436,5 +471,6 @@ $("#loanForm").submit(function() {
 	}
   });
 </script>
+
   </body>
 </html>

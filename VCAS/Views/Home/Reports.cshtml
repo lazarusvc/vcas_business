@@ -21,10 +21,12 @@
                 {
         <div class="row">
             <div class="cell-lg-8">
-                @Html.DropDownList("rp", null, htmlAttributes: new { data_role = "select" })
+                @Html.DropDownList("rp", null, "-- Select --", htmlAttributes: new { data_role = "select" })
             </div>
             <div class="cell-lg-4">
-                <input type="submit" value="Submit" class="button drop-shadow yellow" style="width: 100%;" />
+                <button type="submit" id="Btn" class="button drop-shadow yellow" style="width: 100%;">
+                    Submit &nbsp;<span class="mif-arrow-up-right icon"></span>
+                </button>
             </div>
         </div>}
             </div>
@@ -38,11 +40,11 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    //$(document).ready(function () {
         var iframe = $("#iframeHidden iframe");
         iframe.hide();
         $("#Btn").on('click', function () {
-            window.open(iframe.attr('src'));
+            window.open(iframe.attr('src'), '_blank').focus();
         });
-    });
+    //});
 </script>

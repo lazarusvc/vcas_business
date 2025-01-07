@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="900">  <!-- content="900" REFRESH page every 15mins -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <meta name="twitter:site" content="">
@@ -28,7 +29,7 @@
 
     <link rel="manifest" href="~/manifest.json">
 
-    <title>@ViewBag.Title - @VCAS.Controllers.HomeController.gloabl_appName()</title>
+    <title>@ViewBag.Title - @VCAS.Controllers.HomeController.global_appName()</title>
     <!-- Global CSS ======================================================= -->
     @Styles.Render("~/Content/smartwizard")
     @Styles.Render("~/Content/site.css")
@@ -57,7 +58,7 @@
             <span style="font-size: 30px !important;" class="icon mif-menu fg-white"></span>
         </button>
 
-        <a href="@Url.Action("Index", "Home")" class="brand fg-white no-hover text-bold ml-auto ml-0-md d-flex d-none-xl">@VCAS.Controllers.HomeController.gloabl_appName()</a>
+        <a href="@Url.Action("Index", "Home")" class="brand fg-white no-hover text-bold ml-auto ml-0-md d-flex d-none-xl">@VCAS.Controllers.HomeController.global_appName()</a>
 
         <div class="app-bar-container ml-auto d-none d-flex-md">
             <a href='@Url.Action("About", "Home")' class="app-bar-item text-upper"><span class="icon mif-organization"></span>&nbsp;About</a>
@@ -90,7 +91,7 @@
             <span class="mif-arrow-left mif-2x"></span>
         </a>
         <div class="sidebar-header" data-image="@Url.Content("~/Content/cover.jpg")">
-            <span style="text-shadow: 2px 2px 4px #000000;" class="title fg-white"><strong>@VCAS.Controllers.HomeController.gloabl_appName()</strong></span><br /><br />
+            <span style="text-shadow: 2px 2px 4px #000000;" class="title fg-white"><strong>@VCAS.Controllers.HomeController.global_appName()</strong></span><br /><br />
         </div><br />
         <ul class="sidenav-m3 bg-grayBlue">
             <li class="stick-right bg-darkBlue"><a href='@Url.Action("Index", "Home")'><span class="mif-home icon"></span> Dashboard</a></li>
@@ -126,7 +127,7 @@
             <li class="stick-right bg-green">
                 <a class="dropdown-toggle" href="#"><span class="mif-bubbles icon"></span>Communications</a>
                 <ul class="d-menu" data-role="dropdown" style="display: none;">
-                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "communications")'><span class="mif-arrow-up-right icon"></span> Home</a></li>
+                    <li class="fg-grayBlue"><a href='https://chats.vouchcast.com'><span class="mif-arrow-up-right icon"></span> Home</a></li>
                 </ul>
             </li>
             <!-- ADMINISTRATION SUBNAV =================================================== -->
@@ -174,10 +175,10 @@
         </div>
     </div>
 
-    @if (Request.IsAuthenticated)
+    @*@if (Request.IsAuthenticated)
     {
         @Html.Partial("~/Views/Shared/_SessionTimeout.cshtml")
-    }
+    }*@
     <!-- PWA Implementation ============================================================= -->
     <script>
         if ('serviceWorker' in navigator) {
