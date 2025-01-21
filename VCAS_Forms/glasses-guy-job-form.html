@@ -29,19 +29,19 @@
 	 <br/>
 	 <br/>	  
       <p style="border-bottom: 1px dashed gray;">Customer Job #:<span id="numSeq02"></span></p>
-        <label for="text-1676508193795" class="formbuilder-text-label"><strong>Name:</strong></label>
+        <label for="text-1676508193795" class="formbuilder-text-label"><strong>Name:</strong></label></br>
         <input type="text" placeholder="e.g. Jane Doe" class="form-control" name="txtInput_02" access="false" id="txtInput_02">
     </div>
     <div class="formbuilder-text form-group field-text-1676508199466">
-        <label for="text-1676508199466" class="formbuilder-text-label"><strong>Contact/WhatsApp #:</strong></label>
+        <label for="text-1676508199466" class="formbuilder-text-label"><strong>Contact/WhatsApp #:</strong></label></br>
         <input type="tel" placeholder="(767)555-5555" class="form-control" name="txtInput_03" access="false" id="text-1676508199466">
     </div>
     <div class="formbuilder-text form-group field-text-1676508460512">
-        <label for="text-1676508460512" class="formbuilder-text-label"><strong>Email Addr:</strong></label>
+        <label for="text-1676508460512" class="formbuilder-text-label"><strong>Email Addr:</strong></label></br>
         <input type="email" placeholder="jane.doe@glasseshingefix.com" class="form-control" name="txtInput_04" access="false" id="text-1676508460512">
     </div>    
   <div class="formbuilder-textarea form-group field-textarea-1676509731996">
-        <label for="textarea-1676509731996" class="formbuilder-textarea-label"><strong>Description:</strong></label>
+        <label for="textarea-1676509731996" class="formbuilder-textarea-label"><strong>Description:</strong></label></br>
         <textarea type="textarea" class="form-control" name="txtAreaInput_01" access="false" id="textarea-1676509731996"></textarea>
     </div>
     <div class="formbuilder-button form-group field-button-1676508942222">
@@ -66,7 +66,13 @@
   // Calendar Datetime value
   // ================================================
 	var currentdate = new Date(); 
-	var datetime = currentdate.getFullYear() +"-"+ (currentdate.getMonth()+1) +"-"+ currentdate.getDate() + "T" + currentdate.getHours() + ":" +currentdate.getMinutes();  
+	var datetime = 
+	currentdate.getFullYear() +"-"+ 
+	("0" + (currentdate.getMonth() + 1)).slice(-2) +"-"+ 
+	("0" + currentdate.getDate()).slice(-2) + "T" + 
+	currentdate.getHours() + ":" + 
+	currentdate.getMinutes() + ":" +
+	("0" + currentdate.getSeconds()).slice(-2);  
 	// 2024-10-12T20:03
   $("#txtInput_05").val(datetime);
  </script>
