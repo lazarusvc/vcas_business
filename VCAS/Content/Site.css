@@ -115,12 +115,16 @@ LOADER CSS
     position: relative;
     display: block;
 }
-/*
+.sidebar-header {
+    top: 20px !important;
+}
+
+    /*
 ------------------------------
 BREADCRUMBS CSS
 ------------------------------
 */
-#menu {
+    #menu {
     white-space: nowrap;
     overflow-x: scroll;
 }

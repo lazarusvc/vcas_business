@@ -506,6 +506,8 @@
     <Content Include="Content\files-img.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Fonts\merchant-copy\info.txt" />
+    <Content Include="Content\Fonts\merchant-copy\misc\Merchant-Copy-ReadMe.txt" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.min.css" />
     <Content Include="Content\fullcalendar.print.css" />
@@ -616,6 +618,10 @@
     <Content Include="mif\metro.ttf" />
     <Content Include="mif\metro.json" />
     <Content Include="Mvc.sitemap" />
+    <Content Include="Content\Fonts\DottyRegular-vZOy.ttf" />
+    <Content Include="Content\Fonts\merchant-copy\MerchantCopy-GOXq.ttf" />
+    <Content Include="Content\Fonts\merchant-copy\MerchantCopyDoublesize-jE7R.ttf" />
+    <Content Include="Content\Fonts\merchant-copy\MerchantCopyWide-z8m0.ttf" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

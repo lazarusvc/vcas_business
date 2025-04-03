@@ -13,25 +13,48 @@
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
     <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
     <style>
+        @@page {
+            size: A4;
+        }
+
+        @@font-face {
+            font-family: 'ReceiptFont';
+            src: URL('/Content/Fonts/merchant-copy/MerchantCopy-GOXq.ttf') format('truetype');
+        }
+
         h1, tb, p {
             writing-mode: tb-rl;
             display: inline-block;
         }
-
-        @@media print {
-            html, body {
-                width: 100%;
-                height: 279mm;
-                position: absolute;
-            }
-
-            .body {
-                width: 100%;
-                height: 279mm;
-            }
+        * {
+            font-family: 'ReceiptFont' !important;
+            font-size: 20px !important;
+            font-weight: 600 !important;
         }
 
-        @@import url("https://fonts.googleapis.com/css?family=Roboto");
+        html {
+            min-height: 100%;
+            min-width: 100%;
+        }
+
+        body {
+            height: 100vh !important;
+            line-height: normal;
+        }
+
+        hr {
+            border: 0 !important;
+            height: 2px !important;
+            max-width: 50% !important;
+            background-color: #1d1d1d !important;
+        }
+
+        table th,
+        td {
+            border: 1px solid #ddd;
+            border-bottom: 2px dotted;
+        }
+
         @@-webkit-keyframes come-in {
             0% {
                 -webkit-transform: translatey(100px);
@@ -78,15 +101,6 @@
                 transform: translatey(0px) scale(1);
                 opacity: 1;
             }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html, body {
-            font-family: 'Roboto', sans-serif;
         }
 
         .floating-container {
@@ -152,7 +166,7 @@
                 border-radius: 50%;
                 width: 50px;
                 height: 50px;
-                margin: 40px auto;
+                margin: 25px auto;
                 color: white;
                 font-weight: 500;
                 text-align: center;
@@ -194,6 +208,12 @@
                     <tbody>
                         <tr>
                             <tb>
+                                <p>vouchcast.com</p>
+                            </tb>
+                            <tb>
+                                &nbsp;
+                            </tb>
+                            <tb>
                                 <p>Signature: ________________________ </p>
                             </tb>
                             <tb>
@@ -208,313 +228,313 @@
                             <tb>
                                 <p align="CENTER">@Html.Raw(ViewBag.recHeader)</p>
                             </tb>
-                            <tb style="margin: 165px auto; position: absolute;">
-                                <img src="@Url.Content(ViewBag.recLogo)" width="100" style=" transform: rotate(90deg); margin-left: -45px; margin-top: -145px; width: 80px;" />
-                            </tb>
                             <tb>
                                 &nbsp;
                             </tb>
                             <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                <h1><strong>Deposit Ticket</strong></h1>
+                                <p>
+                                ██████  ███████ ██████   ██████  ███████ ██ ████████     ████████ ██  ██████ ██   ██ ███████ ████████
+                                ██   ██ ██      ██   ██ ██    ██ ██      ██    ██           ██    ██ ██      ██  ██  ██         ██
+                                ██   ██ █████   ██████  ██    ██ ███████ ██    ██           ██    ██ ██      █████   █████      ██
+                                ██   ██ ██      ██      ██    ██      ██ ██    ██           ██    ██ ██      ██  ██  ██         ██
+                                ██████  ███████ ██       ██████  ███████ ██    ██           ██    ██  ██████ ██   ██ ███████    ██
+                                </p>
                             </tb>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="cell-lg-12">
-                <table>
-                    <tbody>
-                        <tr>
-                            <tb>
-                                <p>x $0.25</p>
-                            </tb>
-                            <tb>
-                                <p>x $0.50</p>
-                            </tb>
-                            <tb>
-                                <p>x $1</p>
-                            </tb>
-                            <tb>
-                                <p>x $5</p>
-                            </tb>
-                            <tb>
-                                <p>x $10</p>
-                            </tb>
-                            <tb>
-                                <p>x $20</p>
-                            </tb>
-                            <tb>
-                                <p>x $50</p>
-                            </tb>
-                            <tb>
-                                <p>x $100</p>
-                            </tb>
-                            <tb>
-                                <p><strong>CASH</strong></p>
-                            </tb>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <tbody>
-                        <tr>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
+                <div class="cell-lg-12">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <tb>
+                                    <p>x $0.25</p>
+                                </tb>
+                                <tb>
+                                    <p>x $0.50</p>
+                                </tb>
+                                <tb>
+                                    <p>x $1</p>
+                                </tb>
+                                <tb>
+                                    <p>x $5</p>
+                                </tb>
+                                <tb>
+                                    <p>x $10</p>
+                                </tb>
+                                <tb>
+                                    <p>x $20</p>
+                                </tb>
+                                <tb>
+                                    <p>x $50</p>
+                                </tb>
+                                <tb>
+                                    <p>x $100</p>
+                                </tb>
+                                <tb>
+                                    <p><strong>CASH</strong></p>
+                                </tb>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
 
-                            </tb>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <tbody>
-                        <tr>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                <p><strong>CHECK No.</strong></p>
-                            </tb>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <tbody>
-                        <tr>
-                            <tb>
-                                <p>______________</p>
-                            </tb>
-                            <tb>
-                                <p>______________</p>
-                            </tb>
-                            <tb>
-                                <p>______________</p>
-                            </tb>
-                            <tb>
-                                <p>______________</p>
-                            </tb>
-                            <tb>
-                                <p>______________</p>
-                            </tb>
-                            <tb>
-                                <p>______________</p>
-                            </tb>
-                            <tb>
-                                <p>______________</p>
-                            </tb>
-                            <tb>
-                                <p>______________</p>
-                            </tb>
-                            <tb>
+                                </tb>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    <p><strong>CHECK No.</strong></p>
+                                </tb>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <tb>
+                                    <p>______________</p>
+                                </tb>
+                                <tb>
+                                    <p>______________</p>
+                                </tb>
+                                <tb>
+                                    <p>______________</p>
+                                </tb>
+                                <tb>
+                                    <p>______________</p>
+                                </tb>
+                                <tb>
+                                    <p>______________</p>
+                                </tb>
+                                <tb>
+                                    <p>______________</p>
+                                </tb>
+                                <tb>
+                                    <p>______________</p>
+                                </tb>
+                                <tb>
+                                    <p>______________</p>
+                                </tb>
+                                <tb>
 
-                            </tb>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <tbody>
-                        <tr>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                <p><strong>CHECK $</strong></p>
-                            </tb>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <tbody>
-                        <tr>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
+                                </tb>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    <p><strong>CHECK $</strong></p>
+                                </tb>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
 
-                            </tb>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <tbody>
-                        <tr>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                <p><strong>LESS CASH<br />RECEIVED</strong></p>
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                <p><strong>SUBTOTAL</strong></p>
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <tbody>
-                        <tr>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                <p>________</p>
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                <p style="text-decoration: underline;">$@ViewBag.total</p>
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                            <tb>
-                                &nbsp;
-                            </tb>
-                        </tr>
-                    </tbody>
-                </table>
+                                </tb>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    <p><strong>LESS CASH<br />RECEIVED</strong></p>
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    <p><strong>SUBTOTAL</strong></p>
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    <p>________</p>
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    <p style="text-decoration: underline;">$@ViewBag.total</p>
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                                <tb>
+                                    &nbsp;
+                                </tb>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
-        <!-- ********************************************************************************
-             FLOATING BUTTON
-        ********************************************************************************** -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <div class="floating-container" id="printBtnArea">
-            <div class="floating-button">+</div>
-            <div class="element-container">
+            <!-- ********************************************************************************
+         FLOATING BUTTON
+    ********************************************************************************** -->
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <div class="floating-container" id="printBtnArea">
+                <div class="floating-button">+</div>
+                <div class="element-container">
 
-                <span class="float-element tooltip-left" id="printBtn">
-                    <i class="material-icons">
-                        print
-                    </i>
-                </span>
-                <a href="@Url.Action("Index", "Home")">
-                    <span class="float-element">
+                    <span class="float-element tooltip-left" id="printBtn">
                         <i class="material-icons">
-                            home
+                            print
                         </i>
                     </span>
-                </a>
+                    <a href="@Url.Action("Index", "Home")">
+                        <span class="float-element">
+                            <i class="material-icons">
+                                home
+                            </i>
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
 
     <script type="text/javascript">
         $(document).ready(function () {
