@@ -68,58 +68,76 @@
                     </div>
                 </div>
             </section>
+            <section style="padding-left:10px;width:50%;">
+                <h3 align="center" style="border-bottom: 1px dashed #535FD7;width:50%; color:#535FD7;">Useful Links</h3>
+                <div style="border-bottom: 1px dashed #535FD7;width:50%;">
+                    @model IEnumerable<VCAS.Models.VCAS_supportDocs>
+                    @foreach (var item in Model)
+                    {
+                        if (item.VCAS_REF_userRoles.name.Contains("public"))
+                        {
+                            <ul>
+                                <li>
+                                    <a href="@Url.Action("docs", "landing", new { id = item.Id })" style="color:white;">@item.name</a><br />
+                                    <p>Media: @item.media_type</p>
+                                </li>
+                            </ul>
+                        }
+                    }
+                </div>
+            </section>
             @*<section class="features section">
-                <div class="container">
-                    <div class="features-inner section-inner has-bottom-divider">
-                        <div class="features-header text-center">
-                            <div class="container-sm">
-                                <h2 class="section-title mt-0">The Product</h2>
-                                <p class="section-paragraph">Lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation.</p>
-                                <div class="features-image">
-                                    <img class="features-illustration asset-dark" src="@Url.Content("~/Content/landing/images/features-illustration-dark.svg")" alt="Feature illustration">
-                                    <img class="features-box asset-dark" src="@Url.Content("~/Content/landing/images/features-box-dark.svg")" alt="Feature box">
-                                    <img class="features-illustration asset-dark" src="@Url.Content("~/Content/landing/images/features-illustration-top-dark.svg")" alt="Feature illustration top">
+            <div class="container">
+                <div class="features-inner section-inner has-bottom-divider">
+                    <div class="features-header text-center">
+                        <div class="container-sm">
+                            <h2 class="section-title mt-0">The Product</h2>
+                            <p class="section-paragraph">Lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation.</p>
+                            <div class="features-image">
+                                <img class="features-illustration asset-dark" src="@Url.Content("~/Content/landing/images/features-illustration-dark.svg")" alt="Feature illustration">
+                                <img class="features-box asset-dark" src="@Url.Content("~/Content/landing/images/features-box-dark.svg")" alt="Feature box">
+                                <img class="features-illustration asset-dark" src="@Url.Content("~/Content/landing/images/features-illustration-top-dark.svg")" alt="Feature illustration top">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="features-wrap">
+                        <div class="feature is-revealing">
+                            <div class="feature-inner">
+                                <div class="feature-icon">
+                                    <img class="asset-dark" src="@Url.Content("~/Content/landing/images/feature-01-dark.svg")" alt="Feature 01">
+                                </div>
+                                <div class="feature-content">
+                                    <h3 class="feature-title mt-0">Discover</h3>
+                                    <p class="text-sm mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua dui.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="features-wrap">
-                            <div class="feature is-revealing">
-                                <div class="feature-inner">
-                                    <div class="feature-icon">
-                                        <img class="asset-dark" src="@Url.Content("~/Content/landing/images/feature-01-dark.svg")" alt="Feature 01">
-                                    </div>
-                                    <div class="feature-content">
-                                        <h3 class="feature-title mt-0">Discover</h3>
-                                        <p class="text-sm mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua dui.</p>
-                                    </div>
+                        <div class="feature is-revealing">
+                            <div class="feature-inner">
+                                <div class="feature-icon">
+                                    <img class="asset-dark" src="@Url.Content("~/Content/landing/images/feature-02-dark.svg")" alt="Feature 02">
+                                </div>
+                                <div class="feature-content">
+                                    <h3 class="feature-title mt-0">Discover</h3>
+                                    <p class="text-sm mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua dui.</p>
                                 </div>
                             </div>
-                            <div class="feature is-revealing">
-                                <div class="feature-inner">
-                                    <div class="feature-icon">
-                                        <img class="asset-dark" src="@Url.Content("~/Content/landing/images/feature-02-dark.svg")" alt="Feature 02">
-                                    </div>
-                                    <div class="feature-content">
-                                        <h3 class="feature-title mt-0">Discover</h3>
-                                        <p class="text-sm mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua dui.</p>
-                                    </div>
+                        </div>
+                        <div class="feature is-revealing">
+                            <div class="feature-inner">
+                                <div class="feature-icon">
+                                    <img class="asset-dark" src="@Url.Content("~/Content/landing/images/feature-03-dark.svg")" alt="Feature 03">
                                 </div>
-                            </div>
-                            <div class="feature is-revealing">
-                                <div class="feature-inner">
-                                    <div class="feature-icon">
-                                        <img class="asset-dark" src="@Url.Content("~/Content/landing/images/feature-03-dark.svg")" alt="Feature 03">
-                                    </div>
-                                    <div class="feature-content">
-                                        <h3 class="feature-title mt-0">Discover</h3>
-                                        <p class="text-sm mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua dui.</p>
-                                    </div>
+                                <div class="feature-content">
+                                    <h3 class="feature-title mt-0">Discover</h3>
+                                    <p class="text-sm mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua dui.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>*@
+            </div>
+        </section>*@
         </main>
         <footer class="site-footer">
             <div class="container">
