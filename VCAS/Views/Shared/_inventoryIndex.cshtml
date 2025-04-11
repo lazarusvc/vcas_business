@@ -119,8 +119,16 @@
                             @using (Html.BeginForm("updateCountUP", "inventory", FormMethod.Post))
                             {
                                 <input type="hidden" name="id" id="id" value="@item.Id" />
-                                <input type="text" name="ct" id="ct" />
-                                <button type="submit" class="button outline"><span class="mif-arrow-drop-up icon"></span></button>
+                                <input type="number" name="ct" id="ct" data-role="input" placeholder="0" style="width: 50px !important" />
+                                <button type="submit" class="button success"><span class="mif-arrow-drop-up icon"></span></button>
+                            }
+                        </li>
+                        <li>
+                            @using (Html.BeginForm("updateCountDOWN", "inventory", FormMethod.Post))
+                            {
+                                <input type="hidden" name="id" id="id" value="@item.Id" />
+                                <input type="number" name="ct" id="ct" data-role="input" placeholder="0" style="width: 50px !important" />
+                                <button type="submit" class="button red"><span class="mif-arrow-drop-down icon"></span></button>
                             }
                         </li>
                     </ul>

@@ -54,6 +54,16 @@ namespace VCAS.Controllers
             db.Database.ExecuteSqlCommand("EXEC usp_UpdateStockUP @p_loc, @p_id, @p_ct", Parameters);
             return RedirectToAction("Inventory", "Home", null);
         }
+        public ActionResult updateCountDOWN(FormCollection fm)
+        {
+            SqlParameter[] Parameters = {
+                        new SqlParameter("@p_id", Convert.ToInt32(fm["id"])),
+                        new SqlParameter("@p_ct", Convert.ToInt32(fm["ct"])),
+                        new SqlParameter("@p_loc", GlobalSession.Location)
+                    };
+            db.Database.ExecuteSqlCommand("EXEC usp_UpdateStockDOWN @p_loc, @p_id, @p_ct", Parameters);
+            return RedirectToAction("Inventory", "Home", null);
+        }
 
         // GET Partial: inventory
         public ActionResult IndexPartial()
