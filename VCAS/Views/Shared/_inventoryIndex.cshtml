@@ -115,6 +115,14 @@
                         <li class="page-item">
                             <a href="@Url.Action("Delete", new { id = item.Id })" class="button outline"><span class="mif-bin icon"></span></a>
                         </li>
+                        <li>
+                            @using (Html.BeginForm("updateCountUP", "inventory", FormMethod.Post))
+                            {
+                                <input type="hidden" name="id" id="id" value="@item.Id" />
+                                <input type="text" name="ct" id="ct" />
+                                <button type="submit" class="button outline"><span class="mif-arrow-drop-up icon"></span></button>
+                            }
+                        </li>
                     </ul>
                 </td>
             </tr>

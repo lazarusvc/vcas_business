@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -39,6 +40,19 @@ namespace VCAS.Controllers
             return Json(db.Database.SqlQuery<VCAS_inventory>
                 (@"SELECT * FROM VCAS_inventory 
                  WHERE FK_location = '" + l + "' AND partNumber IS NOT NULL"), JsonRequestBehavior.AllowGet);
+        }
+
+        // UPDATE COUNT
+        // **********************************************************
+        public ActionResult updateCountUP(FormCollection fm)
+        {
+            SqlParameter[] Parameters = {
+                        new SqlParameter("@p_id", Convert.ToInt32(fm["id"])),
+                        new SqlParameter("@p_ct", Convert.ToInt32(fm["ct"])),
+                        new SqlParameter("@p_loc", GlobalSession.Location)
+                    };
+            db.Database.ExecuteSqlCommand("EXEC usp_UpdateStockUP @p_loc, @p_id, @p_ct", Parameters);
+            return RedirectToAction("Inventory", "Home", null);
         }
 
         // GET Partial: inventory

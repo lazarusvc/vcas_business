@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-
+@model VCAS.Models.VCAS_supportDocs
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -30,7 +30,6 @@
             </div>
         </header>
         <main>
-            @model VCAS.Models.VCAS_supportDocs
             <div style="border-radius: 10px; width: 100%; padding: 20px;">
                 <h1>@Model.name</h1>
                 <p>@Model.desc</p>

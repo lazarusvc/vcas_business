@@ -126,7 +126,7 @@ namespace VCAS.Controllers
                 Height = Unit.Pixel(750),
                 AsyncRendering = true
             };
-            reportViewer.ServerReport.ReportServerUrl = new Uri("http://vouchcast/ReportServer/");
+            reportViewer.ServerReport.ReportServerUrl = new Uri("http://127.0.0.1/ReportServer/");
             reportViewer.ServerReport.ReportPath = @"/App_Reports/" + rn.Replace(".rdl", "");
             ViewBag.ReportViewer = reportViewer;
 

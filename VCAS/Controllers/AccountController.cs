@@ -47,13 +47,13 @@ namespace VCAS.Controllers
                     var rol = db.VCAS_users.Where(x => x.userName == model.UserName).Select(x => x.VCAS_REF_userRoles.Id).FirstOrDefault();
 
                     // EXEC Stored Procedure - usp_UpdateSession
-                    SqlParameter[] Parameters =
-                    {
-                        new SqlParameter("@p_rol", rol),
-                        new SqlParameter("@p_loc", loc),
-                        new SqlParameter("@p_usr", model.UserName)
-                    };
-                    db.Database.ExecuteSqlCommand("EXEC usp_UpdateSession @p_rol, @p_loc, @p_usr", Parameters);
+                    //SqlParameter[] Parameters =
+                    //{
+                    //    new SqlParameter("@p_rol", rol),
+                    //    new SqlParameter("@p_loc", loc),
+                    //    new SqlParameter("@p_usr", model.UserName)
+                    //};
+                    //db.Database.ExecuteSqlCommand("EXEC usp_UpdateSession @p_rol, @p_loc, @p_usr", Parameters);
 
                     // Store username in Session
                     Session["u"] = Convert.ToString(model.UserName);

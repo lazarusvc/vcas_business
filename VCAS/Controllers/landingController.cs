@@ -16,7 +16,8 @@ public class landingController : Controller
         // ==========================
         public ActionResult Index()
         {
-            return View();
+            var model = db.VCAS_supportDocs;
+            return View(model.ToList());
         }
 
         // GET: Landing Page Docu
