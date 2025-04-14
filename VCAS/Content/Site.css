@@ -479,3 +479,22 @@ iframe {
 .select2 {
     width: 100% !important;
 }
+
+/*
+----------------------------------
+ INLINE INPUT FIELDS
+----------------------------------
+*/
+.inline-inputBTN {
+    display: table;
+    box-sizing: border-box;
+}
+
+.inline-inputBTN > .t {
+    display: table-cell;
+}
+
+.inline-inputBTN > input {
+    width: 100%;
+    box-sizing: border-box;
+}

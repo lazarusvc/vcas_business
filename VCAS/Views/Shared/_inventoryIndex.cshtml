@@ -115,20 +115,24 @@
                         <li class="page-item">
                             <a href="@Url.Action("Delete", new { id = item.Id })" class="button outline"><span class="mif-bin icon"></span></a>
                         </li>
-                        <li>
+                        <li class="inline-inputBTN">
                             @using (Html.BeginForm("updateCountUP", "inventory", FormMethod.Post))
-                            {
-                                <input type="hidden" name="id" id="id" value="@item.Id" />
-                                <input type="number" name="ct" id="ct" data-role="input" placeholder="0" style="width: 50px !important" />
-                                <button type="submit" class="button success"><span class="mif-arrow-drop-up icon"></span></button>
-                            }
+                            {                                
+                                <div class="t">
+                                    <input type="hidden" name="id" id="id" value="@item.Id" />
+                                    <input type="number" name="ct" id="ct" placeholder="0" style="width: 75px; height: 36px; border: 2px solid #dfdfdf;" />
+                                    <button type="submit" style="height: 35px; background: #60a917; color: white; border: none; border-radius: 3px; right: 0px; position: absolute;"><span class="mif-arrow-drop-up icon"></span></button>
+                                </div>                                    
+                             }
                         </li>
-                        <li>
+                        <li class="inline-inputBTN">
                             @using (Html.BeginForm("updateCountDOWN", "inventory", FormMethod.Post))
                             {
-                                <input type="hidden" name="id" id="id" value="@item.Id" />
-                                <input type="number" name="ct" id="ct" data-role="input" placeholder="0" style="width: 50px !important" />
-                                <button type="submit" class="button red"><span class="mif-arrow-drop-down icon"></span></button>
+                                <div class="t">
+                                    <input type="hidden" name="id" id="id" value="@item.Id" />
+                                    <input type="number" name="ct" id="ct" placeholder="0" style="width: 75px; height: 36px; border: 2px solid #dfdfdf;" />
+                                    <button type="submit" style="height: 35px; background: red; color: white; border: none; border-radius: 3px; right: 0px;position:absolute;"><span class="mif-arrow-drop-down icon"></span></button>
+                                </div>                                    
                             }
                         </li>
                     </ul>

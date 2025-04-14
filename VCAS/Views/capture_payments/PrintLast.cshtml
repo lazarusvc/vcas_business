@@ -200,23 +200,11 @@
         <div class="rec_inv" style="width: 50%;border-top: 1px black dotted; margin: 0 auto;">
             @if (Model.invoice ?? false)
             {
-                <h1 align="CENTER">
-                    ██ ███    ██ ██    ██  ██████  ██  ██████ ███████
-                    ██ ████   ██ ██    ██ ██    ██ ██ ██      ██
-                    ██ ██ ██  ██ ██    ██ ██    ██ ██ ██      █████
-                    ██ ██  ██ ██  ██  ██  ██    ██ ██ ██      ██
-                    ██ ██   ████   ████    ██████  ██  ██████ ███████
-                </h1>
+                <h1 align="CENTER">INVOICE</h1>
             }
             else
             {
-                <h1 align="CENTER">
-                    ██████  ███████  ██████ ███████ ██ ██████  ████████
-                    ██   ██ ██      ██      ██      ██ ██   ██    ██
-                    ██████  █████   ██      █████   ██ ██████     ██
-                    ██   ██ ██      ██      ██      ██ ██         ██
-                    ██   ██ ███████  ██████ ███████ ██ ██         ██
-                </h1>
+                <h1 align="CENTER">RECEIPT</h1>
             }
         </div>
         <img src="@Url.Content(ViewBag.recLogo)" width="100" />
