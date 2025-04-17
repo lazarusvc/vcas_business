@@ -1,0 +1,80 @@
+﻿@model VCAS.Models.VCAS_links
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+<div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Delete:: links</h2>
+    <h3 class="fg-darkGray">Are you sure you want to delete this?</h3>
+    <hr class="bg-gray" />
+
+    <table class="table subcompact">
+
+        <thead>
+        <tr>        
+        <th>url: Text</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.text)</td>
+        </tr>
+        </tbody>        
+        <thead>
+        <tr>        
+        <th>url: Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.action)</td>
+        </tr>
+        </tbody>        
+        <thead>
+        <tr>        
+        <th>url: Controller</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.controller)</td>
+        </tr>
+        </tbody>        
+        <thead>
+        <tr>        
+        <th>Location</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.VCAS_council.name)</td>
+        </tr>
+        </tbody>        
+        <thead>
+        <tr>        
+        <th>User Role</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+        <td>@Html.DisplayFor(model => model.VCAS_REF_userRoles.name)</td>
+        </tr>
+        </tbody>        
+    </table>   
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="button alert" style="width: 100%;" />
+        </div>
+    }
+</div>

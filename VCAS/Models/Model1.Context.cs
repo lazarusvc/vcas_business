@@ -59,6 +59,7 @@ namespace VCAS.Models
         public virtual DbSet<VCAS_capture_payments__REF_items> VCAS_capture_payments__REF_items { get; set; }
         public virtual DbSet<VCAS_REF_forms> VCAS_REF_forms { get; set; }
         public virtual DbSet<vw_inventoryItems> vw_inventoryItems { get; set; }
+        public virtual DbSet<VCAS_links> VCAS_links { get; set; }
     
         public virtual int usp_DebitReducingbalance(Nullable<double> amt, Nullable<short> icID, Nullable<short> daID)
         {

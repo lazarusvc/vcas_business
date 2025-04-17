@@ -1,0 +1,78 @@
+﻿@model VCAS.Models.VCAS_links
+
+@{
+    ViewBag.Title = "Create  VCAS_links";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">       
+        <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+            <div class="row">
+                <div class="cell-12">
+
+                    <h2 class="fg-darkGray">@Html.ActionLink("<<", null, null, null, new { href = Request.UrlReferrer }) NEW:: Quick links</h2>
+                    <hr class="bg-gray" />
+                    <br />
+                    <br />
+                    <label class="fg-darkBlue">Internal Links: <span id="LinksDisplay" style="background: #f0f2f5; width: 100%; padding: 10px; margin: 5px; border-radius: 5px; border: 1px solid grey;"></span></label>
+                    <select data-role="select" id="LinksDropdown">
+                        @foreach (Link lk in (IEnumerable<Link>)ViewData["responseLinks"])
+                        {
+                            <option value="-@lk.Text--@lk.Action---@lk.Controller">@lk.Text</option>
+                        }
+                    </select>
+
+                    @Html.ValidationSummary(true, "", new { @class = "fg-magenta" })
+
+                    @Html.HiddenFor(model => model.text, new { @Value = "" })
+                    @Html.ValidationMessageFor(model => model.text, "", new { @class = "fg-magenta" })
+
+                    @Html.HiddenFor(model => model.action, new { @Value = "" })
+                    @Html.ValidationMessageFor(model => model.action, "", new { @class = "fg-magenta" })
+
+                    @Html.HiddenFor(model => model.controller, new { @Value = "" })
+                    @Html.ValidationMessageFor(model => model.controller, "", new { @class = "fg-magenta" })
+
+                    <div class="row">
+                        <div class="cell-lg-4"></div>
+                        <div class="cell-lg-4">
+                            <br />
+                            <label>Location:</label>
+                            @Html.DropDownList("FK_location", null, htmlAttributes: new { data_role = "select" })
+                            @Html.ValidationMessageFor(model => model.FK_location, "", new { @class = "fg-magenta" })
+                        </div>
+                        <div class="cell-lg-4">
+                            <br />
+                            <lablel>User Role:</lablel>
+                            @Html.DropDownList("FK_REF_userRolesId", null, htmlAttributes: new { data_role = "select" })
+                            @Html.ValidationMessageFor(model => model.FK_REF_userRolesId, "", new { @class = "fg-magenta" })
+                        </div>
+                    </div>
+                    <br />
+                    <input type="submit" value="Save" class="button yellow" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+
+        $("#LinksDropdown").on('keyup change', function () {
+
+            var vl_1 = $(this).val().split("-");
+            var vl_2 = $(this).val().split("--");
+            var vl_3 = $(this).val().split("---");
+
+            $("#text").val(vl_1[1]);
+            $("#action").val(vl_2[1]);
+            $("#controller").val(vl_3[1]);
+
+            $("#LinksDisplay").html("http:// ... " + vl_3[1] + "/" + vl_2[1]);
+        });
+    });
+</script>

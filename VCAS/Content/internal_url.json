@@ -1,0 +1,32 @@
+[
+  {
+    "text": "Report's Page",
+    "action": "Reports",
+    "controller": "Home"
+  },
+  {
+    "text": "Report's Page settings",
+    "action": "Index",
+    "controller": "reportsPage"
+  },
+  {
+    "text": "Report's Page parameters",
+    "action": "Index",
+    "controller": "reports_params"
+  },
+  {
+    "text": "Organization",
+    "action": "Index",
+    "controller": "council"
+  },
+  {
+    "text": "Payment Type",
+    "action": "Index",
+    "controller": "payment_type"
+  },
+  {
+    "text": "Bank Details",
+    "action": "Index",
+    "controller": "bank_details"
+  }
+]

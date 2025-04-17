@@ -1,0 +1,7 @@
+﻿@model IEnumerable<VCAS.Controllers.linksController>
+
+@foreach (Link lk in Model)
+{
+    <label class="fg-darkBlue">Internal Links:</label>
+    @Html.DropDownList(lk.Text, null, "-- Select --", htmlAttributes: new { data_role = "select" })
+}

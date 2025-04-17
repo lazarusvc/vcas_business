@@ -1,0 +1,77 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_links>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h2 class="fg-darkGray">links::</h2>
+    <a href="@Url.Action("Create")" class="image-button success" style="text-decoration: none !important;">
+        <span class="mif-chevron-thin-right icon"></span>
+        <span class="caption">Create New</span>
+    </a>
+    <br />
+    <br />
+    <table class="table cell-border subcompact" data-role="table">
+        <thead>
+            <tr>
+                <th>
+                    url: Text
+                </th>
+                <th>
+                    url: Action
+                </th>
+                <th>
+                    url: Controller
+                </th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    User Role
+                </th>
+                <th>
+                    Manage
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.text)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.action)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.controller)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VCAS_council.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VCAS_REF_userRoles.name)
+                    </td>
+                    <td>
+                        <ul class="pagination no-gap size-large">
+                            <li class="page-item">
+                                <a href="@Url.Action() class="button outline"><span class="mif-link icon"></span></a>
+                            </li>
+                            <li class="page-item">
+                                <a href="@Url.Action("Edit", new { id = item.Id })" class="button outline"><span class="mif-pencil icon"></span></a>
+                            </li>
+                            <li class="page-item">
+                                <a href="@Url.Action("Delete", new { id = item.Id })" class="button outline"><span class="mif-bin icon"></span></a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        }
+
+    </table>
+</div>
+

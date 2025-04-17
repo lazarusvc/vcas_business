@@ -110,7 +110,17 @@
             </a>
         }
     </div>
-
+    <hr class="fg-grayBlue" />
+    <div class="cell-lg-12">
+        <br />
+        <br />
+        <h4>Quick Links :: </h4>
+        <a href='@Url.Action("Create", "links")' class="button outline"><span class="mif-add icon"></span></a>
+        @foreach (var lk in (IEnumerable<VCAS.Models.VCAS_links>)ViewBag.links)
+        {
+            <a href='@Url.Action(@lk.action, @lk.controller)'><span class="mif-arrow-up-right icon"></span> @lk.text</a>
+        }
+    </div>
 </div>
 <br />
 <div class="row" id="app_styleBG2">

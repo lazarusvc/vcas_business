@@ -73,6 +73,10 @@ namespace VCAS.Controllers
             // Account total
             ViewBag.totAcct = db.VCAS_debitAccounts.Where(x => x.FK_location == GlobalSession.Location).Select(x => x.amount).Sum();
 
+
+            // Quick Links
+            ViewBag.links = db.VCAS_links.Where(x => x.FK_location == GlobalSession.Location).ToList();
+
             return View();
         }
 
