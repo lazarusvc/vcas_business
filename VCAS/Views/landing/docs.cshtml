@@ -34,16 +34,9 @@
                 <h1>@Model.name</h1>
                 <p>@Model.desc</p>
                 <hr class="bg-gray" />
-                @if (Model.media_type.Contains("direct_url"))
-                {
-                    <a href="@Model.desc">Access</a>
-                }
-                else
-                {
-                    <object data='@Url.Content("~/Content/Uploads/" + Model.media)' type='@Model.media_type' width="100%" height="1000">
-                        <p>Click to access <a href='@Url.Content("~/Content/Uploads/" + Model.media)'>Media Document</a></p>
-                    </object>
-                }
+                <object data='@Url.Content("~/Content/Uploads/" + Model.media)' type='@Model.media_type' width="100%" height="1000">
+                    <p>Click to access <a href='@Url.Content("~/Content/Uploads/" + Model.media)'>Media Document</a></p>
+                </object>
             </div>
         </main>
         <footer class="site-footer">

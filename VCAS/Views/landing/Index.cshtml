@@ -69,7 +69,7 @@
                 </div>
             </section>
             <section style="padding-left:10px;width:50%;">
-                <h3 align="center" style="border-bottom: 1px dashed #535FD7;width:50%; color:#535FD7;">Useful Links</h3>
+                <h3 align="center" style="border-bottom: 1px dashed #535FD7;width:50%; color:#535FD7;">Resources</h3>
                 <div style="border-bottom: 1px dashed #535FD7;width:50%;">
                     @foreach (var item in Model)
                     {
@@ -77,8 +77,14 @@
                         {
                             <ul>
                                 <li>
-                                    <a href="@Url.Action("docs", "landing", new { id = item.Id })" style="color:white;">@item.name</a><br />
-                                    <p>Media: @item.media_type</p>
+                                    @if (item.media_type.Contains("direct_url"))
+                                    {
+                                      <a href='@item.name' target="_blank"><span class="mif-arrow-up-right icon"></span> @item.desc</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("docs", "landing", new { id = item.Id })" style="color:white;">@item.name | type: @item.media_type</a>
+                                    }
                                 </li>
                             </ul>
                         }
