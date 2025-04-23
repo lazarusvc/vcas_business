@@ -39,6 +39,8 @@
     <EntitySet Name="VCAS_REF_forms" EntityType="Model.Store.VCAS_REF_forms" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="vw_inventoryItems" EntityType="Model.Store.vw_inventoryItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="VCAS_links" EntityType="Model.Store.VCAS_links" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VCAS_processes" EntityType="Model.Store.VCAS_processes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VCAS_REF_processes" EntityType="Model.Store.VCAS_REF_processes" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="VCAS_REF_userRolesVCAS_users" Association="Model.Store.VCAS_REF_userRolesVCAS_users">
       <End Role="VCAS_REF_userRoles" EntitySet="VCAS_REF_userRoles" />
       <End Role="VCAS_users" EntitySet="VCAS_users" />
@@ -198,6 +200,14 @@
     <AssociationSet Name="VCAS_REF_userRolesVCAS_links" Association="Model.Store.VCAS_REF_userRolesVCAS_links">
       <End Role="VCAS_REF_userRoles" EntitySet="VCAS_REF_userRoles" />
       <End Role="VCAS_links" EntitySet="VCAS_links" />
+    </AssociationSet>
+    <AssociationSet Name="VCAS_councilVCAS_processes" Association="Model.Store.VCAS_councilVCAS_processes">
+      <End Role="VCAS_council" EntitySet="VCAS_council" />
+      <End Role="VCAS_processes" EntitySet="VCAS_processes" />
+    </AssociationSet>
+    <AssociationSet Name="VCAS_processesVCAS_REF_processes" Association="Model.Store.VCAS_processesVCAS_REF_processes">
+      <End Role="VCAS_processes" EntitySet="VCAS_processes" />
+      <End Role="VCAS_REF_processes" EntitySet="VCAS_REF_processes" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="VCAS_debitTrans1">
@@ -628,6 +638,24 @@
     <Property Name="controller" Type="nvarchar(max)" Nullable="false" />
     <Property Name="FK_location" Type="int" Nullable="false" />
     <Property Name="FK_REF_userRolesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VCAS_processes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sp_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FK_location" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VCAS_REF_processes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="param_key" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="param_value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="param_dataType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FK_processesId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="VCAS_REF_userRolesVCAS_users">
     <End Role="VCAS_REF_userRoles" Type="Model.Store.VCAS_REF_userRoles" Multiplicity="1" />
@@ -1109,6 +1137,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="VCAS_councilVCAS_processes">
+    <End Role="VCAS_council" Type="Model.Store.VCAS_council" Multiplicity="1" />
+    <End Role="VCAS_processes" Type="Model.Store.VCAS_processes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VCAS_council">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VCAS_processes">
+        <PropertyRef Name="FK_location" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VCAS_processesVCAS_REF_processes">
+    <End Role="VCAS_processes" Type="Model.Store.VCAS_processes" Multiplicity="1" />
+    <End Role="VCAS_REF_processes" Type="Model.Store.VCAS_REF_processes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VCAS_processes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VCAS_REF_processes">
+        <PropertyRef Name="FK_processesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1354,6 +1406,16 @@
           <AssociationSet Name="VCAS_REF_userRolesVCAS_links" Association="Model.VCAS_REF_userRolesVCAS_links">
             <End Role="VCAS_REF_userRoles" EntitySet="VCAS_REF_userRoles" />
             <End Role="VCAS_links" EntitySet="VCAS_links" />
+          </AssociationSet>
+          <EntitySet Name="VCAS_processes" EntityType="Model.VCAS_processes" />
+          <AssociationSet Name="VCAS_councilVCAS_processes" Association="Model.VCAS_councilVCAS_processes">
+            <End Role="VCAS_council" EntitySet="VCAS_council" />
+            <End Role="VCAS_processes" EntitySet="VCAS_processes" />
+          </AssociationSet>
+          <EntitySet Name="VCAS_REF_processes" EntityType="Model.VCAS_REF_processes" />
+          <AssociationSet Name="VCAS_processesVCAS_REF_processes" Association="Model.VCAS_processesVCAS_REF_processes">
+            <End Role="VCAS_processes" EntitySet="VCAS_processes" />
+            <End Role="VCAS_REF_processes" EntitySet="VCAS_REF_processes" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="VCAS_debitTrans">
@@ -1734,6 +1796,7 @@
           <NavigationProperty Name="VCAS_forms" Relationship="Model.FK_VCAS_councilVCAS_forms" FromRole="VCAS_council" ToRole="VCAS_forms" />
           <NavigationProperty Name="VCAS_supportDocs" Relationship="Model.VCAS_councilVCAS_supportDocs" FromRole="VCAS_council" ToRole="VCAS_supportDocs" />
           <NavigationProperty Name="VCAS_links" Relationship="Model.VCAS_councilVCAS_links" FromRole="VCAS_council" ToRole="VCAS_links" />
+          <NavigationProperty Name="VCAS_processes" Relationship="Model.VCAS_councilVCAS_processes" FromRole="VCAS_council" ToRole="VCAS_processes" />
           </EntityType>
         <Association Name="FK_VCAS_councilVCAS_district">
           <End Type="Model.VCAS_council" Multiplicity="1" Role="VCAS_council" />
@@ -2402,6 +2465,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VCAS_processes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sp_name" Type="String" Nullable="false" />
+          <NavigationProperty Name="VCAS_council" Relationship="Model.VCAS_councilVCAS_processes" FromRole="VCAS_processes" ToRole="VCAS_council" />
+          <Property Name="FK_location" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VCAS_REF_processes" Relationship="Model.VCAS_processesVCAS_REF_processes" FromRole="VCAS_processes" ToRole="VCAS_REF_processes" />
+        </EntityType>
+        <Association Name="VCAS_councilVCAS_processes">
+          <End Type="Model.VCAS_council" Role="VCAS_council" Multiplicity="1" />
+          <End Type="Model.VCAS_processes" Role="VCAS_processes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_council">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_processes">
+              <PropertyRef Name="FK_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VCAS_REF_processes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="param_key" Type="String" Nullable="false" />
+          <Property Name="param_value" Type="String" Nullable="false" />
+          <Property Name="param_dataType" Type="String" Nullable="false" />
+          <NavigationProperty Name="VCAS_processes" Relationship="Model.VCAS_processesVCAS_REF_processes" FromRole="VCAS_REF_processes" ToRole="VCAS_processes" />
+          <Property Name="FK_processesId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="VCAS_processesVCAS_REF_processes">
+          <End Type="Model.VCAS_processes" Role="VCAS_processes" Multiplicity="1" />
+          <End Type="Model.VCAS_REF_processes" Role="VCAS_REF_processes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VCAS_processes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VCAS_REF_processes">
+              <PropertyRef Name="FK_processesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2865,6 +2973,26 @@
           <ScalarProperty Name="controller" ColumnName="controller" />
           <ScalarProperty Name="FK_location" ColumnName="FK_location" />
           <ScalarProperty Name="FK_REF_userRolesId" ColumnName="FK_REF_userRolesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VCAS_processes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_processes)">
+        <MappingFragment StoreEntitySet="VCAS_processes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="sp_name" ColumnName="sp_name" />
+          <ScalarProperty Name="FK_location" ColumnName="FK_location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VCAS_REF_processes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.VCAS_REF_processes)">
+        <MappingFragment StoreEntitySet="VCAS_REF_processes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="param_key" ColumnName="param_key" />
+          <ScalarProperty Name="param_value" ColumnName="param_value" />
+          <ScalarProperty Name="param_dataType" ColumnName="param_dataType" />
+          <ScalarProperty Name="FK_processesId" ColumnName="FK_processesId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

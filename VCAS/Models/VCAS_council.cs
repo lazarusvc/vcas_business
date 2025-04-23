@@ -31,6 +31,7 @@ namespace VCAS.Models
             this.VCAS_forms = new HashSet<VCAS_forms>();
             this.VCAS_supportDocs = new HashSet<VCAS_supportDocs>();
             this.VCAS_links = new HashSet<VCAS_links>();
+            this.VCAS_processes = new HashSet<VCAS_processes>();
         }
     
         public int Id { get; set; }
@@ -75,5 +76,7 @@ namespace VCAS.Models
         public virtual ICollection<VCAS_supportDocs> VCAS_supportDocs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VCAS_links> VCAS_links { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VCAS_processes> VCAS_processes { get; set; }
     }
 }

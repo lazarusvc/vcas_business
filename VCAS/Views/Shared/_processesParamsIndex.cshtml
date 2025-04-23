@@ -1,0 +1,42 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_REF_processes>
+
+
+<table class="table striped subcompact">
+    <thead>
+        <tr>
+        <th>
+            Parameter:
+        </th>
+        <th>
+            Data Type:
+        </th>
+        <th>
+            Value:
+        </th>
+    </tr>
+  </thead>
+
+@foreach (var item in Model) {
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.param_key)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.param_dataType)
+            </td>
+            <td>
+                @using (Html.BeginForm("ActionParamsUpdate", "processes", new { id = item.Id }, FormMethod.Post))
+                {
+                    <div class="t">
+                        <input type="hidden" id="spName" name="spName" value="@item.VCAS_processes.sp_name" />
+                        <input type="text" name="param_value" id="param_value" value="@item.param_value" placeholder="NULL" style="width: 100%; height: 36px; border: 2px solid #dfdfdf;" />
+                        <button type="submit" style="height: 35px; background: #60a917; color: white; border: none; width: 34px; right: 0px; position: absolute;">OK</button>
+                    </div>
+                }
+            </td>
+        </tr>
+    </tbody>
+}
+
+</table>

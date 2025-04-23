@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a9d0a18fde104a4eb3a53d7ec3bc8fbb" Name="Diagram1" ZoomLevel="94" >
+      <Diagram DiagramId="a9d0a18fde104a4eb3a53d7ec3bc8fbb" Name="Diagram1" ZoomLevel="82" >
         <EntityTypeShape EntityType="Model.VCAS_debitTrans" Width="2.25" PointX="2.875" PointY="7.75" />
         <EntityTypeShape EntityType="Model.VCAS_creditTrans" Width="2.25" PointX="5.5" PointY="7.75" />
         <EntityTypeShape EntityType="Model.VCAS_REF_payment_type" Width="2.125" PointX="8.875" PointY="6.5" FillColor="Green" />
@@ -27,7 +27,7 @@
         <EntityTypeShape EntityType="Model.VCAS_REF_items_location" Width="2.5" PointX="13" PointY="10.875" FillColor="192, 0, 192" />
         <EntityTypeShape EntityType="Model.VCAS_REF_expense_location" Width="2.5" PointX="13" PointY="13.5" FillColor="192, 0, 192" />
         <AssociationConnector Association="Model.VCAS_expensesVCAS_REF_expense_location" />
-        <EntityTypeShape EntityType="Model.VCAS_REF_reports_params" Width="2.25" PointX="17" PointY="7.625" FillColor="Green" />
+        <EntityTypeShape EntityType="Model.VCAS_REF_reports_params" Width="2.25" PointX="17" PointY="8.125" FillColor="Green" />
         <AssociationConnector Association="Model.FK_VCAS_REF_reportsVCAS_REF_reports_params" />
         <EntityTypeShape EntityType="Model.VCAS_REF_order_status" Width="2.375" PointX="19.75" PointY="5.375" FillColor="Green" />
         <EntityTypeShape EntityType="Model.VCAS_REF_items" Width="2.125" PointX="8.75" PointY="10.375" FillColor="Green" />
@@ -78,6 +78,10 @@
         <EntityTypeShape EntityType="Model.VCAS_links" Width="2.25" PointX="30.625" PointY="8.375" />
         <AssociationConnector Association="Model.VCAS_councilVCAS_links" />
         <AssociationConnector Association="Model.VCAS_REF_userRolesVCAS_links" />
+        <EntityTypeShape EntityType="Model.VCAS_processes" Width="2.25" PointX="30.625" PointY="11.125" />
+        <AssociationConnector Association="Model.VCAS_councilVCAS_processes" />
+        <EntityTypeShape EntityType="Model.VCAS_REF_processes" Width="2" PointX="28.125" PointY="11.125" FillColor="0, 192, 0" />
+        <AssociationConnector Association="Model.VCAS_processesVCAS_REF_processes" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

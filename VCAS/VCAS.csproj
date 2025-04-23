@@ -294,6 +294,8 @@
     <Compile Include="Controllers\bank_detailsController.cs" />
     <Compile Include="Controllers\errorController.cs" />
     <Compile Include="Controllers\linksController.cs" />
+    <Compile Include="Controllers\processesController.cs" />
+    <Compile Include="Controllers\processes_paramsController.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Models\CalendarData.cs" />
     <Compile Include="Controllers\capture_paymentsController.cs" />
@@ -417,6 +419,9 @@
     <Compile Include="Models\VCAS_orders.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VCAS_processes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VCAS_reconcile.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -439,6 +444,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VCAS_REF_payment_type.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VCAS_REF_processes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VCAS_REF_receiverID_Types.cs">
@@ -1536,6 +1544,16 @@
     <Content Include="Views\links\Edit.cshtml" />
     <Content Include="Views\links\Index.cshtml" />
     <Content Include="Views\Shared\_linksCreateDropdown.cshtml" />
+    <Content Include="Views\processes_params\Create.cshtml" />
+    <Content Include="Views\processes_params\Delete.cshtml" />
+    <Content Include="Views\processes_params\Details.cshtml" />
+    <Content Include="Views\processes_params\Edit.cshtml" />
+    <Content Include="Views\processes_params\Index.cshtml" />
+    <Content Include="Views\processes\Index.cshtml" />
+    <Content Include="Views\processes\Create.cshtml" />
+    <Content Include="Views\processes\ActionComplete.cshtml" />
+    <Content Include="Views\processes\ActionParams.cshtml" />
+    <Content Include="Views\Shared\_processesParamsIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

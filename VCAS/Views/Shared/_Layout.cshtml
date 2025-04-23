@@ -66,15 +66,15 @@
             <a href='@Url.Action("Help", "Home")' class="app-bar-item text-upper"><span class="icon mif-help"></span>&nbsp;Help & Support</a>
             <a href="#" class="app-bar-item text-upper fg-yellow text-bold"><span class="icon mif-notification"></span>&nbsp;Notifications</a>
             <!-- TODO Implement DB Trigger Notifications ======================================================================
-            <a href="#" class="app-bar-item text-upper fg-yellow text-bold"><span class="icon mif-notification"></span> Notifications <span class="badge">1</span></a>
-        -->
+                <a href="#" class="app-bar-item text-upper fg-yellow text-bold"><span class="icon mif-notification"></span> Notifications <span class="badge">1</span></a>
+            -->
             <a href="#" class="app-bar-item text-upper"><span class="mif-whatsapp"></span>&nbsp;Chat</a>
         </div>
         <!-- LOADER ========================================================= -->
         <div id="loader">
             @*
-            <img src="~/Content/loader.gif" />
-            <p align="center" class="fg-grayBlue"><strong>Please wait!<br />Loading ... </strong></p>
+                <img src="~/Content/loader.gif" />
+                <p align="center" class="fg-grayBlue"><strong>Please wait!<br />Loading ... </strong></p>
             *@
             <div data-role="progress" data-type="line" data-small="true"></div>
         </div>
@@ -86,10 +86,10 @@
            data-toggle="#sidebar-toggle-4"
            id="sb4"
            data-shift=".shifted-content">
-            <a href="/" class="fg-white sub-action"
-                onclick="Metro.sidebar.close('#sb4'); return false;">
-                <span style="font-size: 30px !important;" class="icon mif-menu fg-white"></span>
-            </a>
+        <a href="/" class="fg-white sub-action"
+           onclick="Metro.sidebar.close('#sb4'); return false;">
+            <span style="font-size: 30px !important;" class="icon mif-menu fg-white"></span>
+        </a>
         <div class="sidebar-header" data-image="@Url.Content("~/Content/cover.jpg")">
             <span style="text-shadow: 2px 2px 4px #000000;" class="title fg-white"><strong>@VCAS.Controllers.HomeController.global_appName()</strong></span><br /><br />
         </div><br />
@@ -100,7 +100,7 @@
                 <!-- REPORTS SUBNAV =================================================== -->
                 <a class="dropdown-toggle" href="#"><span class='mif-news icon'></span>Reports</a>
                 <ul class="d-menu" data-role="dropdown" style="display: none;">
-                    <li class="fg-grayBlue"><a href='@Url.Action("Reports", "Home")'><span class="mif-arrow-up-right icon"></span> Home</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Reports", "Home")'><span class="mif-arrow-up-right icon"></span> Page</a></li>
                     <li class="fg-grayBlue"><a href='@Url.Action("Index", "reportsPage")'><span class="mif-arrow-up-right icon"></span> Report Settings</a></li>
                     <li class="fg-grayBlue"><a href='@Url.Action("Index", "reports_params")'><span class="mif-arrow-up-right icon"></span> Report Parameters</a></li>
                 </ul>
@@ -140,6 +140,14 @@
                     <li class="fg-grayBlue"><a href='@Url.Action("IndexAdmin", "issuedChecks")'><span class="mif-arrow-up-right icon"></span> Manage Payments</a></li>
                 </ul>
             </li>
+            <!-- PROCESSES SUBNAV =================================================== -->
+            <li class="stick-right bg-green">
+                <a class="dropdown-toggle" href="#"><span class="mif-database icon"></span>Processes</a>
+                <ul class="d-menu" data-role="dropdown" style="display: none;">
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "processes")'><span class="mif-arrow-up-right icon"></span> Page</a></li>
+                    <li class="fg-grayBlue"><a href='@Url.Action("Index", "processes_params")'><span class="mif-arrow-up-right icon"></span> Processes Parameters</a></li>
+                </ul>
+            </li>
             <!-- SECURITY SUBNAV ========================================================= -->
             <li class="stick-right bg-green">
                 <a class="dropdown-toggle" href="#"><span class="mif-user-secret icon"></span>Security</a>
@@ -176,10 +184,6 @@
         </div>
     </div>
 
-    @*@if (Request.IsAuthenticated)
-    {
-        @Html.Partial("~/Views/Shared/_SessionTimeout.cshtml")
-    }*@
     <!-- PWA Implementation ============================================================= -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -187,6 +191,13 @@
                 .register('/serviceworker.js')
                 .then(function () { console.log('Service Worker Registered'); });
         }
+    </script>
+    <!-- Prevent Back button ============================================================= -->
+    <script>
+        history.pushState(null, document.title, location.href);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, document.title, location.href);
+        });
     </script>
 </body>
 </html>

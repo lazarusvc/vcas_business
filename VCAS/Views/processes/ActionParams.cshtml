@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "ActionParams";
+}
+
+
+
+<div style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+    <h3 class="fg-gray">Processes Action::</h3>
+    <p>Stored Procedure: @ViewBag.n</p>
+    <br/>
+    @Html.Action("IndexPartial", "processes_params", new { n = ViewBag.n })
+
+    @using (Html.BeginForm("Action", "processes", FormMethod.Post))
+    {
+        <input type="hidden" name="n" id="n" value="@ViewBag.n" />
+        <button type="submit" class="button yellow large" style="width: 100%;">Submit</button>
+    }
+</div>

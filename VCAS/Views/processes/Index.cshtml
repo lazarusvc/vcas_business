@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VCAS.Models.VCAS_links>
+﻿@model IEnumerable<VCAS.Models.VCAS_processes>
 
 @{
     ViewBag.Title = "Index";
@@ -6,33 +6,21 @@
 
 <div style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
     <h2 class="fg-darkGray">
-        links::
+        Processes::
         <a href="@Url.Action("Create")" class="image-button success" style="text-decoration: none !important;">
             <span class="mif-chevron-thin-right icon"></span>
             <span class="caption">New</span>
         </a>
     </h2>
     <br />
-    <table class="table cell-border subcompact" data-role="table">
+    <table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
         <thead>
             <tr>
                 <th>
-                    url: Text
+                    stored procedure:
                 </th>
                 <th>
-                    url: Action
-                </th>
-                <th>
-                    url: Controller
-                </th>
-                <th>
-                    Location
-                </th>
-                <th>
-                    User Role
-                </th>
-                <th>
-                    Manage
+                    manage
                 </th>
             </tr>
         </thead>
@@ -42,25 +30,20 @@
             <tbody>
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.text)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.action)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.controller)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.VCAS_council.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.VCAS_REF_userRoles.name)
+                        @Html.DisplayFor(modelItem => item.sp_name) <span style="background: #f0f2f5; padding: 3px; border: 1px solid #e4e4e4;">@@ LOC ID: @Html.DisplayFor(modelItem => item.VCAS_council.Id)</span>
                     </td>
                     <td>
                         <ul class="pagination no-gap size-large">
+                            @*@using (Html.BeginForm("Action", "processes", FormMethod.Post))
+                            {
+                                <li class="page-item">
+                                    <input type="hidden" name="n" id="n" value="@item.sp_name" />
+                                    <button type="submit" class="button outline"><span class="mif-file-code icon"></span></button>
+                                </li>
+                            }*@
                             <li class="page-item">
-                                <a href="@Url.Action() class="button outline"><span class="mif-link icon"></span></a>
-                            </li>
+                                <a href="@Url.Action("ActionParams", new { n = item.sp_name })" class="button outline"><span class="mif-file-code icon"></span></a>
+                                </li>
                             <li class="page-item">
                                 <a href="@Url.Action("Edit", new { id = item.Id })" class="button outline"><span class="mif-pencil icon"></span></a>
                             </li>
@@ -75,4 +58,3 @@
 
     </table>
 </div>
-

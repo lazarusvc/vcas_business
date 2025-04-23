@@ -1,0 +1,78 @@
+﻿@model VCAS.Models.VCAS_REF_processes
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    
+    <div class="grid" style="background: #FFFFFF; border-radius: 10px; width: 100%; padding: 20px;">
+        <h2 class="fg-darkGray">@Html.ActionLink("<< Back", null, null, null, new { href = Request.UrlReferrer }) Delete:: VCAS_REF_processes</h2>
+        <h3 class="fg-darkGray">Are you sure you want to delete this?</h3>
+        <hr class="bg-gray" />
+    
+        <table class="table subcompact">
+    
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.param_key)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.param_key)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.param_value)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.param_value)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.param_dataType)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.param_dataType)</td>
+            </tr>
+            </tbody>        
+            <thead>
+            <tr>        
+            <th>@Html.DisplayNameFor(model => model.VCAS_processes.sp_name)</th>
+            </tr>
+            </thead>
+    
+            <tbody>
+            <tr>
+            <td>@Html.DisplayFor(model => model.VCAS_processes.sp_name)</td>
+            </tr>
+            </tbody>        
+        </table>   
+    
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="button alert" style="width: 100%;" />
+            </div>
+        }
+    </div>
+</body>
+</html>

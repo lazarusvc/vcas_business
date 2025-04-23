@@ -1,0 +1,64 @@
+﻿@model IEnumerable<VCAS.Models.VCAS_REF_processes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="fg-darkGray">VCAS_REF_processes:: Index</h2>
+<a href="@Url.Action("Create")" class="image-button success" style="text-decoration: none !important;">
+    <span class="mif-chevron-thin-right icon"></span>
+    <span class="caption">Create New</span>
+</a>
+<br />
+<table class="table striped table-border cell-border row-border compact bg-white" data-role="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.param_key)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.param_value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.param_dataType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VCAS_processes.sp_name)
+            </th>
+            <th>
+                manage
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.param_key)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.param_value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.param_dataType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCAS_processes.sp_name)
+                </td>
+                <td>
+                    <ul class="pagination no-gap size-large">
+                        <li class="page-item">
+                            <a href="@Url.Action("Edit", new { id = item.Id })" class="button info"><span class="mif-pencil icon"></span></a>
+                        </li>
+                        <li class="page-item">
+                            <a href="@Url.Action("Delete", new { id = item.Id })" class="button alert"><span class="mif-bin icon"></span></a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>
